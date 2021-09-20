@@ -100,15 +100,17 @@
                     <input  @keypress="isNumber($event)" :disabled= "disabled == 1" v-model.number="item.cost" id="cost" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"  >
                 </div>
 
+               
+
             <div class="flex justify-center">
               
-              <button class="px-4 py-2 mt-2" @click ="addNewItems()" >
+              <button class="px-4 py-2 mt-2" @click ="addNewItems()">
               <svg class="w-8 h-8 " xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"/><path fill="#fff" d="M21,14h6v20h-6V14z"/><path fill="#fff" d="M14,21h20v6H14V21z"/></svg>
               </button>
 
                     
             </div>
-
+                 <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information </p>
                 
             </div><!--items-->
            
@@ -209,6 +211,7 @@
 
                 
             </div>
+               <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information </p>
             </div>
              <div class=" flex items-center mt-10" v-show="(this.totalPaid+this.payment.paid)>this.totalCost">
                                 <svg class="h-6 w-6 fill-current text-red-400 mr-4" xmlns="http://www.w3.org/2000/svg"
@@ -347,7 +350,7 @@
 
             
 
-            <div class="flex justify-end mt-6 " v-if="this.str.length==0">
+            <div class="flex justify-end mt-6 " v-if="this.str.length==0" v-show="this.formValid && this.formPayValid">
                 <button @click="createBill()" class="button">Submit</button>
             </div>
         </form>
@@ -361,13 +364,17 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
     export default {
         
-created(){
+mounted(){
 this.getPosts(this.$route.params.id)
 },
         data(){
     return{
+        formValid:true,
+        formPayValid:true,
+        formValidated:true,
         formData: {
                     name: "",
                     gender: "",
@@ -424,15 +431,15 @@ methods:{
     
     applyDiscount(){
            this.balance=this.totalCost-this.totalPaid
+           //console.log("Balance")
+           //console.log(this.balance)
         
             if(this.isPercentage=='Percentage'){
-                console.log("true")
-                console.log(typeof(this.isPercentage))
-                console.log(this.isPercentage)
+               
                 if(this.discountAmount<=100 ){
+                    
                 this.discount=(this.totalCost/100)*this.discountAmount
                 this.form.discount=this.discount
-               this.balance=this.balance-this.discount
                 this.str=""
             
                 if(this.discount<=this.totalCost-this.totalPaid){
@@ -456,15 +463,13 @@ methods:{
                 
 
             }if(this.isPercentage=='Amount'){
-               console.log(typeof(this.isPercentage))
-                console.log(this.isPercentage)
                 this.str=""
                 this.discount=this.discountAmount
-                   this.form.discount=this.discount
+                this.form.discount=this.discount
              if(this.discount<=this.totalCost-this.totalPaid){
-                    this.adjustment=this.totalCost-this.discount
-                        this.balance=this.balance-this.discount
-                     this.str=""
+                this.adjustment=this.totalCost-this.discount
+                this.balance=this.balance-this.discount
+                this.str=""
 
                 }
                 else{
@@ -485,6 +490,9 @@ methods:{
 
     
         addNewItems() {
+            if(this.item.date===""||this.item.service===""||this.item.service.length<3||this.item.cost===""){
+                  this.formValid=false
+            }else{
             this.form.items.push(this.item)
             console.log(this.items);
             this.totalCost = this.totalCost + parseInt(this.item.cost)
@@ -495,6 +503,10 @@ methods:{
                 cost: 0
 
             }
+            this.formValid=true
+            }
+           
+            
         },
         deleteItems(i) {
             this.form.items.forEach((item, index) => {
@@ -507,6 +519,11 @@ methods:{
 
         },
       addNewPayments() {
+
+            if(this.payment.date===""||this.payment.paid===""||this.payment.paymentMethod===""){
+                  this.formPayValid=false
+            }else{
+
            if ((this.totalPaid+this.payment.paid )<= this.totalCost ) {
                 this.form.payment.push(this.payment)
               this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
@@ -517,6 +534,8 @@ methods:{
                 paymentMethod: ''
 
             }
+            }
+             this.formPayValid=true
 
 
         },
@@ -565,28 +584,29 @@ methods:{
         )
           .then((response) => {
             console.log(response)
-              window.location.reload();
+             swal({title: "Success", text: "Bill created Successfully!", icon: 
+                    "success" , timer: 10000, buttons: false})
+                   this.totalCost=0
+                   this.totalPaid=0
+                   this.balance=0
+                   this.adjustment=0
+                   this.discount=0
+                   
             //this.doctors=response.data['result']
 
           })
           .catch((error) => {
             console.log(error)
           })
-
+        
           
           this.form={
           patient:'',
-          items:[{
-              date:'',
-              service:'',
-              cost:0
-          }],
-          payment:[{
-              date:'',
-              paid:'',
-              paymentMethod:''
-          }]
+          items:[],
+          payment:[]
           }
+
+           
           
        
          

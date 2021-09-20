@@ -1,25 +1,7 @@
 <template>
 
     <div class="">
-        
-        <!--else-->
-        <!-- <div>
-       <ul class="list-reset flex border-b">
-           <li class="-mb-px mr-1">
-               <a class="border-b-2 border-transparent bg-white inline-block py-2 px-4 text-gray-700 hover:border-indigo-500 font-semibold" href="#">Bill.1</a>
-           </li>
-           <li class="mr-1">
-               <a class="border-b-2 border-transparent bg-white inline-block py-2 px-4 text-gray-700 hover:border-indigo-500 font-semibold" href="#">Bill.2</a>
-           </li>
-           <li class="mr-1">
-               <a class="border-b-2 border-transparent bg-white inline-block py-2 px-4 text-gray-700 hover:border-indigo-500 font-semibold" href="#">Bill.3</a>
-           </li>
-           <li class="mr-1">
-               <a class="border-b-2 border-transparent bg-white inline-block py-2 px-4 text-gray-700 hover:border-indigo-500 font-semibold" href="#">Bill.4</a>
-           </li>
-           </ul>  
-       </div> -->
-        <!--tab-->
+      
 
         <div class=" mb-4  w-full flex justify-between">
              <div class=" mb-6  w-full text-left flex justify-start">
@@ -79,7 +61,6 @@
             <hr>
         </div>
 
-      
             <div class="flex justify-between w-full">
                 <!-- <div class="w-1/2  px-6 py-8 ml-6"><button class="text-gray-500 mr-4 font-bold hover:text-indigo-500 font-bold p-3" @click="openModalDiscount">+ Add Discount</button></div> -->
        <!--DISCOUNT-->
@@ -91,11 +72,6 @@
                      <!--discount-->
                        <div class="inline-flex items-center mt-12">
                 <label for="" class="m-3 text-gray-800">Give discount in?</label>
-<!--                 
-                <input v-model="isPercentage" value="Amount" type="radio" id="Amount" name="isPercentage" checked="checked"
-                    class="form-radio h-5 w-5 text-indigo-600"><span class="ml-2 mr-2 text-gray-700">Amount</span>
-                    <input v-model="isPercentage" value="Percentage" type="radio" id="Percentage" name="isPercentage"
-                    class="form-radio h-5 w-5 text-indigo-600"><span class="ml-2 mr-2 text-gray-700">Percentage</span> -->
                     
   <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
   <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
@@ -129,52 +105,11 @@
                             </div>
 
                         </div>
-                   
-
-
-                      
+                     
                     <!--after discount-->
-
-                    <!-- <div class="flex justify-start items-start ml-6" >
-                            <div class="py-3 mr-3  mt-5  w-full sm:w-2/4 lg:w-1/4">
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Total:</span> <span
-                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.Bills.total}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Discount:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.discount}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Adjustment:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.Bills.adjustment-this.discount}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Balance:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.Bills.balance-this.discount}}</span> </div>
-                                    <div class="w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div> -->
 
 
                     <!--after discount-->
-                    
                     
                         <div class="flex justify-center mt-8 " v-if="this.str.length==0">
                             <button @click="discountApply()" class="text-gray-400 font-bold hover:text-indigo-500">+ Apply Discount</button>
@@ -183,8 +118,6 @@
                     <!-- <div>Total: {{this.total}} </div> -->
                 </form>
 
-
-            
             <!--form-->
                 
         </div>
@@ -193,14 +126,44 @@
         
         <div class="w-1/2 px-6 py-8 mr-6">
             <PaymentInfo :Bills="Bills" :discount="discount" />
+              <!-- <div class="flex justify-end " >
+           <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
+			<div class=" justify-between mb-3">
+				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Total:</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-2xl" >&#2547;</span>{{Bills.total}}</span> </div>
+				<div class="text-right w-40">
+					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
+				</div>
+			</div>
+			<div class=" justify-between mb-3">
+				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Balance:</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.balance}}</span> </div>
+				<div class="text-right w-40">
+					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
+				</div>
+			</div>
+            <div class=" justify-between mb-3">
+				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Discount:</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.discount}}</span> </div>
+				<div class="text-right w-40">
+					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
+				</div>
+			</div>
+            <div class=" justify-between mb-3">
+				<div class="text-indigo-400 text-md text-right flex font-bold uppercase"><span  class="ml-5 mt-2">Adjustment:</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.adjustment}}</span> </div>
+				<div class="text-right w-40">
+					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
+				</div>
+			</div>
+			
+			
+		
+			
+		</div>
+
+       </div> -->
+            
             </div>
        
         </div>
 
-        
-
-
-        
          <!-- <div v-show="openModalSer"><ServicesModal :Bills="Bills"  :openModalSer=" openModalSer"/></div> -->
 
          <!--Modal Service-->
@@ -309,10 +272,6 @@
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
 
                     </div>
@@ -359,9 +318,6 @@
                     </div>
                     <!--items-->
                    
-
-                  
-
                     <div class="flex justify-center mt-10 ">
                         <button @click="addItems()" class="button">Add Services</button>
                     </div>
@@ -369,28 +325,17 @@
                     <!-- <div>Total: {{this.total}} </div> -->
                 </form>
 
-
-            
             <!--form-->
 
                 <!--item-->
         </div>
-        <!--footer-->
-        <!-- <div class="p-3  mt-2 text-center space-x-4 md:block">
-            <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-                Cancel
-            </button>
-            <button class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Delete</button>
-        </div> -->
+       
       </div>
     </div>
   </div>
            </div>
          <!--modal service-->
 
-
-
-         
          <!--Modal payment-->
            <div v-show="openModalPay">
          <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
@@ -488,16 +433,7 @@
                                         <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                     </div>
                                 </div>
-                                <!-- <div class=" justify-between mb-3">
-				<div class="text-gray-400 text-md text-right flex font-bold uppercase"><span  class="ml-5">Sub-Total:</span> <span class="text-lg  ml-2 text-gray-600">{{this.subtotal}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div> -->
-
-
-
-
+                                
                             </div>
 
                         </div>
@@ -586,163 +522,19 @@
                     <!-- <div>Total: {{this.total}} </div> -->
                 </form>
 
-
-            
             <!--form-->
 
                 <!--item-->
         </div>
-        <!--footer-->
-        <!-- <div class="p-3  mt-2 text-center space-x-4 md:block">
-            <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-                Cancel
-            </button>
-            <button class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Delete</button>
-        </div> -->
+        
       </div>
     </div>
   </div>
            </div>
          <!--modal service-->
 
-
-        
-
-
          <!--modal discount -->
-          <div v-show="openModalDis">
-         <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
-    <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
-    <div class="w-full  lg:max-w-3xl max-w-lg  max-h-screen p-6 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
-      <!--content-->
-      <div class="mt-5">
-        <!--body-->
-        <div class="text-center  flex-auto justify-center">
-        <div class="flex justify-end">
-            <button @click="removeDis">
-
-            <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
-            </button>
-            </div>
-
-                <!--discount-->
-
-                 <form @submit.prevent>
-                     <div class="tracking-widest text-lg title-font font-bold text-gray-500  border-b border-gray-300 ">
-                     Discount  
-                     </div>
-                     <!--discount-->
-                       <div class="inline-flex items-center mt-3 ">
-                <label for="" class="m-3 text-gray-800">Give discount in?</label>
-<!--                 
-                <input v-model="isPercentage" value="Amount" type="radio" id="Amount" name="isPercentage" checked="checked"
-                    class="form-radio h-5 w-5 text-indigo-600"><span class="ml-2 mr-2 text-gray-700">Amount</span>
-                    <input v-model="isPercentage" value="Percentage" type="radio" id="Percentage" name="isPercentage"
-                    class="form-radio h-5 w-5 text-indigo-600"><span class="ml-2 mr-2 text-gray-700">Percentage</span> -->
-                    
-  <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
-  <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
-                
-            </div>
-            
-                    <div class="flex justify-center">
-                        <div class="">
-                            <label class="text-gray-700 dark:text-gray-200" for="discount">Discount Amount</label>
-                            <input  @keypress="isNumber($event)" v-model.number="discountAmount" id="discount" type="text"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                        </div>
-                        
-                    </div>
-                    <div>{{this.applyDiscount()}}</div>
-            <!--discount-->
-            <div v-if="this.str.length>=1">
-
-
-                            <div class=" flex items-center mt-10 px-8">
-                                <svg class="h-6 w-6 fill-current text-red-400 mr-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                                    </svg>
-                                <div>
-                                    <p class="font-medium text-red-500">{{str}}</p>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                   
-
-
-                      
-                    <!--after discount-->
-
-                    <div class="flex justify-start items-start ml-6" >
-                            <div class="py-3 mr-3  mt-5  w-full sm:w-2/4 lg:w-1/4">
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Total:</span> <span
-                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.Bills.total}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Discount:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.discount}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Adjustment:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.Bills.adjustment-this.discount}}</span> </div>
-                                    <div class=" w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Balance:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.Bills.balance-this.discount}}</span> </div>
-                                    <div class="w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-
-                    <!--after discount-->
-                    
-                    
-                        <div class="flex justify-center mt-10 " v-if="this.str.length==0">
-                            <button @click="discountApply()" class="button">Apply Discount</button>
-                        </div>
-
-                    <!-- <div>Total: {{this.total}} </div> -->
-                </form>
-
-
-            
-            <!--form-->
-
-                <!--item-->
-        </div>
-        <!--footer-->
-        <!-- <div class="p-3  mt-2 text-center space-x-4 md:block">
-            <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-                Cancel
-            </button>
-            <button class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Delete</button>
-        </div> -->
-      </div>
-    </div>
-  </div>
-           </div>
+         
          <!--modal discount-->
 
       
@@ -754,7 +546,7 @@
 import axios from 'axios'
 import BillItems from "../../components/BillItems.vue";
 import PaymentMethods from "../../components/PaymentMethods.vue";
-import PaymentInfo from "../../components/PaymentInfo.vue"
+import PaymentInfo from "../../components/PaymentInfo.vue";
 
 export default {
     props: {
@@ -765,32 +557,33 @@ export default {
         BillItems,
         PaymentMethods,
         PaymentInfo
-       
+
+
     },
     created() {
         this.getBill(this.billId),
-        this.getPosts(this.$route.params.id)
+            this.getPosts(this.$route.params.id)
     },
     data() {
         return {
             patientData: {
-                    name: "",
-                    gender: "",
-                    dob: "",
-                    phone:""
-                   
-                },
+                name: "",
+                gender: "",
+                dob: "",
+                phone: ""
+
+            },
 
             openModalSer: false,
-            isPercentage:null,
-            adjustment:0,
-            discount:0,
-            discountAmount:0,
-            openModalPay:false,
-            openModalDis:false,
+            isPercentage: null,
+            adjustment: 0,
+            discount: 0,
+            discountAmount: 0,
+            openModalPay: false,
+            openModalDis: false,
             date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
             default: true,
-            paymentMethods: ['bKash','Nagad','Rocket','Card-Debit','Visa', 'Cash'],
+            paymentMethods: ['bKash', 'Nagad', 'Rocket', 'Card-Debit', 'Visa', 'Cash'],
             Bills: {},
 
             form: {
@@ -818,8 +611,8 @@ export default {
             subtotal: 0,
             afterPaid: 0,
             str: '',
-            amountDiscount:{
-            discount:0
+            amountDiscount: {
+                discount: 0
             }
 
         }
@@ -839,113 +632,107 @@ export default {
             }
         },
 
- getPosts(id) {
-                axios.get('http://localhost:3000/api/patients/' + id ,{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
-                    .then((response) => {
+        getPosts(id) {
+            axios.get('http://localhost:3000/api/patients/' + id, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
+                .then((response) => {
 
-                        this.patientData = response.data.result;
-                        const ageDifMs = Date.now() - new Date(this.patientData.dob.substring(0, 10)).getTime();
-                        //console.log(ageDifMs);
-                        const ageDate = new Date(ageDifMs);
-                        this.patientData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        //console.log(this.formData.dob)
-                        //this.calculateAge(this.formData.dob.substring(0,10))
-                       
-
-
-                    })
-
-
-                    .catch((error) => {
-                        console.log(error)
-
-                    })
-
-            },
+                    this.patientData = response.data.result;
+                    const ageDifMs = Date.now() - new Date(this.patientData.dob.substring(0, 10)).getTime();
+                    //console.log(ageDifMs);
+                    const ageDate = new Date(ageDifMs);
+                    this.patientData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    //console.log(this.formData.dob)
+                    //this.calculateAge(this.formData.dob.substring(0,10))
 
 
-        removeDis(){
-                this.openModalDis=false
+
+                })
+
+
+                .catch((error) => {
+                    console.log(error)
+
+                })
+
         },
-        removeSer(){
-                this.openModalSer=false
+
+
+        removeDis() {
+            this.openModalDis = false
         },
-        removePay(){
-                this.openModalPay=false
+        removeSer() {
+            this.openModalSer = false
         },
-       
+        removePay() {
+            this.openModalPay = false
+        },
+
         onChange(event) {
-              this.isPercentage = event.target.value;
-              console.log(this.isPercentage);
-          },
-          
-applyDiscount(){
-            //console.log(typeof(this.isPercentage))
-            if(this.isPercentage=='Percentage'){
-                console.log("true")
-                console.log(typeof(this.isPercentage))
-                console.log(this.isPercentage)
-                if(this.discountAmount<=100 ){
-                this.discount=(this.Bills.total/100)*this.discountAmount
-                this.amountDiscount.discount=this.discount+this.Bills.discount
-                this.str=""
-                //this.discountAmount=0
-                if(this.Bills.balance-this.discount>=0){
-                     this.adjustment=this.Bills.total-this.discount
-                     this.str=""
-                    //this.discountAmount=0
+            this.isPercentage = event.target.value;
+            //console.log(this.isPercentage);
+        },
 
-                }
-                else{
-                    this.str="Discount amount exceeding balance"
-                     //this.discountAmount=0
-                }
-                  
-                }
-                else{
-                    this.str="Percentage is exceeding 100%"
-                     //this.discountAmount=0
-                }
-        
-                
+        applyDiscount() {
 
-            }if(this.isPercentage=='Amount'){
-               console.log(typeof(this.isPercentage))
-                console.log(this.isPercentage)
-                this.str=""
-                this.discount=this.discountAmount
-                   this.amountDiscount.discount=this.discount+this.Bills.discount
-                 if(this.Bills.balance-this.discount>=0){
-                     this.adjustment=this.Bills.total-this.discount
-                     this.str=""
+            if (this.isPercentage == 'Percentage') {
+                if (this.discountAmount <= 100) {
+                    this.discount = (this.Bills.total / 100) * this.discountAmount
+                    //this.amountDiscount.discount=this.discount+this.Bills.discount
+                    this.amountDiscount.discount = this.discount
+                    this.str = ""
+                    if (this.Bills.balance - this.discount >= 0) {
+                        this.adjustment = this.Bills.total - this.discount
+                        this.str = ""
+                    } else {
+                        this.str = "Discount amount exceeding balance"
+                    }
 
+                } else {
+                    this.str = "Percentage is exceeding 100%"
                 }
-                else{
-                    this.str="Discount amount exceeding balance"
-                    
-                }
-                  
-                
+
+
+
             }
-            console.log(this.discount)
+            if (this.isPercentage == 'Amount') {
+                this.str = ""
+                this.discount = this.discountAmount
+                //this.amountDiscount.discount=this.discount+this.Bills.discount
+                this.amountDiscount.discount = this.discount
+                if (this.Bills.balance - this.discount >= 0) {
+                    this.adjustment = this.Bills.total - this.discount
+                    this.str = ""
+
+                } else {
+                    this.str = "Discount amount exceeding balance"
+
+                }
+
+
+            }
+            //console.log(this.discount)
 
         },
-        openModalService(){
-            this.openModalSer=true
+        openModalService() {
+            this.openModalSer = true
 
         },
-         openModalPayment(){
-            this.openModalPay=true
+        openModalPayment() {
+            this.openModalPay = true
 
         },
-          openModalDiscount(){
-            this.openModalDis=true
+        openModalDiscount() {
+            this.openModalDis = true
 
         },
 
         addNewItems() {
             this.items.push(this.item)
-            console.log(this.items);
+            //console.log(this.items);
             this.totalCost = this.totalCost + parseInt(this.item.cost)
             this.balance = this.Bills.balance
             this.subtotal = this.balance + this.totalCost
@@ -962,7 +749,7 @@ applyDiscount(){
         addNewPayments() {
             if (this.Bills.balance >= (this.totalPaid + this.payment.paid)) {
                 this.payments.push(this.payment)
-                console.log(this.payments);
+               //console.log(this.payments);
                 this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
                 this.balance = this.Bills.balance
                 this.afterPaid = this.balance - this.totalPaid
@@ -990,21 +777,25 @@ applyDiscount(){
             this.items.forEach((item) => {
                 this.form.items.push(item)
             })
-               
+
             console.log(this.form)
             //console.log(this.billId)
 
             //this.form.patient=this.$route.params.id
-            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-bill', this.form , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-bill', this.form, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                 .then((response) => {
                     console.log(response)
                     this.items = []
-                                        
-                    this.form={
-                    
-                    items:[]
+
+                    this.form = {
+
+                        items: []
                     }
-                    
+
                     this.getBill(this.billId)
 
                     //this.doctors=response.data['result'
@@ -1012,36 +803,40 @@ applyDiscount(){
                 .catch((error) => {
                     console.log(error)
                 })
-         
-          
-                this.openModalSer=false
-                this.items = []
-                                        
-                    this.form={
-                    
-                    items:[]
-                    }
-                    
-                    this.getBill(this.billId)
-                    this.totalCost=0
+
+
+            this.openModalSer = false
+            this.items = []
+
+            this.form = {
+
+                items: []
+            }
+
+            this.getBill(this.billId)
+            this.totalCost = 0
 
         },
         addPayments() {
-            console.log(this.payments);
+            //console.log(this.payments);
             this.payments.forEach((item) => {
                 this.formData.payment.push(item)
             })
-            console.log(this.formData)
+            //console.log(this.formData)
             //console.log(this.billId)
 
             //this.form.patient=this.$route.params.id
-            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-payment', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-payment', this.formData, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                 .then((response) => {
                     console.log(response)
                     this.payments = []
-                     this.formData={
-                    
-                    payment:[]
+                    this.formData = {
+
+                        payment: []
                     }
                     this.getBill(this.billId)
 
@@ -1050,27 +845,34 @@ applyDiscount(){
                 .catch((error) => {
                     console.log(error)
                 })
-                this.openModalPay=false
-                this.payments = []
-                this.formData={
-                    
-                    payment:[]
-                    }
-                this.getBill(this.billId)
-                this.totalPaid=0
+            this.openModalPay = false
+            this.payments = []
+            this.formData = {
+
+                payment: []
+            }
+            this.getBill(this.billId)
+            this.totalPaid = 0
 
 
         },
-      discountApply(){
-        console.log(this.amountDiscount)
+        discountApply() {
+            console.log(this.amountDiscount)
             //this.amountDiscount.discount=this.discount
-            
+            //console.log(this.amount)
 
-             axios.patch('http://localhost:3000/api/billings/'+this.billId+'/discount', this.amountDiscount , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+            axios.patch('http://localhost:3000/api/billings/' + this.billId + '/discount', this.amountDiscount,
+                    //{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                )
                 .then((response) => {
                     console.log(response)
-                    
-                     this.amountDiscount={ }
+
+                    this.amountDiscount = {}
+                    this.discountAmount = 0
+                    this.discount = 0
+                    this.amountDiscount.discount = 0
+                    console.log("discount")
+                    console.log(this.discount)
                     this.getBill(this.billId)
 
                     //this.doctors=response.data['result'
@@ -1078,23 +880,27 @@ applyDiscount(){
                 .catch((error) => {
                     console.log(error)
                 })
-                this.discountAmount=0
-                this.discount=0
-                // this.discountAmount={
-                //     discount:0
-                // },
-              
-            this.openModalDis=false
+
+            // this.discountAmount={
+            //     discount:0
+            // },
+
+            this.openModalDis = false
 
         },
 
         getBill(id) {
             console.log(id)
-            axios.get('http://localhost:3000/api/billings/' + id , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+            axios.get('http://localhost:3000/api/billings/' + id, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                 .then((response) => {
                     //console.log(response.data);
                     this.Bills = response.data['result'];
-                    //console.log(this.Bills)
+                    console.log("Bills")
+                    console.log(this.Bills)
 
                 })
 
@@ -1141,7 +947,7 @@ applyDiscount(){
             //changecomponent=!changecomponent
             window.location.reload();
         },
-         
+
     }
 
 }

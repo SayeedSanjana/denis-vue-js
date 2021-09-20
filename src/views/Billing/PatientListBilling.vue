@@ -8,7 +8,7 @@
         <!-- <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-white">Patient List</h2> -->
         
             <div class="m-5 w-5/6 mx-auto flex justify-center sm:flex-row flex-col mt-14">
-                <div class="flex flex-row mb-1 sm:mb-0">
+                <!-- <div class="flex flex-row mb-1 sm:mb-0">
                     <div class="relative">
                         <select
                             class=" h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -37,7 +37,7 @@
                             </svg>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="block relative">
                     <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                         <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
@@ -46,7 +46,7 @@
                             </path>
                         </svg>
                     </span>
-                    <input placeholder="Search"
+                    <input placeholder="Search"  v-model="text" @keydown="this.getPosts()" name="q"
                         class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                 </div>
               
@@ -65,7 +65,7 @@
           
             <div class="bg-white shadow-xl rounded-lg lg:w-1/2">
                 <ul class="divide-y divide-gray-300">
-                    <div v-for="patient in Patients" :key="patient" @click="patientDetails(patient._id)">
+                    <div v-for="patient in  filteredList" :key="patient" @click="patientDetails(patient._id)">
                     <!-- <router-link to="/specific-billing/+"> -->
                     <li class="p-4 hover:bg-gray-50 cursor-pointer">
                         <div class="flex flex-row justify-between">
@@ -89,6 +89,13 @@
 </div>
 </div>
 
+ <div class=" px-40 mt-10">
+                   <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"  @click="changePage(1)">Next </button>
+           
+
+            </div>
+
 
                  
 
@@ -111,14 +118,32 @@ import axios from'axios';
             //SpecificBilling,
             Nav
         },
+         computed:{
+      filteredList() {
+     
+      const star = (this.currentPage - 1) * this.prePage
+      const end = this.currentPage * this.prePage
+    
+      const result = this.Patients.slice(star, end)
+      return result
+    }
+        },
         data(){
             return{
                 open:false,
-                Patients:{}
+                Patients:[],
+                 prePage: 5,
+                currentPage: 1,
+                text:""
                
             }
         },
         methods:{
+             changePage(num) {
+      
+            this.currentPage = this.currentPage + num
+             },
+
             toggle(){
                 this.open=!this.open
             },
@@ -127,11 +152,20 @@ import axios from'axios';
             },
             getPosts(){
                 axios.get('http://localhost:3000/api/patients' , 
+                {
+                params:{
+                    q:this.text
+                },
+               
+                // headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}
+             
+                }
                 // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                 .then((response) => {
                     console.log(response.data['result']);
                     this.Patients = response.data['result'];
+                    console.log(this.Patients)
                    
                 })
 
