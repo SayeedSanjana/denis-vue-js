@@ -621,12 +621,6 @@ export default {
     },
     methods: {
         isNumber(evt) {
-            // evt = (evt) ? evt : window.event;
-            //   var charCode = (evt.which) ? evt.which : evt.keyCode;
-            //   if ((charCode < 48 || charCode > 57) && charCode !== 188) {
-            //     evt.preventDefault();
-            //   } else {
-            //     return true;
             if (!/\d/.test(evt.key)) {
                 return evt.preventDefault();
             } else {
