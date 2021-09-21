@@ -350,7 +350,7 @@
 
             
 
-            <div class="flex justify-end mt-6 " v-if="this.str.length==0" v-show="this.formValid && this.formPayValid">
+            <div class="flex justify-end mt-6 " v-if="this.str.length==0" >
                 <button @click="createBill()" class="button">Submit</button>
             </div>
         </form>
@@ -366,12 +366,16 @@
 import axios from 'axios'
 import swal from 'sweetalert'
     export default {
+        components:{
+           
+        },
         
 mounted(){
 this.getPosts(this.$route.params.id)
 },
         data(){
     return{
+        id:'',
         formValid:true,
         formPayValid:true,
         formValidated:true,
@@ -584,16 +588,26 @@ methods:{
         )
           .then((response) => {
             console.log(response)
-             swal({title: "Success", text: "Bill created Successfully!", icon: 
-                    "success" , timer: 10000, buttons: false})
+                   const id = this.$route.params.id;
+                   //this.id=this.$route.params.id
+                   console.log(this.id)
                    this.totalCost=0
                    this.totalPaid=0
                    this.balance=0
                    this.adjustment=0
                    this.discount=0
-                   
-            //this.doctors=response.data['result']
+                   swal({title: "Success", text: "Bills created Successfully!", icon: 
+                    "success" , timer: 1000, buttons: false}).then(function(){
+                          window.location = `/specific-billing/${id}`;
+                    })
 
+                  
+//                    swal({title: "Success", text: "Bill created Successfully!", icon: 
+//                     "success" , timer: 1000, buttons: false}).then(function() {
+//                        window.location = `/specific-billing/${id}`;
+//  })
+                   
+                //this.$router.push({name:'SpecificBilling' , params: {id:id}})
           })
           .catch((error) => {
             console.log(error)
@@ -604,20 +618,9 @@ methods:{
           patient:'',
           items:[],
           payment:[]
-          }
-
-           
-          
-       
-         
-          
-      },
-    
-
-
-   
-}   
-        
+          } 
+      } 
+}       
     }
 </script>
 

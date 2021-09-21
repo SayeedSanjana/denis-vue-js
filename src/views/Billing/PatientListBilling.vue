@@ -132,7 +132,7 @@ import axios from'axios';
             return{
                 open:false,
                 Patients:[],
-                 prePage: 5,
+                prePage: 5,
                 currentPage: 1,
                 text:""
                

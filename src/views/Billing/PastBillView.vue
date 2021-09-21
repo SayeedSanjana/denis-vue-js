@@ -314,7 +314,7 @@
 
                         </div>
 
-
+                       <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information</p>
                     </div>
                     <!--items-->
                    
@@ -489,7 +489,7 @@
               </button>-->
 
                             </div>
-
+                              <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information</p>
 
                         </div>
                         <!--payment-->
@@ -566,6 +566,8 @@ export default {
     },
     data() {
         return {
+            formValid:true,
+            formPayValid:true,
             patientData: {
                 name: "",
                 gender: "",
@@ -731,6 +733,9 @@ export default {
         },
 
         addNewItems() {
+             if(this.item.date===""||this.item.service===""||this.item.service.length<3||this.item.cost===""){
+                  this.formValid=false
+            }else{
             this.items.push(this.item)
             //console.log(this.items);
             this.totalCost = this.totalCost + parseInt(this.item.cost)
@@ -744,9 +749,14 @@ export default {
                 cost: 0
 
             }
+             this.formValid=true
+            }
         },
 
         addNewPayments() {
+            if(this.payment.date===""||this.payment.paid===""||this.payment.paymentMethod===""){
+                  this.formPayValid=false
+            }else{
             if (this.Bills.balance >= (this.totalPaid + this.payment.paid)) {
                 this.payments.push(this.payment)
                //console.log(this.payments);
@@ -768,6 +778,8 @@ export default {
                 paid: 0,
                 paymentMethod: ''
 
+            }
+            this.formPayValid=true
             }
 
 

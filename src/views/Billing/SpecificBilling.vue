@@ -31,7 +31,7 @@
                                 New Bill
                             </button>
 
-                            <button @click="activeTab = 'PastBillList'"
+                            <button @click="activeTab = 'PastBillList'" 
                                 class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Bills</button>
 
 
@@ -40,8 +40,10 @@
                         <keep-alive>
                             <component :is="activeTab" />
                         </keep-alive>
-
-
+                           
+                               <div v-show="show">  
+                            <PastBillList  :Billing="Billing" show="show" /> 
+                            </div> 
 
                     </div>
                 </div>
@@ -63,21 +65,29 @@
     import PastBillList from "./PastBillList.vue";
     import axios from "axios"
     export default {
+        
 
         components: {
             NewBill,
             TreatmentTimeline,
             Nav,
-            //PastBill,
             PastBillList
         },
+
+        
         created() {
 
             this.getBills(this.$route.params.id),
-             this.getspecificTreatmentList()
+            this.getspecificTreatmentList()
 
 
         },
+        // beforeUpdate(){
+        // this.getBills(this.$route.params.id)
+        // },
+        // updated(){
+        // this.getBills(this.$route.params.id)
+        // },
 
         data() {
             return {
@@ -85,8 +95,10 @@
                 activeTab: 'NewBill',
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
                 default: true,
+                Billing:[],
                 form: {},
-                  treatmentList:[],
+                treatmentList:[],
+                show:false
 
             }
         },
@@ -113,7 +125,8 @@
                 )
                     .then((response) => {
                         console.log(response.data['result']);
-                        this.form = response.data['result'];
+                        this.Billing = response.data['result'];
+                        console.log(this.Billing)
 
                     })
 
