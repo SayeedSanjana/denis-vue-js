@@ -20,7 +20,7 @@
           
             <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3" >
                          <!-- {{this.getBills(this.$route.params.id)}} -->
-                  <div class=""  v-for="bill in filteredList" :key="bill" @click="patientBill(bill._id)">
+                  <div class=""  v-for="bill in this.Bills" :key="bill" @click="patientBill(bill._id)">
                     
                     <li class="border-gray-400 flex justify-center mt-6 items-center  mb-2 shadow-md"   >
                       <div v-if="bill.balance>0">
@@ -109,7 +109,7 @@
 </div>
 </div>
 <div class=" px-40 mt-10" v-if="this.Bills.length >= 1">
-                   <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
       <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"  @click="changePage(1)">Next </button>
            
 
@@ -172,13 +172,16 @@ import PastBillView from "../Billing/PastBillView.vue";
                 invoice:'',
                 prePage: 9,
                 currentPage: 1,
+                page:1
               
             }
         },
         methods:{
           changePage(num) {
-      
             this.currentPage = this.currentPage + num
+            this.page=this.page+num
+            this.getBills(this.$route.params.id)
+           
              },
            
             patientBill(id){
@@ -191,11 +194,18 @@ import PastBillView from "../Billing/PastBillView.vue";
             },
              getBills(id){
                 axios.get('http://localhost:3000/api/billings/'+id+'/list-bills' ,
+                {
+                 params:{
+                    page:this.page,
+                    limit:20
+                    }
+                }
                 //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                   )
                 .then((response) => {
                    
                     this.Bills = response.data['result'];
+                    console.log(this.Bills)
                    
                 })
 

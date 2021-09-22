@@ -77,7 +77,7 @@
         
         created() {
 
-            this.getBills(this.$route.params.id),
+            //this.getBills(this.$route.params.id),
             this.getspecificTreatmentList()
 
 

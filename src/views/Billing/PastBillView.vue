@@ -595,6 +595,7 @@ export default {
         }
     },
     methods: {
+          
         isNumber(evt) {
             if (!/\d/.test(evt.key)) {
                 return evt.preventDefault();
