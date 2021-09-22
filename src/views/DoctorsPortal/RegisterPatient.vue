@@ -99,7 +99,7 @@
       }
     },
     methods: {
-      createPatient() {
+      async createPatient() {
         this.formIsValid = true;
         // console.log(this.formdata);
           if (this.formdata.name === '' ||this.formdata.name.length<3 || this.formdata.gender === ''  || this.formdata.dob === '' ||  this.formdata.phone.length < 11 || this.formdata.phone.length > 11 ) {
@@ -107,7 +107,7 @@
                 return;
             } else {
 
-        axios.post('http://localhost:3000/api/patients/create-patient', this.formdata , 
+        await axios.post('patients/create-patient', this.formdata , 
         //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
          )
           .then((response) => {

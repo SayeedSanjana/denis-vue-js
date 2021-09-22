@@ -93,8 +93,8 @@
                 this.showHabits = !this.showHabits
             },
 
-            getPatient(id) {
-                axios.get('http://localhost:3000/api/patients/' + id ,{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+            async getPatient(id) {
+               await axios.get('patients/' + id ,{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
                     .then((response) => {
 
                         this.formData = response.data.result;

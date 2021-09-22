@@ -103,8 +103,8 @@
             }
         },
         methods: {
-              getspecificTreatmentList() {
-            axios.get('http://localhost:3000/api/treatment-notes/' + this.$route.params.id + '/patient', {
+              async getspecificTreatmentList() {
+           await axios.get('treatment-notes/' + this.$route.params.id + '/patient', {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
@@ -119,8 +119,8 @@
                 })
         },
            
-            getBills(id) {
-                axios.get('http://localhost:3000/api/billings/' + id + '/list-bills' , 
+           async getBills(id) {
+                await axios.get('billings/' + id + '/list-bills' , 
                 // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                     .then((response) => {

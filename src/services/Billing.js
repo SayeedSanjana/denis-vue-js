@@ -11,5 +11,8 @@ const apiClient=axios.create({
 export default{
     getBills(id){
         return apiClient.get('/'+id +'/list-bills')
+    },
+    getSpecificBill(id){
+        return apiClient.get('/'+id)
     }
 }

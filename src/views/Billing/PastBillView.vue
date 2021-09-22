@@ -279,7 +279,7 @@
                             </div>
                             <div class=" justify-between mb-3">
                                 <div class="text-gray-400 text-md text-right flex font-bold uppercase"><span
-                                        class="ml-5 mt-2">Sub-Total:</span> <span
+                                        class="ml-5 mt-2">SubTotal:</span> <span
                                         class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.subtotal}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
@@ -522,6 +522,7 @@ import axios from 'axios'
 import BillItems from "../../components/BillItems.vue";
 import PaymentMethods from "../../components/PaymentMethods.vue";
 import PaymentInfo from "../../components/PaymentInfo.vue";
+//import Billing from "../../services/Billing.js"
 
 export default {
     props: {
@@ -537,7 +538,7 @@ export default {
     },
     created() {
         this.getBill(this.billId),
-            this.getPosts(this.$route.params.id)
+        this.getPosts(this.$route.params.id)
     },
     data() {
         return {
@@ -604,8 +605,8 @@ export default {
             }
         },
 
-        getPosts(id) {
-            axios.get('http://localhost:3000/api/patients/' + id, {
+        async getPosts(id) {
+            await axios.get('patients/' + id, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
@@ -755,7 +756,7 @@ export default {
 
 
         },
-        addItems() {
+        async addItems() {
             // console.log(this.formdata);
             this.items.forEach((item) => {
                 this.form.items.push(item)
@@ -765,7 +766,7 @@ export default {
             //console.log(this.billId)
 
             //this.form.patient=this.$route.params.id
-            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-bill', this.form, {
+            await axios.put('billings/' + this.billId + '/add-bill', this.form, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
@@ -800,7 +801,7 @@ export default {
             this.totalCost = 0
 
         },
-        addPayments() {
+        async addPayments() {
             //console.log(this.payments);
             this.payments.forEach((item) => {
                 this.formData.payment.push(item)
@@ -809,7 +810,7 @@ export default {
             //console.log(this.billId)
 
             //this.form.patient=this.$route.params.id
-            axios.put('http://localhost:3000/api/billings/' + this.billId + '/add-payment', this.formData, {
+            await axios.put('billings/' + this.billId + '/add-payment', this.formData, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
@@ -844,7 +845,7 @@ export default {
             //this.amountDiscount.discount=this.discount
             //console.log(this.amount)
 
-            axios.patch('http://localhost:3000/api/billings/' + this.billId + '/discount', this.amountDiscount,
+            axios.patch('billings/' + this.billId + '/discount', this.amountDiscount,
                     //{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                 .then((response) => {
@@ -872,12 +873,12 @@ export default {
 
         },
 
-        getBill(id) {
+        async getBill(id) {
             console.log(id)
-            axios.get('http://localhost:3000/api/billings/' + id, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
+            await axios.get('billings/' + id, {
+                    // headers: {
+                    //     "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    // }
                 })
                 .then((response) => {
                     //console.log(response.data);
@@ -894,6 +895,7 @@ export default {
                 })
 
         },
+      
 
 
         deleteItems(i) {

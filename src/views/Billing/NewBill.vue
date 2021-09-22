@@ -556,8 +556,8 @@ methods:{
 
         },
 
-         getPosts(id) {
-                axios.get('http://localhost:3000/api/patients/' + id ,
+         async getPosts(id) {
+                await axios.get('patients/' + id ,
                 // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                     .then((response) => {
@@ -578,12 +578,12 @@ methods:{
                     })
 
             },
-  createBill() {
+  async createBill() {
         // console.log(this.formdata);
 
         this.form.patient=this.$route.params.id
         console.log(this.form)
-        axios.post('http://localhost:3000/api/billings/create', this.form 
+        await axios.post('billings/create', this.form 
       //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
         )
           .then((response) => {

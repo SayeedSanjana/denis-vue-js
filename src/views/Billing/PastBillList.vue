@@ -89,7 +89,7 @@
 
     <!-- Alert Info -->
     <div v-else class="flex-row w-full">
-        {{this.getBills(this.$route.params.id)}}
+        <!-- {{this.getBills(this.$route.params.id)}} -->
        <div class=" flex items-center justify-center  ">
   <div class="w-full  ">
     
@@ -192,8 +192,8 @@ import PastBillView from "../Billing/PastBillView.vue";
             change(){
               this.changecomponent=!this.changecomponent
             },
-             getBills(id){
-                axios.get('http://localhost:3000/api/billings/'+id+'/list-bills' ,
+             async getBills(id){
+               await axios.get('billings/'+id+'/list-bills' ,
                 {
                  params:{
                     page:this.page,

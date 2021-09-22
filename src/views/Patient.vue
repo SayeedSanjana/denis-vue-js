@@ -131,9 +131,9 @@
                 console.log(id)
                 this.$router.push({name:'PatientDetails' , params: {id:id}})
             },
-             getPatients(){
+            async getPatients(){
                //console.log(this.text)
-                axios.get('http://localhost:3000/api/patients' , 
+                const response=await axios.get('patients' , 
                 {
                 params:{
                     q:this.text
@@ -144,20 +144,11 @@
                 }
                
                 )
-                .then((response) => {
                     console.log(response.data['result']);
                          
                     this.Patients = response.data['result'];
                     console.log(this.Patients)
-                  
-                })
-
                 
-                .catch((error) => {
-                    console.log(error)
-                    this.errorMsg = 'Error retrieving data'
-                })
-                    console.log();
 
             },
         }

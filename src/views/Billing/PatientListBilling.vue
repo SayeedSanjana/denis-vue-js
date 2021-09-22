@@ -150,8 +150,8 @@ import axios from'axios';
              patientDetails(id){
                 this.$router.push({name:'SpecificBilling' , params: {id:id}})
             },
-            getPosts(){
-                axios.get('http://localhost:3000/api/patients' , 
+           async getPosts(){
+                await axios.get('patients' , 
                 {
                 params:{
                     q:this.text
