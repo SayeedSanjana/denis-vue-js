@@ -3,7 +3,7 @@
     <div class="">
       
 
-        <div class=" mb-4  w-full flex justify-between">
+        <div class=" mb-4 flex justify-between">
              <div class=" mb-6  w-full text-left flex justify-start">
             <div>
             <div class="font-semibold text-md text-gray-700  "> Date: 
@@ -21,9 +21,9 @@
             
 
         </div>
-            <div>
-                <button class="button">Print Bill</button>
-            </div>
+            <!-- <div>
+                <button class="text-indigo-500 mr-3">Print Bill</button>
+            </div> -->
 
         </div>
 
@@ -71,19 +71,23 @@
                      </div> -->
                      <!--discount-->
                        <div class="inline-flex items-center mt-12">
-                <label for="" class="m-3 text-gray-800">Give discount in?</label>
+                <label for="" class="m-2 text-gray-800">Give discount in?</label>
                     
   <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
   <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
                 
             </div>
             
-                    <div class="flex justify-center">
-                        <div class="">
-                            <label class="text-gray-700 dark:text-gray-200" for="discount">Discount Amount</label>
+                    <div class="flex justify-start">
+                        <div class="text-left">
+                            <label class="text-gray-700 dark:text-gray-200 ml-1" for="discount">Discount Amount</label>
                             <input  @keypress="isNumber($event)" v-model.number="discountAmount" id="discount" type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
+                         <div class="flex justify-center mt-6  ml-3" v-if="this.str.length==0">
+                            <button @click="discountApply()" class="button">confirm</button>
+                        </div>
+
                         
                     </div>
                     <div>{{this.applyDiscount()}}</div>
@@ -111,9 +115,9 @@
 
                     <!--after discount-->
                     
-                        <div class="flex justify-center mt-8 " v-if="this.str.length==0">
+                        <!-- <div class="flex justify-center mt-8 " v-if="this.str.length==0">
                             <button @click="discountApply()" class="text-gray-400 font-bold hover:text-indigo-500">+ Apply Discount</button>
-                        </div>
+                        </div> -->
 
                     <!-- <div>Total: {{this.total}} </div> -->
                 </form>
@@ -126,40 +130,7 @@
         
         <div class="w-1/2 px-6 py-8 mr-6">
             <PaymentInfo :Bills="Bills" :discount="discount" />
-              <!-- <div class="flex justify-end " >
-           <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-			<div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Total:</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-2xl" >&#2547;</span>{{Bills.total}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-			<div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Balance:</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.balance}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-            <div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Discount:</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.discount}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-            <div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-md text-right flex font-bold uppercase"><span  class="ml-5 mt-2">Adjustment:</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-2xl" >{{this.discount}}&#2547;</span>{{Bills.adjustment}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-			
-			
-		
-			
-		</div>
-
-       </div> -->
-            
+             
             </div>
        
         </div>
@@ -188,6 +159,48 @@
         <!-- {{this.$route.params.id}} -->
 
       </div>
+
+       <!--items-->
+
+
+                    <div class="lg:grid lg:grid-cols-1 lg:gap-6 lg:mt-4 lg:grid-cols-4">
+                        <div>
+                            <label class="text-gray-700 dark:text-gray-200" for="date">Date</label>
+                            <input v-model="item.date" id="date" type="date"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+                        <div>
+                            <label class="text-gray-700 dark:text-gray-200" for="services">Treatment Plan</label>
+                            <input v-model="item.service" id="date" type="text"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+
+                        <div>
+                            <label class="text-gray-700 dark:text-gray-200" for="cost">Cost</label>
+                            <input  @keypress="isNumber($event)" v-model.number="item.cost" id="cost" type="text"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+
+                        <div class="flex justify-center">
+
+                            <button class="px-4 py-2 mt-2" @click="addNewItems()">
+                                <svg class="w-8 h-8 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                    width="48px" height="48px">
+                                    <path fill="#4caf50"
+                                        d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
+                                    <path fill="#fff" d="M21,14h6v20h-6V14z" />
+                                    <path fill="#fff" d="M14,21h20v6H14V21z" /></svg>
+                            </button>
+
+                            <!-- <button class="px-4 py-2 mt-2" @click="deleteItems(index)" v-show="index||(!index && this.form.items.length>1)">
+             <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
+              </button>-->
+
+                        </div>
+
+                       <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information</p>
+                    </div>
+                    <!--items-->
 
                       <!--item list-->
                     <div v-show="this.items.length>=1">
@@ -250,7 +263,7 @@
                         <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
                             <div class=" justify-between mb-3">
                                 <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                        class="ml-5 mt-2">Total Cost:</span> <span
+                                        class="ml-5 mt-2">TotalCost:</span> <span
                                         class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.totalCost}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
@@ -276,53 +289,13 @@
 
                     </div>
                     <!--cost-->
-                    <!--items-->
-
-
-                    <div class="lg:grid lg:grid-cols-1 lg:gap-6 lg:mt-4 lg:grid-cols-4">
-                        <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="date">Date</label>
-                            <input v-model="item.date" id="date" type="date"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                        </div>
-                        <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="services">Treatment Plan</label>
-                            <input v-model="item.service" id="date" type="text"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="cost">Cost</label>
-                            <input  @keypress="isNumber($event)" v-model.number="item.cost" id="cost" type="text"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                        </div>
-
-                        <div class="flex justify-center">
-
-                            <button class="px-4 py-2 mt-2" @click="addNewItems()">
-                                <svg class="w-8 h-8 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                    width="48px" height="48px">
-                                    <path fill="#4caf50"
-                                        d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
-                                    <path fill="#fff" d="M21,14h6v20h-6V14z" />
-                                    <path fill="#fff" d="M14,21h20v6H14V21z" /></svg>
-                            </button>
-
-                            <!-- <button class="px-4 py-2 mt-2" @click="deleteItems(index)" v-show="index||(!index && this.form.items.length>1)">
-             <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
-              </button>-->
-
-                        </div>
-
-                       <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information</p>
-                    </div>
-                    <!--items-->
+                   
                    
                     <div class="flex justify-center mt-10 ">
                         <button @click="addItems()" class="button">Add Services</button>
                     </div>
 
-                    <!-- <div>Total: {{this.total}} </div> -->
+                  
                 </form>
 
             <!--form-->
@@ -359,86 +332,7 @@
 
       </div>
 
-                        <!--payment list-->
-                        <div v-show="this.payments.length>=1">
-                            <div class="bg-white md:shadow-sm rounded md:my-6 mt-6 pt-3">
-                                <table class="text-left w-full border-collapse">
-                                    <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                                                Date</th>
-                                            <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                                                Paid</th>
-                                            <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                                                Payment Method</th>
-                                            <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="hover:bg-grey-lighter" v-for="(item,index) in payments" :key="index">
-                                            <td class="py-4 px-6 border-b border-grey-light">
-                                                {{item.date.substring(0,10)}}</td>
-                                            <td class="py-4 px-6 border-b border-grey-light">
-                                                {{item.paid}}
-                                                <!-- <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark">Edit</a>
-            <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-blue-dark">View</a> -->
-                                            </td>
-                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
-                                                {{item.paymentMethod}}</td>
-                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
-                                                <button class="px-4 py-2 mt-2" @click="deletePayments(index)">
-                                                    <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512"
-                                                        width="512pt" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
-                                                            fill="#f44336" />
-                                                        <path
-                                                            d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0"
-                                                            fill="#fafafa" /></svg>
-                                                </button>
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                        </div>
-                        <!--payment-list-->
-                      
-                        <!--paid-->
-                        <div class="flex justify-end " v-show="this.payments.length>=1">
-                            <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Total Paid:</span> <span
-                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.totalPaid}}</span> </div>
-                                    <div class="text-right w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Balance:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.afterPaid}}</span> </div>
-                                    <div class="text-right w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-
-                        </div>
-                        <!--paid-->
-                     <!--payment-->
+       <!--payment-->
 
                         <div class="lg:grid lg:grid-cols-1 lg:gap-6 lg:mt-4 lg:grid-cols-4">
                             <div>
@@ -512,6 +406,87 @@
 
                         </div>
                    
+
+                        <!--payment list-->
+                        <div v-show="this.payments.length>=1">
+                            <div class="bg-white md:shadow-sm rounded md:my-6 mt-6 pt-3">
+                                <table class="text-left w-full border-collapse">
+                                    <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                Date</th>
+                                            <th
+                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                Paid</th>
+                                            <th
+                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                Payment Method</th>
+                                            <th
+                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="hover:bg-grey-lighter" v-for="(item,index) in payments" :key="index">
+                                            <td class="py-4 px-6 border-b border-grey-light">
+                                                {{item.date.substring(0,10)}}</td>
+                                            <td class="py-4 px-6 border-b border-grey-light">
+                                                {{item.paid}}
+                                                <!-- <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark">Edit</a>
+            <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-blue-dark">View</a> -->
+                                            </td>
+                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
+                                                {{item.paymentMethod}}</td>
+                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
+                                                <button class="px-4 py-2 mt-2" @click="deletePayments(index)">
+                                                    <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512"
+                                                        width="512pt" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
+                                                            fill="#f44336" />
+                                                        <path
+                                                            d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0"
+                                                            fill="#fafafa" /></svg>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                        <!--payment-list-->
+                      
+                        <!--paid-->
+                        <div class="flex justify-end " v-show="this.payments.length>=1">
+                            <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">TotalPaid:</span> <span
+                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.totalPaid}}</span> </div>
+                                    <div class="text-right w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">Balance:</span> <span
+                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.afterPaid}}</span> </div>
+                                    <div class="text-right w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        <!--paid-->
+                     
 
                   
 
@@ -757,6 +732,7 @@ export default {
                 this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
                 this.balance = this.Bills.balance
                 this.afterPaid = this.balance - this.totalPaid
+                this.str=""
 
             } else {
                 this.str = "Payment exceeding due"

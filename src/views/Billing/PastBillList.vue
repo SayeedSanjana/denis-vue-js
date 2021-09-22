@@ -1,6 +1,14 @@
 <template>
     <div>
-      
+       <div v-if="changecomponent">
+    <!-- <PastBillView :changecomponent="changecomponent" :billId="billId"/> -->
+    <div class="flex justify-end mr-6 mt-18">
+      <button @click="change()" class="button">Back to Past Bill List</button>
+  </div>
+        
+  
+    
+</div>
       
        
     <div class=" p-2 w-full" v-if="!changecomponent" > <!--form-->
@@ -112,9 +120,9 @@
 
     <div v-if="changecomponent" >
     <PastBillView :changecomponent="changecomponent" :billId="billId"/>
-    <div class="flex justify-end mr-6 mt-6">
+    <!-- <div class="flex justify-end mr-6 mt-6">
       <button @click="change()" class="button">Back to Past Bill List</button>
-  </div>
+  </div> -->
         
   
     
