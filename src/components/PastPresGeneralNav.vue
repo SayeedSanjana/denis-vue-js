@@ -8,10 +8,13 @@
                 <button @click="activeTab = 'General'"
                     class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">General
                 </button>
-
+                 <button @click="activeTab = 'TreatmentNote'" 
+                    class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Treatment
+                    Note</button>
+<!-- 
                 <button @click="activeTab = 'PrescriptionList'"
                     class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Past
-                    Prescription</button>
+                    Prescription</button> -->
 
             </div>
             <keep-alive>
@@ -25,18 +28,20 @@
 
 <script>
     import General from "../views/DoctorsPortal/General.vue";
-    import PrescriptionList from "../views/DoctorsPortal/PrescriptionList.vue";
+    import TreatmentNote from "../views/DoctorsPortal/TreatmentNote.vue";
+    // import PrescriptionList from "../views/DoctorsPortal/PrescriptionList.vue";
 
     export default {
         props: ['id'],
         components: {
             General,
-            PrescriptionList
+              TreatmentNote,
+            // PrescriptionList
 
         },
         data() {
             return {
-                activeTab: 'PrescriptionList'
+                activeTab: 'General'
 
 
             }
