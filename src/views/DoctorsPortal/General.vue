@@ -14,7 +14,7 @@
           <div>
             <!--Basic Profile-->
             <div class="flex flex-wrap -mx-3 mb-6">
-              <div class="w-full lg:w-full px-3">
+              <div class="w-full lg:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="duuid">
                   Full Name
                 </label>
@@ -32,14 +32,14 @@
                   id="nid" type="text" placeholder="11111111111" v-model="formData.nid">
 
               </div>
-              <div class="w-full lg:w-1/2 px-3">
+              <!-- <div class="w-full lg:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
                   Phone
                 </label>
                 <input
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
-              </div>
+              </div> -->
             </div>
 
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -50,9 +50,9 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="dob">
                   Date Of Birth
                 </label>
-                <input
+                <input readonly
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="dob" type="date" placeholder="1990-09-08" v-model="formData.dob">
+                  id="dob" type="text" placeholder="1990-09-08" v-model="formData.dob">
 
               </div>
               <div class="w-full lg:w-1/2 px-3">
@@ -80,7 +80,7 @@
           <div class="flex flex-wrap -mx-3 mb-6">
 
 
-            <div class="w-full lg:w-full px-3">
+            <div class="w-full lg:w-1/2 px-3">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="religion">
                 Occupation
               </label>
@@ -88,6 +88,14 @@
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="religion" type="text" placeholder="" v-model="formData.occupation">
             </div>
+             <div class="w-full lg:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
+                  Phone
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
+              </div> 
           </div>
 
           <div class="flex flex-wrap -mx-3 mb-6">
@@ -151,6 +159,7 @@
           .then((response) => {
 
             this.formData = response.data.result
+            this.formData.dob=new Date(this.formData.dob).toJSON().slice(0, 10).replace(/-/g, '/')
             console.log(this.formData)
 
           })

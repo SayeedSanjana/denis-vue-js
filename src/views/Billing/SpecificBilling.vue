@@ -26,12 +26,12 @@
                             class="p-6 container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300">
 
 
-                            <button @click="activeTab = 'NewBill'"
+                            <button @click="activeTab = 'NewBill'" :class="activeTab==='NewBill' ? 'border-indigo-500' : 'border-white'"
                                 class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Create
                                 New Bill
                             </button>
 
-                            <button @click="activeTab = 'PastBillList'" 
+                            <button @click="activeTab = 'PastBillList'"  :class="activeTab==='PastBillList' ? 'border-indigo-500' : 'border-white'"
                                 class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Bills</button>
 
 

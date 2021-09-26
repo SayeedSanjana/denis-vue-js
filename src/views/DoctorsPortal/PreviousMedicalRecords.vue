@@ -35,13 +35,14 @@
                         <!--allergy-->
                           <Allergies :formData="formData" @myEvent="getPosts" /> 
                     </div>
-                     <div class="  ">
-                        <!--habit-->
-                          <PersonalHabits :formData="formData" @myEvent="getPosts" /> 
-                    </div>
+                    
                     <div class="  ">
                         <!--habit-->
                           <Disease :formData="formData" @myEvent="getPosts" /> 
+                    </div>
+                     <div class="  ">
+                        <!--habit-->
+                          <PersonalHabits :formData="formData" @myEvent="getPosts" /> 
                     </div>
                     
                 </nav>
@@ -72,18 +73,7 @@
         },
         data() {
             return {
-                show: false,
-                showHabits: false,
-
-
-                item: "",
-                items: [],
-                habits: [],
-                item1: "",
-
-
-
-
+                dob:"",
                 date: "",
                 formData: {
                     name: "",
@@ -96,89 +86,8 @@
             }
         },
 
-
         methods: {
 
-
-            addHabits() {
-                this.habits.push(this.item1)
-                this.item1 = ""
-            },
-            deleteHabits(i) {
-                this.habits.splice(i, 1)
-            },
-            addBadHabits(id) {
-                for (var i of this.habits) {
-                    this.formData.badHabits.push(i);
-                }
-
-                console.log(this.formData.badHabits)
-                axios.patch('http://localhost:3000/api/patients/' + id + '/add-bad-habit', this.formData)
-                    .then((response) => {
-                        //this.$router.push({name: 'Patient'});
-                        console.log(response);
-                        this.getPosts(this.$route.params.id);
-
-
-                    })
-
-
-                    .catch((error) => {
-                        console.log(error)
-
-                    })
-                this.showHabits = !this.showHabits
-                this.item1 = []
-
-
-            },
-
-
-
-            addItem() {
-                //   this.formData.allergies.push(this.item),
-                this.items.push(this.item)
-                this.item = ""
-            },
-            deleteItem(i) {
-                // this.formData.allergies.splice(i,1)
-                this.items.splice(i, 1)
-
-            },
-            addAllergy(id) {
-                for (var i of this.items) {
-                    this.formData.allergies.push(i);
-                }
-
-                console.log(this.formData.allergies)
-                axios.patch('http://localhost:3000/api/patients/' + id + '/add-allergy', this.formData)
-                    .then((response) => {
-                        //this.$router.push({name: 'Patient'});
-                        console.log(response);
-                        this.getPosts(this.$route.params.id);
-
-
-                    })
-
-
-                    .catch((error) => {
-                        console.log(error)
-
-                    })
-                this.show = !this.show
-                this.items = []
-
-            },
-
-
-
-
-            showAllergy() {
-                this.show = !this.show;
-            },
-            showBadHabits() {
-                this.showHabits = !this.showHabits
-            },
 
             async getPosts(id) {
                 await axios.get('patients/' + id)
@@ -192,6 +101,8 @@
                         //console.log(this.formData.dob)
                         //this.calculateAge(this.formData.dob.substring(0,10))
                         console.log(this.formData.dob)
+                        //this.dob=new Date(this.formData.dob.getFullYear(), this.formData.dob.getMonth(), this.formData.dob.getDate());
+
 
 
                     })

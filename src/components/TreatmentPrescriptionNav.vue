@@ -10,10 +10,10 @@
                     class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Treatment
                     Note</button> -->
 
-                <button @click="activeTab = 'PatientPrescription'"
+                <button @click="activeTab = 'PatientPrescription'" :class="activeTab==='PatientPrescription' ? 'border-indigo-500' : 'border-white'"
                     class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Prescription</button>
                     
-                <button @click="activeTab = 'PrescriptionList'"
+                <button @click="activeTab = 'PrescriptionList'" :class="activeTab==='PrescriptionList' ? 'border-indigo-500' : 'border-white'"
                     class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Past
                     Prescription</button>
 

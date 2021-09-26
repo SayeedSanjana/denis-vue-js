@@ -27,9 +27,9 @@
                                 {{allergy}}
                             </div>
                             <div>
-                                 <button
-                                                    class="p-0 w-5 h-5 mt-1 flex justify-center items-center">
-                                                    <svg class="" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m416 512h-320c-53.023438 0-96-42.976562-96-96v-320c0-53.023438 42.976562-96 96-96h320c53.023438 0 96 42.976562 96 96v320c0 53.023438-42.976562 96-96 96zm0 0" fill="#ffe6e2"/><path d="m364.910156 198.976562-51.550781-51.535156c-5.535156-5.554687-12.894531-8.59375-20.734375-8.59375h-72.914062c-7.839844 0-15.214844 3.054688-20.734376 8.59375l-51.550781 51.550782c-5.539062 5.535156-8.59375 12.910156-8.59375 20.734374v72.914063c0 7.839844 3.054688 15.199219 8.59375 20.734375l51.550781 51.554688c5.535157 5.535156 12.910157 8.589843 20.734376 8.589843h72.914062c7.839844 0 15.199219-3.054687 20.734375-8.589843l51.550781-51.554688c5.539063-5.535156 8.578125-12.894531 8.578125-20.734375v-72.914063c0-7.855468-3.054687-15.214843-8.578125-20.75zm-61.726562 89.136719c4.160156 4.160157 4.160156 10.925781 0 15.085938-2.078125 2.082031-4.816406 3.121093-7.535156 3.121093s-5.457032-1.039062-7.535157-3.121093l-32.050781-32.0625-32.0625 32.0625c-2.078125 2.082031-4.816406 3.121093-7.535156 3.121093-2.738282 0-5.457032-1.039062-7.535156-3.121093-4.160157-4.160157-4.160157-10.910157 0-15.085938l32.046874-32.066406-32.066406-32.046875c-4.15625-4.160156-4.15625-10.929688 0-15.089844 4.160156-4.15625 10.914063-4.15625 15.089844 0l32.046875 32.066406 32.050781-32.066406c4.160156-4.15625 10.910156-4.15625 15.085938 0 4.160156 4.160156 4.160156 10.914063 0 15.089844l-32.046875 32.0625zm0 0" fill="#fc573b"/></svg>
+                                  <button @click="removeAllergy(allergy)"
+                                 class="p-0 w-4 h-4 mt-1 flex justify-center items-center bg-red-100 rounded hover:bg-gray-200 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
+                                      <svg class="w-6 h-6 p-1 inline-block" height="511.992pt" viewBox="0 0 511.992 511.992" width="511.992pt" xmlns="http://www.w3.org/2000/svg"><path d="m415.402344 495.421875-159.40625-159.410156-159.40625 159.410156c-22.097656 22.09375-57.921875 22.09375-80.019532 0-22.09375-22.097656-22.09375-57.921875 0-80.019531l159.410157-159.40625-159.410157-159.40625c-22.09375-22.097656-22.09375-57.921875 0-80.019532 22.097657-22.09375 57.921876-22.09375 80.019532 0l159.40625 159.410157 159.40625-159.410157c22.097656-22.09375 57.921875-22.09375 80.019531 0 22.09375 22.097657 22.09375 57.921876 0 80.019532l-159.410156 159.40625 159.410156 159.40625c22.09375 22.097656 22.09375 57.921875 0 80.019531-22.097656 22.09375-57.921875 22.09375-80.019531 0zm0 0" fill="#e76e54"/></svg>
                                                 </button>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                                 </div>
                                                 <div>
                                                 <button @click="deleteItem(index)"
-                                                    class="p-0 w-8 h-6 mt-1 flex justify-center items-center bg-gray-500 rounded-full hover:bg-gray-400 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
+                                                    class="p-0 w-6 h-7 mt-1 flex justify-center items-center bg-gray-400 rounded-full hover:bg-gray-400 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
                                                     <svg width="32" height="32"
                                                         class="w-4 h-4 inline-block fill-current text-white"
                                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"
@@ -139,6 +139,7 @@ import axios from "axios"
         },
         data(){
             return{
+            formValid:true,
              show:false,
              item: "",
              items:[],
@@ -160,8 +161,12 @@ import axios from "axios"
             },
              addItem() {
                 //   this.formData.allergies.push(this.item),
+                if(this.item===""){
+                   this.formValid=false
+                }else{
                 this.items.push(this.item)
                 this.item = ""
+                }
             },
              deleteItem(i) {
                 // this.formData.allergies.splice(i,1)
@@ -191,12 +196,12 @@ import axios from "axios"
                 this.items = []
 
             },
-             removeAllergy(allergy,id){
+             async removeAllergy(allergy){
                 
             this.delete.allergy=allergy
             console.log(this.delete)
-            console.log(id)
-               axios.delete('http://localhost:3000/api/patients/' + id + '/delete-allergy',this.delete)
+            //console.log(id)
+               await axios.delete('patients/' + this.$route.params.id+ '/delete-allergy',{ data: { allergy: this.delete.allergy } })
                .then((response) => {
                         //this.$router.push({name: 'Patient'});
                     console.log(response);
