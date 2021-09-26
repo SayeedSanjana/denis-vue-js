@@ -8,7 +8,7 @@
          
 
         <section class="w-full  px-6 py-4  bg-white ">
-        <p class="text-lg text-center font-bold m-5">Patients Table</p>
+        <p class="text-lg text-center font-bold m-5 border-b border-gray-200">Patient's Records</p>
    
         <!-- <div hidden>{{parseJwt(this.token)}}</div>
        
@@ -39,7 +39,7 @@
                     <!-- <button @click="getPosts()">search</button> -->
             </div>
              <div class="flex justify-end"><!--button for registering patient-->
-                    <router-link to="/register-patient">Register New Patient</router-link>
+                    <router-link to="/register-patient" class="button">Register New Patient</router-link>
 
                     </div>
 

@@ -91,12 +91,12 @@
                     <input v-model="item.date" id="date" type="date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" >
                 </div>
                 <div>
-                    <label class="text-gray-700 dark:text-gray-200" for="services" >Services</label>
+                    <label class="text-gray-700 dark:text-gray-200" for="services" >Services*</label>
                    <input v-model="item.service" id="date" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" >
                 </div>
 
                 <div>
-                    <label class="text-gray-700 dark:text-gray-200" for="cost" >Cost</label>
+                    <label class="text-gray-700 dark:text-gray-200" for="cost" >Cost*</label>
                     <input  @keypress="isNumber($event)" :disabled= "disabled == 1" v-model.number="item.cost" id="cost" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"  >
                 </div>
 
@@ -177,12 +177,12 @@
                     <input v-model="payment.date" id="date" type="date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" >
                 </div>
                  <div>
-                    <label class="text-gray-700 dark:text-gray-200" for="cost" >Paid</label>
+                    <label class="text-gray-700 dark:text-gray-200" for="cost" >Paid*</label>
                     <input  @keypress="isNumber($event)" v-model.number="payment.paid" id="cost" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"  >
                 </div>
 
                 <div>
-                    <label class="text-gray-700 dark:text-gray-200" for="paymentMethod">Payment Method</label>
+                    <label class="text-gray-700 dark:text-gray-200" for="paymentMethod">Payment Method*</label>
                    <div class="relative">
                                 <select
                                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

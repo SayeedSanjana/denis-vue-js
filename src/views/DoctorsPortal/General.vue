@@ -59,11 +59,15 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="gender">
                   Gender
                 </label>
-                <div class="relative">
+                <input readonly
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="gender" type="text" placeholder="Gender" v-model="formData.gender">
+
+                <!-- <div class="relative">
                   <select value="male"
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="gender" v-model="formData.gender">
-                    <option value="" selected disabled class="text-gray-200">Select an option</option>
+                    id="gender" v-model="formData.gender" >
+                    <option value="" selected  class="text-gray-400">{{this.formData.gender}}</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="others">Others</option>
@@ -72,7 +76,7 @@
                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
-                </div>
+                </div> -->
               </div>
 
             </div>
@@ -107,7 +111,7 @@
               </label>
               <input
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nationality" type="text" placeholder="Bangladeshi" v-model="formData.address">
+                id="nationality" type="text" placeholder="2/3 Lalmatia" v-model="formData.address">
             </div>
           </div>
               <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number should be 11 digits, nid atleast 9 digits and other entities should atleast 3 letters</span> </p>
@@ -126,6 +130,7 @@
 <script>
   import axios from "axios";
   import swal from 'sweetalert';
+  import moment from "moment";
 
   export default {
     created() {
@@ -155,11 +160,13 @@
     },
     methods: {
       async getPosts(id) {
+        const format2 = 'LL'
         await axios.get('patients/' + id)
           .then((response) => {
 
             this.formData = response.data.result
             this.formData.dob=new Date(this.formData.dob).toJSON().slice(0, 10).replace(/-/g, '/')
+            this.formData.dob= moment(this.formData.dob).format(format2);
             console.log(this.formData)
 
           })
