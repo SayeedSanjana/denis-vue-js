@@ -72,7 +72,7 @@
                     <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
                         <div>
                             <label class="text-gray-700 dark:text-gray-200" for="category">Category</label>
-                            <input v-model="medicine.category" id="category" type="text"
+                            <input v-model="medicine.catagory" id="category" type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
 
@@ -115,6 +115,7 @@
                             <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
+                       
                         <div>
                             <label class="text-gray-700 dark:text-gray-200 mt-1" for="Meals">Relation with Meals</label>
                             <!-- <input v-model="medicine.relationWithMeals" id="Meals" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"> -->
@@ -167,6 +168,7 @@
         
               <table class="w-full   bg-gray-200 text-gray-800 table-auto  ">
                   <thead class="text-center text-gray-800 border-b-2 border-gray-300 text-sm">
+                      <th class="px-4 py-3">Category</th>
                       <th class="px-4 py-3">Name</th>
                       <th class="px-4 py-3">Duration</th>
                       <th class="px-4 py-3">Frequency</th>
@@ -177,8 +179,8 @@
                    <tbody class="" >
                   <tr class="bg-white  border border-gray-300 hover:bg-gray-100"
                       v-for="(item,index) in items " :key="index">
-
-                      <td class="px-4 py-3  ">{{item.name}}</td>
+                      <td class="px-4 py-3">{{item.catagory}}</td>
+                      <td class="px-4 py-3">{{item.name}}</td>
                       <td class="px-4 py-3">{{item.duration}}</td>
                       <td class="px-4 py-3">{{item.frequency}}</td>
                       <td class="px-4 py-3">{{item.relationWithMeals}}</td>
@@ -232,6 +234,9 @@
 
         </form>
 
+
+        
+
         <!-- <div class="mt-5 " hidden>
                 <PrescriptionList :Prescription1="Prescription1" />
             </div> -->
@@ -272,7 +277,7 @@ import swal from "sweetalert"
                 //uid:'',
                 //token: localStorage.getItem('token'),
                 medicine: {
-                    category: '',
+                    catagory: '',
                     name: '',
                     frequency: '',
                     duration: '',
@@ -294,7 +299,7 @@ import swal from "sweetalert"
                     cc: '',
                     oe: '',
                     medicine: [{
-                        category: '',
+                        catagory:'',
                         name: '',
                         frequency: '',
                         duration: '',
@@ -318,7 +323,7 @@ import swal from "sweetalert"
                 this.items.push(this.medicine)
                
                 this.medicine = {
-                    category: '',
+                    catagory: '',
                     name: '',
                     frequency: '',
                     duration: '',
@@ -374,7 +379,7 @@ import swal from "sweetalert"
                             cc: '',
                             oe: '',
                             medicine: [{
-                                category: '',
+                                catagory: '',
                                 name: '',
                                 frequency: '',
                                 duration: '',
@@ -386,10 +391,13 @@ import swal from "sweetalert"
                             isPregnant: false
                         }
                         this.items = []
+                        const id=this.$route.params.id
                           
-                         swal({title: "Success", text: "Prescription created Successfully!", icon: 
+                    swal({title: "Success", text: "Prescription created Successfully!", icon: 
                     "success" , timer: 1000, buttons: false}
-                      )
+                      ).then(function(){
+                          window.location = `/patient-details1/${id}`;
+                    })
                     })
                     .catch((error) => {
                         console.log(error)

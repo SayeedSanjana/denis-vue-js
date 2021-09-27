@@ -1,6 +1,9 @@
 <template>
     <div>
-         <section class="max-w-full px-6 mx-auto bg-white h-screen shadow-sm  ">
+         <section class="max-w-full px-6 mx-auto bg-white min-h-screen shadow-sm  ">
+           <div class="flex justify-end mr-6 mt-6"  v-if="changecomponents">
+      <button @click="change()" class="button">Back to Past Prescription</button>
+    </div>
     <!--card--><div  v-if="!changecomponents">
                    
                              
@@ -21,9 +24,13 @@
           <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-md" >
             <!-- <div class="flex flex-col rounded-md w-10 h-10 bg-gray-300 justify-center items-center mr-4">💧</div> -->
             <div class="flex-1 pl-1 mr-16 ">
-              <div class="font-medium text-gray-700">{{pres.createdAt.substring(0, 10)}}</div>
+              {{this.dateConversion(pres.createdAt.substring(0, 10))}}
+              <div class="font-medium text-gray-700">{{this.dateCon}}</div>
             
             </div>
+            <div class="" >
+           <span class="text-gray-500 text-sm">ApprovedBy: </span><span class="text-indigo-500 text-md ">Dr.Iktisad Rashid </span>
+        </div>
            
           </div>
         </li>
@@ -35,7 +42,7 @@
 
     <div class=" px-40 mt-5">
                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"  @click="changePage(1)">Next </button>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
            
 
             </div>
@@ -66,12 +73,12 @@
   </div>
         </div><!--card-->
 
-        <!-- <div v-if="changecomponents">
+        <div v-if="changecomponents">
     <PrescriptionView :changecomponents="changecomponents" :presId="presId"/>
-    <div class="flex justify-end mr-6 mt-6">
+    <!-- <div class="flex justify-end mr-6 mt-6">
       <button @click="change()" class="button">Back to Past Prescription</button>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
   
             
         </section>
@@ -80,14 +87,14 @@
 
 <script>
 import axios from "axios";
- //import moment from "moment";
-//import PrescriptionView from "../DoctorsPortal/PrescriptionView.vue";
+import moment from "moment";
+import PrescriptionView from "../DoctorsPortal/PrescriptionView.vue";
     export default {
       props:{
         Prescription1:Array
       },
       components:{
-           //PrescriptionView
+           PrescriptionView
       },
         created(){
            this.getPosts(this.$route.params.id)
@@ -98,26 +105,34 @@ import axios from "axios";
                changecomponents:false,
                 Prescription: [],
                 presId:"",
-                prePage: 10,
-                currentPage: 1
+                prePage:10,
+                currentPage: 1,
+                dateCon:"",
+                result:[]
                 
               
             }
         },
           computed:{
-                 filteredList() {
+      filteredList() {
      
       const star = (this.currentPage - 1) * this.prePage
       const end = this.currentPage * this.prePage
-    
       const result = this.Prescription.slice(star, end)
+      console.log(result)
       return result
     }
         },
         methods:{
+          dateConversion(date){
+            this.dateCon=moment(date).format('LL')
+
+          },
            changePage(num) {
+           
       
             this.currentPage = this.currentPage + num
+           
              },
             async getPosts(id){
                 await axios.get('prescriptions/' + id + '/list?page=1&limit=10' , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}} )
