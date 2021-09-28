@@ -187,7 +187,7 @@ import swal from "sweetalert"
                         const id=this.$route.params.id
                           
                     swal({title: "Success", text: "Prescription created Successfully!", icon: 
-                    "success" , timer: 4000, buttons: false}
+                    "success" , timer: 9000, buttons: false}
                       ).then(function(){
                           new Promise(resolve => setTimeout(resolve, 2000));
                           window.location = `/patient-details1/${id}`;

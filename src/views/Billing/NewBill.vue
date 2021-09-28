@@ -338,15 +338,15 @@
 
             <!--discount-->
            
-                      
-
-            
-
             <div class="flex justify-end mt-6 " v-if="this.str.length==0" >
                 <button @click="printBill()" class="button">Submit</button>
             </div>
         </form>
     </div> <!--form-->
+
+     <div class="mt-5 " v-if="billModal" >
+                <BillModal :form="form" :totalCost="totalCost" :totalPaid="totalPaid" :discount="discount" :balance="balance" @billEvent="removeModalBill" />
+            </div> 
     </div>
   
     
@@ -356,10 +356,11 @@
 
 <script>
 import axios from 'axios'
-import swal from 'sweetalert'
+//import swal from 'sweetalert'
+import BillModal from "../../components/BillModal.vue";
     export default {
         components:{
-           
+           BillModal
         },
         
 mounted(){
@@ -367,6 +368,7 @@ this.getPosts(this.$route.params.id)
 },
         data(){
     return{
+        billModal:false,
         id:'',
         formValid:true,
         formPayValid:true,
@@ -558,59 +560,60 @@ methods:{
 
 
                     })
-
-
                     .catch((error) => {
                         console.log(error)
-
                     })
-
             },
             printBill(){
-
+                 this.form.patient=this.$route.params.id
+                 this.billModal=true
             },
-         async createBill() {
-        // console.log(this.formdata);
+          removeModalBill() {
+            this.billModal = false
+        },
+//          async createBill() {
+//         // console.log(this.formdata);
 
-        this.form.patient=this.$route.params.id
-        console.log(this.form)
-        await axios.post('billings/create', this.form 
-      //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
-        )
-          .then((response) => {
-            console.log(response)
-                   const id = this.$route.params.id;
-                   //this.id=this.$route.params.id
-                   console.log(this.id)
-                   this.totalCost=0
-                   this.totalPaid=0
-                   this.balance=0
-                   this.adjustment=0
-                   this.discount=0
-                   swal({title: "Success", text: "Bills created Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false}).then(function(){
-                          window.location = `/specific-billing/${id}`;
-                    })
+//         this.form.patient=this.$route.params.id
+//         console.log(this.form)
+//         await axios.post('billings/create', this.form 
+//       //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+//         )
+//           .then((response) => {
+//             console.log(response)
+//                    const id = this.$route.params.id;
+//                    //this.id=this.$route.params.id
+//                    console.log(this.id)
+//                    this.totalCost=0
+//                    this.totalPaid=0
+//                    this.balance=0
+//                    this.adjustment=0
+//                    this.discount=0
+//                    swal({title: "Success", text: "Bills created Successfully!", icon: 
+//                     "success" , timer: 1000, buttons: false}).then(function(){
+//                           window.location = `/specific-billing/${id}`;
+//                     })
 
                   
-//                    swal({title: "Success", text: "Bill created Successfully!", icon: 
-//                     "success" , timer: 1000, buttons: false}).then(function() {
-//                        window.location = `/specific-billing/${id}`;
-//  })
+// //                    swal({title: "Success", text: "Bill created Successfully!", icon: 
+// //                     "success" , timer: 1000, buttons: false}).then(function() {
+// //                        window.location = `/specific-billing/${id}`;
+// //  })
                    
-                //this.$router.push({name:'SpecificBilling' , params: {id:id}})
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+//                 //this.$router.push({name:'SpecificBilling' , params: {id:id}})
+//           })
+//           .catch((error) => {
+//             console.log(error)
+//           })
         
           
-          this.form={
-          patient:'',
-          items:[],
-          payment:[]
-          } 
-      } 
+//           this.form={
+//           patient:'',
+//           items:[],
+//           payment:[]
+//           } 
+//       },
+      
 }       
     }
 </script>
