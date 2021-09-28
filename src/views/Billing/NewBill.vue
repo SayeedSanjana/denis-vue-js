@@ -328,14 +328,6 @@
                     </div>
 
 
-                    <!--after discount-->
-                    
-<!--                     
-                        <div class="flex justify-center mt-10 " v-if="this.str.length==0">
-                            <button @click="discountApply()" class="button">Apply Discount</button>
-                        </div> -->
-
-                    <!-- <div>Total: {{this.total}} </div> -->
                 </form>
 
 
@@ -351,7 +343,7 @@
             
 
             <div class="flex justify-end mt-6 " v-if="this.str.length==0" >
-                <button @click="createBill()" class="button">Submit</button>
+                <button @click="printBill()" class="button">Submit</button>
             </div>
         </form>
     </div> <!--form-->
@@ -479,12 +471,8 @@ methods:{
                 else{
                     this.str="Discount amount exceeding balance"
                     
-                }
-                  
-                
+                } 
             }
-
-
         },
           
         onChange(event) {
@@ -578,7 +566,10 @@ methods:{
                     })
 
             },
-  async createBill() {
+            printBill(){
+
+            },
+         async createBill() {
         // console.log(this.formdata);
 
         this.form.patient=this.$route.params.id

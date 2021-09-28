@@ -14,14 +14,14 @@
             <div class="flex justify-between ">
 
                 <div class="w-full lg:w-1/2 mt-4 p-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">C/C</label>
+                    <label class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">C/C</label>
 
                     <textarea v-model="formData.cc"
                         class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                 </div>
 
                 <div class="w-full lg:w-1/2 mt-4 p-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">O/E</label>
+                    <label class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white">O/E</label>
 
                     <textarea v-model="formData.oe"
                         class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
@@ -30,7 +30,7 @@
             </div>
             <div class="flex justify-between">
                   <div class="w-full mt-4 lg:w-1/2 p-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Treatment Plan</label>
+                    <label class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white ">Treatment Plan</label>
 
                     <textarea v-model="formData.treatmentPlan"
                         class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
@@ -41,7 +41,7 @@
 
                 </div>
                 <div class="w-full lg:w-1/2 mt-4 p-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Investigation</label>
+                    <label class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white">Investigation</label>
 
 
 
@@ -62,7 +62,7 @@
             </div> -->
 
             <div class="mt-4">
-                <h2 class="text-md font-semibold text-gray-500 capitalize dark:text-white"> Medication</h2>
+                <h2 class="text-lg font-semibold text-gray-500 capitalize dark:text-white mt-4"> Medication</h2>
             </div>
 
             <div>
@@ -215,7 +215,7 @@
 
             <div class="flex justify-between">
                 <div class="w-full  mt-4 p-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Advice</label>
+                    <label class="block mb-4 mt-4 text-lg font-semibold text-gray-500 capitalize dark:text-white">Advice</label>
 
 
 
@@ -228,18 +228,18 @@
                             <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid prescription information </p>
 
             <div class="flex justify-center mt-4" >
-                <button @click="addPrescription" class="button"  >Submit</button>
+                <button @click="addPrint" class="button">Preview</button>
             </div>
 
 
         </form>
 
+          
 
-        
 
-        <!-- <div class="mt-5 " hidden>
-                <PrescriptionList :Prescription1="Prescription1" />
-            </div> -->
+       <div class="mt-5 " v-if="openModal" >
+                <PrescriptionModal :formData="formData" :date="date" :openModal="openModal" :form1="form1" :age="age" @myEvent="removeModal" />
+            </div> 
 
     
 
@@ -250,19 +250,24 @@
 
 <script>
 import axios from "axios"
-import swal from "sweetalert"
-//import SuggestedMedicineList from "../../components/SuggestedMedicineList.vue";
+//import swal from "sweetalert"
+import PrescriptionModal from "../../components/PrescriptionModal.vue";
+
+//import printJS from "print-js"
+
     export default {
         components:{
-           //SuggestedMedicineList
+         PrescriptionModal
         },
-    //     beforeCreate() {
-    //     this.$options.components.SuggestedMedicineList = SuggestedMedicineList;
-    // },
+        created(){
+          this.getPatient(this.$route.params.id)
+        },
+   
          data() {
         return {
           
             formIsValid: true,
+            openModal:false,
             formVal: true,
             submit:false,
             Prescription:[],
@@ -273,6 +278,7 @@ import swal from "sweetalert"
                 ],
                 
                 items: [],
+                date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
               
                 //uid:'',
                 //token: localStorage.getItem('token'),
@@ -283,16 +289,7 @@ import swal from "sweetalert"
                     duration: '',
                     relationWithMeals: ''
                 },
-                // form: {
-                //     medicine: [{
-                //         category: '',
-                //         name: '',
-                //         frequency: '',
-                //         duration: '',
-                //         relationWithMeals: '',
-                //         instructions: '',
-                //     }]
-                // },
+                
                 formData: {
                     //user:'',
                     patient: '',
@@ -310,7 +307,10 @@ import swal from "sweetalert"
                     advice: '',
                     treatmentPlan: '',
                     isPregnant: false
-                }
+                },
+               form1: {},
+               age:''
+        
             }
         },
          methods:{
@@ -354,58 +354,97 @@ import swal from "sweetalert"
                     this.errorMsg = 'Error retrieving data'
                 })
             },
-
-
-            async addPrescription() {
+             addPrint(){
                 this.formData.patient = this.$route.params.id
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
-                //console.log(this.uid)
-                //this.formData.user = this.uid
                 this.formData.user='6145812934bfa3eea55fc5a1'
-                 this.formIsValid = true;
-        // console.log(this.formdata);
-          if (this.formData.cc === '' || this.formData.oe === ''  || this.formData.advice === '' || this.formData.treatmentPlan === '' || this.formData.medicine.name === '' ||
-          this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData.medicine.relationWithMeals === '' ) {
+                this.formIsValid = true;
+                if (this.formData.cc === '' || this.formData.oe === ''  || this.formData.advice === '' || this.formData.treatmentPlan === '' || this.formData.medicine.name === '' ||
+                this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData.medicine.relationWithMeals === '' ) {
                 this.formIsValid = false;
                 return;
-            } else {
-                await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
-                    .then((response) => {
-                        console.log(response)
-                        this.formData = {
-                            user:'',
-                            patient: '',
-                            cc: '',
-                            oe: '',
-                            medicine: [{
-                                catagory: '',
-                                name: '',
-                                frequency: '',
-                                duration: '',
-                                relationWithMeals: '',
-                                instructions: '',
-                            }],
-                            advice: '',
-                            treatmentPlan: '',
-                            isPregnant: false
-                        }
-                        this.items = []
-                        const id=this.$route.params.id
-                          
-                    swal({title: "Success", text: "Prescription created Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false}
-                      ).then(function(){
-                          window.location = `/patient-details1/${id}`;
-                    })
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-                  //window.location.reload()
-                //   this.getPosts(this.$route.params.id)
+            }else{
+                   this.formIsValid = true;
+                   this.openModal=true
             }
-            },
+
+             },
+        async getPatient(id) {
+        await axios.get('patients/' + id)
+          .then((response) => {
+
+            this.form1=response.data.result
+           
+            const ageDifMs = Date.now() - new Date(this.form1.dob.substring(0, 10)).getTime();
+            const ageDate = new Date(ageDifMs);
+            this.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+          })
+
+
+          .catch((error) => {
+            console.log(error)
+
+          })
+
+      },
+             
+
+        //     async addPrescription() {
+        //         this.formData.patient = this.$route.params.id
+        //         console.log(this.formData)
+        //         this.formData.medicine = [...this.items];
+        //         //console.log(this.uid)
+        //         //this.formData.user = this.uid
+        //         this.formData.user='6145812934bfa3eea55fc5a1'
+        //          this.formIsValid = true;
+        // // console.log(this.formdata);
+        //   if (this.formData.cc === '' || this.formData.oe === ''  || this.formData.advice === '' || this.formData.treatmentPlan === '' || this.formData.medicine.name === '' ||
+        //   this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData.medicine.relationWithMeals === '' ) {
+        //         this.formIsValid = false;
+        //         return;
+        //     } else {
+        //         await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
+        //             .then((response) => {
+        //                 console.log(response)
+        //                 this.formData = {
+        //                     user:'',
+        //                     patient: '',
+        //                     cc: '',
+        //                     oe: '',
+        //                     medicine: [{
+        //                         catagory: '',
+        //                         name: '',
+        //                         frequency: '',
+        //                         duration: '',
+        //                         relationWithMeals: '',
+        //                         instructions: '',
+        //                     }],
+        //                     advice: '',
+        //                     treatmentPlan: '',
+        //                     isPregnant: false
+        //                 }
+        //                 this.items = []
+        //                 const id=this.$route.params.id
+                          
+        //             // swal({title: "Success", text: "Prescription created Successfully!", icon: 
+        //             // "success" , timer: 1000, buttons: false}
+        //             //   ).then(function(){
+        //                   window.location = `/patient-details1/${id}`;
+        //            // })
+        //             })
+        //             .catch((error) => {
+        //                 console.log(error)
+        //             })
+        //           //window.location.reload()
+        //         //   this.getPosts(this.$route.params.id)
+        //     }
+        //     },
+            removeModal() {
+            this.openModal = false
+        },
+       
          
         
         }

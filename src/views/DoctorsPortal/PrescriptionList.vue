@@ -2,7 +2,7 @@
     <div>
          <section class="max-w-full px-6 mx-auto bg-white min-h-screen shadow-sm  ">
            <div class="flex justify-end mr-6 mt-6"  v-if="changecomponents">
-      <button @click="change()" class="button">Back to Past Prescription</button>
+      <button @click="change()" class="button">Back to Past Prescription List</button>
     </div>
     <!--card--><div  v-if="!changecomponents">
                    
