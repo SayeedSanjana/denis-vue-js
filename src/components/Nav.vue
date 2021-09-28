@@ -49,7 +49,7 @@
                         <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
                             <router-link to="/patient"
                                 class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0">
-                                Home</router-link>
+                                Patient</router-link>
                             <router-link to="/patient-list-billing"
                                 class="my-1 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-indigo-400 hover:underline md:mx-4 md:my-0">
                                 Billing</router-link>

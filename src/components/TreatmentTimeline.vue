@@ -11,23 +11,40 @@
           
 
        <div v-if="treatmentList.length>=1">
-            <div class="divide-x-2 mb-3" v-for="tr in filteredList" :key="tr"><!--loop-->
+            <div class=" mb-3" v-for="tr in filteredList" :key="tr"><!--loop-->
             
             <div class="px-2 mb-3" >
                 <div class="font-semibold title-font text-gray-700 text-left">Dr. {{tr.doctorName}} </div>
             </div>
 
-             <div class="px-7 " >
-                 <div class="mt-1 text-indigo-500 title-font font-bold text-left ">{{tr.createdAt.substring(0,10)}}</div>
+             <div class="px-7  " >
+                 <div class="mt-1 text-indigo-500 title-font font-bold text-left border-l  border-gray-300 "><div class="ml-3">{{tr.createdAt.substring(0,10)}}</div></div>
             </div>
 
-            <div class="px-12 mt-2 text-left"> <p class="leading-relaxed"> <pre>{{tr.treatmentDone}}</pre></p>
+            <div class="px-12 mt-2 text-left  ">
+                 <p class="leading-relaxed  border-l border-gray-300 " > <pre class="ml-3"><span class="text-gray-400">BabyTooth:</span>{{tr.isBabyTooth}}</pre></p>
+               
+                 <div v-if="this.toothNull(tr.tooth)" class="inline-block">
+                      <p class="leading-relaxed border-l border-gray-300 inline-block" ><pre class="ml-3 "><span class="text-gray-400">Teeth: </span></pre></p>
+                    <div v-for="t in tr.tooth" :key="t._id" class="inline-block"> 
+                       
+                    <pre class="mr-2">{{t}}</pre>
+               
+                 </div>
+                 </div>
+               
+                 
+                 <p class="leading-relaxed  border-l border-gray-300 " > <pre class="ml-3">{{tr.treatmentDone}}</pre></p>
+                
             </div>
-            <hr />
+            <div class="mt-3">
+                  <hr />
+            </div>
+          
             </div><!--loop-->
              <div class=" px-40 flex mt-5">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"  @click="changePage(1)">Next </button>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
            
 
             </div>
@@ -68,8 +85,10 @@
           },
           data(){
               return{
-                    prePage: 5,
+                
+                prePage: 5,
                 currentPage: 1,
+                
               }
           },
            computed:{ 
@@ -82,6 +101,11 @@
       return result
     }},
     methods:{
+        toothNull(arr){
+            return arr.some(el => el !== null);
+            //console.log(this.tooth)
+
+        },
          changePage(num) {
       
             this.currentPage = this.currentPage + num
