@@ -3,7 +3,7 @@
    <div>
         <section class="w-full max-w-2xl px-6 py-4 mx-auto bg-white ">
             <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">Treatment Note</h2>
-            <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid input</p>
+        
 
               <!-- <div hidden>   {{parseJwt(this.token)}} {{this.getUser()}}</div> -->
            <form @submit.prevent="createTreatment" class="w-full max-w-lg">
@@ -37,7 +37,7 @@
             </div>
             
                 {{this.isAll()}}
-
+                  <p v-if="disabled == 1" class="text-red-500 mb-4 text-center">You can't enter tooth number</p>
                 <div class="mt-6">
                       <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Tooth
                             </label>
@@ -59,13 +59,13 @@
 
                 <div class="w-full mt-4">
                     <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Treatment
-                        Note</label>
+                        Note*</label>
                          
                     <textarea
                     v-model="formData.treatmentDone"
                         class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                 </div>
-
+                   <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid input</p>
                 <div class="flex justify-center mt-6">
                     <button class="button">Submit</button>
                 </div>
