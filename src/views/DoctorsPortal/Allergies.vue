@@ -164,6 +164,7 @@ import axios from "axios"
                 if(this.item===""){
                    this.formValid=false
                 }else{
+                
                 this.items.push(this.item)
                 this.item = ""
                 }
@@ -215,6 +216,10 @@ import axios from "axios"
                         console.log(error)
 
                     })
+                     this.form={
+                            allergies:[]
+                        }
+                          this.items=[]
                
 
             }

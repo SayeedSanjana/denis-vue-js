@@ -217,6 +217,10 @@ import axios from "axios"
                         console.log(error)
 
                     })
+                     this.form={
+                            personalHabits:[]
+                        }
+                    this.items=[]
                
 
             }

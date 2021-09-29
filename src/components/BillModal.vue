@@ -31,12 +31,12 @@
             <div>
             <div class="font-semibold text-sm text-gray-700 "> Date: 
                     <span
-                        class="text-md font-medium text-indigo-500 ml-2 ">23rd Sept 2020</span></div>
+                        class="text-md font-medium text-indigo-500 ml-2 ">{{this.date}}</span></div>
             <div class="font-semibold text-sm text-gray-700 inline-flex"> PatientName: 
-                   <span class="text-md font-medium text-indigo-500 ml-2 ">IktisadRashid</span></div>
+                   <span class="text-md font-medium text-indigo-500 ml-2 ">{{this.patientData.name}}</span></div>
                         
                 <div class="text-gray-700 font-semibold text-sm ">Contact:<span
-                        class="text-md font-medium ml-2">01712221603</span> </div>
+                        class="text-md font-medium ml-2">{{this.patientData.phone}}</span> </div>
 
 
             </div>
@@ -194,6 +194,9 @@
 import axios from "axios"
 import swal from "sweetalert"
     export default {
+        created(){
+             this.getPosts(this.$route.params.id)
+        },
         props:{
             form:Object,
             totalCost:Number,
@@ -201,6 +204,12 @@ import swal from "sweetalert"
             balance:Number,
             discount:Number
 
+        },
+        data(){
+            return{
+                  date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
+                  patientData:{}
+            }
         },
         methods:{
             removeModalBill(){
@@ -236,7 +245,34 @@ import swal from "sweetalert"
                 //     header:['Invoice']
                     
                 // })
-            }
+            },
+             async getPosts(id) {
+            await axios.get('patients/' + id, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
+                .then((response) => {
+
+                    this.patientData = response.data.result;
+                    const ageDifMs = Date.now() - new Date(this.patientData.dob.substring(0, 10)).getTime();
+                    //console.log(ageDifMs);
+                    const ageDate = new Date(ageDifMs);
+                    this.patientData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    //console.log(this.formData.dob)
+                    //this.calculateAge(this.formData.dob.substring(0,10))
+
+
+
+                })
+
+
+                .catch((error) => {
+                    console.log(error)
+
+                })
+
+        },
         }
     }
 </script>

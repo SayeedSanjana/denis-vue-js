@@ -213,6 +213,10 @@ import axios from "axios"
                         console.log(error)
 
                     })
+                        this.items=[]
+                        this.form={
+                            disease:[]
+                        }
                
 
             }

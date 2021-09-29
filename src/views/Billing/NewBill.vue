@@ -339,7 +339,7 @@
             <!--discount-->
            
             <div class="flex justify-end mt-6 " v-if="this.str.length==0" >
-                <button @click="printBill()" class="button">Submit</button>
+                <button @click="printBill()" class="button">Preview</button>
             </div>
         </form>
     </div> <!--form-->
