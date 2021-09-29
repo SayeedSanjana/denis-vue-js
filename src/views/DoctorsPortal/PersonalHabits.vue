@@ -140,6 +140,7 @@ import axios from "axios"
         },
         data(){
             return{
+             token: localStorage.getItem('token'),
              formValid:true,
              show:false,
              item:"",
@@ -178,7 +179,8 @@ import axios from "axios"
                     this.form.personalHabits.push(i);
                 }
                 console.log(this.form)
-               await axios.patch('patients/' + id + '/add-personal-habit', this.form)
+               await axios.patch('patients/' + id + '/add-personal-habit', this.form,
+               {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}} )
                     .then((response) => {
                         //this.$router.push({name: 'Patient'});
                         console.log(response);
@@ -202,9 +204,10 @@ import axios from "axios"
             console.log(this.delete.personalHabit)
             //console.log(id)
             await axios.delete('patients/' + this.$route.params.id + '/delete-personal-habit', 
-                { data: { personalHabit: this.delete.personalHabit } }
-            )
-               .then((response) => {
+            
+                { data: { personalHabit: this.delete.personalHabit } ,
+                 headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}} 
+            ) .then((response) => {
                         //this.$router.push({name: 'Patient'});
                     console.log(response);
                     this.$emit("myEvent", this.$route.params.id)

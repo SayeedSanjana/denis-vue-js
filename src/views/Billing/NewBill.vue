@@ -368,6 +368,7 @@ this.getPosts(this.$route.params.id)
 },
         data(){
     return{
+        token: localStorage.getItem('token'),
         billModal:false,
         id:'',
         formValid:true,
@@ -548,7 +549,7 @@ methods:{
 
          async getPosts(id) {
                 await axios.get('patients/' + id ,
-                // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                 {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                     .then((response) => {
 

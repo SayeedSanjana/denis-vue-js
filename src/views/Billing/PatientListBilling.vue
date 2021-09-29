@@ -130,6 +130,7 @@ import axios from'axios';
         },
         data(){
             return{
+                token: localStorage.getItem('token'),
                 open:false,
                 Patients:[],
                 prePage: 10,
@@ -157,10 +158,10 @@ import axios from'axios';
                     q:this.text
                 },
                
-                // headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}
+                headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}
              
                 }
-                // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+             
                 )
                 .then((response) => {
                     console.log(response.data['result']);

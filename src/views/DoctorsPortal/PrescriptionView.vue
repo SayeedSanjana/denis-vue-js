@@ -158,7 +158,7 @@ import moment from "moment"
         userName:'',
          uid: '',
          user:'',
-          //token: localStorage.getItem('token'),
+        token: localStorage.getItem('token'),
         formData: {},
         name:'',
         dob:'',

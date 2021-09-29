@@ -166,8 +166,8 @@ import PastBillView from "../Billing/PastBillView.vue";
 
         data(){
             return{
-              changecomponent:false,
-                
+                token: localStorage.getItem('token'),
+                changecomponent:false,
                 Bills: [],
                 billId:"",
                 invoice:'',
@@ -200,8 +200,8 @@ import PastBillView from "../Billing/PastBillView.vue";
                     page:this.page,
                     limit:20
                     }
-                }
-                //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                ,
+                  headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                   )
                 .then((response) => {
                    

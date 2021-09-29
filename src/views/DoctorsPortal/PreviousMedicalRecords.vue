@@ -73,6 +73,7 @@
         },
         data() {
             return {
+                token: localStorage.getItem('token'),
                 dob:"",
                 date: "",
                 formData: {
@@ -90,21 +91,20 @@
 
 
             async getPosts(id) {
-                await axios.get('patients/' + id)
+                await axios.get('patients/' + id,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
+                
                     .then((response) => {
 
                         this.formData = response.data.result;
                         const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        //console.log(ageDifMs);
                         const ageDate = new Date(ageDifMs);
                         this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        //console.log(this.formData.dob)
-                        //this.calculateAge(this.formData.dob.substring(0,10))
                         console.log(this.formData.dob)
-                        //this.dob=new Date(this.formData.dob.getFullYear(), this.formData.dob.getMonth(), this.formData.dob.getDate());
-
-
-
                     })
 
 

@@ -102,6 +102,7 @@ import PrescriptionView from "../DoctorsPortal/PrescriptionView.vue";
        
         data(){
             return{
+               token: localStorage.getItem('token'),
                changecomponents:false,
                 Prescription: [],
                 presId:"",

@@ -563,6 +563,7 @@ export default {
     },
     data() {
         return {
+            token: localStorage.getItem('token'),
             formValid:true,
             formPayValid:true,
             patientData: {
@@ -868,7 +869,7 @@ export default {
             //console.log(this.amount)
 
             axios.patch('billings/' + this.billId + '/discount', this.amountDiscount,
-                    //{headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                    {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                 .then((response) => {
                     console.log(response)
@@ -898,9 +899,9 @@ export default {
         async getBill(id) {
             console.log(id)
             await axios.get('billings/' + id, {
-                    // headers: {
-                    //     "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    // }
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
                 })
                 .then((response) => {
                     //console.log(response.data);

@@ -138,11 +138,11 @@ import swal from "sweetalert"
         },
          async getSpecificPatient() {
             await axios.get('patients/' + this.$route.params.id
-            // ,{
-            //         headers: {
-            //             "Authorization": `Bearer ${localStorage.getItem('token') }`
-            //         }
-            //     }
+            ,{
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                }
                 )
                 .then((response) => {
                     this.formData.patientName = response.data.result.name;
@@ -165,12 +165,12 @@ import swal from "sweetalert"
                 this.formIsValid = false;
                // return;
             } else {
-                await axios.post('treatment-notes/create', this.formData
-                //  {
-                //         headers: {
-                //             "Authorization": `Bearer ${localStorage.getItem('token') }`
-                //         }
-                //     }
+                await axios.post('treatment-notes/create', this.formData,
+                 {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        }
+                    }
                 )
                     .then((response) => {
                         console.log(response)
@@ -188,12 +188,12 @@ import swal from "sweetalert"
             }
         },
          async getspecificTreatmentList() {
-            await axios.get('treatment-notes/' + this.$route.params.id + '/patient'
-            // {
-            //         headers: {
-            //             "Authorization": `Bearer ${localStorage.getItem('token') }`
-            //         }
-            //     }
+            await axios.get('treatment-notes/' + this.$route.params.id + '/patient',
+            {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                }
             )
                 .then((response) => {
                    

@@ -91,7 +91,7 @@
 
         data() {
             return {
-
+                token: localStorage.getItem('token'),
                 activeTab: 'NewBill',
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
                 default: true,
@@ -121,7 +121,7 @@
            
            async getBills(id) {
                 await axios.get('billings/' + id + '/list-bills' , 
-                // {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
                 )
                     .then((response) => {
                         console.log(response.data['result']);

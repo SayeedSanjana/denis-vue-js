@@ -90,6 +90,7 @@
       },
     data() {
       return {
+        token: localStorage.getItem('token'),
         formIsValid: true,
         formdata: {
           name: '',
@@ -109,7 +110,7 @@
             } else {
 
         await axios.post('patients/create-patient', this.formdata , 
-        //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+         {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
          )
           .then((response) => {
             console.log(response)

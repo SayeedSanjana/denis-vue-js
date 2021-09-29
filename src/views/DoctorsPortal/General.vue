@@ -140,10 +140,12 @@
 
     },
     mounted() {
+      
       this.$refs.inputRef.focus()
     },
     data() {
       return {
+        token: localStorage.getItem('token'),
         formValid:true,
         formData: {
           name: "",
@@ -161,7 +163,12 @@
     methods: {
       async getPosts(id) {
         const format2 = 'LL'
-        await axios.get('patients/' + id)
+        await axios.get('patients/' + id,
+         {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
           .then((response) => {
 
             this.formData = response.data.result
@@ -186,7 +193,12 @@
           this.formValid=false
         }
         else{
-        await axios.patch('patients/' + id + '/update-patient', this.formData)
+        await axios.patch('patients/' + id + '/update-patient', this.formData,
+         {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
           .then((response) => {
             swal({title: "Success", text: "Patient updated Successfully!", icon: 
                     "success" , timer: 1000, buttons: false})

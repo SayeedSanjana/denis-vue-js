@@ -139,6 +139,7 @@ import axios from "axios"
         },
         data(){
             return{
+                 token: localStorage.getItem('token'),
             formValid:true,
              show:false,
              item: "",
@@ -179,7 +180,12 @@ import axios from "axios"
                 for (var i of this.items) {
                     this.form.allergies.push(i);
                 }
-                axios.patch('patients/' + id + '/add-allergy', this.form)
+                axios.patch('patients/' + id + '/add-allergy', this.form,
+                 {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                     .then((response) => {
                         //this.$router.push({name: 'Patient'});
                         console.log(response);
@@ -202,7 +208,12 @@ import axios from "axios"
             this.delete.allergy=allergy
             console.log(this.delete)
             //console.log(id)
-               await axios.delete('patients/' + this.$route.params.id+ '/delete-allergy',{ data: { allergy: this.delete.allergy } })
+               await axios.delete('patients/' + this.$route.params.id+ '/delete-allergy',{ data: { allergy: this.delete.allergy } ,
+             
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                .then((response) => {
                         //this.$router.push({name: 'Patient'});
                     console.log(response);

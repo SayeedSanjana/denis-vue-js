@@ -156,7 +156,7 @@
                     q:this.text
                 },
                
-                // headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}
+               headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}
              
                 }
                

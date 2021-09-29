@@ -49,29 +49,6 @@
       
      </div>
 
-<!--                 
-        <div class=" mb-4 flex w-full">
-             <div class=" mb-6  w-full text-left flex ">
-            <div>
-            <div class="font-semibold text-sm text-gray-700  "> Date: 
-                    <span
-                        class="text-md font-medium text-indigo-500 ml-2 ">{{this.date}}</span></div>
-            <div class="font-semibold text-sm text-gray-700 inline-block"> PatientName: 
-                   <span class="text-md font-medium text-indigo-500 flex-1 ">{{this.patientData.name}}</span></div>
-                        
-                <div class="text-gray-700 font-semibold text-sm mt-3 ">Contact:<span
-                        class="text-md font-medium ml-2">{{this.patientData.phone}}</span> </div>
-
-
-            </div>
-            
-
-        </div> -->
-            <!-- <div>
-                <button class="text-indigo-500 mr-3">Print Bill</button>
-            </div> -->
-
-        <!-- </div> -->
          <!--Services List-->
           
             <div class="flex justify-between w-full">
@@ -245,11 +222,9 @@ import axios from "axios"
 
                     this.patientData = response.data.result;
                     const ageDifMs = Date.now() - new Date(this.patientData.dob.substring(0, 10)).getTime();
-                    //console.log(ageDifMs);
                     const ageDate = new Date(ageDifMs);
                     this.patientData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                    //console.log(this.formData.dob)
-                    //this.calculateAge(this.formData.dob.substring(0,10))
+                
 
 
 

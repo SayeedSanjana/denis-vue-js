@@ -217,8 +217,8 @@ import swal from "sweetalert"
             },
             async print(){
                     
-            await axios.post('billings/create', this.form 
-      //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+            await axios.post('billings/create', this.form ,
+       {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
         )
           .then((response) => {
             console.log(response)
@@ -233,18 +233,7 @@ import swal from "sweetalert"
           .catch((error) => {
             console.log(error)
           })
-            
-             
-                // printJS({
-                //     printable:"print",
-                //     type:'html',
-                //     targetStyles:['*'],
-                //     style:['*'],
-                //     maxWidth:800,
-                //     gridStyle:'border: 1px solid lightgray; margin-bottom: -1px;',
-                //     header:['Invoice']
-                    
-                // })
+           
             },
              async getPosts(id) {
             await axios.get('patients/' + id, {
@@ -259,11 +248,6 @@ import swal from "sweetalert"
                     //console.log(ageDifMs);
                     const ageDate = new Date(ageDifMs);
                     this.patientData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                    //console.log(this.formData.dob)
-                    //this.calculateAge(this.formData.dob.substring(0,10))
-
-
-
                 })
 
 

@@ -265,7 +265,7 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
    
          data() {
         return {
-          
+            token: localStorage.getItem('token'),
             formIsValid: true,
             openModal:false,
             formVal: true,
@@ -281,7 +281,7 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
               
                 //uid:'',
-                //token: localStorage.getItem('token'),
+               
                 medicine: {
                     catagory: '',
                     name: '',
@@ -371,7 +371,8 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
 
              },
         async getPatient(id) {
-        await axios.get('patients/' + id)
+        await axios.get('patients/' + id,
+         {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}} )
           .then((response) => {
 
             this.form1=response.data.result
