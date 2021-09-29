@@ -280,7 +280,7 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
                 items: [],
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
               
-                //uid:'',
+                uid:'',
                
                 medicine: {
                     catagory: '',

@@ -158,6 +158,9 @@ import printJS from "print-js"
 import swal from "sweetalert"
 
     export default {
+        // created(){
+        //     this.parseJwt(this.token)
+        // },
        
         props:{
             formData:Object,
@@ -168,6 +171,8 @@ import swal from "sweetalert"
         },
         data(){
             return{
+                uid:'',
+                token: localStorage.getItem('token'),
                 name:'',
                 dob:'',
                 gender:'',
@@ -176,10 +181,24 @@ import swal from "sweetalert"
         },
         
         methods:{
+             
+        //    parseJwt(token) {
+        //     var base64Url = token.split('.')[1];
+        //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        //     var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (c) {
+        //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        //     }).join(''));
+        //     const payload = JSON.parse(jsonPayload);
+        //     this.uid = payload.sub
+        //     console.log(this.uid);
+            
+        //     //return this.uid;
+        // },
             removeModal(){
                    this.$emit("myEvent")
             },
            async print(){
+               //this.formData.user=this.uid
                 await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
                     .then((response) => {
                         console.log(response)
