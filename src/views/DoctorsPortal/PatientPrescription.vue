@@ -1,7 +1,8 @@
 <template>
     <div>
           <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-           <!-- <div hidden>  {{parseJwt(this.token)}}</div> -->
+           <!-- <div >  {{parseJwt(this.token)}}
+               {{this.uid}}</div>  -->
         <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 "> Prescription
         </h2>
      
@@ -238,7 +239,7 @@
 
 
        <div class="mt-5 " v-if="openModal" >
-                <PrescriptionModal :formData="formData" :date="date" :openModal="openModal" :form1="form1" :age="age" @myEvent="removeModal" />
+                <PrescriptionModal :formData="formData" :date="date" :openModal="openModal" :form1="form1" :age="age" @myEvent="removeModal" :userData="userData"  />
             </div> 
 
     
@@ -261,10 +262,13 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
         },
         created(){
           this.getPatient(this.$route.params.id)
+          this.parseJwt(this.token)
+          this.getUser()
         },
    
          data() {
         return {
+            userData:{},
             token: localStorage.getItem('token'),
             formIsValid: true,
             openModal:false,
@@ -291,7 +295,7 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
                 },
                 
                 formData: {
-                    //user:'',
+                    user:'',
                     patient: '',
                     cc: '',
                     oe: '',
@@ -314,6 +318,18 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
             }
         },
          methods:{
+            parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+            this.uid = payload.sub
+            console.log(payload.sub);
+            
+            //return this.uid;
+        },
           addItem() {
                 if(this.medicine.name===""|| this.medicine.frequency===""|| this.medicine.duration===""|| this.medicine.relationWithMeals==="" ) {
                         this.formVal = false
@@ -356,9 +372,11 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
             },
              addPrint(){
                 this.formData.patient = this.$route.params.id
+                this.formData.user=this.uid
+                console.log(this.uid)
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
-                this.formData.user='6145812934bfa3eea55fc5a1'
+                //this.formData.user='6145812934bfa3eea55fc5a1'
                 this.formIsValid = true;
                 if (this.formData.cc === '' || this.formData.oe === ''  || this.formData.advice === '' || this.formData.treatmentPlan === '' || this.formData.medicine.name === '' ||
                 this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData.medicine.relationWithMeals === '' ) {
@@ -391,60 +409,26 @@ import PrescriptionModal from "../../components/PrescriptionModal.vue";
 
       },
              
-
-        //     async addPrescription() {
-        //         this.formData.patient = this.$route.params.id
-        //         console.log(this.formData)
-        //         this.formData.medicine = [...this.items];
-        //         //console.log(this.uid)
-        //         //this.formData.user = this.uid
-        //         this.formData.user='6145812934bfa3eea55fc5a1'
-        //          this.formIsValid = true;
-        // // console.log(this.formdata);
-        //   if (this.formData.cc === '' || this.formData.oe === ''  || this.formData.advice === '' || this.formData.treatmentPlan === '' || this.formData.medicine.name === '' ||
-        //   this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData.medicine.relationWithMeals === '' ) {
-        //         this.formIsValid = false;
-        //         return;
-        //     } else {
-        //         await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
-        //             .then((response) => {
-        //                 console.log(response)
-        //                 this.formData = {
-        //                     user:'',
-        //                     patient: '',
-        //                     cc: '',
-        //                     oe: '',
-        //                     medicine: [{
-        //                         catagory: '',
-        //                         name: '',
-        //                         frequency: '',
-        //                         duration: '',
-        //                         relationWithMeals: '',
-        //                         instructions: '',
-        //                     }],
-        //                     advice: '',
-        //                     treatmentPlan: '',
-        //                     isPregnant: false
-        //                 }
-        //                 this.items = []
-        //                 const id=this.$route.params.id
-                          
-        //             // swal({title: "Success", text: "Prescription created Successfully!", icon: 
-        //             // "success" , timer: 1000, buttons: false}
-        //             //   ).then(function(){
-        //                   window.location = `/patient-details1/${id}`;
-        //            // })
-        //             })
-        //             .catch((error) => {
-        //                 console.log(error)
-        //             })
-        //           //window.location.reload()
-        //         //   this.getPosts(this.$route.params.id)
-        //     }
-        //     },
             removeModal() {
             this.openModal = false
         },
+         async getUser() {
+            // this.uid=this.form1.user
+            await axios.get('users/search/' + this.uid, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
+                .then((response) => {
+                    this.userData = response.data['result'];
+                    console.log(response)
+                   
+                   // console.log(response.data['result']);
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },   
        
          
         

@@ -29,7 +29,7 @@
             
             </div>
             <div class="" >
-           <span class="text-gray-500 text-sm">ApprovedBy: </span><span class="text-indigo-500 text-md ">Dr.Iktisad Rashid </span>
+           <span class="text-gray-500 text-sm">ApprovedBy: </span><span class="text-indigo-500 text-md ">Dr.{{pres.user.name}} </span>
         </div>
            
           </div>

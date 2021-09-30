@@ -74,7 +74,7 @@
            </form>
             
     <div class=" md:mt-4 ">
-          <TreatmentTimeline :treatmentList = "treatmentList"/>
+          <TreatmentTimeline :treatmentList = "treatmentList" :uid="uid"/>
     
             </div>
 
@@ -96,9 +96,11 @@ import swal from "sweetalert"
         created(){
          this.getSpecificPatient()
          this.getspecificTreatmentList()
+         this.parseJwt(this.token)
         },
         data() {
         return {
+            token: localStorage.getItem('token'),
             uid: '',
             teeth: '',
            
@@ -122,6 +124,18 @@ import swal from "sweetalert"
         }
     },
     methods:{
+         parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+            this.uid = payload.sub
+            console.log(payload.sub);
+            
+            //return this.uid;
+        },
          isAll() {
             if (this.formData.isAll == "true") {
                 this.disabled = 1
@@ -155,7 +169,7 @@ import swal from "sweetalert"
             this.formIsValid = true;
             // console.log(this.formdata);
             this.formData.patient = this.$route.params.id
-            this.formData.user = '614e2d10805ade70e413943c'
+            this.formData.user = this.uid
             // this.formData.user = this.uid
             this.formData.doctorName = 'Iktisad'
             // this.formData.doctorName = this.user.name
@@ -198,6 +212,7 @@ import swal from "sweetalert"
                 .then((response) => {
                    
                     this.treatmentList = response.data['result']
+                    
                      console.log(this.treatmentList)
                 })
                 .catch((error) => {
