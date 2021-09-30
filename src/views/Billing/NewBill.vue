@@ -572,48 +572,7 @@ methods:{
           removeModalBill() {
             this.billModal = false
         },
-//          async createBill() {
-//         // console.log(this.formdata);
 
-//         this.form.patient=this.$route.params.id
-//         console.log(this.form)
-//         await axios.post('billings/create', this.form 
-//       //  {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
-//         )
-//           .then((response) => {
-//             console.log(response)
-//                    const id = this.$route.params.id;
-//                    //this.id=this.$route.params.id
-//                    console.log(this.id)
-//                    this.totalCost=0
-//                    this.totalPaid=0
-//                    this.balance=0
-//                    this.adjustment=0
-//                    this.discount=0
-//                    swal({title: "Success", text: "Bills created Successfully!", icon: 
-//                     "success" , timer: 1000, buttons: false}).then(function(){
-//                           window.location = `/specific-billing/${id}`;
-//                     })
-
-                  
-// //                    swal({title: "Success", text: "Bill created Successfully!", icon: 
-// //                     "success" , timer: 1000, buttons: false}).then(function() {
-// //                        window.location = `/specific-billing/${id}`;
-// //  })
-                   
-//                 //this.$router.push({name:'SpecificBilling' , params: {id:id}})
-//           })
-//           .catch((error) => {
-//             console.log(error)
-//           })
-        
-          
-//           this.form={
-//           patient:'',
-//           items:[],
-//           payment:[]
-//           } 
-//       },
       
 }       
     }

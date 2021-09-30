@@ -4,9 +4,24 @@
 
        <Nav />
     </header>
+      
+         <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
+    <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
+    <div class="w-full  lg:max-w-3xl max-w-lg  max-h-screen  p-6 relative mx-auto my-auto rounded-xl bg-white">
+      <!--content-->
+      <div class="mt-5">
+        <!--body-->
+        <div class="text-center  flex-auto justify-center">
+              
+            <div class="flex justify-end">
+            <button @click="closeModal">
+
+            <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
+            </button>
+            </div>
 
     <section
-      class="max-w-4xl md:p-6 p-3 mx-auto bg-white mt-10 flex flex-row  justify-center shadow-lg dark:bg-gray-800">
+      class="max-w-4xl md:p-6 p-3 mx-auto bg-white mt-10 flex flex-row  justify-center  dark:bg-gray-800">
 
 
       <form @submit.prevent="createPatient" class="w-full max-w-lg">
@@ -76,6 +91,11 @@
         </div>
       </form>
     </section>
+        </div>
+      </div>
+    </div>
+         </div>
+  
 
   </div>
 </template>
@@ -115,9 +135,13 @@
           .then((response) => {
             console.log(response)
              swal({title: "Success", text: "Patient created Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false})
+                    "success" , timer: 1000, buttons: false}).then(function(){
+                          new Promise(resolve => setTimeout(resolve, 2000));
+                             window.location = `/patient`;
+                    })
             //this.doctors=response.data['result']
-           this.$router.push('/patient'); 
+           //this.$router.push('/patient'); 
+         
 
           })
           .catch((error) => {
@@ -125,6 +149,9 @@
           })
             }
       },
+        closeModal(){
+           this.$emit("closeModal")
+        }
     }
 
   }

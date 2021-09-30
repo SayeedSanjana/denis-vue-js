@@ -49,7 +49,8 @@
                     <!-- <button @click="getPosts()">search</button> -->
             </div>
              <div class="flex justify-end"><!--button for registering patient-->
-                    <router-link to="/register-patient" class="button">Register New Patient</router-link>
+                    <!-- <router-link to="/register-patient" class="button">Register New Patient</router-link> -->
+                    <button class="button" @click="modal">Register New Patient</button>
 
                     </div>
 
@@ -95,15 +96,18 @@
                
         
         </section>
+        <div v-if="openModal"><RegisterPatient @closeModal="closeModal" /></div>
     </div>
 </template>
 
 <script>
   import axios from "axios";
   import Nav from "../components/Nav.vue"
+  import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
     export default {
         components:{
-             Nav
+             Nav,
+             RegisterPatient
         },
       
         created(){
@@ -126,7 +130,8 @@
             return{
                 Patients:[],
                 prePage: 10,
-                currentPage: 1
+                currentPage: 1,
+                openModal:false
                 
             }
 
@@ -168,6 +173,12 @@
                 
 
             },
+            modal(){
+                this.openModal=true
+            },
+            closeModal(){
+                 this.openModal=false
+            }
         }
     }
 </script>
