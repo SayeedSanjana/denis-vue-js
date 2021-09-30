@@ -12,15 +12,13 @@
         <div class="text-center  flex-auto justify-center">
               
             <div class="flex justify-end">
-            <button @click="removeModal">
+            <button @click="removeMedication">
 
             <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
             </button>
             </div>
             <div class="flex justify-start px-10">
-            <button @click="print" class="button" > Print And Save Prescription
-            </button>
-             <button @click="addPres" class="button" >Save Prescription
+            <button @click="print" class="button" > Print Prescription
             </button>
             </div>
 
@@ -40,7 +38,7 @@
            <span class="text-gray-600 ">Prescribed </span><span class="text-gray-400 ml-2">{{this.date}}</span>
         </div>
         <div class="px-0 flex items-start" >
-           <span class="text-gray-600">Approved By </span><span class="text-indigo-500 text-lg ml-2">Dr. {{this.userData.name}} {{this.$emit("getUser")}}</span>
+           <span class="text-gray-600">Approved By </span><span class="text-indigo-500 text-lg ml-2">Dr. {{this.user}}</span>
         </div>
         </div>
         
@@ -48,48 +46,17 @@
      </div>
 
      <div class="lg:flex mb-4items-start justify-between">
-         <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Name: </span><span class="border-b border-gray-300" >{{this.form1.name}}</span></div>
+         <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Name: </span><span class="border-b border-gray-300" >{{this.name}}</span></div>
           <div class="lg:w-1/3 text-left"><span class="mr-1 font-semibold text-gray-500">Age: </span><span class="border-b border-gray-300">{{this.age}}years</span></div>
-           <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Gender: </span><span class="border-b border-gray-300">{{this.form1.gender}}</span> </div>
+           <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Gender: </span><span class="border-b border-gray-300">{{this.gender}}</span> </div>
      </div>
           <div class=" mt-5 mb-5">
          <hr>
      </div>
-     <div class="flex flex-wrap justify-between  ">
-     <div class="px-2 mb-4 lg:w-1/2  w-full">
-
-      <div class="whitespace-normal break-all mr-5">
-           <div class="font-semibold text-gray-600 mb-4  flex items-start"><span class="border-b border-gray-400">C/C:</span></div>
-           <div class="flex items-start "> <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.cc}}</pre></div>
-      </div>
-     </div>
-      <div class="px-2 mb-4 lg:w-1/2 w-full">
-
-      <div class="whitespace-normal break-all  ml-5">
-           <div class="font-semibold text-gray-600 mb-4  flex items-start"><span class="border-b border-gray-400">O/E:</span></div>
-           <div class="flex items-start "> <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.oe}}</pre></div>
-      </div>
-     </div>
-     </div>
      
      
 
-      <div class="flex justify-between">
-     <div class="px-2 mb-4 lg:w-1/2  ">
-
-      <div class="whitespace-normal break-all mr-5">
-           <div class="font-semibold text-gray-600 mb-4  flex items-start"><span class="border-b border-gray-400">Treatment Plan:</span></div>
-           <div class="flex items-start "> <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre></div>
-      </div>
-     </div>
-      <div class="px-2 mb-4 lg:w-1/2">
-
-    <div class="whitespace-normal break-all  ml-5">
-           <div class="font-semibold text-gray-600 mb-4  flex items-start"><span class="border-b border-gray-400 ">Investigation:</span></div>
-           <div class="flex items-start "> <pre class="text-left  whitespace-pre-line break-all">{{this.formData.investigation}}</pre></div>
-      </div>
-     </div>
-     </div>
+      
 
      <div >
 
@@ -157,9 +124,9 @@
 </template>
 
 <script>
-import axios from "axios"
+//import axios from "axios"
 import printJS from "print-js"
-import swal from "sweetalert"
+//import swal from "sweetalert"
 
     export default {
         // created(){
@@ -168,19 +135,22 @@ import swal from "sweetalert"
        
         props:{
             formData:Object,
-            date:String,
-            openModal:Boolean,
-            form1:Object,
+            user:String,
+            name:String,
             age:String,
-            userData:Object
+            gender:String,
+            date:String
+            // date:String,
+            // openModal:Boolean,
+            // form1:Object,
+            // age:String,
+            // userData:Object
         },
         data(){
             return{
                 uid:'',
                 token: localStorage.getItem('token'),
-                name:'',
-                dob:'',
-                gender:'',
+               
                
                  
             }
@@ -188,50 +158,11 @@ import swal from "sweetalert"
         
         methods:{
       
-            removeModal(){
-                   this.$emit("myEvent")
-            },
-            async addPres(){
-                  await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
-                    .then((response) => {
-                        console.log(response)
-                       
-                        const id=this.$route.params.id
-                          
-                    swal({title: "Success", text: "Prescription created Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false}
-                      ).then(function(){
-                          new Promise(resolve => setTimeout(resolve, 2000));
-                          window.location = `/patient-details1/${id}`;
-                    })
-                    
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-                   
-            },
+           removeMedication(){
+                  this.$emit("removeMedication")
+           },
            async print(){
-               //this.formData.user=this.uid
-                await axios.post('prescriptions/create', this.formData , {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}})
-                    .then((response) => {
-                        console.log(response)
-                       
-                        const id=this.$route.params.id
-                          
-                    swal({title: "Success", text: "Prescription created Successfully!", icon: 
-                    "success" , timer: 3000, buttons: false}
-                      ).then(function(){
-                          new Promise(resolve => setTimeout(resolve, 2000));
-                          window.location = `/patient-details1/${id}`;
-                    })
-                    
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-                   
-               
+            
                 printJS({
                     printable:"print",
                     type:'html',
@@ -242,26 +173,11 @@ import swal from "sweetalert"
                     
                 })
 
-            }
+        //     }
         }, 
-         async getUser() {
-            // this.uid=this.form1.user
-            await axios.get('users/search/' + this.formData.user, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
-                })
-                .then((response) => {
-                    //this.userData = response.data['result'];
-                    console.log(response)
-                   // this.userName=this.user.name
-                   // console.log(response.data['result']);
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        },   
-          
+      
+         }
+        
     }
 </script>
 

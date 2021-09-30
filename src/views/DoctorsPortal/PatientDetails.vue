@@ -67,10 +67,9 @@
         },
         data() {
             return {
+                token: localStorage.getItem('token'),
                 show: false,
                 showHabits: false,
-
-
                 date: "",
                 formData: {
                     name: "",
@@ -99,27 +98,15 @@
 
                         this.formData = response.data.result;
                         const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        //console.log(ageDifMs);
                         const ageDate = new Date(ageDifMs);
                         this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        //console.log(this.formData.dob)
-                        //this.calculateAge(this.formData.dob.substring(0,10))
                         console.log(this.formData.dob)
-
-
                     })
-
-
                     .catch((error) => {
                         console.log(error)
-
                     })
-
             },
         }
-
-
-
     }
 </script>
 

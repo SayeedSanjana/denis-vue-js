@@ -6,6 +6,8 @@ import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
 import PatientListBilling from '../views/Billing/PatientListBilling';
 import SpecificBilling from '../views/Billing/SpecificBilling.vue';
 import PastBillView from '../views/Billing/PastBillView';
+import Register from '../views/Authentication/Register.vue';
+import Login from '../views/Authentication/Login.vue';
 
 const routes = [
   // {
@@ -17,6 +19,11 @@ const routes = [
     path: '/patient',
     name: 'Patient',
     component: Patient
+  },
+  {
+    path: '/',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/register-patient',
@@ -42,6 +49,11 @@ const routes = [
     path: '/patient-list-billing',
     name: 'PatientListBilling',
     component: PatientListBilling
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   // {
   //   path: "/about",

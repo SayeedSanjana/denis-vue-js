@@ -139,6 +139,7 @@ import axios from "axios"
         },
         data(){
             return{
+             token: localStorage.getItem('token'),
              formValid:true,
              show:false,
              item: "",
@@ -177,7 +178,12 @@ import axios from "axios"
                     this.form.disease.push(i);
                 }
                 console.log(this.form)
-               await axios.patch('patients/' + id + '/add-disease', this.form)
+               await axios.patch('patients/' + id + '/add-disease', this.form,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                     .then((response) => {
                         //this.$router.push({name: 'Patient'});
                         console.log(response);
@@ -199,7 +205,12 @@ import axios from "axios"
             console.log(this.delete)
             //const del=this.delete
            // console.log(id)
-               await axios.delete('patients/' +this.$route.params.id+ '/delete-disease',{ data: { disease: this.delete.disease }})
+               await axios.delete('patients/' +this.$route.params.id+ '/delete-disease',{ data: { disease: this.delete.disease },
+               
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
                .then((response) => {
                         //this.$router.push({name: 'Patient'});
                     console.log(response);
@@ -213,6 +224,10 @@ import axios from "axios"
                         console.log(error)
 
                     })
+                        this.items=[]
+                        this.form={
+                            disease:[]
+                        }
                
 
             }

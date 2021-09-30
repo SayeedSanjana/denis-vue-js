@@ -14,7 +14,7 @@
             <div class=" mb-3" v-for="tr in filteredList" :key="tr"><!--loop-->
             
             <div class="px-2 mb-3" >
-                <div class="font-semibold title-font text-gray-700 text-left">Dr. {{tr.doctorName}} </div>
+                <div class="font-semibold title-font text-gray-700 text-left">Dr. {{tr.user.name}} </div>
             </div>
 
              <div class="px-7  " >
@@ -81,7 +81,8 @@
 <script>
     export default {
         props:{
-          treatmentList: Array
+          treatmentList: Array,
+          uid:String
           },
           data(){
               return{
@@ -110,7 +111,8 @@
       
             this.currentPage = this.currentPage + num
              },
-    },
+              
+    }
     }
 </script>
 
