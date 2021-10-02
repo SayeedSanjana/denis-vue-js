@@ -11,7 +11,7 @@
             <div class="mt-6 ">
                 <div class="items-center -mx-2 md:flex">
                 
-                    <div class="w-full mx-2">
+                    <div class="w-full mx-2" hidden>
                         <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Patient
                             Name</label>
 
@@ -20,7 +20,7 @@
                             type="text">
                     </div>
 
-                    <div class="w-full mx-2 mt-4 md:mt-0">
+                    <div class="w-full mx-2 mt-4 md:mt-0" hidden>
                         <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Date</label>
 
                         <input v-model="formData.date" readonly

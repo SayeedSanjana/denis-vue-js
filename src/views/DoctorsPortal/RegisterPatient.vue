@@ -36,7 +36,7 @@
             </label>
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="name" type="text" placeholder="John" v-model="formdata.name">
+              id="name" type="text" placeholder="Input Full Name" v-model="formdata.name">
 
           </div>
 
@@ -48,7 +48,7 @@
             </label>
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="phone" type="text" placeholder="01708877990" v-model="formdata.phone">
+              id="phone" type="text" placeholder="Input phone number" v-model="formdata.phone">
 
           </div>
         </div>
@@ -79,7 +79,7 @@
             </label>
             <input
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="date" type="date" placeholder="1990/09/08" v-model="formdata.dob">
+              id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
           </div>
         </div>
                             <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number should be 11 digits and name should atleast 3 letters</span> </p>

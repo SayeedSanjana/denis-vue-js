@@ -58,7 +58,7 @@
                             <label for="" class="text-xs font-semibold px-1">Phone</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="01983746571">
+                                <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Phone Number">
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                             <label for="" class="text-xs font-semibold px-1">Address</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="2/3 dhanmondi">
+                                <input v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Full Address">
                             </div>
                         </div>
                       
@@ -111,16 +111,27 @@
         </div>
     </div>
 </div>
+<div v-if="openModal"><PinNumber :pin="pin" :formData="formData"/></div>
 
     </div>
 </template>
 
 <script>
 import axios from "axios";
-  import swal from 'sweetalert';
+  //import swal from 'sweetalert';
+  import PinNumber from "../../components/PinNumber.vue";
     export default {
+        created(){
+           this.getPin()
+        },
+        components:{
+          PinNumber
+        },
         data(){
             return{
+                pinObject:{},
+                pin:'',
+                openModal:false,
                 formIsValid:false,
                 str:"",
                 strPh:"",
@@ -153,20 +164,33 @@ import axios from "axios";
                          this.str="Password should be of atleast 8 digits"
                     }
                     
-             else{
-                await axios.post('users/signup' , this.formData)
-                 .then((response) => {
-                       swal({title: "Success", text: "Doctor created Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false})
-                console.log(response)
-                 this.$router.push('/');
-           
-          })
-                 .catch((error) => {
-                console.log(error)
-                })
+            else{
+                this.str=""
+                this.openModal=true
+        
              }
-            }
+            },
+             async getPin(){
+               await axios.get('pin/search' ,
+                { headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
+                  )
+                .then((response) => {
+                   
+                    this.pinObject= response.data['result'];
+                    this.pinObject.forEach((p) => {
+                            this.pin=p.pin;
+                        }); 
+                                            
+                  console.log(this.pin) 
+                })
+
+                
+                .catch((error) => {
+                    console.log(error)
+                    this.errorMsg = 'Error retrieving data'
+                })
+
+            },
         }
     }
 </script>
