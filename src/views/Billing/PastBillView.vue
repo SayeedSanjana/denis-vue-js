@@ -79,7 +79,7 @@
                        <div class="inline-flex items-center mt-12">
                 <label for="" class="m-2 text-gray-800">Give discount in?</label>
                     
-  <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
+  <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
   <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
                 
             </div>
@@ -694,7 +694,7 @@ export default {
 
 
             }
-            if (this.isPercentage == 'Amount') {
+            else if (this.isPercentage == 'Amount') {
                 this.str = ""
                 this.discount = this.discountAmount
                 //this.amountDiscount.discount=this.discount+this.Bills.discount

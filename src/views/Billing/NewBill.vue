@@ -242,13 +242,13 @@
                      </div>
                      <!--discount-->
                        <div class="inline-flex items-center mt-3 ">
-                <label for="" class="mb-3 text-gray-800">Give discount in?</label>
+                <label for="" class="mb-3 text-gray-800 mt-2">Give discount in?</label>
 
-  <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" ><span class="ml-2 mr-2 text-gray-700">Amount</span>
+  <input type="radio" name="test_id" @change="onChange($event)" value="Amount" class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked"><span class="ml-2 mr-2 text-gray-700">Amount</span>
   <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
                 
             </div>
-            
+            <div class="flex justify-between">
                     <div class="flex justify-start">
                         <div class="">
                             <label class="text-gray-700 dark:text-gray-200" for="discount">Discount Amount</label>
@@ -257,6 +257,56 @@
                         </div>
                         
                     </div>
+                    <div>
+                         <div class="flex ml-6"  >
+                            <div class=" mt-5  w-full sm:w-2/4 lg:w-1/4">
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md flex font-bold uppercase  "><span
+                                            class="ml-5 mt-2">TotalCost:</span> <span
+                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-xl" >&#2547;{{this.totalCost}}</span></span> </div>
+                                    <div class=" w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">TotalPaid:</span> <span
+                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-xl" >&#2547;{{this.totalPaid}}</span></span> </div>
+                                    <div class=" w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">Discount:</span> <span
+                                            class="text-lg  ml-2 text-gray-600"><span class="text-xl" >&#2547;{{this.discount}}</span></span> </div>
+                                    <div class=" w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md  flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">Adjustment:</span> <span
+                                            class="text-lg  ml-2 text-gray-600"><span class="text-xl" >&#2547;{{this.totalCost-this.discount}}</span></span> </div>
+                                    <div class=" w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                                <div class=" justify-between mb-3">
+                                    <div class="text-gray-400 text-md flex font-bold uppercase "><span
+                                            class="ml-5 mt-2">Balance:</span> <span
+                                            class="text-lg  ml-2 text-gray-600"><span class="text-xl" >&#2547;{{this.balance}}</span></span> </div>
+                                    <div class="w-40">
+                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                        
+                         </div><!---yyh-->
+                         </div>
+                    
+                   
                     <div>{{this.applyDiscount()}}</div>
             <!--discount-->
             <div v-if="this.str.length>=1">
@@ -281,7 +331,7 @@
 
                       
                     <!--after discount-->
-
+<!-- 
                     <div class="flex justify-end items-end ml-6"  >
                             <div class=" mt-5  w-full sm:w-2/4 lg:w-1/4">
                                 <div class=" justify-between mb-3">
@@ -325,7 +375,7 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                    </div> -->
 
 
                 </form>
@@ -358,68 +408,68 @@
 import axios from 'axios'
 //import swal from 'sweetalert'
 import BillModal from "../../components/BillModal.vue";
-    export default {
-        components:{
-           BillModal
-        },
-        
-mounted(){
-this.getPosts(this.$route.params.id)
-},
-        data(){
-    return{
-        token: localStorage.getItem('token'),
-        billModal:false,
-        id:'',
-        formValid:true,
-        formPayValid:true,
-        formValidated:true,
-        formData: {
-                    name: "",
-                    gender: "",
-                    dob: "",
-                    phone:""
-                   
-                },
-       
-        openModal:false,
-        str:'',
-        isPercentage:null,
-        discount:0,
-        discountAmount:0,
-        balance:0,
-        date:new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-        default:true,
-        paymentMethods:['bKash','Nagad','Rocket','Card-Debit', 'Card-Visa','Cash'],
-         item: {
+export default {
+    components: {
+        BillModal
+    },
+
+    mounted() {
+        this.getPosts(this.$route.params.id)
+    },
+    data() {
+        return {
+            token: localStorage.getItem('token'),
+            billModal: false,
+            id: '',
+            formValid: true,
+            formPayValid: true,
+            formValidated: true,
+            formData: {
+                name: "",
+                gender: "",
+                dob: "",
+                phone: ""
+
+            },
+
+            openModal: false,
+            str: '',
+            isPercentage: null,
+            discount: 0,
+            discountAmount: 0,
+            balance: 0,
+            date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
+            default: true,
+            paymentMethods: ['bKash', 'Nagad', 'Rocket', 'Card-Debit', 'Card-Visa', 'Cash'],
+            item: {
                 date: '',
                 service: '',
                 cost: ''
             },
-             payment: {
+            payment: {
                 date: '',
                 paid: '',
                 paymentMethod: ''
 
             },
-            
-        form:{
-       
-         
-          patient:'',
-          items:[],
-          payment:[],
-          discount:0
-      },
-      totalCost:0,
-      totalPaid:0,
-      invoice:""
 
-          }
-         
-},
-methods:{
-      isNumber(evt) {
+            form: {
+
+
+                patient: '',
+                items: [],
+                payment: [],
+                discount: 0
+            },
+            totalCost: 0,
+            totalPaid: 0,
+            invoice: ""
+
+        }
+
+    },
+    methods: {
+        isNumber(evt) {
             if (!/\d/.test(evt.key)) {
                 return evt.preventDefault();
             } else {
@@ -427,81 +477,79 @@ methods:{
             }
         },
 
-    
-    applyDiscount(){
-           this.balance=this.totalCost-this.totalPaid
-           //console.log("Balance")
-           //console.log(this.balance)
-        
-            if(this.isPercentage=='Percentage'){
-               
-                if(this.discountAmount<=100 ){
-                    
-                this.discount=(this.totalCost/100)*this.discountAmount
-                this.form.discount=this.discount
-                this.str=""
-            
-                if(this.discount<=this.totalCost-this.totalPaid){
-                    this.adjustment=this.totalCost-this.discount
-                    this.balance=this.balance-this.discount
-                    this.str=""
-                    
+
+        applyDiscount() {
+            this.balance = this.totalCost - this.totalPaid
+            //console.log("Balance")
+            //console.log(this.balance)
+
+            if (this.isPercentage == 'Percentage') {
+
+                if (this.discountAmount <= 100) {
+                    this.str = ""
+                    this.discount = (this.totalCost / 100) * this.discountAmount
+                    this.form.discount = this.discount
+
+
+                    if (this.discount <= this.totalCost - this.totalPaid) {
+
+                        this.adjustment = this.totalCost - this.discount
+                        this.balance = this.balance - this.discount
+
+
+
+                    } else {
+                        this.str = "Discount amount exceeding balance"
+
+                    }
+
+                } else {
+                    this.str = "Percentage is exceeding 100%"
 
                 }
-                else{
-                    this.str="Discount amount exceeding balance"
-                     
-                }
-                  
-                }
-                else{
-                    this.str="Percentage is exceeding 100%"
-                     
-                }
-        
-                
 
-            }if(this.isPercentage=='Amount'){
-                this.str=""
-                this.discount=this.discountAmount
-                this.form.discount=this.discount
-             if(this.discount<=this.totalCost-this.totalPaid){
-                this.adjustment=this.totalCost-this.discount
-                this.balance=this.balance-this.discount
-                this.str=""
+
+
+            } else if (this.isPercentage == 'Amount') {
+                this.str = ""
+                this.discount = this.discountAmount
+                this.form.discount = this.discount
+                if (this.discount <= this.totalCost - this.totalPaid) {
+                    this.adjustment = this.totalCost - this.discount
+                    this.balance = this.balance - this.discount
+                    this.str = ""
+
+                } else {
+                    this.str = "Discount amount exceeding balance"
 
                 }
-                else{
-                    this.str="Discount amount exceeding balance"
-                    
-                } 
             }
         },
-          
+
         onChange(event) {
-              this.isPercentage = event.target.value;
-              console.log(this.isPercentage);
-          },
+            this.isPercentage = event.target.value;
+            console.log(this.isPercentage);
+        },
 
-    
+
         addNewItems() {
-            if(this.item.date===""||this.item.service===""||this.item.service.length<3||this.item.cost===""){
-                  this.formValid=false
-            }else{
-            this.form.items.push(this.item)
-            console.log(this.items);
-            this.totalCost = this.totalCost + parseInt(this.item.cost)
-    
-            this.item = {
-                date: '',
-                service: '',
-                cost: 0
+            if (this.item.date === "" || this.item.service === "" || this.item.service.length < 3 || this.item.cost === "") {
+                this.formValid = false
+            } else {
+                this.form.items.push(this.item)
+                console.log(this.items);
+                this.totalCost = this.totalCost + parseInt(this.item.cost)
 
+                this.item = {
+                    date: '',
+                    service: '',
+                    cost: 0
+
+                }
+                this.formValid = true
             }
-            this.formValid=true
-            }
-           
-            
+
+
         },
         deleteItems(i) {
             this.form.items.forEach((item, index) => {
@@ -513,30 +561,30 @@ methods:{
 
 
         },
-      addNewPayments() {
+        addNewPayments() {
 
-            if(this.payment.date===""||this.payment.paid===""||this.payment.paymentMethod===""){
-                  this.formPayValid=false
-            }else{
+            if (this.payment.date === "" || this.payment.paid === "" || this.payment.paymentMethod === "") {
+                this.formPayValid = false
+            } else {
 
-           if ((this.totalPaid+this.payment.paid )<= this.totalCost ) {
-                this.form.payment.push(this.payment)
-              this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
-          }
-            this.payment = {
-                date: '',
-                paid: 0,
-                paymentMethod: ''
+                if ((this.totalPaid + this.payment.paid) <= this.totalCost) {
+                    this.form.payment.push(this.payment)
+                    this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
+                }
+                this.payment = {
+                    date: '',
+                    paid: 0,
+                    paymentMethod: ''
 
+                }
             }
-            }
-             this.formPayValid=true
+            this.formPayValid = true
 
 
         },
-        
 
-     deletePayments(i) {
+
+        deletePayments(i) {
             this.form.payment.forEach((item, index) => {
                 if (index === i) {
                     this.totalPaid = this.totalPaid - item.paid
@@ -547,35 +595,37 @@ methods:{
 
         },
 
-         async getPosts(id) {
-                await axios.get('patients/' + id ,
-                 {headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
-                )
-                    .then((response) => {
+        async getPosts(id) {
+            await axios.get('patients/' + id, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    }
+                })
+                .then((response) => {
 
-                        this.formData = response.data.result;
-                        const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        const ageDate = new Date(ageDifMs);
-                        this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        console.log(this.formData.dob)
+                    this.formData = response.data.result;
+                    const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
+                    const ageDate = new Date(ageDifMs);
+                    this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    console.log(this.formData.dob)
 
 
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            },
-            printBill(){
-                 this.form.patient=this.$route.params.id
-                 this.billModal=true
-            },
-          removeModalBill() {
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+        printBill() {
+            this.form.patient = this.$route.params.id
+            this.billModal = true
+        },
+        removeModalBill() {
             this.billModal = false
         },
 
-      
-}       
+
     }
+} 
 </script>
 
 <style lang="scss" scoped>

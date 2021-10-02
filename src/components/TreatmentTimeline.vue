@@ -34,8 +34,12 @@
                  </div>
                
                  
-                 <p class="leading-relaxed  border-l border-gray-300 " > <pre class="ml-3">{{tr.treatmentDone}}</pre></p>
-                
+                 <!-- <p class="leading-relaxed  border-l border-gray-300 " > <pre class="ml-3">{{tr.treatmentDone}}</pre></p>
+                 -->
+                 <div class="whitespace-normal break-all mr-5  border-l border-gray-300">
+           <div class="font-semibold text-gray-400 text-sm mb-4  flex items-start"><span class="border-b border-gray-400 ml-3">Treatment Plan:</span></div>
+           <div class="flex items-start "> <pre class="text-left  whitespace-pre-line break-all ml-3 ">{{tr.treatmentDone}}</pre></div>
+      </div>
             </div>
             <div class="mt-3">
                   <hr />
