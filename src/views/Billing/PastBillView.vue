@@ -274,27 +274,20 @@
                       <!--cost-->
                     <div class="flex justify-end " v-show="this.items.length>=1">
                         <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-                            <div class="mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase">
-                                       Total Cost: <span
-                                        class="text-lg rounded ml-2 text-gray-500 "><span class="text-md mr-2  text-gray-400" >BDT</span>{{this.totalCost}}</span> </div>
-                                <div class="text-right w-40">
-                                    <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                </div>
+                            <div class="mb-3 flex inline-block">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mr-2">
+                                       Total Cost: <span class="text-md mr-2 text-gray-600  flex inline-block" >BDT {{this.totalCost}}</span> </div>
+                                
                             </div>
                             
-                            <div class="  mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mt-1">
-                                        Sub Total: <span
-                                        class="text-lg  ml-2 text-gray-600"><span class="text-md mr-2 text-gray-400" >BDT</span>{{this.subtotal}}</span> </div>
-                                <div class="text-right w-40">
-                                    <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                </div>
+                            <div class="  mb-3  flex inline-block">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mt-1 mr-2  flex inline-block">
+                                        Sub Total: <span class="text-md mr-2 text-gray-600  inline-block" >BDT {{this.subtotal}}</span> </div>
+                                
                             </div>
-                            <div class=" mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase ">Balance:
-                                         <span
-                                        class="text-lg  ml-2 text-gray-600"><span class="text-md mr-2 text-gray-400" >BDT</span>{{Bills.balance}}</span> </div>
+                            <div class=" mb-3  flex inline-block">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mr-2   inline-block">Balance:
+                                         <span class="text-md mr-2 text-gray-600  inline-block">BDT{{Bills.balance}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                 </div>
