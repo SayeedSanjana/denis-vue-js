@@ -29,7 +29,7 @@
                 </div>
 
             <div class=" flex justify-start items-start mt-5">
-                <label for="" class="m-3 text-gray-800 ">Is All Teeth?</label>
+                <label for="" class="m-3 text-gray-800 ">All Teeth?</label>
                 <input v-model="formData.isAll" value="true" type="radio"
                     class="form-radio h-5 w-5 text-indigo-600 mt-3"><span class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
                 <input v-model="formData.isAll" value="false" type="radio" checked="checked"
@@ -139,6 +139,7 @@ import swal from "sweetalert"
          isAll() {
             if (this.formData.isAll == "true") {
                 this.disabled = 1
+                this.teeth=''
             } else {
                 this.disabled = 0
             }

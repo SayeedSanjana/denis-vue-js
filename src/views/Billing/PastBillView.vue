@@ -54,7 +54,7 @@
             <div class="flex justify-between w-full">
             <div
                 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 pb-1 pt-2 ">
-                Payment Description
+                Payment Descriptions
             </div>
             <button class="text-gray-400 mr-4 font-bold hover:text-indigo-500 " @click="openModalPayment">+ Add More Payment Info</button>
             </div>
@@ -91,7 +91,7 @@
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
                          <div class="flex justify-center mt-6  ml-3" v-if="this.str.length==0">
-                            <button @click="discountApply()" class="button">confirm</button>
+                            <button @click="discountApply()" class="button">Confirm</button>
                         </div>
 
                         
@@ -134,7 +134,7 @@
           <!--DISCOUNT-->
         
         
-        <div class="w-1/2 px-6 py-8 mr-6">
+        <div class="w-1/2 px-10 mr-20">
             <PaymentInfo :Bills="Bills" :discount="discount" />
              
             </div>
@@ -272,29 +272,42 @@
                     </div>
                     <!--item-list-->
                       <!--cost-->
-                    <div class="flex justify-end " v-show="this.items.length>=1">
-                        <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-                            <div class="mb-3 flex inline-block">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mr-2">
-                                       Total Cost: <span class="text-md mr-2 text-gray-600  flex inline-block" >BDT {{this.totalCost}}</span> </div>
+                       <div class="flex justify-end"  v-show="this.items.length>=1">
+                         <div class="  ml-6 mr-10"  >
+                            <div class=" mt-5  w-full ">
+                                <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Total Cost:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.totalCost}}
+                                  </div>
+                                </div>
                                 
-                            </div>
-                            
-                            <div class="  mb-3  flex inline-block">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mt-1 mr-2  flex inline-block">
-                                        Sub Total: <span class="text-md mr-2 text-gray-600  inline-block" >BDT {{this.subtotal}}</span> </div>
-                                
-                            </div>
-                            <div class=" mb-3  flex inline-block">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mr-2   inline-block">Balance:
-                                         <span class="text-md mr-2 text-gray-600  inline-block">BDT{{Bills.balance}}</span> </div>
-                                <div class="text-right w-40">
-                                    <div class="text-gray-800 font-medium" x-html="netTotal"></div>
+                                <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Sub total:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.subtotal}}
+                                  </div>
+                                </div>
+                               <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Balance(Due):</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{Bills.balance+this.totalCost}}
+                                  </div>
                                 </div>
                             </div>
-                        </div>
-
                     </div>
+                        
+                         </div><!---yyh-->
+                   
                     <!--cost-->
                    
                    
@@ -348,13 +361,13 @@
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="paid">Paid*</label>
+                                <label class="text-gray-700 dark:text-gray-200" for="paid">Paid</label>
                                 <input  @keypress="isNumber($event)" v-model.number="payment.paid" id="date" type="text"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
 
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="cost">Payment Method*</label>
+                                <label class="text-gray-700 dark:text-gray-200" for="cost">Payment Method</label>
                                 <div class="relative">
                                     <select
                                         class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 mt-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -384,10 +397,6 @@
                                         <path fill="#fff" d="M21,14h6v20h-6V14z" />
                                         <path fill="#fff" d="M14,21h20v6H14V21z" /></svg>
                                 </button>
-
-                                <!-- <button class="px-4 py-2 mt-2" @click="deleteItems(index)" v-show="index||(!index && this.form.items.length>1)">
-             <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>
-              </button>-->
 
                             </div>
                               <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information</p>
@@ -441,8 +450,7 @@
                                                 {{item.date.substring(0,10)}}</td>
                                             <td class="py-4 px-6 border-b border-grey-light">
                                                 {{item.paid}}
-                                                <!-- <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark">Edit</a>
-            <a href="#" class="text-grey-lighter font-bold py-1 px-3 rounded text-xs bg-blue hover:bg-blue-dark">View</a> -->
+                                               
                                             </td>
                                             <td class="md:py-4 md:px-6 border-b border-grey-light">
                                                 {{item.paymentMethod}}</td>
@@ -470,33 +478,35 @@
                         <!--payment-list-->
                       
                         <!--paid-->
-                        <div class="flex justify-end " v-show="this.payments.length>=1">
-                            <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">TotalPaid:</span> <span
-                                            class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.totalPaid}}</span> </div>
-                                    <div class="text-right w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
-                                </div>
-                                <div class=" justify-between mb-3">
-                                    <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                            class="ml-5 mt-2">Balance:</span> <span
-                                            class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.afterPaid}}</span> </div>
-                                    <div class="text-right w-40">
-                                        <div class="text-gray-800 font-medium" x-html="netTotal"></div>
-                                    </div>
+                         <div v-show="this.payments.length>=1" class="flex justify-end ">
+                         <div class="  ml-6 mr-10"  >
+                            <div class=" mt-5  w-full ">
+                               
+                              <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Total Paid:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.totalPaid}}
+                                  </div>
                                 </div>
                                 
+                               <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Balance(Due):</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.afterPaid}}
+                                  </div>
+                                </div>
                             </div>
-
-                        </div>
-                        <!--paid-->
-                     
-
-                  
-
+                    </div>
+                        
+                         </div><!---yyh-->
+                        
+                       
                         <div class="flex justify-center mt-10 ">
                             <button @click="addPayments()" class="button">Add Payment Info</button>
                         </div>
@@ -531,6 +541,7 @@
 
 <script >
 import axios from 'axios'
+import swal from 'sweetalert'
 import BillItems from "../../components/BillItems.vue";
 import PaymentMethods from "../../components/PaymentMethods.vue";
 import PaymentInfo from "../../components/PaymentInfo.vue";
@@ -670,7 +681,6 @@ export default {
             if (this.isPercentage == 'Percentage') {
                 if (this.discountAmount <= 100) {
                     this.discount = (this.Bills.total / 100) * this.discountAmount
-                    //this.amountDiscount.discount=this.discount+this.Bills.discount
                     this.amountDiscount.discount = this.discount
                     this.str = ""
                     if (this.Bills.balance - this.discount >= 0) {
@@ -683,14 +693,10 @@ export default {
                 } else {
                     this.str = "Percentage is exceeding 100%"
                 }
-
-
-
             }
             else if (this.isPercentage == 'Amount') {
                 this.str = ""
                 this.discount = this.discountAmount
-                //this.amountDiscount.discount=this.discount+this.Bills.discount
                 this.amountDiscount.discount = this.discount
                 if (this.Bills.balance - this.discount >= 0) {
                     this.adjustment = this.Bills.total - this.discount
@@ -700,11 +706,7 @@ export default {
                     this.str = "Discount amount exceeding balance"
 
                 }
-
-
             }
-            //console.log(this.discount)
-
         },
         openModalService() {
             this.openModalSer = true
@@ -866,7 +868,8 @@ export default {
                 )
                 .then((response) => {
                     console.log(response)
-
+                    swal({title: "Success", text: "DiscounT Added Successfully!", icon: 
+                    "success" , timer: 1000, buttons: false})
                     this.amountDiscount = {}
                     this.discountAmount = 0
                     this.discount = 0

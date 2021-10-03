@@ -132,46 +132,58 @@
             <hr>
             </div>
          <!--Payment Info-->
-         <div class="flex justify-end " >
-           <div class="py-8 mr-8 ml-auto mt-0 w-full sm:w-2/4 lg:w-1/4">
-			<div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-sm text-right flex font-bold uppercase "><span  class="ml-5 mt-2">TotalCost</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-lg ml-2" >&#2547;</span>{{this.totalCost}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-            <div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-sm text-right flex font-bold uppercase "><span  class="ml-5 mt-2">TotalPaid</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-lg ml-2" >&#2547;</span>{{this.totalPaid}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-			
-            <div class=" justify-between mb-3" v-if="this.discount>0">
-				<div class="text-indigo-400 text-sm text-right flex font-bold uppercase "><span  class="ml-5 mt-2">Discount</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-lg ml-2" >&#2547;</span>{{this.discount}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-            <div class=" justify-between mb-3" v-if="this.discount>0">
-				<div class="text-indigo-400 text-sm text-right flex font-bold uppercase"><span  class="ml-5 mt-2">Adjustment</span> <span class="text-lg  ml-2 text-gray-400"><span class="text-lg ml-2" >&#2547;</span>{{this.totalCost-this.discount}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-			<div class=" justify-between mb-3">
-				<div class="text-indigo-400 text-sm text-right flex font-bold uppercase "><span  class="ml-5 mt-2 mr-2">Balance</span><span class="text-sm ml-1 text-gray-400 mt-2 ">(due)</span> <span class="text-lg rounded ml-2 text-gray-400 "><span class="text-lg ml-2" >&#2547;</span>{{this.balance}}</span> </div>
-				<div class="text-right w-40">
-					<div class="text-gray-800 font-medium" x-html="netTotal"></div>
-				</div>
-			</div>
-			
-			
-		
-			
-		</div>
-
-       </div>
+        <div class=" flex justify-end">
+                         <div class="  ml-6 mr-10"  >
+                            <div class=" mt-5  w-full ">
+                                <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Total Cost:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.totalCost}}
+                                  </div>
+                                </div>
+                              <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Total Paid:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.totalPaid}}
+                                  </div>
+                                </div>
+                                <div class=" flex  mb-3 "  v-if="this.discount>0">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1" >
+                                      <label for="" class="" > Discount:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.discount}}
+                                  </div>
+                                </div>
+                                <div class=" flex  mb-3 "  v-if="this.discount>0">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1" >
+                                      <label for="" class="" > Adjustment:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.totalCost-this.discount}}
+                                  </div>
+                                </div>
+                               <div class=" flex  mb-3 ">
+                                   
+                                  <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                      <label for="" class="" > Balance:</label>
+                                  </div>
+                                  <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                       TK{{this.balance}}
+                                  </div>
+                                </div>
+                            </div>
+                    </div>
+                        
+                         </div><!---yyh-->
          <!--Payment Info-->
            
         

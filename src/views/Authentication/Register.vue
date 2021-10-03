@@ -33,6 +33,7 @@
                 id="gender" v-model="formData.gender">
                 <option>Male</option>
                 <option>Female</option>
+                 <option>Transgender</option>
                 <option>Others</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -80,7 +81,7 @@
                             <label for="email" class="text-xs font-semibold px-1">Email</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.email" type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com">
+                                <input v-model.trim="formData.email" type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="name12@example.com">
                             </div>
                         </div>
                     </div>
@@ -111,7 +112,7 @@
         </div>
     </div>
 </div>
-<div v-if="openModal"><PinNumber :pin="pin" :formData="formData"/></div>
+<div v-if="openModal"><PinNumber :pin="pin" :formData="formData" @closeModal="closeModal"/></div>
 
     </div>
 </template>
@@ -189,6 +190,9 @@ import axios from "axios";
                 })
 
             },
+            closeModal(){
+                this.openModal=false
+            }
         }
     }
 </script>
