@@ -171,9 +171,7 @@ import axios from "axios";
              }
             },
              async getPin(){
-               await axios.get('pin/search' ,
-                { headers:{"Authorization": `Bearer ${localStorage.getItem('token') }`}}
-                  )
+               await axios.get('pin/search')
                 .then((response) => {
                    
                     this.pinObject= response.data['result'];
