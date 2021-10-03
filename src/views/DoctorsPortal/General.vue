@@ -19,7 +19,7 @@
                   Full Name
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
                   id="name" type="text" placeholder="Name" ref="inputRef" v-model="formData.name">
 
               </div>
@@ -51,7 +51,7 @@
                   Date Of Birth
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500 "
                   id="dob" type="text" placeholder="1990-09-08" v-model="formData.dob">
 
               </div>
@@ -60,7 +60,7 @@
                   Gender
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
                   id="gender" type="text" placeholder="Gender" v-model="formData.gender">
 
                 <!-- <div class="relative">

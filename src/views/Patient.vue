@@ -8,7 +8,7 @@
          
 
         <section class="w-full  px-6 py-4  bg-white ">
-        <p class="text-lg text-center font-bold m-5 border-b border-gray-200">Patient's Records</p>
+        <p class="text-lg text-center font-bold m-5 border-b border-gray-200">Patient Records</p>
    
         <!-- <div hidden>{{parseJwt(this.token)}}</div>
        
@@ -50,22 +50,14 @@
             </div>
              <div class="flex justify-end"><!--button for registering patient-->
                     <!-- <router-link to="/register-patient" class="button">Register New Patient</router-link> -->
-                    <button class="button" @click="modal">Register New Patient</button>
+                    <button class="flex items-center inline-block bg-indigo-500 text-center hover:bg-transparent  m-2 p-1 border border-indigo-500 text-white font-semibold hover:text-indigo-500 rounded text-sm" @click="modal">
+                        <span class="mr-1 mt-2 pl-1"><svg class ="w-3 h-4 fill-current text-white  " height="426.66667pt" viewBox="0 0 426.66667 426.66667" width="426.66667pt" xmlns="http://www.w3.org/2000/svg"><path d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"/></svg></span>
+                      <span class=" mt-1 mr-2"> Register New Patient</span></button>
 
                     </div>
 
             </div>
-            <!-- <div class=" px-40">
-                   <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
-           
-
-            </div> -->
-               
-                
-        <!-- </div> -->
-        
-        <!-- </div> -->
+            
 <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-200 text-gray-800">
   <tr class="text-center border-b-2 border-gray-300">
     <th class="px-4 py-3">Name</th>
