@@ -433,11 +433,13 @@ export default {
 
         applyDiscount() {
             this.balance = this.totalCost - this.totalPaid
+
             if (this.isPercentage == 'Percentage') {
                 if (this.discountAmount <= 100) {
                     this.str = ""
                     this.discount = (this.totalCost / 100) * this.discountAmount
                     this.form.discount = this.discount
+
                     if (this.discount <= this.totalCost - this.totalPaid) {
                         this.adjustment = this.totalCost - this.discount
                         this.balance = this.balance - this.discount
@@ -447,7 +449,9 @@ export default {
                 } else {
                     this.str = "Percentage is exceeding 100%"
                 }
+
             } else if (this.isPercentage == 'Amount') {
+
                 this.str = ""
                 this.discount = this.discountAmount
                 this.form.discount = this.discount
@@ -455,7 +459,6 @@ export default {
                     this.adjustment = this.totalCost - this.discount
                     this.balance = this.balance - this.discount
                     this.str = ""
-
                 } else {
                     this.str = "Discount amount exceeding balance"
 
@@ -467,7 +470,6 @@ export default {
             this.isPercentage = event.target.value;
             console.log(this.isPercentage);
         },
-
 
         addNewItems() {
             if (this.item.date === "" || this.item.service === "" || this.item.service.length < 3 || this.item.cost === "") {
