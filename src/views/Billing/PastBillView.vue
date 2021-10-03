@@ -178,18 +178,18 @@
 
                     <div class="lg:grid lg:grid-cols-1 lg:gap-6 lg:mt-4 lg:grid-cols-4">
                         <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="date">Date*</label>
+                            <label class="text-gray-700 dark:text-gray-200" for="date">Date</label>
                             <input v-model="item.date" id="date" type="date"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
                         <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="services">Treatment Plan*</label>
+                            <label class="text-gray-700 dark:text-gray-200" for="services">Treatment Plan</label>
                             <input v-model="item.service" id="date" type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
 
                         <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="cost">Cost*</label>
+                            <label class="text-gray-700 dark:text-gray-200" for="cost">Cost</label>
                             <input  @keypress="isNumber($event)" v-model.number="item.cost" id="cost" type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
@@ -274,27 +274,27 @@
                       <!--cost-->
                     <div class="flex justify-end " v-show="this.items.length>=1">
                         <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
-                            <div class=" justify-between mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                        class="ml-5 mt-2">TotalCost:</span> <span
-                                        class="text-lg rounded ml-2 text-gray-500 "><span class="text-2xl" >&#2547;</span>{{this.totalCost}}</span> </div>
+                            <div class="mb-3">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase">
+                                       Total Cost: <span
+                                        class="text-lg rounded ml-2 text-gray-500 "><span class="text-md mr-2  text-gray-400" >BDT</span>{{this.totalCost}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                 </div>
                             </div>
                             
-                            <div class=" justify-between mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase"><span
-                                        class="ml-5 mt-2">SubTotal:</span> <span
-                                        class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{this.subtotal}}</span> </div>
+                            <div class="  mb-3">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase mt-1">
+                                        Sub Total: <span
+                                        class="text-lg  ml-2 text-gray-600"><span class="text-md mr-2 text-gray-400" >BDT</span>{{this.subtotal}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                 </div>
                             </div>
-                            <div class=" justify-between mb-3">
-                                <div class="text-gray-400 text-md text-right flex font-bold uppercase "><span
-                                        class="ml-5 mt-2">Balance:</span> <span
-                                        class="text-lg  ml-2 text-gray-600"><span class="text-2xl" >&#2547;</span>{{Bills.balance}}</span> </div>
+                            <div class=" mb-3">
+                                <div class="text-gray-400 text-md text-right flex font-bold uppercase ">Balance:
+                                         <span
+                                        class="text-lg  ml-2 text-gray-600"><span class="text-md mr-2 text-gray-400" >BDT</span>{{Bills.balance}}</span> </div>
                                 <div class="text-right w-40">
                                     <div class="text-gray-800 font-medium" x-html="netTotal"></div>
                                 </div>
