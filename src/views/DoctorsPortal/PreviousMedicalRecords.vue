@@ -7,7 +7,7 @@
 
             <div class="flex flex-col justify-between flex-1 mt-6  pt-2 pb-4">
                 <nav>
-                   
+
                     <div class="flex items-center justify-between px-8 py-2 text-gray-700 ">
                         <div class="text-gray-500 text-sm font-semibold">
                             Gender
@@ -26,21 +26,21 @@
                     }} years
                         </div>
                     </div>
-                    
+
                     <div class=" border-t border-gray-300 ">
                         <!--allergy-->
-                          <Allergies :formData="formData" @myEvent="getPosts" /> 
+                        <Allergies :formData="formData" @myEvent="getPosts" />
                     </div>
-                    
+
                     <div class="  ">
                         <!--habit-->
-                          <Disease :formData="formData" @myEvent="getPosts" /> 
+                        <Disease :formData="formData" @myEvent="getPosts" />
                     </div>
-                     <div class="  ">
+                    <div class="  ">
                         <!--habit-->
-                          <PersonalHabits :formData="formData" @myEvent="getPosts" /> 
+                        <PersonalHabits :formData="formData" @myEvent="getPosts" />
                     </div>
-                    
+
                 </nav>
             </div>
         </div>
@@ -52,12 +52,12 @@
     import Allergies from "../DoctorsPortal/Allergies.vue";
     import PersonalHabits from "../DoctorsPortal/PersonalHabits.vue";
     import Disease from "../DoctorsPortal/Disease.vue";
-   
+
     export default {
-        components:{
-           Allergies,
-           PersonalHabits,
-           Disease
+        components: {
+            Allergies,
+            PersonalHabits,
+            Disease
         },
         created() {
             this.getPosts(this.$route.params.id)
@@ -65,14 +65,14 @@
         data() {
             return {
                 token: localStorage.getItem('token'),
-                dob:"",
+                dob: "",
                 date: "",
                 formData: {
                     name: "",
                     gender: "",
                     dob: "",
                     allergies: [],
-                   personalHabits: []
+                    personalHabits: []
                 }
 
             }
@@ -82,13 +82,12 @@
 
 
             async getPosts(id) {
-                await axios.get('patients/' + id,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
-                })
-                
+                await axios.get('patients/' + id, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        }
+                    })
+
                     .then((response) => {
 
                         this.formData = response.data.result;
