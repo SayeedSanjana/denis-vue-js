@@ -72,6 +72,7 @@ import axios from 'axios';
             }
         },
         methods:{
+            //Login Form
             async submitForm(){
                 this.formIsValid = true;
                 if(this.formData.email === ''  || this.formData.password.length < 8){
@@ -87,8 +88,6 @@ import axios from 'axios';
                                 localStorage.setItem("token" , response.data.token)
                             }
                           this.$router.push('/patient');
-                         
-                // console.log(response.data.result)
           })
                  .catch((error) => {
                     this.err=true 

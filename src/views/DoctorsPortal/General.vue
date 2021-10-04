@@ -29,17 +29,10 @@
                 </label>
                 <input
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  id="nid" type="text" placeholder="11111111111" v-model="formData.nid">
+                  id="nid" type="text" placeholder="Enter NID" v-model="formData.nid">
 
               </div>
-              <!-- <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
-                  Phone
-                </label>
-                <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
-              </div> -->
+
             </div>
 
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -51,7 +44,7 @@
                   Date Of Birth
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500 "
+                  class="appearance-none block w-full bg-gray-300 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500 "
                   id="dob" type="text" placeholder="1990-09-08" v-model="formData.dob">
 
               </div>
@@ -60,23 +53,8 @@
                   Gender
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-300 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
                   id="gender" type="text" placeholder="Gender" v-model="formData.gender">
-
-                <!-- <div class="relative">
-                  <select value="male"
-                    class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="gender" v-model="formData.gender" >
-                    <option value="" selected  class="text-gray-400">{{this.formData.gender}}</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="others">Others</option>
-                  </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                  </div>
-                </div> -->
               </div>
 
             </div>
@@ -90,16 +68,16 @@
               </label>
               <input
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="religion" type="text" placeholder="" v-model="formData.occupation">
+                id="religion" type="text" placeholder="Enter Occupation" v-model="formData.occupation">
             </div>
-             <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
-                  Phone
-                </label>
-                <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
-              </div> 
+            <div class="w-full lg:w-1/2 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
+                Phone
+              </label>
+              <input
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
+            </div>
           </div>
 
           <div class="flex flex-wrap -mx-3 mb-6">
@@ -111,10 +89,11 @@
               </label>
               <input
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nationality" type="text" placeholder="2/3 Lalmatia" v-model="formData.address">
+                id="nationality" type="text" placeholder="Enter Address" v-model="formData.address">
             </div>
           </div>
-              <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number should be 11 digits, nid atleast 9 digits and other entities should atleast 3 letters</span> </p>
+          <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number
+              should be 11 digits, nid atleast 9 digits and other entities should atleast 3 letters</span> </p>
           <div class="mt-8 py-3 px-3 flex justify-end">
             <button class="button">
               Update Profile
@@ -140,13 +119,13 @@
 
     },
     mounted() {
-      
+
       this.$refs.inputRef.focus()
     },
     data() {
       return {
         token: localStorage.getItem('token'),
-        formValid:true,
+        formValid: true,
         formData: {
           name: "",
           phone: "",
@@ -163,17 +142,16 @@
     methods: {
       async getPosts(id) {
         const format2 = 'LL'
-        await axios.get('patients/' + id,
-         {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
-                })
+        await axios.get('patients/' + id, {
+            headers: {
+              "Authorization": `Bearer ${localStorage.getItem('token') }`
+            }
+          })
           .then((response) => {
 
             this.formData = response.data.result
-            this.formData.dob=new Date(this.formData.dob).toJSON().slice(0, 10).replace(/-/g, '/')
-            this.formData.dob= moment(this.formData.dob).format(format2);
+            this.formData.dob = new Date(this.formData.dob).toJSON().slice(0, 10).replace(/-/g, '/')
+            this.formData.dob = moment(this.formData.dob).format(format2);
             console.log(this.formData)
 
           })
@@ -187,34 +165,39 @@
       },
       async updatePosts(id) {
         console.log(this.formData)
-        if(this.formData.name===""||this.formData.name<3||this.formData.phone===""||this.formData.phone<11||this.formData.dob===""||this.formData.dob<3
-        ||this.formData.nid===""||this.formData.nid<9||this.formData.gender===""||this.formData.gender<3||this.formData.occupation===""||this.formData.occupation<3
-        ||this.formData.address===""||this.formData.address<3){
-          this.formValid=false
-        }
-        else{
-        await axios.patch('patients/' + id + '/update-patient', this.formData,
-         {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
-                })
-          .then((response) => {
-            swal({title: "Success", text: "Patient updated Successfully!", icon: 
-                    "success" , timer: 1000, buttons: false})
-            this.$router.push({
-              name: 'PatientDetails'
-            });
-            console.log(response);
+        if (this.formData.name === "" || this.formData.name < 3 || this.formData.phone === "" || this.formData.phone <
+          11 || this.formData.dob === "" || this.formData.dob < 3 ||
+          this.formData.nid === "" || this.formData.nid < 9 || this.formData.gender === "" || this.formData.gender <
+          3 || this.formData.occupation === "" || this.formData.occupation < 3 ||
+          this.formData.address === "" || this.formData.address < 3) {
+          this.formValid = false
+        } else {
+          await axios.patch('patients/' + id + '/update-patient', this.formData, {
+              headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token') }`
+              }
+            })
+            .then((response) => {
+              swal({
+                title: "Success",
+                text: "Patient updated Successfully!",
+                icon: "success",
+                timer: 1000,
+                buttons: false
+              })
+              this.$router.push({
+                name: 'PatientDetails'
+              });
+              console.log(response);
 
-          })
+            })
 
 
-          .catch((error) => {
-            console.log(error)
+            .catch((error) => {
+              console.log(error)
 
-          })
-            this.formValid=true
+            })
+          this.formValid = true
         }
 
       },

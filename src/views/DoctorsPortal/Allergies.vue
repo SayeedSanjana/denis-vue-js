@@ -60,10 +60,7 @@
                                     <form @submit.prevent>
 
                                         <div class="mb-4">
-                                            <!-- <h1 class="text-white">Todo List</h1> -->
                                             <div class="flex mt-4">
-
-                                                <!-- <h3>{{this.show}}</h3> -->
                                                 <input
                                                     class="border border-gray-300 focus:border-gray-400 rounded w-full py-1 px-3 mr-2 text-black"
                                                     placeholder="Add Allergy" v-model="item" />
@@ -161,7 +158,6 @@ import axios from "axios"
                 this.show = !this.show;
             },
              addItem() {
-                //   this.formData.allergies.push(this.item),
                 if(this.item===""){
                    this.formValid=false
                 }else{
@@ -171,7 +167,6 @@ import axios from "axios"
                 }
             },
              deleteItem(i) {
-                // this.formData.allergies.splice(i,1)
                 this.items.splice(i, 1)
 
             },
@@ -187,17 +182,11 @@ import axios from "axios"
                     }
                 })
                     .then((response) => {
-                        //this.$router.push({name: 'Patient'});
-                        console.log(response);
+                      console.log(response);
                       this.$emit("myEvent", this.$route.params.id)
-
-
                     })
-
-
                     .catch((error) => {
                         console.log(error)
-
                     })
                 this.show = !this.show
                 this.items = []
@@ -215,14 +204,11 @@ import axios from "axios"
                     }
                 })
                .then((response) => {
-                        //this.$router.push({name: 'Patient'});
+                       
                     console.log(response);
                     this.$emit("myEvent", this.$route.params.id)
 
-
                     })
-
-
                     .catch((error) => {
                         console.log(error)
 

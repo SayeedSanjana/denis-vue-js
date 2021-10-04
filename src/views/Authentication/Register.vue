@@ -119,8 +119,7 @@
 
 <script>
 import axios from "axios";
-  //import swal from 'sweetalert';
-  import PinNumber from "../../components/PinNumber.vue";
+import PinNumber from "../../components/PinNumber.vue";
     export default {
         created(){
            this.getPin()
@@ -149,6 +148,7 @@ import axios from "axios";
             }
         },
         methods:{
+            //Sign In
             async signupForm(){
              if(this.formData.email === ''|| this.formData.name===''||this.formData.password===''||this.formData.dob===''||this.formData.phone===''||this.formData.gender===''||this.formData.address===''){
                     this.formIsValid = false;
@@ -171,6 +171,9 @@ import axios from "axios";
         
              }
             },
+            
+            
+            //Get the Pin 
              async getPin(){
                await axios.get('pin/search')
                 .then((response) => {
@@ -178,17 +181,13 @@ import axios from "axios";
                     this.pinObject= response.data['result'];
                     this.pinObject.forEach((p) => {
                             this.pin=p.pin;
-                        }); 
-                                            
+                        });                          
                   console.log(this.pin) 
                 })
-
-                
                 .catch((error) => {
                     console.log(error)
                     this.errorMsg = 'Error retrieving data'
                 })
-
             },
             closeModal(){
                 this.openModal=false

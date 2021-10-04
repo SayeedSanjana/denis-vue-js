@@ -5,9 +5,6 @@
 
             <h2 class="text-xl font-semibold text-center text-gray-700 title-font ">{{this.formData.name}}</h2>
 
-
-
-
             <div class="flex flex-col justify-between flex-1 mt-6  pt-2 pb-4">
                 <nav>
                    
@@ -30,7 +27,6 @@
                         </div>
                     </div>
                     
-
                     <div class=" border-t border-gray-300 ">
                         <!--allergy-->
                           <Allergies :formData="formData" @myEvent="getPosts" /> 
@@ -57,17 +53,12 @@
     import PersonalHabits from "../DoctorsPortal/PersonalHabits.vue";
     import Disease from "../DoctorsPortal/Disease.vue";
    
-//    import Allergies from "../../components/Allergies.vue";
     export default {
         components:{
            Allergies,
            PersonalHabits,
            Disease
         },
-        //    },
-    //      beforeCreate() {
-    //     this.$options.components.Allergies =Allergies;
-    // },
         created() {
             this.getPosts(this.$route.params.id)
         },
