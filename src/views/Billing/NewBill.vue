@@ -244,7 +244,7 @@
 
                                     </div>
                                     <!--discount-->
-                       <div class="inline-flex items-center mt-3 ">
+                       <div class="inline-flex items-center mt-3 hidden">
                 <label for="" class="mb-3 text-gray-800">Give discount in?</label>
 
   <input type="radio" v-model="this.type" name="test_id" @change="onChange($event)" value="Amount"  class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked"><span class="ml-2 mr-2 text-gray-700">Amount</span>
@@ -252,7 +252,7 @@
                 
             </div>
             
-                    <div class="flex justify-start ">
+                    <div class="flex justify-start hidden">
                         <div class="">
                             <label class="text-gray-700 dark:text-gray-200" for="discount">Discount Amount</label>
                             <input  @keypress="isNumber($event)" v-model.number="discountAmount" id="discount" type="text"
