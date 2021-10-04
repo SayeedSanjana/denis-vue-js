@@ -106,9 +106,6 @@
     <div v-if="changecomponent">
       <PastBillView :changecomponent="changecomponent" :billId="billId" />
 
-
-
-
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@
                      
            </div>
           <div class="flex items-center ml-3 mr-3">
-         <div class=" border rounded-lg border-gray-700 bg-gray-700 h-8 w-8 flex justify-center items-center">
+         <button @click="validate" class=" border rounded-lg border-gray-700 bg-gray-700 h-8 w-8 flex justify-center items-center">
          <svg class="w-4 h-4 fill-current text-white " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
           <g>
@@ -39,12 +39,7 @@
             </g>
           </g>
          </svg>
-         </div>
-         <div class="ml-3">
-          <button @click="validate" class="text-center bg-indigo-500 hover:bg-transparent p-2 border border-indigo-500 text-white font-semibold hover:text-indigo-500 rounded text-sm">
-                    Submit
-          </button>
-          </div>
+         </button>
          </div>
            
         </div>
