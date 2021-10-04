@@ -132,7 +132,7 @@
                                         <div class=" flex mb-3 ">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
-                                                <label class="" for="" > Total Cost:</label>
+                                                <label class=" whitespace-nowrap" for="" > Total Cost:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{Bills.total}}
@@ -140,8 +140,8 @@
                                         </div>
                                         <div class=" flex mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1 ">
-                                                <label class="" for="" > Total Paid:</label>
+                                            <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
+                                                <label class=" whitespace-nowrap" for="" > Total Paid:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{this.paid}}
@@ -150,7 +150,7 @@
                                         <div class=" flex  mb-3 " v-if="Bills.discount>0">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1">
-                                                <label for="" class=""> Discount:</label>
+                                                <label for="" class=" whitespace-nowrap"> Discount:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{Bills.discount}}
@@ -159,7 +159,7 @@
                                         <div class=" flex  mb-3 ">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1">
-                                                <label for="" class=""> Adjustment:</label>
+                                                <label for="" class=" whitespace-nowrap"> Adjustment:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{Bills.adjustment}}
@@ -168,7 +168,7 @@
                                         <div class=" flex  mb-3 ">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1">
-                                                <label for="" class=""> Balance(Due):</label>
+                                                <label for="" class=" whitespace-nowrap"> Balance(Due):</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{Bills.balance}}
