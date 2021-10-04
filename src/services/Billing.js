@@ -1,6 +1,6 @@
 import axios from "axios"
 const apiClient=axios.create({
-    baseURL:'http://localhost:3000/api/billings',
+    baseURL:'http://178.128.127.150:81/api/billings',
     withCredentials:false,
     headers:{
         Accept:'application/json',
