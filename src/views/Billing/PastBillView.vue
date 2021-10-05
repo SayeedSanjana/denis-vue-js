@@ -58,10 +58,10 @@
                     <div class="inline-flex items-center mt-2">
                         <label for="" class="m-1 text-gray-800">Give discount in?</label>
 
-                        <input type="radio" name="test_id" @change="onChange($event)" value="Amount"
+                        <input type="radio" name="test_id" @change="onChange($event)" value="Amount" @keypress="applyDiscount" 
                             class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked"><span
                             class="ml-2 mr-2 text-gray-700">Amount</span>
-                        <input type="radio" name="test_id" @change="onChange($event)" value="Percentage"
+                        <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" @keypress="applyDiscount" 
                             class="form-radio h-5 w-5 text-indigo-600 mr-1"><span
                             class="ml-2 mr-2 text-gray-700">Percentage</span>
                     </div>
@@ -69,7 +69,7 @@
                     <div class="flex justify-start">
                         <div class="text-left">
                             <label class="text-gray-700 dark:text-gray-200 ml-1" for="discount">Discount Amount</label>
-                            <input @keypress="isNumber($event)" v-model.number="discountAmount" id="discount"
+                            <input @keyup="applyDiscount" @keypress="isNumber($event)" v-model.number="discountAmount" id="discount"
                                 type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         </div>
@@ -77,7 +77,8 @@
                             <button @click="discountApply()" class="button">Confirm</button>
                         </div>
                     </div>
-                    <div>{{this.applyDiscount()}}</div>
+                                      <div v-if="this.type==='Amount' || this.type==='Percentage'">{{this.applyDiscount()}}</div> 
+                    <!-- <div>{{this.applyDiscount()}}</div> -->
                     <!--discount-->
                     <div v-if="this.str.length>=1">
 
