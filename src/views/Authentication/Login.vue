@@ -1,8 +1,62 @@
 <template>
     <div>
 
+         <section class="flex flex-col md:flex-row h-screen">
 
-<div class="min-w-screen min-h-screen  flex items-center justify-center px-4 py-4">
+    <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/2  px-6 lg:px-16 xl:px-12 xl:ml-20
+        flex  ">
+    <div class="w-full">
+    <div >
+    <h1 class="text-xl md:text-3xl font-bold leading-tight text-left mt-12" style="color:#005072">MT Dental Center</h1>
+      <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  mt-32 mb-6"  style="color:#005072">Log In</h1>
+        </div>
+        
+       <form action="" @submit.prevent="signupForm">
+                <div>
+                    <div class="flex -mx-3">
+                    <div class="w-full px-3 mb-5 text-left">
+                            <label for="" class="text-xs font-semibold px-1">Email</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
+                                <input v-model.trim="formData.email" type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
+                            </div>
+                        </div>
+                     </div>
+                    <div class="flex -mx-3 mb-10">
+                    <div class="w-full px-3 mb-5 text-left">
+                            <label for="" class="text-xs font-semibold px-1">Password</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
+                                <input v-model="formData.password" type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
+                            </div>
+                        </div>
+                     </div>
+                    <div class="flex justify-center -mx-3 border-b border-gray-300 ">
+                         <div class="w-full mb-8"> 
+                            <button class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold " style="background:#46CDD3" @click="submitForm" >Login</button>
+                        </div>
+                    </div> 
+                      <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">{{this.str}}</p>
+                        <div class="flex justify-center -mx-3 mt-8">
+                            <div class="w-full mb-4"> 
+                                <h3 class="text-md mb-2" style="color:#036792">Don't Have An Account?</h3>
+                            <router-link to="/" class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold" style="background:#036792">Create New Account</router-link>
+                            </div>
+            
+                        </div>
+                </div>
+                </form>
+
+    </div>
+  </div>
+  <div class="hidden lg:block w-full md:w-1/2 xl:w-1/2 h-screen 0bject-right ">
+    <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full object-cover flex justify-end ">
+  </div>
+
+</section>
+
+
+<!-- <div class="min-w-screen min-h-screen  flex items-center justify-center px-4 py-4">
     <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style="max-width:1000px">
         <div class="md:flex w-full">
             <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
@@ -51,7 +105,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
     </div>
 </template>

@@ -20,7 +20,7 @@
                 </label>
                 <input
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
-                  id="name" type="text" placeholder="Name" ref="inputRef" v-model="formData.name">
+                  id="name" type="text" placeholder="Name" v-model="formData.name">
 
               </div>
               <div class="w-full lg:w-1/2 px-3">
@@ -120,7 +120,7 @@
     },
     mounted() {
 
-      this.$refs.inputRef.focus()
+      // this.$refs.inputRef.focus()
     },
     data() {
       return {
