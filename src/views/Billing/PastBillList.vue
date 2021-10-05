@@ -13,7 +13,7 @@
         <!--items-->
         <ul>
           <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
-            <div class="" v-for="bill in this.Bills" :key="bill" @click="patientBill(bill._id)">
+            <div class="" v-for="bill in this.Bills" :key="bill._id" @click="patientBill(bill._id)">
 
               <li class="border-gray-400 flex justify-center mt-6 items-center  mb-2 shadow-md">
                 <div v-if="bill.balance>0">

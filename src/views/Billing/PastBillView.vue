@@ -223,7 +223,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="hover:bg-grey-lighter" v-for="(item,index) in items"
-                                                    :key="index">
+                                                    :key="item._id">
                                                     <td class="py-4 px-6 border-b border-grey-light">
                                                         {{item.date.substring(0,10)}}
                                                     </td>
