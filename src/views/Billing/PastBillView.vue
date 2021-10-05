@@ -55,15 +55,15 @@
                         class="tracking-widest text-lg text-left title-font font-bold text-gray-600 mt-12 border-b border-gray-300 mb-4 w-1/4">
                         Discount
                     </div>
-                    <div class="inline-flex items-center mt-2">
-                        <label for="" class="m-1 text-gray-800">Give discount in?</label>
+                    <div class="flex justify-start items-center mt-2">
+                        <label for="" class="m-1 text-gray-800 ">Give discount in?</label>
 
                         <input type="radio" name="test_id" @change="onChange($event)" value="Amount" @keypress="applyDiscount" 
-                            class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked"><span
-                            class="ml-2 mr-2 text-gray-700">Amount</span>
+                            class="form-radio h-5 w-5 text-indigo-600 mr-1" checked="checked"><span
+                            class="ml-1 mr-1 text-gray-700">Amount</span>
                         <input type="radio" name="test_id" @change="onChange($event)" value="Percentage" @keypress="applyDiscount" 
                             class="form-radio h-5 w-5 text-indigo-600 mr-1"><span
-                            class="ml-2 mr-2 text-gray-700">Percentage</span>
+                            class="ml-1 mr-1 text-gray-700">Percentage</span>
                     </div>
 
                     <div class="flex justify-start">
