@@ -244,6 +244,25 @@
 
                                     </div>
                                     <!--discount-->
+                       <div class="inline-flex items-center mt-3 hidden">
+                <label for="" class="mb-3 text-gray-800">Give discount in?</label>
+
+  <input type="radio" v-model="this.type" name="test_id" @change="onChange($event)" value="Amount"  class="form-radio h-5 w-5 text-indigo-600 mr-2" checked="checked"><span class="ml-2 mr-2 text-gray-700">Amount</span>
+  <input type="radio"  v-model="this.type" name="test_id" @change="onChange($event)" value="Percentage"  class="form-radio h-5 w-5 text-indigo-600 mr-1"><span class="ml-2 mr-2 text-gray-700">Percentage</span>
+                
+            </div>
+            
+                    <div class="flex justify-start hidden">
+                        <div class="">
+                            <label class="text-gray-700 dark:text-gray-200" for="discount">Discount Amount</label>
+                            <input  @keypress="isNumber($event)" v-model.number="discountAmount" id="discount" type="text"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                        </div>
+                        
+                    </div>
+                    <!-- <div v-if="this.type==='Amount' || this.type==='Percentage'">{{this.applyDiscount()}}</div>  -->
+            {{this.applyDiscount()}}
+                                    <!--discount-->
                                     <div class="flex justify-end">
                                         
                                         <div class="">
@@ -398,6 +417,51 @@
             }
         },
         methods: {
+             
+    applyDiscount(){
+           this.balance=this.totalCost-this.totalPaid
+           
+            if(this.isPercentage=='Percentage'){
+               
+                if(this.discountAmount<=100 ){
+                    
+                this.discount=(this.totalCost/100)*this.discountAmount
+                this.form.discount=this.discount
+                this.str=""
+            
+                if(this.discount<=this.totalCost-this.totalPaid){
+                    this.adjustment=this.totalCost-this.discount
+                    this.balance=this.balance-this.discount
+                    this.str=""
+                    
+
+                }
+                else{
+                    this.str="Discount amount exceeding balance"
+                     
+                }
+                  
+                }
+                else{
+                    this.str="Percentage is exceeding 100%"
+                     
+                }
+            }else{
+                this.str=""
+                this.discount=this.discountAmount
+                this.form.discount=this.discount
+             if(this.discount<=this.totalCost-this.totalPaid){
+                this.adjustment=this.totalCost-this.discount
+                this.balance=this.balance-this.discount
+                this.str=""
+
+                }
+                else{
+                    this.str="Discount amount exceeding balance"
+                    
+                } 
+            }
+        },
 
             //Checking if only numbers inputted
             isNumber(evt) {
