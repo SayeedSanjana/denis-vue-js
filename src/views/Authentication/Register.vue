@@ -81,7 +81,7 @@
                      </div>
                     <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5 text-left">
-                            <label for="" class="text-xs font-semibold px-1">Password</label>
+                            <label for="" class="text-xs font-semibold px-1">Password <span class="text-xs text-gray-400 font-medium">(Should include numbers, upper case letters and lower case lettes and special characters)</span></label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model="formData.password" type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
