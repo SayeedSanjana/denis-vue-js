@@ -9,7 +9,7 @@
 
     <div class="w-full h-100">
 
-      <h1 class="text-xl md:text-3xl font-bold leading-tight mt-12 text-left " style="color:#005072">MT Dental Center</h1>
+      <h1 class="text-xl md:text-3xl font-bold leading-tight mt-8 text-left " style="color:#005072">MT Dental Center</h1>
       <h1 class="text-xl md:text-3xl font-bold leading-tight mt-3 text-left  mb-10"  style="color:#005072">Sign Up</h1>
 
           <form action="" @submit.prevent="signupForm">
@@ -19,7 +19,7 @@
                             <label for="" class="text-xs font-semibold px-1">Full name</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.name" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-1 outline-none" style="background:#E7FBFC" >
+                                <input v-model.trim="formData.name" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             <label for="" class="text-xs font-semibold px-1">Date of Birth</label>
                             <div class="">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            <input class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none " style="background:#E7FBFC"
                             id="date" type="date" placeholder="" v-model="formData.dob">
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <label for="" class="text-xs font-semibold px-1">Address</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Full Address">
+                                <input v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded  outline-none " style="background:#E7FBFC">
                             </div>
                         </div>
                       
@@ -66,25 +66,35 @@
                             <label for="" class="text-xs font-semibold px-1">Phone</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Phone Number">
+                                <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
                             </div>
                         </div>
                      </div>
+                    <div class="flex -mx-3">
+                    <div class="w-full px-3 mb-5 text-left">
+                            <label for="" class="text-xs font-semibold px-1">Phone</label>
+                            <div class="flex">
+                                <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
+                                <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC" >
+                            </div>
+                        </div>
+                     </div>
+
                     <div class="flex -mx-3">
                         <div class="w-full px-3 mb-5 text-left">
                             <label for="email" class="text-xs font-semibold px-1">Email</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                                <input v-model.trim="formData.email" type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="name12@example.com">
+                                <input v-model.trim="formData.email" type="email" class="w-full -ml-10 pl-10 pr-3 py-2 rounded outline-none" style="background:#E7FBFC">
                             </div>
                         </div>
                     </div>
                     <div class="flex -mx-3">
-                        <div class="w-full px-3 mb-12 text-left">
+                        <div class="w-full px-3 mb-5 text-left">
                             <label for="password" class="text-xs font-semibold px-1">Password</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-lock-outline text-gray-400 text-lg"></i></div>
-                                <input v-model="formData.password" type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************">
+                                <input v-model="formData.password" type="password" class="w-full -ml-10 pl-10 pr-3 py-2 rounded  outline-none" style="background:#E7FBFC">
                             </div>
                         </div>
                     </div>
