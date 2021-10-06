@@ -186,7 +186,7 @@ import PinNumber from "../../components/PinNumber.vue";
                     this.pinObject.forEach((p) => {
                             this.pin=p.pin;
                         });                          
-                  console.log(this.pin) 
+                  
                 })
                 .catch((error) => {
                     console.log(error)
