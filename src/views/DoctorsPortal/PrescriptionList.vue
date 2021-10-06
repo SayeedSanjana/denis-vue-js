@@ -92,7 +92,7 @@
 
     data() {
       return {
-        token: localStorage.getItem('token'),
+        //token: localStorage.getItem('token'),
         changecomponents: false,
         Prescription: [],
         presId: "",

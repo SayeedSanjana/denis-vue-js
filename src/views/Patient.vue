@@ -43,8 +43,8 @@
 
                 </div>
             </div>
-            <table class=" border rounded-t-lg m-5 w-5/6 mx-auto bg-regal-blue " >
-                <tr class="text-center border-b-2 border-gray-300 text-md text-regal-teal" >
+            <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue " >
+                <tr class="text-center text-md text-regal-teal h-16" >
                     <th class="px-4 py-3">SL no</th>
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Contact</th>
@@ -52,23 +52,27 @@
                     <th class="px-4 py-3">Patient ID</th>
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
-                <tr class="border bg-white  hover:bg-gray-200  " @click="patientDetails(post._id)" 
-                    v-for="post in filteredList " :key="post._id">
-                    <td class=" py-3"></td>
-                    <td class="px-4 py-3">{{post.name}}</td>
-                    <td class="px-4 py-3">{{post.phone}}</td>
-                    <td class="px-4 py-3">{{post.gender}}</td>
-                    <td class="px-4 py-3 "></td>
-                    <td></td>
-                    
+                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(post._id)" 
+                    v-for="(post,index) in filteredList " :key="index">
+                  
+                    <td class=" py-3 ">{{index+1}}</td>
+                    <td class="px-2 py-3">{{post.name}}</td>
+                    <td class="px-2 py-3">{{post.phone}}</td>
+                    <td class="px-2 py-3">{{post.gender}}</td>
+                    <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
+                    <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
                 </tr>
             </table>
             
-            <div class=" px-40">
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button"
-                    :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"
+            <div class="flex px-40 flex-row justify-center">
+                <div class="px-40"> 
+                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                    :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
+                </div>
+                <div class="px-40">
+                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                     :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
+                    </div>
             </div>
         </section>
         <div v-if="openModal">
@@ -81,6 +85,7 @@
     import axios from "axios";
     import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
+    import moment from "moment"
     export default {
         components: {
             Nav,
@@ -106,11 +111,16 @@
                 Patients: [],
                 prePage: 10,
                 currentPage: 1,
-                openModal: false
+                openModal: false,
+                dateCon:''
             }
         },
 
         methods: {
+             dateConversion(date) {
+             return moment(date).format('LL')
+
+      },
             changePage(num) {
                 this.currentPage = this.currentPage + num
             },

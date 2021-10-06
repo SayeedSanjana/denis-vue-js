@@ -4,69 +4,85 @@
 
             <Nav />
         </header>
-        <section class="max-w-full px-6 mx-auto bg-white ">
-            <div class="m-5 w-5/6 mx-auto flex justify-center sm:flex-row flex-col mt-14">
 
-                <div class="block relative">
-                    <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
-                            <path
-                                d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z">
-                            </path>
-                        </svg>
-                    </span>
-                    <input placeholder="Search" v-model="text" @keydown="this.getPosts()" name="q"
-                        class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
-                </div>
-            </div>
+        <div class="flex bg-regal-white">
+            <div class="w-2/3">
+            <div class="h-screen">
+        <section class="w-full  px-6 py-4 " >
+            <p class="text-lg text-left font-bold m-5 px-36" style="color:#005072">Patient Records</p>
+            <div class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
+                <div class="flex flex-row mb-1 sm:mb-0">
 
-            <!--card-->
-            <div>
-
-                <div class="flex items-center justify-center">
-                    <div class="container">
-                        <div class="lg:flex justify-center">
-
-                            <div class="bg-white shadow-xl rounded-lg lg:w-1/2">
-                                <ul class="divide-y divide-gray-300">
-                                    <div v-for="patient in  filteredList" :key="patient"
-                                        @click="patientDetails(patient._id)">
-                                        <li class="p-4 hover:bg-gray-50 cursor-pointer">
-                                            <div class="flex flex-row justify-between">
-                                                <div class="text-bold text-indigo-400">
-                                                    {{patient.name}}
-
-                                                </div>
-                                                <div>
-                                                    <span class="text-gray-400">Mobile no:</span> <span
-                                                        class="text-gray-600">{{patient.phone}}</span>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </div>
-
-                                </ul>
+                    <div class="block relative">
+                        <form class="bg-white ">
+                            <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
+                                <input class="flex-grow outline-none text-gray-600 focus:text-gray-600 w-96" name="q"
+                                    type="text" placeholder="Search" v-model="text"
+                                    @keydown="this.getPosts()" />
+                                <span class="ml-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 text-gray-400 hover:text-blue-400 transition duration-100 cursor-pointer"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </span>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </form>
 
-                <div class=" px-40 mt-10">
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
-                        type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
-                        type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
+                    </div>
+
                 </div>
+               
             </div>
-            <!--card-->
+            <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue " >
+                <tr class="text-center text-md text-regal-teal h-16" >
+                    <th class="px-4 py-3">SL no</th>
+                    <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">Contact</th>
+                    <th class="px-4 py-3">Patient ID</th>
+                    <th class="px-4 py-3">Reg Date</th>
+                </tr>
+                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(post._id)" 
+                    v-for="(post,index) in filteredList " :key="index">
+                     <!-- {{this.dateConversion(post.createdAt.substring(0, 10))}} -->
+                    <td class=" py-3 ">{{index+1}}</td>
+                    <td class="px-2 py-3">{{post.name}}</td>
+                    <td class="px-2 py-3">{{post.phone}}</td>
+                    <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
+
+                    <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
+                    
+                </tr>
+            </table>
+            
+            <div class="flex px-40 flex-row justify-center">
+                <div class="px-40"> 
+                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                    :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
+                </div>
+                <div class="px-40">
+                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                    :disabled="filteredList.length<prePage || filteredList.length==0" @click="changePage(1)">Next </button>
+                    </div>
+            </div>
         </section>
+        
+    </div>
+            </div><!--main 2/3-->
+            
+            <div class="w-1/3 mr-16">
+             <img src="@/assets/svgs/billing.svg" alt="" class="w-full h-full flex justify-end ">
+            </div>
+        </div>
+      
     </div>
 </template>
 
 <script>
     import Nav from "../../components/Nav.vue";
     import axios from 'axios';
+    import moment from "moment"
     export default {
 
         created() {
@@ -95,11 +111,17 @@
                 Patients: [],
                 prePage: 10,
                 currentPage: 1,
-                text: ""
+                text: "",
+                dateCon:""
 
             }
         },
         methods: {
+            
+             dateConversion(date) {
+             return moment(date).format('LL')
+
+            },
             changePage(num) {
 
                 this.currentPage = this.currentPage + num

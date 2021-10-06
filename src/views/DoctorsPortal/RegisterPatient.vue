@@ -8,7 +8,7 @@
     <div
       class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
       <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
-      <div class="w-full  lg:max-w-3xl max-w-lg  max-h-screen  p-6 relative mx-auto my-auto rounded-xl bg-white">
+      <div class="w-full  lg:max-w-2xl max-w-lg  max-h-screen relative mx-auto my-auto rounded-sm bg-white">
         <!--content-->
         <div class="mt-5">
           <!--body-->
@@ -29,12 +29,12 @@
             </div>
 
             <section
-              class="max-w-4xl md:p-6 p-3 mx-auto bg-white mt-10 flex flex-row  justify-center  dark:bg-gray-800">
+              class="max-w-4xl md:p-6 p-1 mx-auto bg-white  flex flex-row  justify-center  dark:bg-gray-800">
 
 
               <form @submit.prevent="createPatient" class="w-full max-w-lg">
                 <div
-                  class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 pb-3 pt-2 ">
+                  class="tracking-widest text-lg title-font font-bold text-regal-teal pb-3 pt-2 ">
                   Register New Patient
                 </div>
 

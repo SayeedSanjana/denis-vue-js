@@ -99,11 +99,11 @@
         created() {
             this.getSpecificPatient()
             this.getspecificTreatmentList()
-            this.parseJwt(this.token)
+            //this.parseJwt(this.token)
         },
         data() {
             return {
-                token: localStorage.getItem('token'),
+                //token: localStorage.getItem('token'),
                 uid: '',
                 teeth: '',
                 disabled: 0,
@@ -171,7 +171,7 @@
             async createTreatment() {
                 this.formIsValid = true;
                 this.formData.patient = this.$route.params.id
-                this.formData.user = this.uid
+                this.formData.user = '6145812934bfa3eea55fc5a1'
                 this.formData.doctorName = 'Iktisad'
                 this.formData.tooth = this.teeth.split(',');
                 if (this.formData.treatmentDone === '') {

@@ -8,6 +8,8 @@ module.exports = {
       'regal-paste': '#CEF0FF',
       'regal-teal' : '#005072',
       'regal-white' : '#F2FBFC',
+      'regal-bg' : '#ECFBFC',
+      'regal-light':'#7FBED7'
     }},
   },
   variants: {
