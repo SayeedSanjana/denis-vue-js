@@ -9,14 +9,14 @@
             <div class="w-2/3">
             <div class="h-screen">
         <section class="w-full  px-6 py-4 " >
-            <p class="text-lg text-left font-bold m-5 px-36" style="color:#005072">Patient Records</p>
+            <p class="text-2xl text-left font-bold m-5 px-20" style="color:#005072">Patient Billing</p>
             <div class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
                 <div class="flex flex-row mb-1 sm:mb-0">
 
                     <div class="block relative">
                         <form class="bg-white ">
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
-                                <input class="flex-grow outline-none text-gray-600 focus:text-gray-600 w-96" name="q"
+                                <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96" name="q"
                                     type="text" placeholder="Search" v-model="text"
                                     @keydown="this.getPosts()" />
                                 <span class="ml-10">

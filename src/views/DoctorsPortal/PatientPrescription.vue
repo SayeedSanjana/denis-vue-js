@@ -1,8 +1,8 @@
 <template>
     <div>
-        <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+        <section class="max-w-4xl p-6 mx-auto bg-white rounded-md ">
 
-            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">
+            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  ">
                 Prescription
             </h2>
 
@@ -19,7 +19,7 @@
                             class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">C/C</label>
 
                         <textarea v-model="formData.cc"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md "></textarea>
                     </div>
 
                     <div class="w-full lg:w-1/2 p-2">
@@ -32,14 +32,7 @@
 
                 </div>
                 <div class="flex justify-between">
-                    <div class="w-full mt-4 lg:w-1/2 p-2">
-                        <label
-                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white ">Treatment
-                            Plan</label>
-
-                        <textarea v-model="formData.treatmentPlan"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
-                    </div>
+                    
                     <div class="w-full lg:w-1/2 mt-4 p-2">
                         <label
                             class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white">Investigation</label>
@@ -49,6 +42,14 @@
                         <textarea v-model="formData.investigation"
                             class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
 
+                    </div>
+                    <div class="w-full mt-4 lg:w-1/2 p-2">
+                        <label
+                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white ">Treatment
+                            Plan</label>
+
+                        <textarea v-model="formData.treatmentPlan"
+                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                     </div>
 
                 </div>
@@ -60,7 +61,7 @@
                     <!--medication-->
                     <div class=" p-4">
 
-                        <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
+                        <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
                             <div>
                                 <label class="text-gray-700 dark:text-gray-200" for="category">Category</label>
                                 <input v-model="medicine.catagory" id="category" type="text"
@@ -68,9 +69,33 @@
                             </div>
 
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="name">Medicine Name</label>
+                                <label class="text-gray-700 dark:text-gray-200" for="name">Medication</label>
                                 <input v-model="medicine.name" id="name" type="text" placeholder="Napa"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+                             <div>
+                                <label class="text-gray-700 dark:text-gray-200 mt-1" for="Meals">Relation with
+                                    Meal</label>
+                                <div class="relative">
+                                    <select
+                                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                        id="gender" v-model="medicine.relationWithMeals">
+                                        <option>Before Meal</option>
+                                        <option>After Meal</option>
+                                        <option>At BedTime</option>
+                                        <option>Between Meals</option>
+
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
                             </div>
 
 
@@ -106,38 +131,23 @@
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
 
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200 mt-1" for="Meals">Relation with
-                                    Meal</label>
-                                <div class="relative">
-                                    <select
-                                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="gender" v-model="medicine.relationWithMeals">
-                                        <option>Before Meal</option>
-                                        <option>After Meal</option>
-                                        <option>At BedTime</option>
-                                        <option>Between Meals</option>
+                            <div class="flex justify-end  ">
 
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-
-                            </div>
+                            <button class=" bg-regal-teal text-center border text-white font-semibold  rounded-lg text-sm flex" @click="addItem()">
+                               Add Medication
+                               
+                            </button>
                         </div>
-                        <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p>
-                        <div class="flex justify-center">
+                          <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p>
+                           
+                        </div>
+                      
+                        <!-- <div class="flex justify-center">
 
                             <button class="text-indigo-500 mt-6 hover:text-gray-600 font-semibold" @click="addItem()">
                                 +Add Medicine
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!--medication-->

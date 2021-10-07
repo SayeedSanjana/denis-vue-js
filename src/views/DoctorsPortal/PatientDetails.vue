@@ -5,28 +5,28 @@
             <Nav />
         </header>
 
-        <div class="px-4 py-4">
+      
 
-            <div class="md:flex md:py-8 bg-white px-3  ">
+            <div class="md:flex  bg-white   ">
                 <!--main-->
-                <div class="max-w-xs mx-auto  bg-white w-full rounded-sm  shadow-md lg:w-1/6 md:w-3/4 min-h-screen">
+                <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
                     <!--sidebar-->
 
-                    <div>
+                    <div >
                         <PreviousMedicalRecords />
                     </div>
                 </div>
                 <!--sidebar-->
 
-                <div class="xl:w-5/6 xl:w-1/34">
+                <div class=" lg:w-3/4  ">
                     <!--nav-->
 
-                    <div class="xl:flex justify-between md:ml-2 min-h-screen">
-                        <div class="xl:w-3/5 xl:ml-5 xl:mr-5 pt-3 xl:pt-0 md:mb-4 ">
+                    <div class="xl:flex justify-between min-h-screen ">
+                        <div class="xl:w-3/5  md:mb-4  ">
 
                             <TreatmentPrescriptionNav :id="$route.params.id"> </TreatmentPrescriptionNav>
                         </div>
-                        <div class="xl:w-2/5 pt-3 xl:pt-0">
+                        <div class="xl:w-2/5 xl:pt-0 border border-regal-cyan border-opacity-20">
 
                             <PastPresGeneralNav :id="$route.params.id"></PastPresGeneralNav>
 
@@ -40,7 +40,7 @@
 
             </div>
             <!--main-->
-        </div>
+       
     </div>
 </template>
 

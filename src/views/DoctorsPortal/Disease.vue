@@ -1,44 +1,28 @@
 <template>
     <div>
-        <h2 class="text-lg font-semibold text-left text-gray-500 title-font px-8 py-3 ">Diseases</h2>
-        <div class="flex items-center justify-between  px-6 py-2 text-gray-700  "
-            v-for="disease in this.formData.disease" :key="disease._id">
-            <div class="text-gray-500 text-sm font-semibold flex justify-start">
-                <span class="mt-1 pr-1">
-                    <svg class="h-3 w-3 fill-current text-gray-700 font-bold" version="1.1" id="Layer_1"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                        <g>
-                            <g>
-                                <g>
-                                    <path d="M256,0C114.833,0,0,114.833,0,256s114.833,256,256,256s256-114.833,256-256S397.167,0,256,0z M256,490.667
-                                        C126.604,490.667,21.333,385.396,21.333,256S126.604,21.333,256,21.333S490.667,126.604,490.667,256S385.396,490.667,256,490.667
-                                        z" />
-                                    <path d="M220.875,131.125c-4.167-4.167-10.917-4.167-15.083,0c-4.167,4.167-4.167,10.917,0,15.083L315.583,256L205.792,365.792
-                                        c-4.167,4.167-4.167,10.917,0,15.083c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125l117.333-117.333
-                                        c4.167-4.167,4.167-10.917,0-15.083L220.875,131.125z" />
-                                </g>
-                            </g>
-                        </g>
-
-                    </svg>
+         <div class="flex items-center px-8 py-2"> 
+            <h2 class="text-regal-teal text-sm font-bold  text-left">Diseases :</h2>
+            </div>
+       
+        <div class="flex items-center justify-between px-12 py-2 text-gray-700  "
+            v-for="(disease,index) in this.formData.disease" :key="index">
+            <div class="text-regal-teal text-sm font-semibold flex justify-start px-6">
+                <span class="mr-5">
+                      {{index+1}}.
                 </span>
                 {{disease}}
             </div>
             <div>
                 <button @click="removeDisease(disease)"
-                    class="p-0 w-4 h-4 mt-1 flex justify-center items-center bg-red-100 rounded hover:bg-gray-100 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
-                    <svg class="w-6 h-6 p-1 inline-block" height="511.992pt" viewBox="0 0 511.992 511.992"
-                        width="511.992pt" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="m415.402344 495.421875-159.40625-159.410156-159.40625 159.410156c-22.097656 22.09375-57.921875 22.09375-80.019532 0-22.09375-22.097656-22.09375-57.921875 0-80.019531l159.410157-159.40625-159.410157-159.40625c-22.09375-22.097656-22.09375-57.921875 0-80.019532 22.097657-22.09375 57.921876-22.09375 80.019532 0l159.40625 159.410157 159.40625-159.410157c22.097656-22.09375 57.921875-22.09375 80.019531 0 22.09375 22.097657 22.09375 57.921876 0 80.019532l-159.410156 159.40625 159.410156 159.40625c22.09375 22.097656 22.09375 57.921875 0 80.019531-22.097656 22.09375-57.921875 22.09375-80.019531 0zm0 0"
-                            fill="#e76e54" /></svg>
+                    class="p-0  mt-1 mr-20 flex justify-center items-center  ">
+                                      <img src="@/assets/svgs/cross.svg" class="" alt="">
+
 
                 </button>
             </div>
         </div>
         <div class="p-4">
-            <button class="flex text-gray-400 text-sm" @click="showDisease">
+            <!-- <button class="flex text-gray-400 text-sm" @click="showDisease">
                 <span class="p-1">
                     <svg class="h-3 w-3 fill-current text-gray-500 " version="1.1" id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -55,27 +39,23 @@
                 </span>
                 Add Disease
 
-            </button>
+            </button> -->
 
-            <div v-show="show" class="flex-col  flex items-center justify-center font-sans ">
-                <div class="  p-3 m-4  lg:w-3/4 w-screen xl:w-full md:max-w-2xl">
+            <div  class="flex-col  flex items-center justify-center font-sans ">
+                <div class=" m-4  lg:w-3/4 w-screen xl:w-full md:max-w-2xl px-14">
                     <form @submit.prevent>
 
                         <div class="mb-4">
-                            <div class="flex mt-4">
+                            <div class="flex ">
                                 <input
-                                    class="border border-gray-300 focus:border-gray-400 rounded w-full py-1 px-3 mr-2 text-black"
+                                    class="border border-regal-teal border-opacity-50 rounded  py-1 px-3 mr-2 2xl:w-56 lg:w-32 text-regal-teal text-opacity-50 font-semibold"
                                     placeholder="Add Disease" v-model="item" />
 
                                 <!-- Add button -->
-                                <button @click="addItem" type="submit"
-                                    class="p-0 w-8 h-6 mt-1 flex justify-center items-center bg-indigo-400 rounded-full hover:bg-gray-400 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
-                                    <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20"
-                                        class="w-4 h-4 inline-block">
-                                        <path fill="#FFFFFF" d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
-                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
-                                    C15.952,9,16,9.447,16,10z" />
-                                    </svg>
+                                <button @click="addItem()" type="submit"
+                                    class="  ml-6 2xl:ml-6 lg:ml-0 flex justify-center items-center ">
+                                       <img src="@/assets/svgs/plus.svg" alt="">
+
                                 </button>
                             </div>
                         </div>

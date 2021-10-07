@@ -2,7 +2,7 @@
     <div class="bg-regal-bg">
 
          <section class="flex flex-col md:flex-row h-screen">
-             <div class=" bg-white  mt-12 mb-12 w-full mx-52 flex">
+             <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex xl:mt-32 xl:mb-32  xl:mx-16 ">
             
     <!-- <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/2  px-6 lg:px-16 xl:px-12 xl:ml-48
         flex  "> -->
@@ -18,7 +18,7 @@
                 <div>
                     <div class="flex -mx-3">
                     <div class="w-full  mb-5 text-left">
-                            <label for="" class="text-xs font-semibold px-1">Email</label>
+                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Email</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model.trim="formData.email" type="email" class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC" >
@@ -27,7 +27,7 @@
                      </div>
                     <div class="flex -mx-3 mb-10">
                     <div class="w-full  mb-5 text-left">
-                            <label for="" class="text-xs font-semibold px-1">Password </label>
+                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Password </label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model="formData.password" type="password" class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC" >
@@ -54,8 +54,8 @@
   </div>
   <!-- <div class="hidden lg:block w-full md:w-1/2 xl:w-1/2 h-screen 0bject-right "> -->
     <!-- <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full object-cover flex justify-end "> -->
-  <div class="hidden lg:block w-1/2   0bject-right ">
-    <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full flex justify-end object-cover">
+  <div class="hidden xl:block w-1/2 0bject-right  ">
+    <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full  flex justify-end object-cover">
   </div> 
  
 </div>

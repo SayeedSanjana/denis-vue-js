@@ -9,7 +9,8 @@ module.exports = {
       'regal-teal' : '#005072',
       'regal-white' : '#F2FBFC',
       'regal-bg' : '#ECFBFC',
-      'regal-light':'#7FBED7'
+      'regal-light':'#7FBED7',
+      'regal-green':'#A6D2E3'
     }},
   },
   variants: {
