@@ -10,23 +10,23 @@
               <!--loop-->
 
               <div class="px-2 mb-3">
-                <div class="font-semibold title-font text-gray-700 text-left">Dr. {{tr.user.name}} </div>
+                <div class="font-semibold title-font text-regal-teal text-left">Dr. {{tr.user.name}} </div>
               </div>
 
               <div class="px-7  ">
-                <div class="mt-1 text-indigo-500 title-font font-bold text-left border-l  border-gray-300 ">
+                <div class="mt-1 text-regal-teal title-font font-bold text-left border-l  border-gray-300 ">
                   <div class="ml-3">{{tr.createdAt.substring(0,10)}}</div>
                 </div>
               </div>
 
               <div class="px-12 mt-2 text-left  ">
                 <p class="leading-relaxed  border-l border-gray-300 ">
-                  <pre class="ml-3"><span class="text-gray-400">BabyTooth:</span>{{tr.isBabyTooth}}</pre>
+                  <pre class="ml-3"><span class="text-regal-teal">BabyTooth:</span>{{tr.isBabyTooth}}</pre>
                 </p>
 
                 <div v-if="this.toothNull(tr.tooth)" class="inline-block">
                   <p class="leading-relaxed border-l border-gray-300 inline-block">
-                    <pre class="ml-3 "><span class="text-gray-400">Teeth: </span></pre>
+                    <pre class="ml-3 "><span class="text-regal-teal">Teeth: </span></pre>
                   </p>
                   <div v-for="t in tr.tooth" :key="t._id" class="inline-block">
 
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="whitespace-normal break-all mr-5  border-l border-gray-300">
-                  <div class="font-semibold text-gray-400 text-sm mb-4  flex items-start"><span
+                  <div class="font-semibold text-regal-teal text-sm mb-4  flex items-start"><span
                       class="border-b border-gray-400 ml-3">Treatment Plan:</span></div>
                   <div class="flex items-start ">
                     <pre class="text-left  whitespace-pre-line break-all ml-3 ">{{tr.treatmentDone}}</pre>

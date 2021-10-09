@@ -1,101 +1,100 @@
 <template>
   <div>
     <section class="max-w-4xl md:p-6 p-3 mx-auto bg-white  dark:bg-gray-800 ">
-      <div class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">
+      <!-- <div class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">
         General Information of Patient
-        <!-- {{this.$route.params.id}} -->
-
-      </div>
+     
+      </div> -->
       <div class="flex items-center justify-center p-6 mx-3 my-4  ">
         <form @submit.prevent="updatePosts(this.$route.params.id)" class="w-full max-w-lg ">
-          <div class="mx-4 py-4 p-2">
+          <!-- <div class="mx-4 py-4 p-2">
             <h3 class="text-gray-500 font-semibold text-left underline ">Basic Information: </h3>
-          </div>
-          <div>
+          </div> -->
+          
             <!--Basic Profile-->
-            <div class="flex flex-wrap -mx-3 mb-6">
-              <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="duuid">
-                  Full Name
+            <!-- <div class="flex flex-wrap -mx-3 mb-6"> -->
+              <div class="w-full lg:w-full ">
+                <label class="flex uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 justify-start " for="duuid">
+                  Full Name :
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none "
+                  class="appearance-none block w-full bg-white text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
                   id="name" type="text" placeholder="Name" v-model="formData.name">
 
               </div>
-              <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nid">
-                  NID
+              <div class="w-full lg:w-full ">
+                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nid">
+                  NID :
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  class="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
                   id="nid" type="text" placeholder="Enter NID" v-model="formData.nid">
 
-              </div>
+              <!-- </div> -->
 
             </div>
 
-            <div class="flex flex-wrap -mx-3 mb-6">
+            <!-- <div class="flex flex-wrap -mx-3 mb-6"> -->
 
 
 
-              <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="dob">
-                  Date Of Birth
+              <div class="w-full lg:w-full mt-6 ">
+                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="dob">
+                  Date Of Birth :
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-300 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500 "
+                  class="appearance-none block w-full bg-regal-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
                   id="dob" type="text" placeholder="1990-09-08" v-model="formData.dob">
 
               </div>
-              <div class="w-full lg:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="gender">
-                  Gender
+              <div class="w-full lg:w-full  ">
+                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="gender">
+                  Gender :
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-gray-300 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
+                  class="appearance-none block w-full bg-regal-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
                   id="gender" type="text" placeholder="Gender" v-model="formData.gender">
               </div>
 
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-6">
+            <!-- </div> -->
+          
+          <!-- <div class="flex flex-wrap -mx-3 mb-6"> -->
 
 
-            <div class="w-full lg:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="religion">
-                Occupation
+            <div class="w-full lg:w-full mt-6 ">
+              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="religion">
+                Occupation :
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="appearance-none block w-full bg-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
                 id="religion" type="text" placeholder="Enter Occupation" v-model="formData.occupation">
             </div>
-            <div class="w-full lg:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
-                Phone
+            <div class="w-full lg:w-full ">
+              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
+                Phone :
               </label>
               <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
                 id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
             </div>
-          </div>
+          <!-- </div> -->
 
           <div class="flex flex-wrap -mx-3 mb-6">
 
 
             <div class="w-full lg:w-full px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nationality">
-                Address
+              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nationality">
+                Address :
               </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="nationality" type="text" placeholder="Enter Address" v-model="formData.address">
+              <textarea
+                class="appearance-none block w-full h-36 bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                id="nationality" type="text" placeholder="Enter Address" v-model="formData.address"></textarea>
             </div>
           </div>
           <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number
               should be 11 digits, nid atleast 9 digits and other entities should atleast 3 letters</span> </p>
           <div class="mt-8 py-3 px-3 flex justify-end">
-            <button class="button">
+            <button class="buttonsubmit">
               Update Profile
             </button>
           </div>
@@ -208,5 +207,7 @@
 </script>
 
 <style scoped>
-
+     .buttonsubmit{
+        @apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex
+    }
 </style>

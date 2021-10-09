@@ -13,17 +13,17 @@
             <ul class=" flex-row  p-4 md:w-full">
               <div v-for="pres in filteredList" :key="pres" @click="patientPrescription(pres._id)">
 
-                <li class="border-gray-400 flex justify-center  items-center flex-row mb-2 shadow-md">
+                <li class="border-gray-400 flex justify-center  items-center flex-row mb-2 shadow-sm">
                   <div
-                    class="select-none cursor-pointer bg-white rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-md">
-                    <div class="flex-1 pl-1 mr-16 ">
+                    class="select-none cursor-pointer bg-regal-light-blue rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
+                    <div class="flex-1 pl-1 mr-52 ">
                       {{this.dateConversion(pres.createdAt.substring(0, 10))}}
-                      <div class="font-medium text-gray-700">{{this.dateCon}}</div>
+                      <div class="font-medium text-regal-teal text-lg">{{this.dateCon}}</div>
 
                     </div>
                     <div class="">
-                      <span class="text-gray-500 text-sm">ApprovedBy: </span><span
-                        class="text-indigo-500 text-md ">Dr.{{pres.user.name}} </span>
+                      <span class="text-regal-teal text-lg">Approved By: </span><span
+                        class="text-regal-teal text-lg ">Dr.{{pres.user.name}} </span>
                     </div>
 
                   </div>
@@ -33,11 +33,20 @@
             </ul>
 
             <div class=" px-40 mt-5">
-              <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button"
-                :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-              <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"
+
+              <div class="flex flex-row justify-center">
+                <div class="px-8">
+                   <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
+                </div>
+                <div class="px-8">
+                  <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                 :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
 
+                </div>
+              </div>
+             
+              
 
             </div>
           </div>

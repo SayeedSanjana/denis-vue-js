@@ -1,8 +1,8 @@
 <template>
     <div>
         <section class="w-full max-w-2xl px-6 py-4 mx-auto bg-white ">
-            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">Treatment
-                Note</h2>
+            <!-- <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">Treatment
+                Note</h2> -->
 
 
             <!-- <div hidden>   {{parseJwt(this.token)}} {{this.getUser()}}</div> -->
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class=" flex justify-start items-start mt-5">
-                        <label for="" class="m-3 text-gray-800 ">All Teeth?</label>
+                        <label for="" class="m-3 text-gray-800 ">All Tooth?</label>
                         <input v-model="formData.isAll" value="true" type="radio"
                             class="form-radio h-5 w-5 text-indigo-600 mt-3"><span
                             class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
@@ -45,7 +45,7 @@
                         </label>
                         <div class="relative">
                             <input v-model="teeth" @keypress="isNumber($event)" :disabled="disabled == 1"
-                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
 
 
                         </div>
@@ -66,11 +66,13 @@
                             Note*</label>
 
                         <textarea v-model="formData.treatmentDone"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                                                            class="block w-full  h-40  px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+
+                            </textarea>
                     </div>
                     <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid input</p>
                     <div class="flex justify-center mt-6">
-                        <button class="button">Submit</button>
+                        <button class="buttonsubmit">Submit</button>
                     </div>
 
                 </div>
@@ -224,6 +226,10 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+    .buttonsubmit{
+        @apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex
+    }
 
 </style>

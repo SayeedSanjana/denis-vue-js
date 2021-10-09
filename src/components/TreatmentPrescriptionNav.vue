@@ -8,8 +8,8 @@
 
                 <button @click="activeTab = 'PrescriptionList'"
                     :class="activeTab==='PrescriptionList' ? 'border-regal-teal' : 'border-regal-white'"
-                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Past
-                    Prescription</button>
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Prescription History
+                    </button>
             </div>
             <keep-alive>
                 <component :is="activeTab" />

@@ -10,7 +10,8 @@ module.exports = {
       'regal-white' : '#F2FBFC',
       'regal-bg' : '#ECFBFC',
       'regal-light':'#7FBED7',
-      'regal-green':'#A6D2E3'
+      'regal-green':'#A6D2E3',
+      'regal-light-blue':'#E5F2F7'
     }},
   },
   variants: {
