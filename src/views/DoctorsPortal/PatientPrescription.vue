@@ -2,9 +2,9 @@
     <div>
         <section class="max-w-4xl p-6 mx-auto bg-white rounded-md ">
 
-            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  ">
+            <!-- <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  ">
                 Prescription
-            </h2>
+            </h2> -->
 
 
             <form @submit.prevent>
@@ -16,18 +16,18 @@
 
                     <div class="w-full lg:w-1/2 p-2">
                         <label
-                            class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">C/C</label>
+                            class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
 
                         <textarea v-model="formData.cc"
-                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-gray-300 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
                     </div>
 
                     <div class="w-full lg:w-1/2 p-2">
                         <label
-                            class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">O/E</label>
+                            class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white  text-left">O/E</label>
 
                         <textarea v-model="formData.oe"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
                     </div>
 
                 </div>
@@ -35,27 +35,27 @@
                     
                     <div class="w-full lg:w-1/2 mt-4 p-2">
                         <label
-                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white">Investigation</label>
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Investigation</label>
 
 
 
                         <textarea v-model="formData.investigation"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-tealbg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
 
                     </div>
                     <div class="w-full mt-4 lg:w-1/2 p-2">
                         <label
-                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white ">Treatment
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left ">Treatment
                             Plan</label>
 
                         <textarea v-model="formData.treatmentPlan"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
                     </div>
 
                 </div>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <h2 class="text-lg font-semibold text-gray-500 capitalize dark:text-white mt-4"> Medication</h2>
-                </div>
+                </div> -->
 
                 <div>
                     <!--medication-->
@@ -63,22 +63,22 @@
 
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
                             <div>
-                                <label class="flex justify-start text-gray-700 dark:text-gray-200" for="category">Category</label>
+                                <label class="flex justify-start text-regal-teal " for="category">Category</label>
                                 <input v-model="medicine.catagory" id="category" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                             </div>
 
                             <div>
-                                <label class="flex justify-start text-gray-700 dark:text-gray-200" for="name">Medication</label>
-                                <input v-model="medicine.name" id="name" type="text" placeholder="Napa"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                                <label class="flex justify-start text-regal-teal" for="name">Medication</label>
+                                <input v-model="medicine.name" id="name" type="text" placeholder=""
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
                             </div>
                              <div>
-                                <label class="flex justify-start text-gray-700 dark:text-gray-200 " for="Meals">Relation with
+                                <label class="flex justify-start text-regal-teal" for="Meals">Relation with
                                     Meal</label>
                                 <div class="relative">
                                     <select
-                                    class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                    class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                         id="gender" v-model="medicine.relationWithMeals">
                                          <option value="" selected="selected" disabled="disabled">Select</option>
                                         <option>Before Meal</option>
@@ -110,7 +110,7 @@
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Frequency">Frequency</label>
                                 <div class="relative">
                                     <select
-                                    class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                    class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                         id="gender" v-model="medicine.frequency">
                                         <option value="" selected="selected" disabled="disabled">Select</option>
                                         <option v-for="f in frequency" :key="f._id">{{f}}</option>
@@ -129,14 +129,14 @@
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
                                 <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
-                                    class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                                    class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
                             </div>
 
                             <div class=" mt-7 flex justify-end">
 
                             <button class=" px-7 py-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex" @click="addItem()">
                             <span class=" ml-2 mr-2">Add Medication</span>   
-                               <span class="mr-2 mt-1 "><svg class="w-3 h-5 fill-current text-white  " height="426.66667pt"
+                               <span class=" "><svg class="w-3 h-5 fill-current text-white  " height="426.66667pt"
                                 viewBox="0 0 426.66667 426.66667" width="426.66667pt"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -162,8 +162,8 @@
                 <div class="mt-5 " v-if="this.items.length>=1">
                     <div>
 
-                        <table class="w-full bg-regal-light-blue text-regal-teal mx-auto  border border-regal-light-blue rounded-t-lg ">
-                            <thead class="text-center text-gray-800 border-regal-blue text-sm">
+                        <table class="w-full bg-regal-light-blue text-regal-teal mx-auto rounded-t-lg r ">
+                            <thead class="text-center text-regal-teal  text-sm">
                                 <th class="px-4 py-3">Category</th>
                                 <th class="px-4 py-3">Name</th>
                                 <th class="px-4 py-3">Duration</th>
@@ -173,9 +173,9 @@
                             </thead>
 
                             <tbody class="">
-                                <tr class="bg-white  border border-regal-blue border-opacity-25 hover:bg-regal-white hover:opacity-80 text-regal-teal"
+                                <tr class="bg-white  border border-regal-blue rounded-b-lg border-opacity-25 hover:bg-regal-white hover:opacity-80 text-regal-teal "
                                     v-for="(item,index) in items " :key="index">
-                                    <td class="py-3">{{item.catagory}}</td>
+                                    <td class="py-3 ">{{item.catagory}}</td>
                                     <td class="px-4 py-3">{{item.name}}</td>
                                     <td class="px-4 py-3">{{item.duration}}</td>
                                     <td class="px-4 py-3">{{item.frequency}}</td>
@@ -183,7 +183,8 @@
                                     <td class="flex justify-center items-center p-2">
                                         <button @click=" deleteItem(index)"
                                             class="p-0 w-5 h-5 mt-1 flex justify-center items-center  ">
-                                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                            <img src="@/assets/svgs/cross.svg" class="" alt="">
+                                            <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                 viewBox="0 0 496.158 496.158"
                                                 style="enable-background:new 0 0 496.158 496.158;" xml:space="preserve">
@@ -193,7 +194,7 @@
                                                     d="M383.546,206.286H112.612c-3.976,0-7.199,3.225-7.199,7.2v69.187c0,3.976,3.224,7.199,7.199,7.199
                             h270.934c3.976,0,7.199-3.224,7.199-7.199v-69.187C390.745,209.511,387.521,206.286,383.546,206.286z" />
 
-                                            </svg>
+                                            </svg> -->
 
                                         </button>
                                     </td>
@@ -208,9 +209,9 @@
                 <div class="flex justify-between">
                     <div class="w-full  mt-4 p-2">
                         <label
-                            class="block mb-4 mt-4 text-lg font-semibold text-gray-500 capitalize ">Advice</label>
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Advice</label>
                         <textarea v-model="formData.advice"
-                            class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
+                            class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
                     </div>
 
                 </div>

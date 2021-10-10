@@ -14,20 +14,20 @@
             <!--Basic Profile-->
             <!-- <div class="flex flex-wrap -mx-3 mb-6"> -->
               <div class="w-full lg:w-full ">
-                <label class="flex uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 justify-start " for="duuid">
+                <label class="flex  text-regal-teal text-sm font-medium mb-2 justify-start " for="duuid">
                   Full Name :
                 </label>
                 <input
-                  class="appearance-none block w-full bg-white text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
+                  class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
                   id="name" type="text" placeholder="Name" v-model="formData.name">
 
               </div>
               <div class="w-full lg:w-full ">
-                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nid">
+                <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nid">
                   NID :
                 </label>
                 <input
-                  class="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
+                  class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
                   id="nid" type="text" placeholder="Enter NID" v-model="formData.nid">
 
               <!-- </div> -->
@@ -39,20 +39,20 @@
 
 
               <div class="w-full lg:w-full mt-6 ">
-                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="dob">
+                <label class="flex justify-start text-regal-teal text-sm font-medium mb-2" for="dob">
                   Date Of Birth :
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-regal-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
+                  class="appearance-none block w-full bg-regal-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
                   id="dob" type="text" placeholder="1990-09-08" v-model="formData.dob">
 
               </div>
               <div class="w-full lg:w-full  ">
-                <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="gender">
+                <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">
                   Gender :
                 </label>
                 <input readonly
-                  class="appearance-none block w-full bg-regal-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
+                  class="appearance-none block w-full bg-regal-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
                   id="gender" type="text" placeholder="Gender" v-model="formData.gender">
               </div>
 
@@ -62,20 +62,20 @@
 
 
             <div class="w-full lg:w-full mt-6 ">
-              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="religion">
+              <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="religion">
                 Occupation :
               </label>
               <input
-                class="appearance-none block w-full bg-white text-regal-teal border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
-                id="religion" type="text" placeholder="Enter Occupation" v-model="formData.occupation">
+                class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                id="religion" type="text" placeholder="" v-model="formData.occupation">
             </div>
             <div class="w-full lg:w-full ">
-              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact">
+              <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="contact">
                 Phone :
               </label>
               <input
-                class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
-                id="contact" type="text" placeholder="Give contact!" v-model="formData.phone">
+                class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                id="contact" type="text" placeholder="" v-model="formData.phone">
             </div>
           <!-- </div> -->
 
@@ -83,12 +83,12 @@
 
 
             <div class="w-full lg:w-full px-3">
-              <label class="flex justify-start uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="nationality">
+              <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nationality">
                 Address :
               </label>
               <textarea
-                class="appearance-none block w-full h-36 bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
-                id="nationality" type="text" placeholder="Enter Address" v-model="formData.address"></textarea>
+                class="appearance-none block w-full h-36 bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                id="nationality" type="text" placeholder="" v-model="formData.address"></textarea>
             </div>
           </div>
           <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number

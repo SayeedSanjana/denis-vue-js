@@ -53,7 +53,7 @@
                                     placeholder="Add Habit" v-model="item" />
 
                                 <!-- Add button -->
-                                <button @click="addItem()" type="submit"
+                                <button @click="addHabit(this.$route.params.id)" type="submit"
                                     class="  ml-6 2xl:ml-6 lg:ml-0 flex justify-center items-center ">
                                     <img src="@/assets/svgs/plus.svg" alt="">
                                 </button>
@@ -62,7 +62,7 @@
                         <!--mb-4-->
                         <!-- delete button -->
                         <div>
-                            <div class="flex mb-4 justify-between" v-for="(item,index) in this.items" :key="index">
+                            <!-- <div class="flex mb-4 justify-between" v-for="(item,index) in this.items" :key="index">
                                 <div>
                                     <p class=" w-full text-gray-500">
                                         {{item}}
@@ -82,11 +82,11 @@
                                         </svg>
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <!-- Completed -->
-                        <div v-show="this.items.length>=1" class="flex justify-center items-center">
+                        <!-- <div v-show="this.items.length>=1" class="flex justify-center items-center">
                             <button @click="addHabit(this.$route.params.id)"
                                 class="font-bold text-gray-500 hover:text-indigo-500">
 
@@ -94,7 +94,7 @@
 
 
                             </button>
-                        </div>
+                        </div> -->
 
 
                     </form>
@@ -149,9 +149,9 @@
             },
             async addHabit(id) {
                 console.log(id)
-                for (var i of this.items) {
-                    this.form.personalHabits.push(i);
-                }
+               
+                    this.form.personalHabits.push(this.item);
+                
                 console.log(this.form)
                 await axios.patch('patients/' + id + '/add-personal-habit', this.form, {
                         headers: {
@@ -166,8 +166,9 @@
                         console.log(error)
 
                     })
-                this.show = !this.show
-                this.items = []
+                    this.item=''
+                // this.show = !this.show
+                // this.items = []
 
             },
             async removeHabit(habit) {

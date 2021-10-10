@@ -51,7 +51,7 @@
                                     placeholder="Add Allergy " v-model="item" />
 
                                 <!-- Add button -->
-                                <button @click="addItem()" type="submit"
+                                <button @click="addAllergy(this.$route.params.id)" type="submit"
                                     class="  ml-6 2xl:ml-6 lg:ml-0 flex justify-center items-center ">
                                     <img src="@/assets/svgs/plus.svg" alt="">
                                 </button>
@@ -66,7 +66,7 @@
                                         {{item}}
                                     </p>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <button @click="deleteItem(index)"
                                         class="p-0 w-6 h-7 mt-1 flex justify-center items-center bg-gray-400 rounded-full hover:bg-gray-400 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
                                         <svg width="32" height="32" class="w-4 h-4 inline-block fill-current text-white"
@@ -79,12 +79,12 @@
                                             <path d="M12 2h8v2h-8z" fill="currentColor"></path>
                                         </svg>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
                         <!-- Completed -->
-                        <div v-show="this.items.length>=1" class="flex justify-center items-center">
+                        <!-- <div v-show="this.items.length>=1" class="flex justify-center items-center">
                             <button @click="addAllergy(this.$route.params.id)"
                                 class="font-bold text-gray-500 hover:text-indigo-500">
 
@@ -92,7 +92,7 @@
 
 
                             </button>
-                        </div>
+                        </div> -->
 
 
                     </form>
@@ -136,24 +136,25 @@
             showAllergy() {
                 this.show = !this.show;
             },
-            addItem() {
-                if (this.item === "") {
-                    this.formValid = false
-                } else {
+            // addItem() {
+            //     if (this.item === "") {
+            //         this.formValid = false
+            //     } else {
 
-                    this.items.push(this.item)
-                    this.item = ""
-                }
-            },
+            //         this.items.push(this.item)
+            //         this.item = ""
+            //     }
+            // },
             deleteItem(i) {
                 this.items.splice(i, 1)
 
             },
             addAllergy(id) {
                 console.log(id)
-                for (var i of this.items) {
-                    this.form.allergies.push(i);
-                }
+                // for (var i of this.items) {
+                //     this.form.allergies.push(i);
+                // }
+                this.form.allergies.push(this.item)
                 axios.patch('patients/' + id + '/add-allergy', this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -161,13 +162,20 @@
                     })
                     .then((response) => {
                         console.log(response);
+                    this.form={
+                    allergies:[]
+                }
                         this.$emit("myEvent", this.$route.params.id)
                     })
                     .catch((error) => {
                         console.log(error)
                     })
-                this.show = !this.show
-                this.items = []
+                // this.form={
+                //     allergies:[]
+                // }
+                this.item=''
+               // this.show = !this.show
+                //this.items = []
 
             },
             async removeAllergy(allergy) {

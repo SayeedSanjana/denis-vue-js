@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="">
         <div>
 
             <div class=" p-2 w-full">
@@ -8,25 +8,28 @@
                     <form @submit.prevent>
 
                         <!--items-->
-                        <div
-                            class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 mb-8">
-                            Create New Bill
-                        </div>
-                        <div class=" mb-6  w-full text-left flex justify-start">
+                    
+                        <div class="mt-4 mb-6  w-full text-left flex justify-between">
                             <div>
-                                <div class="font-semibold text-md text-gray-700  "> Date:
-                                    <span class="text-lg font-medium text-indigo-500  ">{{this.date}}</span></div>
-                                <div class="font-semibold text-md text-gray-700  "> Patient Name:
-                                    <span class="text-lg font-medium text-indigo-500">{{this.formData.name}}</span>
+                                <div class="font-semibold text-md text-regal-teal  "> Date:
+                                    <span class="text-lg font-medium text-regal-teal   ">{{this.date}}</span></div>
+                                <div class="font-semibold text-md text-regal-teal   "> Patient Name:
+                                    <span class="text-lg font-medium text-regal-teal ">{{this.formData.name}}</span>
                                 </div>
-
-                                <div class="text-gray-700 font-semibold text-md ">Contact: <span
-                                        class="text-lg font-medium">{{this.formData.phone}}</span> </div>
+                                 
+                                <div class="text-regal-teal font-semibold text-md ">Contact: <span
+                                        class="text-lg text-regal-teal  font-medium">{{this.formData.phone}}</span> </div>
                             </div>
+                            <div class=" px-7 h-10 mt-6 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex" v-if="this.str.length==0">
+                            <button @click="printBill()" >Preview</button>
                         </div>
+                        </div>
+                        
+                           
+                        
                         <div
-                            class="tracking-widest text-left text-lg title-font font-bold text-gray-600  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
-                            Add Items:
+                            class=" text-left text-lg title-font font-bold text-regal-teal  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
+                            Add Items
                         </div>
 
                         <!--item list-->
@@ -36,16 +39,16 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Date</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Treatment Plan</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Cost</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                             </th>
                                         </tr>
                                     </thead>
@@ -59,7 +62,7 @@
                                                 {{item.service}}
                                             </td>
                                             <td class="md:py-4 md:px-6 border-b border-grey-light">{{item.cost}}</td>
-                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
+                                            <td class="md:py-4 md:px-6 border-b border-grey-light text-center">
                                                 <button class="px-4 py-2 mt-2" @click="deleteItems(index)">
                                                     <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512"
                                                         width="512pt" xmlns="http://www.w3.org/2000/svg">
@@ -78,32 +81,27 @@
                         </div>
 
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-4 mb-5">
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="date">Date</label>
+                            <div class="text-left ">
+                                <label class="text-regal-teal " for="date">Date</label>
                                 <input v-model="item.date" id="date" type="date"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="services">Services</label>
+                            <div class="text-left ">
+                                <label class="text-regal-teal " for="services">Services</label>
                                 <input v-model="item.service" id="date" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
 
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="cost">Cost</label>
+                            <div class="text-left ">
+                                <label class="text-regal-teal " for="cost">Cost</label>
                                 <input @keypress="isNumber($event)" :disabled="disabled == 1" v-model.number="item.cost"
                                     id="cost" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
 
                             <div class="flex justify-center">
-                                <button class="px-4 py-2 mt-2" @click="addNewItems()">
-                                    <svg class="w-8 h-8 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                        width="48px" height="48px">
-                                        <path fill="#4caf50"
-                                            d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
-                                        <path fill="#fff" d="M21,14h6v20h-6V14z" />
-                                        <path fill="#fff" d="M14,21h20v6H14V21z" /></svg>
+                                <button class="px-4 py-2 mt-5 ml-5" @click="addNewItems()">
+                                   <img src="@/assets/svgs/plus.svg" alt="" srcset="">
                                 </button>
 
                             </div>
@@ -114,8 +112,8 @@
                         <!--items-->
 
                         <div
-                            class="tracking-widest text-lg title-font text-left font-bold text-gray-600  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
-                            Add Payments:
+                            class=" text-lg title-font text-left font-bold text-regal-teal  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
+                            Add Payments
                         </div>
 
 
@@ -127,16 +125,16 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Date</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Paid</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Payment Method</th>
                                             <th
-                                                class="md:py-4 md:px-6 text-gray-400 font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
+                                                class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                             </th>
                                         </tr>
                                     </thead>
@@ -151,8 +149,8 @@
                                             </td>
                                             <td class="md:py-4 md:px-6 border-b border-grey-light">
                                                 {{item.paymentMethod}}</td>
-                                            <td class="md:py-4 md:px-6 border-b border-grey-light">
-                                                <button class="px-4 py-2 mt-2" @click="deletePayments(index)">
+                                            <td class="md:py-4 md:px-6 border-b border-grey-light text-center">
+                                                <button class="px-4 py-2 mt-2 " @click="deletePayments(index)">
                                                     <svg class="w-7 h-7 " height="512pt" viewBox="0 0 512 512"
                                                         width="512pt" xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -169,23 +167,23 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-4">
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="date">Date</label>
+                            <div class="text-left ">
+                                <label class="text-regal-teal" for="date">Date</label>
                                 <input v-model="payment.date" id="date" type="date"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="cost">Paid</label>
+                            <div class="text-left ">
+                                <label class="text-regal-teal" for="cost">Paid</label>
                                 <input @keypress="isNumber($event)" v-model.number="payment.paid" id="cost" type="text"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                             </div>
 
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="paymentMethod">Payment
+                            <div class="text-left ">
+                                <label class="text-regal-teal" for="paymentMethod">Payment
                                     Method</label>
                                 <div class="relative">
                                     <select
-                                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="block appearance-none w-full px-4 py-2 mt-2 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                         id="paymentMethod" v-model="payment.paymentMethod">
 
                                         <option v-for="f in paymentMethods" :key="f._id">{{f}}</option>
@@ -203,14 +201,9 @@
                             </div>
                             <div class="flex justify-center">
 
-                                <button class="px-4 py-2 mt-2" @click="addNewPayments()"
+                                <button class="px-4 py-2 mt-4 ml-5" @click="addNewPayments()"
                                     v-show="(this.totalPaid<= this.totalCost )">
-                                    <svg class="w-8 h-8 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                        width="48px" height="48px">
-                                        <path fill="#4caf50"
-                                            d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z" />
-                                        <path fill="#fff" d="M21,14h6v20h-6V14z" />
-                                        <path fill="#fff" d="M14,21h20v6H14V21z" /></svg>
+                                    <img src="@/assets/svgs/plus.svg" alt="" srcset="">
                                 </button>
                             </div>
                             <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information
@@ -244,60 +237,60 @@
 
                                     </div>
                                     <!--discount-->
-                                    <div class="flex justify-end">
+                                    <div class="flex justify-start">
                                        
-                                        <div class="">
-                                            <div class="  ml-6 mr-10">
+                                        <!-- <div class=""> -->
+                                            <!-- <div class="  ml-6 mr-10"> -->
                                                 <div class=" mt-5  w-full ">
-                                                    <div class=" flex  mb-3 ">
+                                                    <div class=" flex justify-between mb-3 ">
 
-                                                        <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                                        <div class="text-regal-teal text-md font-bold  mt-1">
                                                             <label for="" class=""> Total Cost:</label>
                                                         </div>
-                                                        <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
-                                                            TK{{this.totalCost}}
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                            {{this.totalCost}}TK
                                                         </div>
                                                     </div>
-                                                    <div class=" flex  mb-3 ">
+                                                    <div class=" flex justify-between mb-3 ">
 
-                                                        <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                                        <div class="text-regal-teal text-md font-bold  mt-1">
                                                             <label for="" class=""> Total Paid:</label>
                                                         </div>
-                                                        <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
-                                                            TK{{this.totalPaid}}
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                            {{this.totalPaid}}TK
                                                         </div>
                                                     </div>
-                                                    <!-- <div class=" flex  mb-3 ">
+                                                    <!-- <div class=" flex justify-between mb-3 ">
 
                                                         <div class="text-gray-400 text-md font-bold uppercase mt-1">
                                                             <label for="" class=""> Discount:</label>
                                                         </div>
                                                         <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
-                                                            TK{{this.discount}}
+                                                            {{this.discount}}TK
                                                         </div>
                                                     </div> -->
-                                                    <div class=" flex  mb-3 ">
+                                                    <div class=" flex justify-between  mb-3 ">
 
-                                                        <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                                        <div class="text-regal-teal text-md font-bold  mt-1">
                                                             <label for="" class=""> Adjustment:</label>
                                                         </div>
-                                                        <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
-                                                            TK{{this.totalCost-this.discount}}
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                            {{this.totalCost-this.discount}}TK
                                                         </div>
                                                     </div>
-                                                    <div class=" flex  mb-3 ">
+                                                    <div class=" flex justify-between  mb-3 ">
 
-                                                        <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                                        <div class="text-regal-teal text-md font-bold  mt-1">
                                                             <label for="" class=""> Balance(Due):</label>
                                                         </div>
-                                                        <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
-                                                            TK{{this.totalCost-this.totalPaid}}
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                            {{this.totalCost-this.totalPaid}}TK
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div> -->
 
-                                        </div>
+                                        <!-- </div> -->
                                     </div>
                                     <!--discount-->
                                     <div v-if="this.str.length>=1">
@@ -323,9 +316,9 @@
                         </div>
                         <!--discount-->
 
-                        <div class="flex justify-end mt-6 " v-if="this.str.length==0">
+                        <!-- <div class="flex justify-end mt-6 " v-if="this.str.length==0">
                             <button @click="printBill()" class="button">Preview</button>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <!--form-->
