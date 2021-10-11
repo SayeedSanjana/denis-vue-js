@@ -1,9 +1,9 @@
 <template>
   <div>
-    <header class="sticky top-0 z-50">
+    <!-- <header class="sticky top-0 z-50">
 
       <Nav />
-    </header>
+    </header> -->
 
     <div
       class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
@@ -119,10 +119,10 @@
 <script>
   import axios from 'axios';
   import swal from 'sweetalert';
-  import Nav from "../../components/Nav.vue";
+  //import Nav from "../../components/Nav.vue";
   export default {
     components: {
-      Nav
+      //Nav
     },
     data() {
       return {

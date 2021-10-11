@@ -2,7 +2,7 @@
     <div class="">
         <div>
 
-            <div class=" p-2 w-full">
+            <div class=" p-2 mt-10 w-full">
                 <!--form-->
                 <div class="px-8 flex justify-center items-center">
                     <form @submit.prevent>
@@ -43,7 +43,7 @@
                                                 Date</th>
                                             <th
                                                 class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                                                Treatment Plan</th>
+                                                Treatment Done</th>
                                             <th
                                                 class="md:py-4 md:px-6 text-regal-teal font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
                                                 Cost</th>
@@ -170,12 +170,12 @@
                             <div class="text-left ">
                                 <label class="text-regal-teal" for="date">Date</label>
                                 <input v-model="payment.date" id="date" type="date"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-gray-300 rounded-md ">
                             </div>
                             <div class="text-left ">
                                 <label class="text-regal-teal" for="cost">Paid</label>
                                 <input @keypress="isNumber($event)" v-model.number="payment.paid" id="cost" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-gray-300 rounded-md ">
                             </div>
 
                             <div class="text-left ">
@@ -183,7 +183,7 @@
                                     Method</label>
                                 <div class="relative">
                                     <select
-                                    class="block appearance-none w-full px-4 py-2 mt-2 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                    class="block appearance-none w-full px-4 py-2 mt-2 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md  "
                                         id="paymentMethod" v-model="payment.paymentMethod">
 
                                         <option v-for="f in paymentMethods" :key="f._id">{{f}}</option>

@@ -138,7 +138,7 @@
                                                 TK{{Bills.total}}
                                             </div>
                                         </div>
-                                        <div class=" flex mb-3 ">
+                                        <!-- <div class=" flex mb-3 ">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
                                                 <label class=" whitespace-nowrap" for="" > Total Paid:</label>
@@ -146,7 +146,7 @@
                                             <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
                                                 TK{{this.paid}}
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class=" flex  mb-3 " v-if="Bills.discount>0">
 
                                             <div class="text-gray-400 text-md font-bold uppercase mt-1">

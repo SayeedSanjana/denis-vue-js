@@ -3,9 +3,9 @@
 
         <Nav />
     </header>
-
+   
     <h2 class="text-2xl text-left font-bold mx-24 mt-10 text-regal-teal">Patient Billing</h2>
-    <div class="mx-24 my-14">
+    <div class="mx-24 my-14 bg-white">
         <div class=" lg:flex border border-regal-teal border-opacity-20 rounded-xl ">
             <div class="xl:w-1/3  ">
 
@@ -60,6 +60,7 @@
                 </div> -->
 
     </div>
+    
     <!-- </div> -->
 
 

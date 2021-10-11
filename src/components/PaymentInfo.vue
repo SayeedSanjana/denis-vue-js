@@ -1,8 +1,54 @@
 <template>
-	<div>
+	<div class="mt-4">
 
-		<div class="flex ">
-			<div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
+		<div class=" flex justify-between mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Total Cost:</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{Bills.total}}TK
+			</div>
+		</div>
+		<!-- <div class=" flex justify-between mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Total Paid:</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{this.paid}}TK
+			</div>
+		</div> -->
+		<div class=" flex justify-between mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Discount:</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{Bills.discount+this.discount}}TK
+			</div>
+		</div>
+	
+		<div class=" flex justify-between  mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Adjustment:</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{Bills.adjustment-this.discount}}TK
+			</div>
+		</div>
+		<div class=" flex justify-between  mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Balance(Due):</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{Bills.balance-this.discount}}TK
+			</div>
+		</div>
+	</div>
+	<!-- <div class="py-8 mr-8 ml-auto mt-5  w-full sm:w-2/4 lg:w-1/4">
 				<div class=" justify-between mb-3">
 					<div class="text-indigo-400 text-md text-right flex font-bold uppercase "><span
 							class="ml-5 mt-2">Total:</span> <span class="text-lg rounded ml-2 text-gray-400 mt-2 "><span
@@ -40,16 +86,17 @@
 						<div class="text-gray-800 font-medium" x-html="netTotal"></div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+			</div> -->
+
+
 </template>
 
 <script>
 	export default {
 		props: {
 			Bills: Object,
-			discount: Number
+			discount: Number,
+			paid: Number
 		}
 
 	}

@@ -60,10 +60,10 @@
                             </div>
 
                             <div>
-                                <div class="flex justify-center items-center mt-3">
+                                <div class="flex justify-center items-center mt-3 ">
 
-                                    <table class="text-left w-full border table-auto  ">
-                                        <thead class="text-center  border-b-2 border-gray-300 text-sm text-gray-400">
+                                    <table class="  m-5 w-full mx-auto bg-regal-white ">
+                                        <thead class="text-center text-sm text-regal-teal border border-regal-teal border-opacity-50 ">
                                             <th class="px-4 py-3">Date</th>
                                             <th class="px-4 py-3  ">Treatment Plan</th>
                                             <th class="px-4 py-3  ">Cost</th>
@@ -72,7 +72,7 @@
                                         </thead>
 
                                         <tbody class="">
-                                            <tr class="bg-white  border border-gray-300 hover:bg-gray-100 text-center"
+                                            <tr class="bg-white  border-b border-regal-cyan border-opacity-50 text-center"
                                                 v-for="item in form.items" :key="item._id">
                                                 <td class="px-4 py-3 p-4  text-gray-500 font-bold uppercase text-sm">
                                                     {{item.date.substring(0,10)}}</td>
