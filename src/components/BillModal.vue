@@ -121,9 +121,7 @@
                             </div>
                             <!--Payment Description-->
 
-                            <div class="mt-6">
-                                <hr>
-                            </div>
+                           
 
 
                             <!--Payment Info-->
