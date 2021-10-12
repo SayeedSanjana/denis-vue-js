@@ -47,7 +47,7 @@
                         <div class="mb-4">
                             <div class="flex ">
                                 <input
-                                    class="border border-regal-teal border-opacity-50 rounded  py-1 px-3 mr-2 2xl:w-56 lg:w-32 text-regal-teal text-opacity-50 font-semibold"
+                                    class="border border-regal-teal border-opacity-50 focus:border-regal-blue focus:outline-none rounded  py-1 px-3 mr-2 2xl:w-56 lg:w-32 text-regal-teal text-opacity-50 font-semibold"
                                     placeholder="Add Allergy " v-model="item" />
 
                                 <!-- Add button -->

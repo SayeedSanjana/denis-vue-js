@@ -134,16 +134,16 @@
                 id="modal-id">
                 <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
                 <div
-                    class="w-full  lg:max-w-3xl max-w-lg  max-h-screen overflow-y-scroll p-6 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
+                    class="w-full  lg:max-w-3xl max-w-lg  p-6 pr-0 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
                     <!--content-->
-                    <div class="mt-5">
+                    <div class="mt-5 overflow-y-scroll h-yxl">
                         <!--body-->
                         <div class="text-center  flex-auto justify-center">
                             <!--item-->
-                            <div class="flex justify-end">
+                            <div class="flex justify-end  mr-6">
                                 <button @click="removeSer">
 
-                                    <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt"
+                                    <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
@@ -162,20 +162,20 @@
                                     <div>
                                         <label class="text-regal-teal" for="date">Date</label>
                                         <input v-model="item.date" id="date" type="date"
-                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
                                     <div>
                                         <label class="text-regal-teal" for="services">Treatment
                                             Plan</label>
                                         <input v-model="item.service" id="date" type="text"
-                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50  rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div>
                                         <label class="text-regal-teal" for="cost">Cost</label>
                                         <input @keypress="isNumber($event)" v-model.number="item.cost" id="cost"
                                             type="text"
-                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50  rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div class="flex justify-center">
@@ -310,16 +310,16 @@
                 id="modal-id">
                 <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
                 <div
-                    class="w-full  lg:max-w-3xl max-w-lg  max-h-screen overflow-y-scroll p-6 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
+                    class="w-full  lg:max-w-3xl max-w-lg  p-6 pr-0 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
                     <!--content-->
-                    <div class="mt-5">
+                    <div class="mt-5  overflow-y-scroll h-yxl">
                         <!--body-->
                         <div class="text-center  flex-auto justify-center">
                             <!--payment-->
-                            <div class="flex justify-end">
+                            <div class="flex justify-end mr-6">
                                 <button @click="removePay">
 
-                                    <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt"
+                                    <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
@@ -341,13 +341,13 @@
                                     <div>
                                         <label class="text-regal-teal " for="date">Date</label>
                                         <input v-model="payment.date" id="date" type="date"
-                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md  ">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
                                     <div>
                                         <label class="text-regal-teal " for="paid">Paid</label>
                                         <input @keypress="isNumber($event)" v-model.number="payment.paid" id="date"
                                             type="text"
-                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md  ">
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div>
@@ -355,7 +355,7 @@
                                             Method</label>
                                         <div class="relative">
                                             <select
-                                                class="block appearance-none w-full bg-regal-white border border-regal-teal border-opacity-50 text-regal-teal py-2 mt-2 px-4 pr-8 rounded leading-tight "
+                                    class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                                 id="paymentMethod" v-model="payment.paymentMethod">
 
                                                 <option v-for="f in paymentMethods" :key="f._id">{{f}}</option>

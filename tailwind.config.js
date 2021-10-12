@@ -14,7 +14,16 @@ module.exports = {
       'regal-light-blue':'#E5F2F7',
       'regal-red' : '#FE646F',
       'regal-success' : '#3EBB52'
-    }},
+    },
+    height: {
+      sm: '8px',
+      md: '16px',
+      lg: '24px',
+      xl: '48px',
+      yxl: '500px',
+      xxl: '800px',
+     }
+  },
   },
   variants: {
     extend: {},
