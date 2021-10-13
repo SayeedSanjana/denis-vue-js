@@ -14,7 +14,7 @@
       <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  mt-32 mb-6"  style="color:#005072">Log In</h1>
         </div>
         
-       <form action="" @submit.prevent="signupForm">
+       <form action="" @submit.prevent="submitForm">
                 <div>
                     <div class="flex -mx-3">
                     <div class="w-full  mb-5 text-left">

@@ -98,7 +98,7 @@
                     number should be 11 digits and name should atleast 3 letters</span> </p>
 
                 <div class=" flex justify-between mt-6">
-                  <button @click="createPatient()" class=" px-10 bg-regal-teal text-center p-2 m-2 border  text-white font-semibold  rounded-lg text-sm">
+                  <button  class=" px-10 bg-regal-teal text-center p-2 m-2 border  text-white font-semibold  rounded-lg text-sm">
                     Create Patient
                   </button>
                    <button  @click="closeModal" class=" px-10 bg-regal-green text-center p-2 m-2 border  text-regal-teal font-semibold  rounded-lg text-sm">
@@ -117,12 +117,11 @@
 </template>
 
 <script>
-  import axios from 'axios';
+   import axios from 'axios';
   import swal from 'sweetalert';
-  //import Nav from "../../components/Nav.vue";
   export default {
     components: {
-      //Nav
+     
     },
     data() {
       return {
@@ -143,9 +142,8 @@
         if (this.formdata.name === '' || this.formdata.name.length < 3 || this.formdata.gender === '' || this.formdata
           .dob === '' || this.formdata.phone.length < 11 || this.formdata.phone.length > 11) {
           this.formIsValid = false;
-          return;
+         
         } else {
-
           await axios.post('patients/create-patient', this.formdata, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -173,7 +171,6 @@
         this.$emit("closeModal")
       }
     }
-
   }
 </script>
 

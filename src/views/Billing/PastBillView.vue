@@ -57,11 +57,11 @@
                     <div class="inline-flex  mt-4">
                         <label for="" class="  mr-8 text-regal-teal font-medium">Give discount in: </label>
 
-                        <input type="radio" name="test_id" @change="onChange($event)" value="Amount"
-                            class="form-radio h-5 w-5 text-indigo-600  mt-1 mr-1" checked="checked"><span
+                        <input type="radio" @keypress="applyDiscount"  name="test_id" @change="onChange($event)" value="Amount"  v-model="type"
+                            class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
                             class=" text-regal-teal font-medium mt-1 mr-12">Amount</span>
-                        <input type="radio" name="test_id" @change="onChange($event)" value="Percentage"
-                            class="form-radio h-5 w-5 text-indigo-600  mt-1 mr-1"><span
+                        <input type="radio" @keypress="applyDiscount"  name="test_id" @change="onChange($event)" value="Percentage"  v-model="type"
+                            class="form-radio h-5 w-5   mt-1 mr-1"><span
                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
                     </div>
 
@@ -69,7 +69,7 @@
                         <div class="text-left ">
                             <label class="text-regal-teal dark:text-gray-200 ml-1" for="discount">Discount
                                 Amount</label>
-                            <input @keypress="isNumber($event)" v-model.number="discountAmount" id="discount"
+                            <input @keyup="applyDiscount" @keypress="isNumber($event)" v-model.number="discountAmount" id="discount"
                                 type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md ">
                         </div>
@@ -78,7 +78,8 @@
                                 class=" pl-4 pr-4 pt-3 pb-2 text-center bg-regal-teal border text-white font-semibold  rounded-md text-sm flex">Confirm</button>
                         </div>
                     </div>
-                    <div>{{this.applyDiscount()}}</div>
+                          <div v-if="this.type==='Amount' || this.type==='Percentage'">{{this.applyDiscount()}}</div> 
+                    <!-- <div>{{this.applyDiscount()}}</div> -->
                     <!--discount-->
                     <div v-if="this.str.length>=1">
 
@@ -535,6 +536,7 @@
         },
         data() {
             return {
+                type: '',
                 token: localStorage.getItem('token'),
                 formValid: true,
                 formPayValid: true,

@@ -8,7 +8,7 @@
                     <form @submit.prevent>
 
                         <!--items-->
-                    
+
                         <div class="mt-4 mb-6  w-full text-left flex justify-between">
                             <div>
                                 <div class="font-semibold text-md text-regal-teal  "> Date:
@@ -16,17 +16,19 @@
                                 <div class="font-semibold text-md text-regal-teal   "> Patient Name:
                                     <span class="text-lg font-medium text-regal-teal ">{{this.formData.name}}</span>
                                 </div>
-                                 
+
                                 <div class="text-regal-teal font-semibold text-md ">Contact: <span
-                                        class="text-lg text-regal-teal  font-medium">{{this.formData.phone}}</span> </div>
+                                        class="text-lg text-regal-teal  font-medium">{{this.formData.phone}}</span>
+                                </div>
                             </div>
-                            <div class=" px-7 h-10 mt-6 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex" v-if="this.str.length==0">
-                            <button @click="printBill()" >Preview</button>
+                            <div class=" px-7 h-10 mt-6 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex"
+                                v-if="this.str.length==0">
+                                <button @click="printBill()">Preview</button>
+                            </div>
                         </div>
-                        </div>
-                        
-                           
-                        
+
+
+
                         <div
                             class=" text-left text-lg title-font font-bold text-regal-teal  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
                             Add Items
@@ -101,7 +103,7 @@
 
                             <div class="flex justify-center">
                                 <button class="px-4 py-2 mt-5 ml-5" @click="addNewItems()">
-                                   <img src="@/assets/svgs/plus.svg" alt="" srcset="">
+                                    <img src="@/assets/svgs/plus.svg" alt="" srcset="">
                                 </button>
 
                             </div>
@@ -183,7 +185,7 @@
                                     Method</label>
                                 <div class="relative">
                                     <select
-                                    class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                        class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                         id="paymentMethod" v-model="payment.paymentMethod">
 
                                         <option v-for="f in paymentMethods" :key="f._id">{{f}}</option>
@@ -232,63 +234,103 @@
                                 <!--discount-->
 
                                 <form @submit.prevent>
-                                    <div
-                                        class="tracking-widest text-lg text-left title-font font-bold text-gray-500  border-b border-gray-300 ">
 
+                                    <!-- discount -->
+                                    <div
+                                        class=" text-lg title-font text-left font-bold text-regal-teal  mb-3 pb-3 pt-2 border-b border-gray-300 mt-5">
+                                        Discount
+                                    </div>
+
+                                    <div class="inline-flex  mt-4  mb-5">
+                                        <label for="" class="mr-8 mt-0.5 text-regal-teal font-medium">Give discount in:
+                                        </label>
+
+                                        <input type="radio" @keypress="applyDiscount"  name="test_id"
+                                            @change="onChange($event)" value="Amount"   v-model="type"
+                                            class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
+                                            class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
+                                        <input type="radio" @keypress="applyDiscount" name="test_id"
+                                            @change="onChange($event)" value="Percentage"  v-model="type"
+                                            class="form-radio h-5 w-5   mt-1 mr-1"><span
+                                            class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
+
+                                    </div>
+
+                                    <div class="flex justify-between ">
+                                        <div class="flex justify-between">
+                                            <div class="mt-4 mr-5">
+
+                                                <label class="text-regal-teal inline-block " for="discount">Discount
+                                                    Amount :</label>
+                                            </div>
+                                            <div>
+
+                                                <input @keyup="applyDiscount" @keypress="isNumber($event)"
+                                                    v-model.number="discountAmount" id="discount" type="text"
+                                                    class="block w-full px-4 py-2 mt-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded focus:outline-none focus:border-regal-blue">
+                                            </div>
+                                        </div>
+                                        <div v-if="this.type==='Amount' || this.type==='Percentage'">
+                                            {{this.applyDiscount()}}</div>
+
+
+                                    </div>
+                                    <div class=" mt-5 ">
+                                        <hr />
                                     </div>
                                     <!--discount-->
                                     <div class="flex justify-start">
-                                       
+
                                         <!-- <div class=""> -->
-                                            <!-- <div class="  ml-6 mr-10"> -->
-                                                <div class=" mt-5  w-full ">
-                                                    <div class=" flex justify-between mb-3 ">
+                                        <!-- <div class="  ml-6 mr-10"> -->
+                                        <div class=" mt-5  w-full ">
+                                            <div class=" flex justify-between mb-3 ">
+
+                                                <div class="text-regal-teal text-md font-bold  mt-1">
+                                                    <label for="" class=""> Total Cost:</label>
+                                                </div>
+                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                    {{this.totalCost}}TK
+                                                </div>
+                                            </div>
+                                            <div class=" flex justify-between mb-3 ">
+
+                                                <div class="text-regal-teal text-md font-bold  mt-1">
+                                                    <label for="" class=""> Total Paid:</label>
+                                                </div>
+                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                    {{this.totalPaid}}TK
+                                                </div>
+                                            </div>
+                                            <div class=" flex justify-between mb-3 ">
 
                                                         <div class="text-regal-teal text-md font-bold  mt-1">
-                                                            <label for="" class=""> Total Cost:</label>
-                                                        </div>
-                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                            {{this.totalCost}}TK
-                                                        </div>
-                                                    </div>
-                                                    <div class=" flex justify-between mb-3 ">
-
-                                                        <div class="text-regal-teal text-md font-bold  mt-1">
-                                                            <label for="" class=""> Total Paid:</label>
-                                                        </div>
-                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                            {{this.totalPaid}}TK
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class=" flex justify-between mb-3 ">
-
-                                                        <div class="text-gray-400 text-md font-bold uppercase mt-1">
                                                             <label for="" class=""> Discount:</label>
                                                         </div>
-                                                        <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
                                                             {{this.discount}}TK
                                                         </div>
-                                                    </div> -->
-                                                    <div class=" flex justify-between  mb-3 ">
-
-                                                        <div class="text-regal-teal text-md font-bold  mt-1">
-                                                            <label for="" class=""> Adjustment:</label>
-                                                        </div>
-                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                            {{this.totalCost-this.discount}}TK
-                                                        </div>
                                                     </div>
-                                                    <div class=" flex justify-between  mb-3 ">
+                                            <div class=" flex justify-between  mb-3 ">
 
-                                                        <div class="text-regal-teal text-md font-bold  mt-1">
-                                                            <label for="" class=""> Balance(Due):</label>
-                                                        </div>
-                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                            {{this.totalCost-this.totalPaid}}TK
-                                                        </div>
-                                                    </div>
+                                                <div class="text-regal-teal text-md font-bold  mt-1">
+                                                    <label for="" class=""> Adjustment:</label>
                                                 </div>
-                                            <!-- </div> -->
+                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                    {{this.totalCost-this.discount}}TK
+                                                </div>
+                                            </div>
+                                            <div class=" flex justify-between  mb-3 ">
+
+                                                <div class="text-regal-teal text-md font-bold  mt-1">
+                                                    <label for="" class=""> Balance(Due):</label>
+                                                </div>
+                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                    {{this.totalCost-this.totalPaid}}TK
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
 
                                         <!-- </div> -->
                                     </div>
@@ -346,6 +388,7 @@
         },
         data() {
             return {
+                type:'',
                 token: localStorage.getItem('token'),
                 billModal: false,
                 id: '',
@@ -391,6 +434,45 @@
             }
         },
         methods: {
+            applyDiscount() {
+                this.balance = this.totalCost - this.totalPaid
+
+                if (this.isPercentage == 'Percentage') {
+
+                    if (this.discountAmount <= 100) {
+
+                        this.discount = (this.totalCost / 100) * this.discountAmount
+                        this.form.discount = this.discount
+                        this.str = ""
+
+                        if (this.discount <= this.totalCost - this.totalPaid) {
+                            this.adjustment = this.totalCost - this.discount
+                            this.balance = this.balance - this.discount
+                            this.str = ""
+
+                        } else {
+                            this.str = "Discount amount exceeding balance"
+
+                        }
+
+                    } else {
+                        this.str = "Percentage is exceeding 100%"
+
+                    }
+                } else {
+                    this.str = ""
+                    this.discount = this.discountAmount
+                    this.form.discount = this.discount
+                    if (this.discount <= this.totalCost - this.totalPaid) {
+                        this.adjustment = this.totalCost - this.discount
+                        this.balance = this.balance - this.discount
+                        this.str = ""
+                    } else {
+                        this.str = "Discount amount exceeding balance"
+
+                    }
+                }
+            },
 
             //Checking if only numbers inputted
             isNumber(evt) {
