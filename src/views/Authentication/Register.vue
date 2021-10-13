@@ -8,20 +8,21 @@
     <div class="w-full mt-5 ">
 
       <h1 class="text-xl md:text-3xl font-bold leading-tight  text-left mb-10" style="color:#005072 font-mono">MT Dental Center</h1>
-      <h1 class="text-xl md:text-3xl font-bold leading-tight mt-2 text-left mb-8"  style="color:#005072">Sign Up</h1>
+      <h1 class="text-xl md:text-3xl font-bold leading-tight mt-2 text-left mb-5"  style="color:#005072">Sign Up</h1>
 
           <form action="" @submit.prevent="signupForm" >
                 <div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                         <div class="w-full  mb-3 text-left ">
-                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name</label>
+                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters)</span> </label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model.trim="formData.name" type="text" class="w-full -ml-10 h-11 pl-10 rounded outline-none text-regal-teal"  style="background:#E7FBFC" >
                             </div>
+                                 <small class="text-regal-red mb-2">{{this.strName}}</small>
                         </div>
                     </div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                         
                         <div class="w-1/2 mr-3 mb-3 text-left">
                             <label for="" class="text-sm font-medium px-1  text-regal-teal">Gender</label>
@@ -31,7 +32,7 @@
                 id="gender" v-model="formData.gender">
                 <option>Male</option>
                 <option>Female</option>
-                 <option>Transgender</option>
+                
                 <option>Others</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -39,6 +40,7 @@
                   <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
               </div>
             </div>
+              <small class="text-regal-red mb-2">{{this.strGender}}</small>
                         </div>
                         <div class="w-1/2  mb-3 text-left">
                             <label for="" class="text-sm font-medium px-1  text-regal-teal">Date of Birth</label>
@@ -47,47 +49,52 @@
                             <input class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none  pl-10 text-regal-teal" style="background:#E7FBFC"
                             id="date" type="date" placeholder="" v-model="formData.dob">
                             </div>
+                              <small class="text-regal-red mb-2">{{this.strDob}}</small>
                         </div>
                     </div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                         <div class="w-full mb-3 text-left">
                             <label for="" class="text-sm font-medium px-1  text-regal-teal">Address</label>
                             <div class="flex ">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <textarea v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 text-regal-teal   rounded h-24 outline-none " style="background:#E7FBFC"></textarea>
                             </div>
+                              <small class="text-regal-red mb-2">{{this.strAddress}}</small>
                         </div>
                       
                     </div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                     <div class="w-full  mb-2 text-left">
-                            <label for="" class="text-sm font-medium px-1  text-regal-teal">Phone</label>
+                            <label for="" class="text-sm font-medium px-1  text-regal-teal">Phone <span class="text-xs text-gray-400 font-medium">(Should include only digits i.e 0-9)</span></label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 h-11 py-2 pl-10 rounded outline-none text-regal-teal" style="background:#E7FBFC" >
                             </div>
+                              <small class="text-regal-red mb-2">{{this.strPhone}}</small>
                         </div>
                      </div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                     <div class="w-full  mb-2 text-left">
                             <label for="" class="text-sm font-medium px-1  text-regal-teal">Email</label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model.trim="formData.email" type="email" class="w-full -ml-10 h-11 py-2  pl-10 text-regal-teal rounded outline-none" style="background:#E7FBFC" >
                             </div>
+                              <small class="text-regal-red mb-2">{{this.strEmail}}</small>
                         </div>
                      </div>
-                    <div class="flex -mx-1">
+                    <div class="flex 2xl:-mr-12 -mx-1">
                     <div class="w-full  mb-2 text-left">
                             <label for="" class="text-sm font-medium px-1  text-regal-teal">Password <span class="text-xs text-gray-400 font-medium">(Should include 0-9,A-Z, a-z and special characters)</span></label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model="formData.password" type="password" class="w-full -ml-10 h-11 py-2  pl-10 rounded outline-none text-regal-teal" style="background:#E7FBFC" >
                             </div>
+                              <small class="text-regal-red mb-2">{{this.strPassword}}</small>
                         </div>
                      </div>
                     
-                    <div class="flex justify-center -mx-1 border-b border-gray-300 mt-2">
+                    <div class="flex justify-center -mx-1 border-b border-gray-300 2xl:-mr-12 mt-2">
                          <div class="w-full mb-2"> 
                             <button class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold " style="background:#46CDD3" @click="signupForm">Create New Account</button>
                         </div>
@@ -97,7 +104,7 @@
 
                    
                          
-                        <div class="flex justify-center -mx-1">
+                        <div class="flex justify-center 2xl:-mr-12 -mx-1">
                             <div class="w-full "> 
                                 <h3 class="text-sm mb-1" style="color:#036792">Aready Have An Account?</h3>
                             <router-link to="/" class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold" style="background:#036792">Login</router-link>
@@ -135,9 +142,13 @@ import PinNumber from "../../components/PinNumber.vue";
                 pin:'',
                 openModal:false,
                 formIsValid:false,
-                str:"",
-                strPh:"",
-                strPa:"",
+                strEmail:"",
+                strPassword:"",
+                strName:"",
+                strDob:"",
+                strAddress:"",
+                strGender:"",
+                strPhone:"",
                 formData:{
                     name:'',
                     email:'',
@@ -152,21 +163,112 @@ import PinNumber from "../../components/PinNumber.vue";
         methods:{
             //Sign In
             async signupForm(){
-             if(this.formData.email === ''|| this.formData.name===''||this.formData.password===''||this.formData.dob===''||this.formData.phone===''||this.formData.gender===''||this.formData.address===''){
-                    this.formIsValid = false;
-                    this.str="Please Enter Valid Input"
-             }
-                    else if(this.formData.phone.length!==11){
-                         this.str="Phone number should be of 11 digits"
-                    }
+            //  if(this.formData.email === ''|| this.formData.name===''||this.formData.password===''||this.formData.dob===''||this.formData.phone===''||this.formData.gender===''||this.formData.address===''){
+            //         this.formIsValid = false;
+            //         this.str="Please Enter Valid Input"
+            //  }
+            //         else if(this.formData.phone.length!==11){
+            //              this.str="Phone number should be of 11 digits"
+            //         }
 
-                    else if(this.formData.phone.length!==11){
-                         this.str="Phone number should be of 11 digits"
-                    }
-                     else if(this.formData.password.length<8){
-                         this.str="Password should be of atleast 8 digits"
-                    }
-                    
+            //         else if(this.formData.phone.length!==11){
+            //              this.str="Phone number should be of 11 digits"
+            //         }
+            //          else if(this.formData.password.length<8){
+            //              this.str="Password should be of atleast 8 digits"
+            //         }
+              if (this.formData.name === '') {
+                   this.strName = 'Name cannot be blank';  
+                     }   
+                       else if (this.formData.name.length < 3 || this.formData.name.length > 255) {
+                          this.strDob ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strPhone= '', 
+                   this.strName = 'Minimum length 3 & Maximum length 255 '; 
+                    }   
+                      else if (this.formData.gender === '') {
+                           this.strDob ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strName='',
+                          this.strPhone= '', 
+                   this.strGender = 'Gender cannot be blank';  
+                     }  
+                      else if (this.formData.dob === '') {
+                           this.strName ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strPhone= '', 
+                   this.strDob = 'Date of Birth cannot be blank';  
+                     } 
+                      else if (this.formData.address === '') {
+                           this.strDob ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strName='',
+                          this.strGender='',
+                          this.strPhone= '', 
+                   this.strAddress = 'Address cannot be blank';  
+                     }   
+                 
+                  else if (this.formData.phone === '') {
+                       this.strDob ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPhone = 'Phone cannot be blank';  
+                     }   
+                     else if (this.formData.phone.length < 11 || this.formData.phone.length > 14 ) {
+                          this.strDob ='',
+                          this.strEmail= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPhone = 'Minimum length 11 & Maximum length 14';  
+                     }   
+               else if (this.formData.email === '') {
+                    this.strDob ='',
+                          this.strPhone= '',
+                          this.strPassword='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strName= '', 
+                    this.strEmail ='Email cannot be blank';
+                }
+                 else if (this.formData.password === '') {
+                      this.strDob ='',
+                          this.strEmail= '',
+                          this.strPhone='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPassword = 'Password cannot be blank';
+                } 
+                else if (this.formData.password.length < 8) {
+                     this.strDob ='',
+                          this.strEmail= '',
+                          this.strPhone='',
+                          this.strAddress='',
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPassword = 'Password should be atleast 8 characters'
+                }
+                  
+                   
+                 
+                  
+                 
+
+
             else{
                 this.str=""
                 this.openModal=true

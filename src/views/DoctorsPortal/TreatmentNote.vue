@@ -25,7 +25,7 @@
                     </div>
                     {{this.isAll()}}
                     <div class=" flex justify-start items-start mt-5 mb-5">
-                        <label for="" class="m-1 text-regal-teal ">All Tooth?</label>
+                        <label for="" class="m-1 text-regal-teal mt-2 ">All Tooth?</label>
                         <input  @keypress="this.isAll()" v-model="formData.isAll" value="true" type="radio" 
                             class="form-radio h-5 w-5 text-regal-teal mt-3 ml-10"><span
                             class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
@@ -95,11 +95,11 @@
         created() {
             this.getSpecificPatient()
             this.getspecificTreatmentList()
-            //this.parseJwt(this.token)
+            this.parseJwt(this.token)
         },
         data() {
             return {
-                //token: localStorage.getItem('token'),
+                token: localStorage.getItem('token'),
                 uid: '',
                 teeth: '',
                 disabled: 0,
@@ -167,7 +167,7 @@
             async createTreatment() {
                 this.formIsValid = true;
                 this.formData.patient = this.$route.params.id
-                this.formData.user = '6145812934bfa3eea55fc5a1'
+                this.formData.user = this.uid
                 this.formData.doctorName = 'Iktisad'
                 this.formData.tooth = this.teeth.split(',');
                 if (this.formData.treatmentDone === '') {

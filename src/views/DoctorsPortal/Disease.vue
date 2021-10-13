@@ -1,7 +1,7 @@
 <template>
     <div>
          <div class="flex items-center px-8 py-2"> 
-            <h2 class="text-regal-teal text-sm font-bold  text-left">Diseases :</h2>
+            <h2 class="text-regal-teal text-sm font-bold  text-left">Diseases  <span class="text-xs text-gray-400 font-medium">(No duplicate names allowed)</span></h2>
             </div>
        
         <div class="flex items-center justify-between px-12 py-2 text-gray-700  "
@@ -58,6 +58,7 @@
 
                                 </button>
                             </div>
+                             <small class="text-regal-red mb-2 flex justify-start">{{this.err}}</small>
                         </div>
                         <!--mb-4-->
                         <!-- delete button -->
@@ -117,6 +118,7 @@
         },
         data() {
             return {
+                err:'',
                 token: localStorage.getItem('token'),
                 formValid: true,
                 show: false,
@@ -151,6 +153,17 @@
             async addDisease(id) {
                 console.log(id)
                
+                // this.form.disease.push(this.item);
+                 if (this.item === '') {
+                    
+                    this.err = "Cannot be empty "
+                }
+                else if (this.item.length < 3){
+                     
+                     this.err = "Have to be atleast 3 characters"
+                }
+                else {
+                this.err=''
                 this.form.disease.push(this.item);
                
                 console.log(this.form)
@@ -170,6 +183,7 @@
                     this.item=''
                 // this.show = !this.show
                 // this.items = []
+                }
 
             },
             async removeDisease(disease) {

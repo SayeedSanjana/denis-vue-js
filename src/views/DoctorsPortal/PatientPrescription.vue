@@ -241,14 +241,14 @@
         },
         created() {
             this.getPatient(this.$route.params.id)
-            //this.parseJwt(this.token)
+            this.parseJwt(this.token)
             this.getUser()
         },
 
         data() {
             return {
                 userData: {},
-                //token: localStorage.getItem('token'),
+                token: localStorage.getItem('token'),
                 formIsValid: true,
                 openModal: false,
                 formVal: true,
@@ -357,7 +357,7 @@
             },
             addPrint() {
                 this.formData.patient = this.$route.params.id
-                this.formData.user = '6145812934bfa3eea55fc5a1'
+                this.formData.user = this.uid
                 //console.log(this.uid)
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];

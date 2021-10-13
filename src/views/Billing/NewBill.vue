@@ -245,12 +245,12 @@
                                         <label for="" class="mr-8 mt-0.5 text-regal-teal font-medium">Give discount in:
                                         </label>
 
-                                        <input type="radio" @keypress="applyDiscount"  name="test_id"
-                                            @change="onChange($event)" value="Amount"   v-model="type"
+                                        <input type="radio"  name="test_id"
+                                            @change="applyDiscount($event)" value="Amount"   v-model="type"
                                             class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
                                             class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
-                                        <input type="radio" @keypress="applyDiscount" name="test_id"
-                                            @change="onChange($event)" value="Percentage"  v-model="type"
+                                        <input type="radio" name="test_id"
+                                            @change="applyDiscount($event)" value="Percentage"  v-model="type"
                                             class="form-radio h-5 w-5   mt-1 mr-1"><span
                                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
 
@@ -270,8 +270,8 @@
                                                     class="block w-full px-4 py-2 mt-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded focus:outline-none focus:border-regal-blue">
                                             </div>
                                         </div>
-                                        <div v-if="this.type==='Amount' || this.type==='Percentage'">
-                                            {{this.applyDiscount()}}</div>
+                                        <!-- <div v-if="this.type==='Amount' || this.type==='Percentage'">
+                                            {{this.applyDiscount()}}</div> -->
 
 
                                     </div>
@@ -434,7 +434,8 @@
             }
         },
         methods: {
-            applyDiscount() {
+            applyDiscount(event) {
+                 this.isPercentage = event.target.value;
                 this.balance = this.totalCost - this.totalPaid
 
                 if (this.isPercentage == 'Percentage') {

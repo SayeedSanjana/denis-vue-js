@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex items-center px-8 py-2 mt-4"> 
-            <h2 class="text-regal-teal text-sm font-bold  text-left">Allergies :</h2>
+            <h2 class="text-regal-teal text-sm font-bold  text-left">Allergies  <span class="text-xs text-gray-400 font-medium">(No duplicate names allowed)</span> </h2>
             </div>
        
         <div class="flex items-center justify-between px-12 py-2 text-gray-700  "
@@ -56,6 +56,7 @@
                                     <img src="@/assets/svgs/plus.svg" alt="">
                                 </button>
                             </div>
+                            <small class="text-regal-red mb-2 flex justify-start">{{this.err}}</small>
                         </div>
                         <!--mb-4-->
                         <!-- delete button -->
@@ -115,6 +116,7 @@
         },
         data() {
             return {
+                err:'',
                 token: localStorage.getItem('token'),
                 formValid: true,
                 show: false,
@@ -154,7 +156,22 @@
                 // for (var i of this.items) {
                 //     this.form.allergies.push(i);
                 // }
-                this.form.allergies.push(this.item)
+
+               
+                console.log(this.item);
+                if (this.item === '') {
+                    
+                    this.err = "Cannot be empty "
+                }
+                else if (this.item.length < 3){
+                     
+                     this.err = "Have to be atleast 3 characters"
+                }
+                else {
+                    this.err=''
+
+                 this.form.allergies.push(this.item)
+                
                 axios.patch('patients/' + id + '/add-allergy', this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -168,14 +185,17 @@
                         this.$emit("myEvent", this.$route.params.id)
                     })
                     .catch((error) => {
+                        //   console.log("hguhuhuhuhu")
+                        // this.err = "Cannot use duplicate names "
                         console.log(error)
                     })
                 // this.form={
                 //     allergies:[]
                 // }
                 this.item=''
-               // this.show = !this.show
-                //this.items = []
+            }
+               this.show = !this.show
+                this.items = []
 
             },
             async removeAllergy(allergy) {
@@ -199,6 +219,7 @@
 
                     })
                     .catch((error) => {
+                        
                         console.log(error)
 
                     })
