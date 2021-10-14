@@ -37,7 +37,7 @@
                    
                     <p v-if="disabled == 1" class="text-red-500 mb-4 text-center">You can't enter tooth number</p>
                     <div class="mt-6">
-                        <label class="block mb-2  font-medium text-regal-teal text-left">Tooth
+                        <label class="block mb-2  font-medium text-regal-teal text-left">Tooth  <span class="text-xs text-gray-400 font-medium">(Should include only numbers i.e '12,13...' )</span>
                         </label>
                         <div class="relative">
                             <input v-model="teeth" @keypress="isNumber($event)" :disabled="disabled == 1"  @keydown="this.isAll()"

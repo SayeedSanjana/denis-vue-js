@@ -3,7 +3,7 @@
 
         <Nav />
     </header>
-   
+
     <h2 class="text-2xl text-left font-bold mx-24 mt-10 text-regal-teal">Patient Billing</h2>
     <div class="mx-24 my-14 bg-white">
         <div class=" lg:flex border border-regal-teal border-opacity-20 rounded-xl ">
@@ -23,10 +23,10 @@
 
             </div>
             <div class="xl:w-2/3 ">
-                
+
                 <div
                     class="container md:flex md:items-center md:justify-center mx-auto text-gray-600  bg-regal-blue border rounded-tr-xl  border-regal-cyan border-opacity-20 py-3">
-                    
+
                     <button @click="activeTab = 'NewBill'"
                         :class="activeTab==='NewBill' ? 'border-regal-teal text-regal-teal' : 'border-regal-blue'"
                         class="border-b-2 border-transparent mx-1.5 mt-0.5 sm:mx-6 font-semibold  text-white">Create
@@ -49,18 +49,9 @@
 
 
         </div>
-        <!-- <div class="md:flex h-screen md:py-16 bg-white px-3 "> -->
-        <!--main-->
-        <!-- <div class="xl:flex justify-between md:ml-3 w-screen ">
-                <div class="xl:w-1/3 xl:ml-5 xl:mr-5 pt-3 xl:pt-0 md:mb-4 ">
-                    
-                    <div class="">
-                        <TreatmentTimeline :treatmentList="treatmentList" />
-                    </div>
-                </div> -->
 
     </div>
-    
+
     <!-- </div> -->
 
 

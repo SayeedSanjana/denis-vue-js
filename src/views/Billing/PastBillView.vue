@@ -57,11 +57,11 @@
                     <div class="inline-flex  mt-4">
                         <label for="" class="  mr-8 text-regal-teal font-medium">Give discount in: </label>
 
-                        <input type="radio" @keypress="applyDiscount"  name="test_id" @change="onChange($event)" value="Amount"  v-model="type"
-                            class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
+                        <input type="radio" @keypress="applyDiscount" name="test_id" @change="onChange($event)"
+                            value="Amount" v-model="type" class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
                             class=" text-regal-teal font-medium mt-1 mr-12">Amount</span>
-                        <input type="radio" @keypress="applyDiscount"  name="test_id" @change="onChange($event)" value="Percentage"  v-model="type"
-                            class="form-radio h-5 w-5   mt-1 mr-1"><span
+                        <input type="radio" @keypress="applyDiscount" name="test_id" @change="onChange($event)"
+                            value="Percentage" v-model="type" class="form-radio h-5 w-5   mt-1 mr-1"><span
                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
                     </div>
 
@@ -69,8 +69,8 @@
                         <div class="text-left ">
                             <label class="text-regal-teal dark:text-gray-200 ml-1" for="discount">Discount
                                 Amount</label>
-                            <input @keyup="applyDiscount" @keypress="isNumber($event)" v-model.number="discountAmount" id="discount"
-                                type="text"
+                            <input @keyup="applyDiscount" @keypress="isNumber($event)" v-model.number="discountAmount"
+                                id="discount" type="text"
                                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md ">
                         </div>
                         <div class="mt-8  text-center ml-3" v-if="this.str.length==0">
@@ -78,8 +78,8 @@
                                 class=" pl-4 pr-4 pt-3 pb-2 text-center bg-regal-teal border text-white font-semibold  rounded-md text-sm flex">Confirm</button>
                         </div>
                     </div>
-                          <div v-if="this.type==='Amount' || this.type==='Percentage'">{{this.applyDiscount()}}</div> 
-                    <!-- <div>{{this.applyDiscount()}}</div> -->
+                    <div v-if="this.type==='Amount' || this.type==='Percentage'">{{this.applyDiscount()}}</div>
+
                     <!--discount-->
                     <div v-if="this.str.length>=1">
 
@@ -163,20 +163,20 @@
                                     <div>
                                         <label class="text-regal-teal" for="date">Date</label>
                                         <input v-model="item.date" id="date" type="date"
-                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
                                     <div>
                                         <label class="text-regal-teal" for="services">Treatment
                                             Plan</label>
                                         <input v-model="item.service" id="date" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div>
                                         <label class="text-regal-teal" for="cost">Cost</label>
                                         <input @keypress="isNumber($event)" v-model.number="item.cost" id="cost"
                                             type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div class="flex justify-center">
@@ -331,8 +331,7 @@
                                 </button>
                             </div>
                             <form @submit.prevent>
-                                <div
-                                    class=" text-lg title-font font-bold text-regal-teal  border-b border-gray-300 ">
+                                <div class=" text-lg title-font font-bold text-regal-teal  border-b border-gray-300 ">
                                     Add Payment Information
                                 </div>
 
@@ -342,13 +341,13 @@
                                     <div>
                                         <label class="text-regal-teal " for="date">Date</label>
                                         <input v-model="payment.date" id="date" type="date"
-                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
                                     <div>
                                         <label class="text-regal-teal " for="paid">Paid</label>
                                         <input @keypress="isNumber($event)" v-model.number="payment.paid" id="date"
                                             type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                            class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                     </div>
 
                                     <div>
@@ -356,7 +355,7 @@
                                             Method</label>
                                         <div class="relative">
                                             <select
-                                    class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                                class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                                 id="paymentMethod" v-model="payment.paymentMethod">
 
                                                 <option v-for="f in paymentMethods" :key="f._id">{{f}}</option>
@@ -480,7 +479,9 @@
                                 </div>
 
                                 <div class="flex justify-center mt-10 ">
-                                    <button @click="addPayments()" class="p-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Add Payment Info</button>
+                                    <button @click="addPayments()"
+                                        class="p-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Add
+                                        Payment Info</button>
                                 </div>
                             </form>
 
@@ -819,7 +820,7 @@
                     })
                     .then((response) => {
                         this.Bills = response.data['result'];
-                        this.paid=0
+                        this.paid = 0
                         this.Bills.payment.forEach(item => {
                             this.paid = item.paid + this.paid
                         })

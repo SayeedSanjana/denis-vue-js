@@ -41,7 +41,7 @@
                 <div class="flex flex-wrap -mx-3 mb-2 mt-4">
                   <div class="w-full  px-3 mb-6 md:mb-0">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="name">
-                      Full Name
+                      Full Name  <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e ' .,/# ')</span>
                     </label>
                     <input
                       class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -53,7 +53,7 @@
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full px-3">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="phone">
-                      Phone
+                      Phone  <span class="text-xs text-gray-400 font-medium">(Should include only digits i.e 0-9 , no special characters i.e ' + ' )</span>
                     </label>
                     <input
                       class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -145,6 +145,7 @@
     methods: {
       async createPatient() {
         this.formIsValid = true;
+         this.formdata.phone=this.formdata.phone.replace(/\s/g, '')
         // console.log(this.formdata);
         // if (this.formdata.name === '' || this.formdata.name.length < 3 || this.formdata.gender === '' || this.formdata
         //   .dob === '' || this.formdata.phone.length < 11 || this.formdata.phone.length > 11) {

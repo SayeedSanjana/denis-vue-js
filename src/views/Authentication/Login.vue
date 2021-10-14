@@ -2,17 +2,16 @@
     <div class="2xl:bg-regal-bg">
 
         <section class="flex flex-col md:flex-row h-screen">
-            <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex xl:mt-32 xl:mb-32  xl:mx-16 px-10 md:px-0 ">
+            <div
+                class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex xl:mt-32 xl:mb-32  xl:mx-16 px-10 md:px-0 ">
 
-                <!-- <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/2  px-6 lg:px-16 xl:px-12 xl:ml-48
-        flex  "> -->
                 <div class=" md:max-w-md  md:mx-auto  md:w-1/2 w-full  px-6 
         flex  ">
                     <div class="w-full">
                         <div class="2xl:-mx-12">
                             <h1 class="text-xl md:text-3xl font-bold leading-tight text-left mt-12  "
                                 style="color:#005072">MT Dental Center</h1>
-                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  md:mt-32 mt-16 mb-6" 
+                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  md:mt-32 mt-16 mb-6"
                                 style="color:#005072">Log In</h1>
                         </div>
 
@@ -29,10 +28,10 @@
                                                 class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
                                                 style="background:#E7FBFC">
                                         </div>
-                                          <small class="text-regal-red mb-2">{{this.strEmail}}</small>
+                                        <small class="text-regal-red mb-2">{{this.strEmail}}</small>
                                     </div>
                                 </div>
-                                  
+
                                 <div class="flex 2xl:-mx-12 -mx-1 mb-8 ">
                                     <div class="w-full  mb-5 text-left">
                                         <label for="" class="text-sm font-medium px-1 text-regal-teal">Password </label>
@@ -44,11 +43,11 @@
                                                 class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
                                                 style="background:#E7FBFC">
                                         </div>
-                                                                         <small class="text-regal-red mb-2">{{this.strPassword}}</small>
+                                        <small class="text-regal-red mb-2">{{this.strPassword}}</small>
                                     </div>
-                                   
+
                                 </div>
-                                     <small class="text-regal-red mb-2">{{this.err}}</small>
+                                <small class="text-regal-red mb-2">{{this.err}}</small>
                                 <div class="flex justify-center -mx-3 border-b border-gray-300 ">
                                     <div class="w-full mb-8">
                                         <button
@@ -71,8 +70,7 @@
 
                     </div>
                 </div>
-                <!-- <div class="hidden lg:block w-full md:w-1/2 xl:w-1/2 h-screen 0bject-right "> -->
-                <!-- <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full object-cover flex justify-end "> -->
+
                 <div class="hidden 2xl:block w-1/2 0bject-right  ">
                     <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full  flex justify-end object-cover">
                 </div>
@@ -95,10 +93,9 @@
                     email: '',
                     password: '',
                 },
-                    strPassword:'',
-                    strEmail:'',
-                    // strPasswordLength:'',
-                    formIsValid: true
+                strPassword: '',
+                strEmail: '',
+                formIsValid: true
 
             }
         },
@@ -106,25 +103,18 @@
             //Login Form
             async submitForm() {
                 this.formIsValid = true;
-                // if(this.formData.email === ''  || this.formData.password.length < 8){
-                //     this.formIsValid = false;
-                //     return;
-                // }
-                if (this.formData.email === '') {
-                    this.strPassword='',
-                    this.strEmail ='Email cannot be blank';
-                } else if (this.formData.password === '') {
-                    this.strEmail='',
-                   this.strPassword = 'Password cannot be blank';
-                } else if (this.formData.password.length < 8) {
-                    this.strEmail='',
-                   this.strPassword = 'Password should be atleast 8 characters'
-                }
-                 
-                else {
-                    await axios.post('users/login', this.formData,
 
-                        )
+                if (this.formData.email === '') {
+                    this.strPassword = '',
+                        this.strEmail = 'Email cannot be blank';
+                } else if (this.formData.password === '') {
+                    this.strEmail = '',
+                        this.strPassword = 'Password cannot be blank';
+                } else if (this.formData.password.length < 8) {
+                    this.strEmail = '',
+                        this.strPassword = 'Password should be atleast 8 characters'
+                } else {
+                    await axios.post('users/login', this.formData, )
                         .then((response) => {
                             if (response.data.token) {
                                 localStorage.setItem("token", response.data.token)
@@ -139,7 +129,7 @@
             },
 
 
-           
+
         }
     }
 </script>

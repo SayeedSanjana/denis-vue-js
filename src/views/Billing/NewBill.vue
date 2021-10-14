@@ -244,7 +244,7 @@
                                     <div class="inline-flex  mt-4  mb-5">
                                         <label for="" class="mr-8 mt-0.5 text-regal-teal font-medium">Give discount in:
                                         </label>
-<!-- 
+                                        <!-- 
                                         <input type="radio"  name="test_id"
                                             @change="applyDiscount($event)" value="Amount"   v-model="type"
                                             class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
@@ -253,13 +253,12 @@
                                             @change="applyDiscount($event)" value="Percentage"  v-model="type"
                                             class="form-radio h-5 w-5   mt-1 mr-1"><span
                                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span> -->
-                                            <input type="radio"  name="test_id"
-                                            @change="applyDiscount()" value="Amount"   @click="onChange($event)"
-                                            class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
+                                        <input type="radio" name="test_id" @change="applyDiscount()" value="Amount"
+                                            @click="onChange($event)" class="form-radio h-5 w-5   mt-1 mr-1"
+                                            checked="checked"><span
                                             class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
-                                        <input type="radio" name="test_id"
-                                            @change="applyDiscount()" value="Percentage" @click="onChange($event)"
-                                            class="form-radio h-5 w-5   mt-1 mr-1"><span
+                                        <input type="radio" name="test_id" @change="applyDiscount()" value="Percentage"
+                                            @click="onChange($event)" class="form-radio h-5 w-5   mt-1 mr-1"><span
                                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
 
                                     </div>
@@ -276,13 +275,10 @@
                                                 <input @keyup="applyDiscount" @keypress="isNumber($event)"
                                                     v-model.number="discountAmount" id="discount" type="text"
                                                     class="block w-full px-4 py-2 mt-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded focus:outline-none focus:border-regal-blue">
-                                            
+
                                             </div>
-                                           
+
                                         </div>
-                                          
-                                        <!-- <div v-if="this.type==='Amount' || this.type==='Percentage'">
-                                            {{this.applyDiscount()}}</div> -->
 
 
                                     </div>
@@ -290,7 +286,7 @@
 
 
                                         <div class=" flex items-center mt-10 px-8">
-                                            
+
                                             <div>
                                                 <small class="font-medium text-regal-red">{{this.str}}</small>
 
@@ -305,8 +301,7 @@
                                     <!--discount-->
                                     <div class="flex justify-start">
 
-                                        <!-- <div class=""> -->
-                                        <!-- <div class="  ml-6 mr-10"> -->
+
                                         <div class=" mt-5  w-full ">
                                             <div class=" flex justify-between mb-3 ">
 
@@ -328,13 +323,13 @@
                                             </div>
                                             <div class=" flex justify-between mb-3 ">
 
-                                                        <div class="text-regal-teal text-md font-bold  mt-1">
-                                                            <label for="" class=""> Discount:</label>
-                                                        </div>
-                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                            {{this.discount}}TK
-                                                        </div>
-                                                    </div>
+                                                <div class="text-regal-teal text-md font-bold  mt-1">
+                                                    <label for="" class=""> Discount:</label>
+                                                </div>
+                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                    {{this.discount}}TK
+                                                </div>
+                                            </div>
                                             <div class=" flex justify-between  mb-3 ">
 
                                                 <div class="text-regal-teal text-md font-bold  mt-1">
@@ -359,16 +354,14 @@
                                         <!-- </div> -->
                                     </div>
                                     <!--discount-->
-                                   
+
                                 </form>
                                 <!--form-->
                             </div>
                         </div>
                         <!--discount-->
 
-                        <!-- <div class="flex justify-end mt-6 " v-if="this.str.length==0">
-                            <button @click="printBill()" class="button">Preview</button>
-                        </div> -->
+
                     </form>
                 </div>
                 <!--form-->
@@ -396,7 +389,7 @@
         },
         data() {
             return {
-                type:'',
+                type: '',
                 token: localStorage.getItem('token'),
                 billModal: false,
                 id: '',
@@ -443,7 +436,7 @@
         },
         methods: {
             applyDiscount() {
-                
+
                 this.balance = this.totalCost - this.totalPaid
 
                 if (this.isPercentage == 'Percentage') {

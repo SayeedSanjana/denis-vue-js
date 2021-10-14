@@ -1,7 +1,7 @@
 <template>
     <div>
             <div class="flex items-center px-8 py-2"> 
-            <h2 class="text-regal-teal text-sm font-bold  text-left">Personal Habits  <span class="text-xs text-gray-400 font-medium">(No duplicate names allowed)</span></h2>
+            <h2 class="text-regal-teal text-sm font-bold  text-left">Personal Habits: </h2>
             </div>
        
         <div class="flex items-center justify-between px-12 py-2 text-gray-700  "

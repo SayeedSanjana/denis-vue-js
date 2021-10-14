@@ -32,29 +32,29 @@
                         <div class="text-regal-teal text-sm font-medium mr-2">
                             :
                         </div>
-                        <div class="text-gray-900 text-sm font-bold">
+                        <div class="text-regal-teal text-sm font-medium">
                            {{this.formData.name}}
                         </div>
                     </div>
                     <div class="flex items-center  px-8 py-2 text-gray-700 ">
-                         <div class="text-regal-teal text-sm font-medium w-24 text-left">
+                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
                             Gender 
                         </div>
                          <div class="text-regal-teal text-sm font-medium mr-2">
                             :
                         </div>
-                        <div class="text-gray-600 text-sm font-semibold">
+                        <div class="text-regal-teal text-sm font-medium">
                           {{this.formData.gender}}
                         </div>
                     </div>
                     <div class="flex items-center px-8 py-2 text-gray-700 ">
-                       <div class="text-regal-teal text-sm font-medium w-24 text-left">
+                       <div class="text-regal-teal text-sm font-bold w-24 text-left">
                             Age 
                         </div>
                         <div class="text-regal-teal text-sm font-medium mr-2">
                             :
                         </div>
-                        <div class="text-gray-600 text-sm font-semibold">
+                        <div class="text-regal-teal text-sm font-medium">
                            {{this.formData.dob}} years
                         </div>
                     </div>

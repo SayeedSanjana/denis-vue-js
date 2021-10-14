@@ -17,7 +17,7 @@
                         <form class="bg-white ">
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
                                 <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96" name="q"
-                                    type="text" placeholder="Search" v-model="text"
+                                    type="text" placeholder="Search by name or phone number" v-model="text"
                                     @keydown="this.getPosts()" />
                                 <span class="ml-10">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,6 @@
                 </tr>
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(post._id)" 
                     v-for="(post,index) in filteredList " :key="index">
-                     <!-- {{this.dateConversion(post.createdAt.substring(0, 10))}} -->
                     <td class=" py-3 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{post.name}}</td>
                     <td class="px-2 py-3">{{post.phone}}</td>
@@ -98,7 +97,6 @@
 
                 const star = (this.currentPage - 1) * this.prePage
                 const end = this.currentPage * this.prePage
-
                 const result = this.Patients.slice(star, end)
                 return result
             }

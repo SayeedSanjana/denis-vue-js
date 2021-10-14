@@ -14,7 +14,7 @@
                 <div>
                     <div class="flex 2xl:-mr-12 -mx-1">
                         <div class="w-full  mb-3 text-left ">
-                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters)</span> </label>
+                            <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e ' .,/# ' and no Dr./Mr.)</span> </label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                 <input v-model.trim="formData.name" type="text" class="w-full -ml-10 h-11 pl-10 rounded outline-none text-regal-teal"  style="background:#E7FBFC" >
@@ -163,20 +163,8 @@ import PinNumber from "../../components/PinNumber.vue";
         methods:{
             //Sign In
             async signupForm(){
-            //  if(this.formData.email === ''|| this.formData.name===''||this.formData.password===''||this.formData.dob===''||this.formData.phone===''||this.formData.gender===''||this.formData.address===''){
-            //         this.formIsValid = false;
-            //         this.str="Please Enter Valid Input"
-            //  }
-            //         else if(this.formData.phone.length!==11){
-            //              this.str="Phone number should be of 11 digits"
-            //         }
-
-            //         else if(this.formData.phone.length!==11){
-            //              this.str="Phone number should be of 11 digits"
-            //         }
-            //          else if(this.formData.password.length<8){
-            //              this.str="Password should be of atleast 8 digits"
-            //         }
+              this.formData.phone=this.formData.phone.replace(/\s/g, '')
+            
               if (this.formData.name === '') {
                    this.strName = 'Name cannot be blank';  
                      }   

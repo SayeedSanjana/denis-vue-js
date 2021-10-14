@@ -2,11 +2,6 @@
     <div>
         <section class="max-w-4xl p-6 mx-auto bg-white rounded-md ">
 
-            <!-- <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  ">
-                Prescription
-            </h2> -->
-
-
             <form @submit.prevent>
                 <div>
                     <input hidden type="text" v-model="formData.patient">
@@ -56,10 +51,7 @@
                     </div>
 
                 </div>
-                <!-- <div class="mt-4">
-                    <h2 class="text-lg font-semibold text-gray-500 capitalize dark:text-white mt-4"> Medication</h2>
-                </div> -->
-
+               
                 <div>
                     <!--medication-->
                     <div class=" p-4">
@@ -104,12 +96,8 @@
                                       <small class="text-regal-red mb-2">{{this.strRWM}}</small>
                             </div>
 
-
-
                         </div>
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
-
-
 
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Frequency">Frequency</label>
@@ -155,12 +143,6 @@
                            
                         </div>
                       
-                        <!-- <div class="flex justify-center">
-
-                            <button class="text-indigo-500 mt-6 hover:text-gray-600 font-semibold" @click="addItem()">
-                                +Add Medicine
-                            </button>
-                        </div> -->
                     </div>
                 </div>
                 <!--medication-->
@@ -191,18 +173,7 @@
                                         <button @click=" deleteItem(index)"
                                             class="p-0 w-5 h-5 mt-1 flex justify-center items-center  ">
                                             <img src="@/assets/svgs/cross.svg" class="" alt="">
-                                            <!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                viewBox="0 0 496.158 496.158"
-                                                style="enable-background:new 0 0 496.158 496.158;" xml:space="preserve">
-                                                <path style="fill:#E04F5F;" d="M0,248.085C0,111.063,111.069,0.003,248.075,0.003c137.013,0,248.083,111.061,248.083,248.082
-                            c0,137.002-111.07,248.07-248.083,248.07C111.069,496.155,0,385.087,0,248.085z" />
-                                                <path style="fill:#FFFFFF;"
-                                                    d="M383.546,206.286H112.612c-3.976,0-7.199,3.225-7.199,7.2v69.187c0,3.976,3.224,7.199,7.199,7.199
-                            h270.934c3.976,0,7.199-3.224,7.199-7.199v-69.187C390.745,209.511,387.521,206.286,383.546,206.286z" />
-
-                                            </svg> -->
-
+                                          
                                         </button>
                                     </td>
                                 </tr>

@@ -61,14 +61,14 @@
           </div>
         </div>
       </div>
-      <div class=" px-40 mt-10" v-if="this.Bills.length >= 1">
+      <!-- <div class=" px-40 mt-10" v-if="this.Bills.length >= 1">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button"
           :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"
           @click="changePage(1)">Next </button>
 
 
-      </div>
+      </div> -->
 
       <!-- End Alert Info -->
     </div>
@@ -115,13 +115,6 @@
         Bills: [],
         billId: "",
         invoice: '',
-        //  formData: {
-        //             name: "",
-        //             gender: "",
-        //             dob: "",
-        //             phone: ""
-
-        //         },
         prePage: 20,
         currentPage: 1,
         page: 1
