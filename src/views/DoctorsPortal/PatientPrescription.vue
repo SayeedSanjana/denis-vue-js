@@ -421,7 +421,7 @@
             },
            addPrint() {
                 this.formData.patient = this.$route.params.id
-                this.formData.user ='616721fd20d0dff607ab2cb8'
+                this.formData.user =this.uid
                 //console.log(this.uid)
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
