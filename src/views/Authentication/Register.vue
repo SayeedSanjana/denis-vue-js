@@ -2,8 +2,8 @@
     <div class="bg-regal-bg">
         <section class="flex flex-col md:flex-row h-screen ">
 
-             <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex  ">
-  <div class=" md:max-w-md  md:mx-auto  w-1/2  flex  ">
+             <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex px-10 md:px-0 ">
+  <div class=" md:max-w-md  md:mx-auto  md:w-1/2 w-full flex  ">
 
     <div class="w-full mt-5 ">
 
@@ -116,7 +116,7 @@
 
     </div>
   </div>
-  <div class="hidden lg:block w-1/2   0bject-right ">
+  <div class="hidden 2xl:block w-1/2   0bject-right ">
     <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full object-cover  flex justify-end ">
   </div>
 </div>

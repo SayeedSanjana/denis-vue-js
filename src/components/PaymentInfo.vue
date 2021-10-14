@@ -10,7 +10,7 @@
 				{{Bills.total}}TK
 			</div>
 		</div>
-		<!-- <div class=" flex justify-between mb-3 ">
+		<div class=" flex justify-between mb-3 ">
 
 			<div class="text-regal-teal text-md font-bold  mt-1">
 				<label for="" class=""> Total Paid:</label>
@@ -18,7 +18,7 @@
 			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
 				{{this.paid}}TK
 			</div>
-		</div> -->
+		</div>
 		<div class=" flex justify-between mb-3 ">
 
 			<div class="text-regal-teal text-md font-bold  mt-1">
@@ -28,7 +28,7 @@
 				{{Bills.discount+this.discount}}TK
 			</div>
 		</div>
-	
+
 		<div class=" flex justify-between  mb-3 ">
 
 			<div class="text-regal-teal text-md font-bold  mt-1">
@@ -96,8 +96,22 @@
 		props: {
 			Bills: Object,
 			discount: Number,
-			paid: Number
-		}
+			paid:Number
+
+		},
+	
+		// data() {
+		// 	return {
+		// 		paid: 0
+		// 	}
+		// },
+		// methods: {
+		// 	getPaid() {
+		// 		this.Bills.payment.forEach(item => {
+		// 			this.paid = item.paid + this.paid
+		// 		})
+		// 	}
+		// }
 
 	}
 </script>

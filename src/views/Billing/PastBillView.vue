@@ -104,7 +104,7 @@
 
         </div>
         <div class="w-full border-t mt-4 border-gray-300">
-            <PaymentInfo :Bills="Bills" :discount="discount" />
+            <PaymentInfo :Bills="Bills" :discount="discount" :paid="paid" />
         </div>
 
         <div class="mr-3 flex-1 w-full mb-10 mt-10">
@@ -496,7 +496,7 @@
 
 
         <div class="mt-5 " v-if="modalInvoice">
-            <Invoice @billEvent="removeModal" :Bills="Bills" />
+            <Invoice @billEvent="removeModal" :Bills="Bills" :paid="paid" />
         </div>
         <!--modal service-->
 
@@ -819,6 +819,7 @@
                     })
                     .then((response) => {
                         this.Bills = response.data['result'];
+                        this.paid=0
                         this.Bills.payment.forEach(item => {
                             this.paid = item.paid + this.paid
                         })

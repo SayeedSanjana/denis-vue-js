@@ -10,7 +10,7 @@
             <div class="h-screen">
         <section class="w-full  px-6 py-4 " >
             <p class="text-2xl text-left font-bold m-5 px-20" style="color:#005072">Patient Billing</p>
-            <div class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
+            <div class="m-5 xl:w-5/6 w-full mx-auto flex sm:flex-row flex-col justify-between ">
                 <div class="flex flex-row mb-1 sm:mb-0">
 
                     <div class="block relative">
@@ -35,7 +35,7 @@
                 </div>
                
             </div>
-            <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue " >
+            <table class=" rounded-t-xl m-5 xl:w-5/6 w-full mx-auto bg-regal-blue " >
                 <tr class="text-center text-md text-regal-teal h-16" >
                     <th class="px-4 py-3">SL no</th>
                     <th class="px-4 py-3">Name</th>
@@ -71,7 +71,7 @@
     </div>
             </div><!--main 2/3-->
             
-            <div class="w-1/3 mr-16">
+            <div class="hidden xl:block xl:w-1/3 mr-16">
              <img src="@/assets/svgs/billing.svg" alt="" class="w-full h-full flex justify-end ">
             </div>
         </div>

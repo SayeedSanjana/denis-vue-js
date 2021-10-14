@@ -24,7 +24,7 @@
                                         fill="#fafafa" /></svg>
                             </button>
                         </div>
-                       
+
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
                             <div class="flex flex-row w-full px-2 mb-10 justify-between">
@@ -47,23 +47,25 @@
                                         <span class="font-semibold text-md text-regal-teal">Invoice No # </span><span
                                             class="text-md font-normal text-regal-teal ml-2">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span>
                                     </div>
-                                 <div class=" flex items-end pl-10 mb-5 mt-10" id="no-print">
-                            <button @click="print" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Print Invoice
-                            </button>
-                        </div>
+                                    <div class=" flex items-end pl-10 mb-5 mt-10" id="no-print">
+                                        <button @click="print"
+                                            class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Print
+                                            Invoice
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <!--Services List-->
                             <div class="flex justify-between w-full">
-                                <div
-                                    class=" text-md title-font font-bold text-regal-teal   pb-1  ">
+                                <div class=" text-md title-font font-bold text-regal-teal   pb-1  ">
                                     Services List:
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-center items-center mt-3">
                                     <table class="  p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
-                                        <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+                                        <thead
+                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
                                             <th class="  w-1/3 px-10 py-3">Date</th>
                                             <th class="px-10 py-3 w-1/3 ">Treatment Done</th>
                                             <th class="px-10 py-3 w-1/3 ">Cost</th>
@@ -88,8 +90,7 @@
                             <!--Payment Description-->
 
                             <div class="flex justify-between w-full mt-5">
-                                <div
-                                    class=" text-md title-font font-bold text-regal-teal  pb-1 pt-2 ">
+                                <div class=" text-md title-font font-bold text-regal-teal  pb-1 pt-2 ">
                                     Payment Description:
                                 </div>
                             </div>
@@ -98,7 +99,8 @@
                                 <div class="flex justify-center items-center mt-3">
 
                                     <table class="p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
-                                        <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 " >
+                                        <thead
+                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
                                             <th class="px-10 py-3 w-1/3">Date</th>
                                             <th class="px-10 py-3 w-1/3 ">Paid</th>
                                             <th class="px-10 py-3 w-1/3 ">Payment</th>
@@ -121,31 +123,31 @@
                             </div>
                             <!--Payment Description-->
 
-                           
+
 
                             <!--Payment Info-->
-                            
+
                             <div class="">
                                 <div class="">
                                     <div class=" mt-5  w-full ">
                                         <div class=" flex justify-between  mb-3 ">
 
                                             <div class="text-regal-teal text-md font-bold  mt-1 inline-block">
-                                                <label class=" whitespace-nowrap" for="" > Total Cost:</label>
+                                                <label class=" whitespace-nowrap" for=""> Total Cost:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.total}}
                                             </div>
                                         </div>
-                                        <!-- <div class=" flex mb-3 ">
+                                        <div class=" flex justify-between mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
-                                                <label class=" whitespace-nowrap" for="" > Total Paid:</label>
+                                            <div class="text-regal-teal text-md font-bold  mt-1 inline-block"> 
+                                                <label class=" whitespace-nowrap" for=""> Total Paid:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{this.paid}}
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class=" flex justify-between  mb-3 " v-if="Bills.discount>0">
 
                                             <div class="text-regal-teal text-md font-bold  mt-1">
@@ -241,7 +243,7 @@
                     maxWidth: 800,
                     gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
                     header: ['Invoice'],
-                    ignoreElements:['no-print']
+                    ignoreElements: ['no-print']
 
                 })
             }
@@ -249,6 +251,6 @@
     }
 </script>
 
-<style  scoped>
-  
+<style scoped>
+
 </style>

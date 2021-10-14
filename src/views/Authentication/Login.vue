@@ -1,18 +1,18 @@
 <template>
-    <div class="bg-regal-bg">
+    <div class="2xl:bg-regal-bg">
 
         <section class="flex flex-col md:flex-row h-screen">
-            <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex xl:mt-32 xl:mb-32  xl:mx-16 ">
+            <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex xl:mt-32 xl:mb-32  xl:mx-16 px-10 md:px-0 ">
 
                 <!-- <div class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/2  px-6 lg:px-16 xl:px-12 xl:ml-48
         flex  "> -->
-                <div class=" md:max-w-md  md:mx-auto  w-1/2  px-6 
+                <div class=" md:max-w-md  md:mx-auto  md:w-1/2 w-full  px-6 
         flex  ">
                     <div class="w-full">
                         <div class="2xl:-mx-12">
                             <h1 class="text-xl md:text-3xl font-bold leading-tight text-left mt-12  "
                                 style="color:#005072">MT Dental Center</h1>
-                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  mt-32 mb-6" 
+                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  md:mt-32 mt-16 mb-6" 
                                 style="color:#005072">Log In</h1>
                         </div>
 
@@ -52,7 +52,7 @@
                                 <div class="flex justify-center -mx-3 border-b border-gray-300 ">
                                     <div class="w-full mb-8">
                                         <button
-                                            class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold "
+                                            class="block md:w-64 w-52 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold "
                                             style="background:#46CDD3" @click="submitForm">Login</button>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     <div class="w-full mb-4">
                                         <h3 class="text-md mb-2" style="color:#036792">Don't Have An Account?</h3>
                                         <router-link to="/register"
-                                            class="block  w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold"
+                                            class="block  md:w-64 w-52 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold"
                                             style="background:#036792">Create New Account</router-link>
                                     </div>
 
@@ -73,7 +73,7 @@
                 </div>
                 <!-- <div class="hidden lg:block w-full md:w-1/2 xl:w-1/2 h-screen 0bject-right "> -->
                 <!-- <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full object-cover flex justify-end "> -->
-                <div class="hidden xl:block w-1/2 0bject-right  ">
+                <div class="hidden 2xl:block w-1/2 0bject-right  ">
                     <img src="@/assets/svgs/register.svg" alt="" class="w-full h-full  flex justify-end object-cover">
                 </div>
 

@@ -276,11 +276,27 @@
                                                 <input @keyup="applyDiscount" @keypress="isNumber($event)"
                                                     v-model.number="discountAmount" id="discount" type="text"
                                                     class="block w-full px-4 py-2 mt-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded focus:outline-none focus:border-regal-blue">
+                                            
                                             </div>
+                                           
                                         </div>
+                                          
                                         <!-- <div v-if="this.type==='Amount' || this.type==='Percentage'">
                                             {{this.applyDiscount()}}</div> -->
 
+
+                                    </div>
+                                    <div v-if="this.str.length>=1">
+
+
+                                        <div class=" flex items-center mt-10 px-8">
+                                            
+                                            <div>
+                                                <small class="font-medium text-regal-red">{{this.str}}</small>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
                                     <div class=" mt-5 ">
@@ -343,23 +359,7 @@
                                         <!-- </div> -->
                                     </div>
                                     <!--discount-->
-                                    <div v-if="this.str.length>=1">
-
-
-                                        <div class=" flex items-center mt-10 px-8">
-                                            <svg class="h-6 w-6 fill-current text-red-400 mr-4"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                                            </svg>
-                                            <div>
-                                                <p class="font-medium text-red-500">{{str}}</p>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                                   
                                 </form>
                                 <!--form-->
                             </div>

@@ -13,15 +13,15 @@
             <ul class=" flex-row  p-4 md:w-full">
               <div v-for="pres in filteredList" :key="pres" @click="patientPrescription(pres._id)">
 
-                <li class="border-gray-400 flex justify-center  items-center flex-row mb-2 shadow-sm">
+                <li class="border-gray-400 flex justify-center  items-center flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0">
                   <div
-                    class="select-none cursor-pointer bg-regal-light-blue rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
-                    <div class="flex-1 pl-1 mr-52 ">
+                    class="select-none cursor-pointer bg-regal-light-blue rounded-md flex flex-1 justify-between p-4   transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
+                    <div class="flex-1 text-left pl-1 mr-52 ">
                       {{this.dateConversion(pres.createdAt.substring(0, 10))}}
                       <div class="font-medium text-regal-teal text-lg">{{this.dateCon}}</div>
 
                     </div>
-                    <div class="">
+                    <div class="text-right">
                       <span class="text-regal-teal text-lg">Approved By: </span><span
                         class="text-regal-teal text-lg ">Dr.{{pres.user.name}} </span>
                     </div>
