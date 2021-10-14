@@ -116,6 +116,7 @@
         },
         data() {
             return {
+                dup:false,
                 err:'',
                 token: localStorage.getItem('token'),
                 formValid: true,
@@ -156,18 +157,39 @@
                 // for (var i of this.items) {
                 //     this.form.allergies.push(i);
                 // }
-
+                this.formData.allergies.forEach(i => {
+                     console.log(i.toLowerCase())
+                     console.log(this.item)
+                    if (i.toLowerCase() === this.item.toLowerCase()){
+                        this.err="Allergy already exist"
+                       this.dup=true
+                    
+                        console.log(this.err)   
+                     
+                    }
+                    
+                 });
                
-                console.log(this.item);
+                
                 if (this.item === '') {
                     
                     this.err = "Cannot be empty "
+                     this.dup=false
                 }
-                else if (this.item.length < 3){
+                else if (this.dup){
                      
+                     this.err = "Allergy Already exist"
+                      this.dup=false
+                }
+
+                
+                else if (this.item.length < 3){
+                      this.dup=false
                      this.err = "Have to be atleast 3 characters"
                 }
                 else {
+                     
+                    this.dup=false
                     this.err=''
 
                  this.form.allergies.push(this.item)
@@ -178,6 +200,8 @@
                         }
                     })
                     .then((response) => {
+                        this.err='';
+
                         console.log(response);
                     this.form={
                     allergies:[]
@@ -193,7 +217,12 @@
                 //     allergies:[]
                 // }
                 this.item=''
+                
             }
+                    
+
+                console.log(this.item);
+                
                this.show = !this.show
                 this.items = []
 

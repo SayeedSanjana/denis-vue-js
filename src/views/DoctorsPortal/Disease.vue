@@ -152,17 +152,35 @@
             },
             async addDisease(id) {
                 console.log(id)
+                this.formData.disease.forEach(i => {
+                     console.log(i.toLowerCase())
+                     console.log(this.item)
+                    if (i.toLowerCase() === this.item.toLowerCase()){
+                        this.err="Disease already exist"
+                       this.dup=true
+                    
+                        console.log(this.err)   
+                     
+                    }
+                    
+                 });
                
                 // this.form.disease.push(this.item);
                  if (this.item === '') {
-                    
+                     this.dup=false
                     this.err = "Cannot be empty "
                 }
-                else if (this.item.length < 3){
+                 else if (this.dup){
                      
+                     this.err = "Disease Already exist"
+                      this.dup=false
+                }
+                else if (this.item.length < 3){
+                      this.dup=false
                      this.err = "Have to be atleast 3 characters"
                 }
                 else {
+                     this.dup=false
                 this.err=''
                 this.form.disease.push(this.item);
                

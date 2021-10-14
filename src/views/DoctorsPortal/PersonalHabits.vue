@@ -118,6 +118,7 @@
         },
         data() {
             return {
+                dup:'',
                 err:'',
                 token: localStorage.getItem('token'),
                 formValid: true,
@@ -152,18 +153,32 @@
             async addHabit(id) {
                 console.log(id)    
                 console.log(this.form)
-                if (this.item === '') {
-                    
+                this.formData.personalHabits.forEach(i => {
+                if (i.toLowerCase() === this.item.toLowerCase()) {
+                    this.err="Personal Habits already exist"
+                    this.dup= true
+                    console.log(this.err)
+                }
+                });
+                  if (this.item === '') {
+                    this.dup=false
                     this.err = "Cannot be empty "
                 }
-                else if (this.item.length < 3){
+                 else if (this.dup){
                      
+                     this.err = "Personal Habits Already exist"
+                      this.dup=false
+                }
+                else if (this.item.length < 3){
+                     this.dup=false
                      this.err = "Have to be atleast 3 characters"
                 }
                 else {
-                    this.err=""
+
+                this.err=""
+                this.dup=false
                  this.form.personalHabits.push(this.item);
-                await axios.patch('patients/' + id + '/add-personal-habit', this.form, {
+                 axios.patch('patients/' + id + '/add-personal-habit', this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
@@ -178,6 +193,8 @@
                     })
                     this.item=''
                 }
+               
+               
                 // this.show = !this.show
                 // this.items = []
 
