@@ -20,6 +20,7 @@
 
                         <textarea v-model="formData.cc"
                             class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
+                     <small class="text-regal-red mb-2">{{this.strCC}}</small>
                     </div>
 
                     <div class="w-full lg:w-1/2 p-2">
@@ -28,6 +29,7 @@
 
                         <textarea v-model="formData.oe"
                             class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strOE}}</small>
                     </div>
 
                 </div>
@@ -41,7 +43,7 @@
 
                         <textarea v-model="formData.investigation"
                             class="block w-full h-40 px-4 py-2 text-regal-tealbg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
-
+                          <small class="text-regal-red mb-2">{{this.strIN}}</small>
                     </div>
                     <div class="w-full mt-4 lg:w-1/2 p-2">
                         <label
@@ -50,6 +52,7 @@
 
                         <textarea v-model="formData.treatmentPlan"
                             class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strTP}}</small>
                     </div>
 
                 </div>
@@ -66,12 +69,14 @@
                                 <label class="flex justify-start text-regal-teal " for="category">Category</label>
                                 <input v-model="medicine.catagory" id="category" type="text"
                                     class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                  <small class="text-regal-red mb-2">{{this.strCT}}</small>
                             </div>
 
                             <div>
                                 <label class="flex justify-start text-regal-teal" for="name">Medication</label>
                                 <input v-model="medicine.name" id="name" type="text" placeholder=""
                                     class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                               <small class="text-regal-red mb-2">{{this.strMN}}</small>
                             </div>
                              <div>
                                 <label class="flex justify-start text-regal-teal" for="Meals">Relation with
@@ -96,7 +101,7 @@
                                         </svg>
                                     </div>
                                 </div>
-
+                                      <small class="text-regal-red mb-2">{{this.strRWM}}</small>
                             </div>
 
 
@@ -125,11 +130,13 @@
                                         </svg>
                                     </div>
                                 </div>
+                                  <small class="text-regal-red mb-2">{{this.strMF}}</small>
                             </div>
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
                                 <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
                                     class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                             <small class="text-regal-red mb-2">{{this.strMD}}</small>
                             </div>
 
                             <div class=" mt-7 flex justify-end">
@@ -212,6 +219,7 @@
                             class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Advice</label>
                         <textarea v-model="formData.advice"
                             class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strAD}}</small>
                     </div>
 
                 </div>
@@ -247,6 +255,16 @@
 
         data() {
             return {
+                 strAD:'',
+                 strCT:'',
+                 strMN:'',
+                 strMF:'',
+                 strRWM:'',
+                 strMD:'',
+                strCC:'',
+                strOE:'',
+                strTP:'',
+                strIN:'',
                 userData: {},
                 token: localStorage.getItem('token'),
                 formIsValid: true,
@@ -311,11 +329,57 @@
                 this.uid = payload.sub
                 console.log(payload.sub);
             },
-            addItem() {
-                if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
-                    .medicine.relationWithMeals === "") {
-                    this.formVal = false
-                } else {
+           addItem() {
+                if(this.medicine.catagory === "" ){
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT="Enter Category"
+                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
+                //     .medicine.relationWithMeals === "") {
+                //     this.formVal = false
+                } 
+                else if(this.medicine.name === "" ){
+                     this.strCT=''
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN="Enter Medicine Name"
+                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
+                //     .medicine.relationWithMeals === "") {
+                //     this.formVal = false
+                } 
+                else if (this.medicine.relationWithMeals === "" ){
+                      this.strCT=''
+                    this.strMN=''
+                     this.strMF=''
+                     this.strMD=''
+                     this.strRWM="Choose Relation with Meals"
+
+                }
+                else if (this.medicine.frequency === "" ){
+                      this.strCT=''
+                    this.strMN=''
+                     this.strRWM=''
+                     this.strMD=''
+                     this.strMF="Choose Frequency"
+
+                }
+                 else if (this.medicine.duration === "" ){
+                    this.strCT=''
+                    this.strMN=''
+                     this.strMF=''
+                     this.strRWM=''
+                      this.strMD="Enter a duration"
+
+                }
+                else {
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT=""
 
                     this.items.push(this.medicine)
 
@@ -355,20 +419,64 @@
                         this.errorMsg = 'Error retrieving data'
                     })
             },
-            addPrint() {
+           addPrint() {
                 this.formData.patient = this.$route.params.id
-                this.formData.user = this.uid
+                this.formData.user ='616721fd20d0dff607ab2cb8'
                 //console.log(this.uid)
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
                 this.formIsValid = true;
-                if (this.formData.cc === '' || this.formData.oe === '' || this.formData.advice === '' || this.formData
-                    .treatmentPlan === '' || this.formData.medicine.name === '' ||
-                    this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData
-                    .medicine.relationWithMeals === '') {
-                    this.formIsValid = false;
-                    return;
-                } else {
+                if(this.formData.cc === ''){
+                    this.strOE=''
+                     this.strTP=''
+                     this.strIN=''
+                    this.strCC="CC cannot be blank"
+                // if (this.formData.cc === '' || this.formData.oe === '' || this.formData.advice === '' || this.formData
+                //     .treatmentPlan === '' || this.formData.medicine.name === '' ||
+                //     this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData
+                //     .medicine.relationWithMeals === '') {
+                //     this.formIsValid = false;
+                //     return;
+                } 
+                else if(this.formData.oe === ''){
+                    this.strCC='';
+                     this.strTP='';
+                     this.strIN='';
+                    this.strOE="OE cannot be blank"
+                }
+                else if(this.formData.investigation=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strTP='';
+                       this.strIN=" Investigation cannot be blank"
+                       
+                }
+                else if(this.formData.treatmentPlan=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strIN='';
+                       this.strTP="Treatment Plan  cannot be blank"
+                }
+                 else if(this.formData.advice=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strIN='';
+                     this.strTP='';
+                     this.strAD='Advice cannot be blank';
+
+                }
+                
+                else {
+                    this.strCC='';
+                     this.strTP='';
+                     this.strIN='';
+                    this.strOE="";
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT=""
+
                     this.formIsValid = true;
                     this.openModal = true
                 }

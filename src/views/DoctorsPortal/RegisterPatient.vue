@@ -46,7 +46,7 @@
                     <input
                       class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id="name" type="text" placeholder="" v-model="formdata.name">
-
+                      <small class="text-regal-red mb-2">{{this.strName}}</small>
                   </div>
 
                 </div>
@@ -58,7 +58,7 @@
                     <input
                       class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id="phone" type="text" placeholder="" v-model="formdata.phone">
-
+                        <small class="text-regal-red mb-2">{{this.strPhone}}</small>
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -81,6 +81,7 @@
                           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                       </div>
                     </div>
+                     <small class="text-regal-red mb-2">{{this.strGender}}</small>
                   </div>
                   
                 </div>
@@ -92,6 +93,7 @@
                     <input
                       class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
+                    <small class="text-regal-red mb-2">{{this.strDob}}</small>
                   </div>
                 </div>
                 <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone
@@ -125,6 +127,11 @@
     },
     data() {
       return {
+         strName:"",
+                strDob:"",
+               
+                strGender:"",
+                strPhone:"",
         token: localStorage.getItem('token'),
         formIsValid: true,
         formdata: {
@@ -139,11 +146,54 @@
       async createPatient() {
         this.formIsValid = true;
         // console.log(this.formdata);
-        if (this.formdata.name === '' || this.formdata.name.length < 3 || this.formdata.gender === '' || this.formdata
-          .dob === '' || this.formdata.phone.length < 11 || this.formdata.phone.length > 11) {
-          this.formIsValid = false;
+        // if (this.formdata.name === '' || this.formdata.name.length < 3 || this.formdata.gender === '' || this.formdata
+        //   .dob === '' || this.formdata.phone.length < 11 || this.formdata.phone.length > 11) {
+        //   this.formIsValid = false;
          
-        } else {
+        // } 
+        if (this.formdata.name === '') {
+                   this.strName = 'Name cannot be blank';  
+                     }   
+                       else if (this.formdata.name.length < 3 || this.formdata.name.length > 255) {
+                          this.strDob ='',
+                          this.strGender='',
+                          this.strPhone= '', 
+                   this.strName = 'Minimum length 3 & Maximum length 255 '; 
+                    }   
+                     else if (this.formdata.phone === '') {
+                       this.strDob ='',
+                         
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPhone = 'Phone cannot be blank';  
+                     } 
+                      else if (this.formdata.phone.length < 11 || this.formdata.phone.length > 14 ) {
+                          this.strDob ='',
+                         
+                          this.strGender='',
+                          this.strName= '', 
+                   this.strPhone = 'Minimum length 11 & Maximum length 14';  
+                     }   
+                      else if (this.formdata.gender === '') {
+                           this.strDob ='',
+                         
+                          this.strName='',
+                          this.strPhone= '', 
+                   this.strGender = 'Gender cannot be blank';  
+                     }  
+                      else if (this.formdata.dob === '') {
+                           this.strName ='',
+                         
+                          this.strGender='',
+                          this.strPhone= '', 
+                   this.strDob = 'Date of Birth cannot be blank';  
+                     } 
+                    
+                 
+                 
+
+
+        else {
           await axios.post('patients/create-patient', this.formdata, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`

@@ -244,13 +244,21 @@
                                     <div class="inline-flex  mt-4  mb-5">
                                         <label for="" class="mr-8 mt-0.5 text-regal-teal font-medium">Give discount in:
                                         </label>
-
+<!-- 
                                         <input type="radio"  name="test_id"
                                             @change="applyDiscount($event)" value="Amount"   v-model="type"
                                             class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
                                             class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
                                         <input type="radio" name="test_id"
                                             @change="applyDiscount($event)" value="Percentage"  v-model="type"
+                                            class="form-radio h-5 w-5   mt-1 mr-1"><span
+                                            class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span> -->
+                                            <input type="radio"  name="test_id"
+                                            @change="applyDiscount()" value="Amount"   @click="onChange($event)"
+                                            class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
+                                            class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
+                                        <input type="radio" name="test_id"
+                                            @change="applyDiscount()" value="Percentage" @click="onChange($event)"
                                             class="form-radio h-5 w-5   mt-1 mr-1"><span
                                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
 
@@ -434,8 +442,8 @@
             }
         },
         methods: {
-            applyDiscount(event) {
-                 this.isPercentage = event.target.value;
+            applyDiscount() {
+                
                 this.balance = this.totalCost - this.totalPaid
 
                 if (this.isPercentage == 'Percentage') {

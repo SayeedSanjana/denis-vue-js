@@ -54,7 +54,7 @@
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
                     @click="patientDetails(post._id)" v-for="(post,index) in filteredList " :key="index">
 
-                    <td class="py-3 ">{{index+1}}</td>
+                    <td class="py-3 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{post.name}}</td>
                     <td class="px-2 py-3">{{post.phone}}</td>
                     <td class="px-2 py-3">{{post.gender}}</td>
