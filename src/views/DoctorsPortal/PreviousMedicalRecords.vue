@@ -1,32 +1,64 @@
 <template>
     <div>
-        <div class="px-4 py-2">
+        
+
+            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
+               <div class="m-0.5 text-regal-teal font-medium">
+                  Patient Information
+               </div>
+              
+                 
+            </div>
 
 
-            <h2 class="text-xl font-semibold text-center text-gray-700 title-font ">{{this.formData.name}}</h2>
-
-            <div class="flex flex-col justify-between flex-1 mt-6  pt-2 pb-4">
+            <div class="flex flex-col justify-between flex-1 pb-4">
                 <nav>
-
-                    <div class="flex items-center justify-between px-8 py-2 text-gray-700 ">
-                        <div class="text-gray-500 text-sm font-semibold">
-                            Gender
+                  <div class="bg-regal-white">
+                    <div class="flex items-center   px-8 py-2 text-gray-700 ">
+                        <div class="text-regal-teal text-sm font-bold w-24 text-left">
+                            Date 
                         </div>
-                        <div class="text-gray-700 text-sm font-semibold">
-                            {{this.formData.gender}}
+                        <div class="text-regal-teal text-sm font-medium mr-2">
+                            :
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between px-8 py-2 text-gray-700 ">
-                        <div class="text-gray-500 text-sm font-semibold">
-                            Age
-                        </div>
-                        <div class="text-gray-700 text-sm font-semibold">
-                            {{
-                        this.formData.dob
-                    }} years
+                        <div class="text-regal-teal text-sm font-bold">
+                        {{this.datenow}}
                         </div>
                     </div>
-
+                    <div class="flex items-center    px-8 py-2 text-gray-700 ">
+                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
+                            Patient Name 
+                        </div>
+                        <div class="text-regal-teal text-sm font-medium mr-2">
+                            :
+                        </div>
+                        <div class="text-regal-teal text-sm font-medium">
+                           {{this.formData.name}}
+                        </div>
+                    </div>
+                    <div class="flex items-center  px-8 py-2 text-gray-700 ">
+                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
+                            Gender 
+                        </div>
+                         <div class="text-regal-teal text-sm font-medium mr-2">
+                            :
+                        </div>
+                        <div class="text-regal-teal text-sm font-medium">
+                          {{this.formData.gender}}
+                        </div>
+                    </div>
+                    <div class="flex items-center px-8 py-2 text-gray-700 ">
+                       <div class="text-regal-teal text-sm font-bold w-24 text-left">
+                            Age 
+                        </div>
+                        <div class="text-regal-teal text-sm font-medium mr-2">
+                            :
+                        </div>
+                        <div class="text-regal-teal text-sm font-medium">
+                           {{this.formData.dob}} years
+                        </div>
+                    </div>
+                </div>
                     <div class=" border-t border-gray-300 ">
                         <!--allergy-->
                         <Allergies :formData="formData" @myEvent="getPosts" />
@@ -43,7 +75,7 @@
 
                 </nav>
             </div>
-        </div>
+        
     </div>
 </template>
 
@@ -52,6 +84,7 @@
     import Allergies from "../DoctorsPortal/Allergies.vue";
     import PersonalHabits from "../DoctorsPortal/PersonalHabits.vue";
     import Disease from "../DoctorsPortal/Disease.vue";
+    import moment from "moment";
 
     export default {
         components: {
@@ -64,6 +97,7 @@
         },
         data() {
             return {
+                datenow: moment().subtract(10, 'days').calendar(),
                 token: localStorage.getItem('token'),
                 dob: "",
                 date: "",

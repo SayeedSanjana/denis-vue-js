@@ -1,15 +1,14 @@
 <template>
-    <div>
+    <div class="">
 
-        <div class="bg-white shadow dark:bg-gray-800 min-h-screen ">
-            <div
-                class="md:p-6 p-3 container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300">
+        <!-- <div class="bg-white shadow dark:bg-gray-800 min-h-screen "> -->
+            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
 
-                <button @click="activeTab = 'General'" :class="activeTab==='General' ? 'border-indigo-500' : 'border-white'"
-                    class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">General
+                <button @click="activeTab = 'General'" :class="activeTab==='General' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent mx-1.5  sm:mx-6">General
                 </button>
-                 <button @click="activeTab = 'TreatmentNote'" :class="activeTab==='TreatmentNote' ? 'border-indigo-500' : 'border-white'"
-                    class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Treatment
+                 <button @click="activeTab = 'TreatmentNote'" :class="activeTab==='TreatmentNote' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent  mx-1.5  sm:mx-6">Treatment
                     Note</button>
 
 
@@ -19,7 +18,7 @@
             </keep-alive>
 
 
-        </div>
+        <!-- </div> -->
     </div>
 </template>
 

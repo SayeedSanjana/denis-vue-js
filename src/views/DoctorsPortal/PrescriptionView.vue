@@ -7,16 +7,16 @@
            </div> -->
       <div class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto ">
-          <div class="flex flex-row w-full px-2 mb-20">
+          <div class="flex flex-row w-full px-2 mb-8">
             <div class=" ">
-              <div class="font-semibold px-0 flex items-start">
+              <div class="font-semibold text-regal-teal px-0 flex items-start">
                 Prescription Details
               </div>
               <div class="px-0  flex items-start">
-                <span class="text-gray-600 ">Prescribed </span><span class="text-gray-400 ml-2">{{this.date}}</span>
+                <span class="text-regal-teal font-medium ">Prescribed </span><span class="text-regal-teal ml-2">{{this.date}}</span>
               </div>
               <div class="px-0 flex items-start">
-                <span class="text-gray-600">Approved By </span><span class="text-indigo-500 text-lg ml-2">Dr.
+                <span class="text-regal-teal font-medium">Approved By </span><span class="text-regal-teal ml-2 ">Dr.
                   {{this.user}}</span>
               </div>
             </div>
@@ -24,60 +24,57 @@
 
           </div>
 
-          <div class="lg:flex mb-8 items-start justify-between">
-            <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Name: </span><span
-                class="border-b border-gray-300">{{this.name}}</span></div>
-            <div class="lg:w-1/3 text-left"><span class="mr-1 font-semibold text-gray-500">Age: </span><span
-                class="border-b border-gray-300">{{this.age}}years</span></div>
-            <div class="lg:w-1/3 text-left"> <span class="mr-1 font-semibold text-gray-500">Gender: </span><span
-                class="border-b border-gray-300">{{this.gender}}</span> </div>
+          <div class="lg:flex px-2 mb-8 items-start justify-between">
+            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Name: </span><span
+                class="text-regal-teal">{{this.name}}</span></div>
+            <div class="lg:w-1/3  text-left"><span class="mr-1 font-semibold text-regal-teal">Age: </span><span
+                class="text-regal-teal">{{this.age}} years</span></div>
+            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
+                class="text-regal-teal">{{this.gender}}</span> </div>
           </div>
-          <div class=" mb-16">
-            <hr>
-          </div>
+          
+            <div class="px-2 mb-6 lg:w-full  ">
+
+              <div class="whitespace-normal break-all">
+                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                    class="">C/C</span></div>
+                <div class="flex items-start ">
+                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
+                </div>
+              </div>
+            </div>
+            <div class="px-2 mb-6 lg:w-full">
+
+              <div class="whitespace-normal break-all">
+                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                    class="">O/E</span></div>
+                <div class="flex items-start ">
+                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
+                </div>
+              </div>
+            </div>
+          
+
+
+
           <div class="flex justify-between">
             <div class="px-2 mb-6 lg:w-1/2  ">
 
               <div class="whitespace-normal break-all">
-                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                    class="border-b border-gray-400">C/C:</span></div>
+                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                    class="">Treatment Plan</span></div>
                 <div class="flex items-start ">
-                  <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
+                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
                 </div>
               </div>
             </div>
             <div class="px-2 mb-6 lg:w-1/2">
 
               <div class="whitespace-normal break-all">
-                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                    class="border-b border-gray-400">O/E:</span></div>
+                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                    class="">Investigation</span></div>
                 <div class="flex items-start ">
-                  <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="flex justify-between">
-            <div class="px-2 mb-6 lg:w-1/2  ">
-
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                    class="border-b border-gray-400">Treatment Plan:</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
-                </div>
-              </div>
-            </div>
-            <div class="px-2 mb-6 lg:w-1/2">
-
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                    class="border-b border-gray-400">Investigation:</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.investigation}}</pre>
+                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.investigation}}</pre>
                 </div>
               </div>
             </div>
@@ -85,7 +82,7 @@
 
           <div>
 
-            <div class="mt-5 mb-5">
+            <div class="px-2 mt-5 mb-5">
               <svg class="w-6 h-6" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 210 210"
                 style="enable-background:new 0 0 210 210;" xml:space="preserve">
@@ -97,8 +94,8 @@
               </svg>
             </div>
 
-            <table class="w-full mb-5 bg-gray-200 text-gray-800 table-auto  ">
-              <thead class="text-center text-gray-800 border-b-2 border-gray-300 text-sm">
+            <table class="ml-2 w-full mb-5 bg-regal-blue bg-opacity-30 rounded-t-xl  ">
+              <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
                 <th class="px-4 py-3">Category</th>
                 <th class="px-4 py-3">Name</th>
                 <th class="px-4 py-3">Duration</th>
@@ -107,14 +104,14 @@
 
               </thead>
 
-              <tbody class="">
-                <tr class="bg-white  border border-gray-300 hover:bg-gray-100" v-for="item in formData.medicine"
+              <tbody class="text-left">
+                <tr class="bg-white  border-b border-regal-cyan border-opacity-50" v-for="item in formData.medicine"
                   :key="item._id">
-                  <td class="px-4 py-3">{{item.catagory}}</td>
-                  <td class="px-4 py-3">{{item.name}}</td>
-                  <td class="px-4 py-3">{{item.duration}}</td>
-                  <td class="px-4 py-3">{{item.frequency}}</td>
-                  <td class="px-4 py-3">{{item.relationWithMeals}}</td>
+                  <td class="px-4 py-3 text-regal-teal">{{item.catagory}}</td>
+                  <td class="px-4 py-3 text-regal-teal">{{item.name}}</td>
+                  <td class="px-4 py-3 text-regal-teal">{{item.duration}}</td>
+                  <td class="px-4 py-3 text-regal-teal">{{item.frequency}}</td>
+                  <td class="px-4 py-3 text-regal-teal">{{item.relationWithMeals}}</td>
 
                 </tr>
               </tbody>
@@ -127,10 +124,10 @@
           <div class="px-2 mb-6 ">
 
             <div class="whitespace-normal break-all">
-              <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                  class="border-b border-gray-400">Advice:</span></div>
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                  class="">Advice</span></div>
               <div class="flex items-start ">
-                <pre class="text-left  whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
               </div>
             </div>
           </div>
@@ -138,8 +135,8 @@
           <div class="flex justify-center mt-20">
             <div class="flex justify-between px-10 ">
               <button @click="printMedication"
-                class=" inline-flex border rounded-md border-indigo-500 text-indigo-500 pl-2 pr-2 text-center p-2 m-2 font-bold text-xs hover:text-white hover:bg-indigo-500">
-                <svg class="w-4 h-4 mr-2 fill-current text-indigo-500" height="457pt" viewBox="-15 0 457 457.14286"
+                class=" px-6 py-3 mr-4 bg-regal-light-blue text-center border text-regal-teal font-bold  rounded-md text-xs flex">
+                <svg class="w-4 h-4 mr-2 fill-current text-regal-teal" height="457pt" viewBox="-15 0 457 457.14286"
                   width="457pt" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="m388.210938 148.9375c-.457032-.367188-1.003907-.644531-1.554688-.914062-.550781-.183594-1.097656-.367188-1.738281-.460938-1.734375-.367188-3.566407-.183594-5.210938.460938-1.1875.453124-2.195312 1.1875-3.019531 2.007812-1.644531 1.648438-2.648438 4.023438-2.648438 6.492188 0 2.378906 1.003907 4.753906 2.648438 6.402343.824219.914063 1.832031 1.550781 3.019531 2.011719 1.097657.457031 2.285157.726562 3.476563.726562.542968 0 1.1875-.089843 1.734375-.183593.640625-.179688 1.1875-.359375 1.738281-.542969.550781-.277344 1.097656-.550781 1.554688-.824219.546874-.367187 1.003906-.734375 1.464843-1.1875 1.640625-1.648437 2.648438-4.023437 2.648438-6.402343 0-2.46875-1.007813-4.753907-2.648438-6.492188-.460937-.457031-.917969-.820312-1.464843-1.09375zm0 0" />
@@ -157,8 +154,8 @@
                 Print Medication And Advice
               </button>
               <button @click="printFullPres"
-                class=" inline-flex border rounded-md border-indigo-500 text-indigo-500 pl-2 pr-2 text-center p-2 m-2 font-bold text-xs hover:text-white hover:bg-indigo-500">
-                <svg class="w-4 h-4 mr-2 fill-current text-indigo-500" height="457pt" viewBox="-15 0 457 457.14286"
+                class=" px-6 py-3 bg-regal-light-blue text-center border text-regal-teal font-bold  rounded-md text-xs flex">
+                <svg class="w-4 h-4 mr-2 fill-current text-regal-teal" height="457pt" viewBox="-15 0 457 457.14286"
                   width="457pt" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="m388.210938 148.9375c-.457032-.367188-1.003907-.644531-1.554688-.914062-.550781-.183594-1.097656-.367188-1.738281-.460938-1.734375-.367188-3.566407-.183594-5.210938.460938-1.1875.453124-2.195312 1.1875-3.019531 2.007812-1.644531 1.648438-2.648438 4.023438-2.648438 6.492188 0 2.378906 1.003907 4.753906 2.648438 6.402343.824219.914063 1.832031 1.550781 3.019531 2.011719 1.097657.457031 2.285157.726562 3.476563.726562.542968 0 1.1875-.089843 1.734375-.183593.640625-.179688 1.1875-.359375 1.738281-.542969.550781-.277344 1.097656-.550781 1.554688-.824219.546874-.367187 1.003906-.734375 1.464843-1.1875 1.640625-1.648437 2.648438-4.023437 2.648438-6.402343 0-2.46875-1.007813-4.753907-2.648438-6.492188-.460937-.457031-.917969-.820312-1.464843-1.09375zm0 0" />

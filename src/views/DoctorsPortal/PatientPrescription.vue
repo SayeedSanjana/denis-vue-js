@@ -1,11 +1,6 @@
 <template>
     <div>
-        <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-
-            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">
-                Prescription
-            </h2>
-
+        <section class="max-w-4xl p-6 mx-auto bg-white rounded-md ">
 
             <form @submit.prevent>
                 <div>
@@ -16,103 +11,73 @@
 
                     <div class="w-full lg:w-1/2 p-2">
                         <label
-                            class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">C/C</label>
+                            class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
 
                         <textarea v-model="formData.cc"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
+                     <small class="text-regal-red mb-2">{{this.strCC}}</small>
                     </div>
 
                     <div class="w-full lg:w-1/2 p-2">
                         <label
-                            class="block mb-2text-md font-semibold text-gray-500 capitalize dark:text-white">O/E</label>
+                            class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white  text-left">O/E</label>
 
                         <textarea v-model="formData.oe"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strOE}}</small>
                     </div>
 
                 </div>
                 <div class="flex justify-between">
-                    <div class="w-full mt-4 lg:w-1/2 p-2">
-                        <label
-                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white ">Treatment
-                            Plan</label>
-
-                        <textarea v-model="formData.treatmentPlan"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
-                    </div>
+                    
                     <div class="w-full lg:w-1/2 mt-4 p-2">
                         <label
-                            class="block mb-2 text-md font-semibold text-gray-500 capitalize dark:text-white">Investigation</label>
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Investigation</label>
 
 
 
                         <textarea v-model="formData.investigation"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                            class="block w-full h-40 px-4 py-2 text-regal-tealbg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
+                          <small class="text-regal-red mb-2">{{this.strIN}}</small>
+                    </div>
+                    <div class="w-full mt-4 lg:w-1/2 p-2">
+                        <label
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left ">Treatment
+                            Plan</label>
 
+                        <textarea v-model="formData.treatmentPlan"
+                            class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strTP}}</small>
                     </div>
 
                 </div>
-                <div class="mt-4">
-                    <h2 class="text-lg font-semibold text-gray-500 capitalize dark:text-white mt-4"> Medication</h2>
-                </div>
-
+               
                 <div>
                     <!--medication-->
                     <div class=" p-4">
 
-                        <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-2">
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="category">Category</label>
-                                <input v-model="medicine.catagory" id="category" type="text"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                            </div>
-
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="name">Medicine Name</label>
-                                <input v-model="medicine.name" id="name" type="text" placeholder="Napa"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                            </div>
-
-
-
-                        </div>
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
-
-
-
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="Frequency">Frequency</label>
-                                <div class="relative">
-                                    <select
-                                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="gender" v-model="medicine.frequency">
-
-                                        <option v-for="f in frequency" :key="f._id">{{f}}</option>
-
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path
-                                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
-                                <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                <label class="flex justify-start text-regal-teal " for="category">Category</label>
+                                <input v-model="medicine.catagory" id="category" type="text"
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                  <small class="text-regal-red mb-2">{{this.strCT}}</small>
                             </div>
 
                             <div>
-                                <label class="text-gray-700 dark:text-gray-200 mt-1" for="Meals">Relation with
+                                <label class="flex justify-start text-regal-teal" for="name">Medication</label>
+                                <input v-model="medicine.name" id="name" type="text" placeholder=""
+                                    class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                               <small class="text-regal-red mb-2">{{this.strMN}}</small>
+                            </div>
+                             <div>
+                                <label class="flex justify-start text-regal-teal" for="Meals">Relation with
                                     Meal</label>
                                 <div class="relative">
                                     <select
-                                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
                                         id="gender" v-model="medicine.relationWithMeals">
+                                         <option value="" selected="selected" disabled="disabled">Select</option>
                                         <option>Before Meal</option>
                                         <option>After Meal</option>
                                         <option>At BedTime</option>
@@ -120,7 +85,7 @@
 
                                     </select>
                                     <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center py-2 pr-4 mt-1 text-gray-700 ">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20">
                                             <path
@@ -128,16 +93,56 @@
                                         </svg>
                                     </div>
                                 </div>
-
+                                      <small class="text-regal-red mb-2">{{this.strRWM}}</small>
                             </div>
-                        </div>
-                        <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p>
-                        <div class="flex justify-center">
 
-                            <button class="text-indigo-500 mt-6 hover:text-gray-600 font-semibold" @click="addItem()">
-                                +Add Medicine
+                        </div>
+                        <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
+
+                            <div>
+                                <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Frequency">Frequency</label>
+                                <div class="relative">
+                                    <select
+                                    class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none "
+                                        id="gender" v-model="medicine.frequency">
+                                        <option value="" selected="selected" disabled="disabled">Select</option>
+                                        <option v-for="f in frequency" :key="f._id">{{f}}</option>
+
+                                    </select>
+                                    <div
+                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center py-2 pr-4 mt-1 text-gray-700 ">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                  <small class="text-regal-red mb-2">{{this.strMF}}</small>
+                            </div>
+                            <div>
+                                <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
+                                <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
+                                    class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                             <small class="text-regal-red mb-2">{{this.strMD}}</small>
+                            </div>
+
+                            <div class=" mt-7 flex justify-end">
+
+                            <button class=" px-7 py-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex" @click="addItem()">
+                            <span class=" ml-2 mr-2">Add Medication</span>   
+                               <span class=" "><svg class="w-3 h-5 fill-current text-white  " height="426.66667pt"
+                                viewBox="0 0 426.66667 426.66667" width="426.66667pt"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0" />
+                                </svg></span>
                             </button>
                         </div>
+                          <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p>
+                           
+                        </div>
+                      
                     </div>
                 </div>
                 <!--medication-->
@@ -146,8 +151,8 @@
                 <div class="mt-5 " v-if="this.items.length>=1">
                     <div>
 
-                        <table class="w-full   bg-gray-200 text-gray-800 table-auto  ">
-                            <thead class="text-center text-gray-800 border-b-2 border-gray-300 text-sm">
+                        <table class="w-full bg-regal-light-blue text-regal-teal mx-auto rounded-t-lg r ">
+                            <thead class="text-center text-regal-teal  text-sm">
                                 <th class="px-4 py-3">Category</th>
                                 <th class="px-4 py-3">Name</th>
                                 <th class="px-4 py-3">Duration</th>
@@ -157,9 +162,9 @@
                             </thead>
 
                             <tbody class="">
-                                <tr class="bg-white  border border-gray-300 hover:bg-gray-100"
+                                <tr class="bg-white  border border-regal-blue rounded-b-lg border-opacity-25 hover:bg-regal-white hover:opacity-80 text-regal-teal "
                                     v-for="(item,index) in items " :key="index">
-                                    <td class="px-4 py-3">{{item.catagory}}</td>
+                                    <td class="py-3 ">{{item.catagory}}</td>
                                     <td class="px-4 py-3">{{item.name}}</td>
                                     <td class="px-4 py-3">{{item.duration}}</td>
                                     <td class="px-4 py-3">{{item.frequency}}</td>
@@ -167,18 +172,8 @@
                                     <td class="flex justify-center items-center p-2">
                                         <button @click=" deleteItem(index)"
                                             class="p-0 w-5 h-5 mt-1 flex justify-center items-center  ">
-                                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                viewBox="0 0 496.158 496.158"
-                                                style="enable-background:new 0 0 496.158 496.158;" xml:space="preserve">
-                                                <path style="fill:#E04F5F;" d="M0,248.085C0,111.063,111.069,0.003,248.075,0.003c137.013,0,248.083,111.061,248.083,248.082
-                            c0,137.002-111.07,248.07-248.083,248.07C111.069,496.155,0,385.087,0,248.085z" />
-                                                <path style="fill:#FFFFFF;"
-                                                    d="M383.546,206.286H112.612c-3.976,0-7.199,3.225-7.199,7.2v69.187c0,3.976,3.224,7.199,7.199,7.199
-                            h270.934c3.976,0,7.199-3.224,7.199-7.199v-69.187C390.745,209.511,387.521,206.286,383.546,206.286z" />
-
-                                            </svg>
-
+                                            <img src="@/assets/svgs/cross.svg" class="" alt="">
+                                          
                                         </button>
                                     </td>
                                 </tr>
@@ -192,9 +187,10 @@
                 <div class="flex justify-between">
                     <div class="w-full  mt-4 p-2">
                         <label
-                            class="block mb-4 mt-4 text-lg font-semibold text-gray-500 capitalize dark:text-white">Advice</label>
+                            class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Advice</label>
                         <textarea v-model="formData.advice"
-                            class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                            class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
+                    <small class="text-regal-red mb-2">{{this.strAD}}</small>
                     </div>
 
                 </div>
@@ -202,7 +198,7 @@
                 </p>
 
                 <div class="flex justify-center mt-4">
-                    <button @click="addPrint" class="button">Preview</button>
+                    <button @click="addPrint" class=" px-4 py-2 bg-regal-blue text-center border text-white font-semibold  rounded-md text-sm flex">Preview</button>
                 </div>
             </form>
             <div class="mt-5 " v-if="openModal">
@@ -230,6 +226,16 @@
 
         data() {
             return {
+                 strAD:'',
+                 strCT:'',
+                 strMN:'',
+                 strMF:'',
+                 strRWM:'',
+                 strMD:'',
+                strCC:'',
+                strOE:'',
+                strTP:'',
+                strIN:'',
                 userData: {},
                 token: localStorage.getItem('token'),
                 formIsValid: true,
@@ -294,11 +300,57 @@
                 this.uid = payload.sub
                 console.log(payload.sub);
             },
-            addItem() {
-                if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
-                    .medicine.relationWithMeals === "") {
-                    this.formVal = false
-                } else {
+           addItem() {
+                if(this.medicine.catagory === "" ){
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT="Enter Category"
+                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
+                //     .medicine.relationWithMeals === "") {
+                //     this.formVal = false
+                } 
+                else if(this.medicine.name === "" ){
+                     this.strCT=''
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN="Enter Medicine Name"
+                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
+                //     .medicine.relationWithMeals === "") {
+                //     this.formVal = false
+                } 
+                else if (this.medicine.relationWithMeals === "" ){
+                      this.strCT=''
+                    this.strMN=''
+                     this.strMF=''
+                     this.strMD=''
+                     this.strRWM="Choose Relation with Meals"
+
+                }
+                else if (this.medicine.frequency === "" ){
+                      this.strCT=''
+                    this.strMN=''
+                     this.strRWM=''
+                     this.strMD=''
+                     this.strMF="Choose Frequency"
+
+                }
+                 else if (this.medicine.duration === "" ){
+                    this.strCT=''
+                    this.strMN=''
+                     this.strMF=''
+                     this.strRWM=''
+                      this.strMD="Enter a duration"
+
+                }
+                else {
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT=""
 
                     this.items.push(this.medicine)
 
@@ -338,20 +390,64 @@
                         this.errorMsg = 'Error retrieving data'
                     })
             },
-            addPrint() {
+           addPrint() {
                 this.formData.patient = this.$route.params.id
-                this.formData.user = this.uid
-                console.log(this.uid)
+                this.formData.user =this.uid
+                //console.log(this.uid)
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
                 this.formIsValid = true;
-                if (this.formData.cc === '' || this.formData.oe === '' || this.formData.advice === '' || this.formData
-                    .treatmentPlan === '' || this.formData.medicine.name === '' ||
-                    this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData
-                    .medicine.relationWithMeals === '') {
-                    this.formIsValid = false;
-                    return;
-                } else {
+                if(this.formData.cc === ''){
+                    this.strOE=''
+                     this.strTP=''
+                     this.strIN=''
+                    this.strCC="CC cannot be blank"
+                // if (this.formData.cc === '' || this.formData.oe === '' || this.formData.advice === '' || this.formData
+                //     .treatmentPlan === '' || this.formData.medicine.name === '' ||
+                //     this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData
+                //     .medicine.relationWithMeals === '') {
+                //     this.formIsValid = false;
+                //     return;
+                } 
+                else if(this.formData.oe === ''){
+                    this.strCC='';
+                     this.strTP='';
+                     this.strIN='';
+                    this.strOE="OE cannot be blank"
+                }
+                else if(this.formData.investigation=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strTP='';
+                       this.strIN=" Investigation cannot be blank"
+                       
+                }
+                else if(this.formData.treatmentPlan=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strIN='';
+                       this.strTP="Treatment Plan  cannot be blank"
+                }
+                 else if(this.formData.advice=== ''){
+                     this.strCC='';
+                     this.strOE='';
+                     this.strIN='';
+                     this.strTP='';
+                     this.strAD='Advice cannot be blank';
+
+                }
+                
+                else {
+                    this.strCC='';
+                     this.strTP='';
+                     this.strIN='';
+                    this.strOE="";
+                    this.strRWM=''
+                     this.strMF=''
+                     this.strMD=''
+                    this.strMN=""
+                     this.strCT=""
+
                     this.formIsValid = true;
                     this.openModal = true
                 }

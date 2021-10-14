@@ -1,11 +1,7 @@
 <template>
     <div>
         <section class="w-full max-w-2xl px-6 py-4 mx-auto bg-white ">
-            <h2 class="tracking-widest text-lg title-font font-bold text-gray-600  border-b border-gray-300 ">Treatment
-                Note</h2>
-
-
-            <!-- <div hidden>   {{parseJwt(this.token)}} {{this.getUser()}}</div> -->
+         
             <form @submit.prevent="createTreatment" class="w-full max-w-lg">
 
                 <div class="mt-6 ">
@@ -16,7 +12,7 @@
                                 Name</label>
 
                             <input v-model="formData.patientName" readonly
-                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md   "
                                 type="text">
                         </div>
 
@@ -24,53 +20,55 @@
                             <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Date</label>
 
                             <input v-model="formData.date" readonly
-                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md ">
                         </div>
                     </div>
-
-                    <div class=" flex justify-start items-start mt-5">
-                        <label for="" class="m-3 text-gray-800 ">All Teeth?</label>
-                        <input v-model="formData.isAll" value="true" type="radio"
-                            class="form-radio h-5 w-5 text-indigo-600 mt-3"><span
+                    {{this.isAll()}}
+                    <div class=" flex justify-start items-start mt-5 mb-5">
+                        <label for="" class="m-1 text-regal-teal mt-2 ">All Tooth?</label>
+                        <input  @keypress="this.isAll()" v-model="formData.isAll" value="true" type="radio" 
+                            class="form-radio h-5 w-5 text-regal-teal mt-3 ml-10"><span
                             class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
-                        <input v-model="formData.isAll" value="false" type="radio" checked="checked"
-                            class="form-radio h-5 w-5 text-indigo-600 mt-3"><span
+                        <input  @keypress="this.isAll()" v-model="formData.isAll" value="false" type="radio" checked="checked"
+                            class="form-radio h-5 w-5 text-regal-teal mt-3 ml-10"><span
                             class="ml-2 text-gray-700 mt-3">No</span>
                     </div>
 
-                    {{this.isAll()}}
+                   
                     <p v-if="disabled == 1" class="text-red-500 mb-4 text-center">You can't enter tooth number</p>
                     <div class="mt-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Tooth
+                        <label class="block mb-2  font-medium text-regal-teal text-left">Tooth  <span class="text-xs text-gray-400 font-medium">(Should include only numbers i.e '12,13...' )</span>
                         </label>
                         <div class="relative">
-                            <input v-model="teeth" @keypress="isNumber($event)" :disabled="disabled == 1"
-                                class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            <input v-model="teeth" @keypress="isNumber($event)" :disabled="disabled == 1"  @keydown="this.isAll()"
+                                    class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal rounded-md  focus:border-regal-blue  focus:outline-none ">
 
 
                         </div>
                     </div>
 
-                    <div class="flex justify-start items-start mt-5">
-                        <label for="" class="m-3 text-gray-800">Is BabyTooth?</label>
+                    <div class="flex justify-start items-start mt-5 mb-5">
+                        <label for="" class="m-1 text-regal-teal text-left">Is BabyTooth?</label>
                         <input v-model="formData.isBabyTooth" value="true" type="radio"
-                            class="form-radio h-5 w-5 text-indigo-600 mt-3"><span
+                            class="form-radio h-5 w-5 bg-regal-teal mt-3 ml-5"><span
                             class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
                         <input v-model="formData.isBabyTooth" value="false" type="radio" checked="checked"
-                            class="form-radio h-5 w-5 text-indigo-600 mt-3"><span
+                            class="form-radio h-5 w-5 bg-regal-teal mt-3 ml-6"><span
                             class="ml-2 text-gray-700 mt-3">No</span>
                     </div>
 
-                    <div class="w-full mt-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Treatment
-                            Note*</label>
+                    <div class="w-full mt-6">
+                        <label class="block mb-2  font-medium  text-regal-teal text-left">Treatment
+                            Note</label>
 
                         <textarea v-model="formData.treatmentDone"
-                            class="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                        class="block w-full  h-40  px-4 py-2 mt-1 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none ">
+
+                            </textarea>
                     </div>
                     <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid input</p>
                     <div class="flex justify-center mt-6">
-                        <button class="button">Submit</button>
+                        <button class="buttonsubmit">Submit</button>
                     </div>
 
                 </div>
@@ -90,9 +88,7 @@
     import axios from "axios"
     import swal from "sweetalert"
     export default {
-        //      beforeCreate() {
-        //     this.$options.components.TreatmentTimeline = TreatmentTimeline;
-        // },
+        
         components: {
             TreatmentTimeline
         },
@@ -224,6 +220,10 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+    .buttonsubmit{
+        @apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-sm flex
+    }
 
 </style>

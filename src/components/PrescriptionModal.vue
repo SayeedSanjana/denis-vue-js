@@ -7,13 +7,13 @@
             class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
             <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
             <div
-                class="w-full  lg:max-w-3xl max-w-lg  max-h-screen overflow-y-scroll p-6 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
+                class="w-full  lg:max-w-3xl max-w-lg   p-6 pr-0 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
                 <!--content-->
-                <div class="mt-5">
+                <div class="mt-5 overflow-y-scroll h-xxl">
                     <!--body-->
                     <div class="text-center  flex-auto justify-center">
 
-                        <div class="flex justify-end">
+                        <div class="flex justify-end mr-6 mb-2">
                             <button @click="removeModal">
 
                                 <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt"
@@ -26,12 +26,12 @@
                                         fill="#fafafa" /></svg>
                             </button>
                         </div>
-                        <div class="flex justify-start px-10">
+                        <!-- <div class="flex justify-start px-10">
                             <button @click="print" class="button"> Print And Save Prescription
                             </button>
                             <button @click="addPres" class="button">Save Prescription
                             </button>
-                        </div>
+                        </div> -->
 
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
@@ -40,86 +40,84 @@
                                 <div class="container px-5 py-8 mx-auto ">
                                     <div class="flex flex-row w-full px-2 mb-10">
                                         <div class=" ">
-                                            <div class="font-semibold px-0 flex items-start">
+                                            <div class="font-semibold text-regal-teal px-0 flex items-start">
                                                 Prescription Details
                                             </div>
                                             <div class="px-0  flex items-start">
-                                                <span class="text-gray-600 ">Prescribed </span><span
-                                                    class="text-gray-400 ml-2">{{this.date}}</span>
+                                                <span class="text-regal-teal font-medium ">Prescribed </span><span
+                                                    class="text-regal-teal ml-2">{{this.date}}</span>
                                             </div>
                                             <div class="px-0 flex items-start">
-                                                <span class="text-gray-600">Approved By </span><span
-                                                    class="text-indigo-500 text-lg ml-2">Dr. {{this.userData.name}}
+                                                <span class="text-regal-teal font-medium ">Approved By </span><span
+                                                    class="text-regal-teal ml-2">Dr. {{this.userData.name}}
                                                     {{this.$emit("getUser")}}</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="lg:flex mb-4items-start justify-between">
+                                    <div class="lg:flex px-2 mb-8 items-start justify-between">
                                         <div class="lg:w-1/3 text-left"> <span
-                                                class="mr-1 font-semibold text-gray-500">Name: </span><span
-                                                class="border-b border-gray-300">{{this.form1.name}}</span></div>
+                                                class="mr-1 font-semibold text-regal-teal">Name: </span><span
+                                                class="text-regal-teal">{{this.form1.name}}</span></div>
                                         <div class="lg:w-1/3 text-left"><span
-                                                class="mr-1 font-semibold text-gray-500">Age: </span><span
-                                                class="border-b border-gray-300">{{this.age}}years</span></div>
+                                                class="mr-1 font-semibold text-regal-teal">Age: </span><span
+                                                class="text-regal-teal">{{this.age}} years</span></div>
                                         <div class="lg:w-1/3 text-left"> <span
-                                                class="mr-1 font-semibold text-gray-500">Gender: </span><span
-                                                class="border-b border-gray-300">{{this.form1.gender}}</span> </div>
+                                                class="mr-1 font-semibold text-regal-teal">Gender: </span><span
+                                                class="text-regal-teal">{{this.form1.gender}}</span> </div>
                                     </div>
-                                    <div class=" mt-5 mb-5">
-                                        <hr>
-                                    </div>
-                                    <div class="flex flex-wrap justify-between  ">
-                                        <div class="px-2 mb-4 lg:w-1/2  w-full">
+                                   
+                                   
+                                        <div class="px-2 mb-6 lg:w-full  w-full">
 
-                                            <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400">C/C:</span></div>
+                                            <div class="whitespace-normal break-all ">
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                        class="">C/C:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
-                                                        class="text-left  whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
+                                                        class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="px-2 mb-4 lg:w-1/2 w-full">
+                                        <div class="px-2 mb-6 lg:w-full w-full">
 
-                                            <div class="whitespace-normal break-all  ml-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400">O/E:</span></div>
+                                            <div class="whitespace-normal break-all  ">
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                        class="text-regal-teal">O/E:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
-                                                        class="text-left  whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
+                                                        class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    
 
                                     <div class="flex justify-between">
                                         <div class="px-2 mb-4 lg:w-1/2  ">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400">Treatment Plan:</span></div>
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                        class="text-regal-teal">Treatment Plan:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
-                                                        class="text-left  whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
+                                                        class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="px-2 mb-4 lg:w-1/2">
 
                                             <div class="whitespace-normal break-all  ml-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400 ">Investigation:</span></div>
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                        class="text-regal-teal ">Investigation:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
-                                                        class="text-left  whitespace-pre-line break-all">{{this.formData.investigation}}</pre>
+                                                        class="text-left text-regal-teal whitespace-pre-line break-all">{{this.formData.investigation}}</pre>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="mt-5 mb-5">
+                                        <div class="px-2 mt-5 mb-5">
                                             <svg class="w-6 h-6" version="1.1" id="Capa_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -132,8 +130,8 @@
                                                 H50.171V30z" />
                                             </svg>
                                         </div>
-                                        <table class="w-full mb-10 bg-gray-200 text-gray-800 table-auto  ">
-                                            <thead class="text-center text-gray-800 border-b-2 border-gray-300 text-sm">
+                                        <table class="ml-2 w-full mb-5 bg-regal-blue bg-opacity-30 rounded-t-xl  ">
+                                            <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30">
                                                 <th class="px-4 py-3">Category</th>
                                                 <th class="px-4 py-3">Name</th>
                                                 <th class="px-4 py-3">Duration</th>
@@ -141,14 +139,14 @@
                                                 <th class="px-4 py-3">Relation with Meals</th>
                                             </thead>
 
-                                            <tbody class="">
-                                                <tr class="bg-white  border border-gray-300 hover:bg-gray-100"
+                                            <tbody class="text-left">
+                                                <tr class="bg-white  border-b border-regal-cyan border-opacity-50"
                                                     v-for="item in formData.medicine" :key="item._id">
-                                                    <td class="px-4 py-3">{{item.catagory}}</td>
-                                                    <td class="px-4 py-3">{{item.name}}</td>
-                                                    <td class="px-4 py-3">{{item.duration}}</td>
-                                                    <td class="px-4 py-3">{{item.frequency}}</td>
-                                                    <td class="px-4 py-3">{{item.relationWithMeals}}</td>
+                                                    <td class="px-4 py-3 text-regal-teal">{{item.catagory}}</td>
+                                                    <td class="px-4 py-3 text-regal-teal">{{item.name}}</td>
+                                                    <td class="px-4 py-3 text-regal-teal">{{item.duration}}</td>
+                                                    <td class="px-4 py-3 text-regal-teal">{{item.frequency}}</td>
+                                                    <td class="px-4 py-3 text-regal-teal">{{item.relationWithMeals}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -157,17 +155,23 @@
                                     <div class="px-2 mb-6 ">
                                         <div class="mt-8">
                                             <div class="whitespace-normal break-all">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400">Advice:</span></div>
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                        class="text-regal-teal">Advice:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
-                                                        class="text-left  whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
+                                                        class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                             <div class="flex justify-center ">
+                            <button @click="print" class="px-6 py-3 mr-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex"> Print And Save Prescription
+                            </button>
+                            <button @click="addPres" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Save Prescription
+                            </button>
+                        </div>
                         </section>
                         <!--main content-->
                     </div>

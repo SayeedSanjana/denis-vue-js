@@ -7,14 +7,14 @@
             class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
             <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
             <div
-                class="w-full  lg:max-w-3xl max-w-lg  max-h-screen overflow-y-scroll p-6 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
+                class="w-full  lg:max-w-3xl max-w-lg  p-6 pr-0 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
                 <!--content-->
-                <div class="mt-5">
+                <div class="mt-5 overflow-y-scroll h-xxl">
                     <!--body-->
                     <div class="text-center  flex-auto justify-center">
-                        <div class="flex justify-end">
+                        <div class="flex justify-end mr-6 mb-2">
                             <button @click="removeModalBill">
-                                <svg class="w-4 h-4" height="512pt" viewBox="0 0 512 512" width="512pt"
+                                <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
@@ -24,59 +24,62 @@
                                         fill="#fafafa" /></svg>
                             </button>
                         </div>
-                        <div class="flex justify-start px-2 mb-5 ">
-                            <button @click="print" class="button">Print Invoice
-                            </button>
-                        </div>
+
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
                             <div class="flex flex-row w-full px-2 mb-10 justify-between">
                                 <div class=" ">
                                     <div class="px-0  flex items-start">
-                                        <span class="text-gray-600 ">Date</span><span
-                                            class="text-gray-400 ml-1">{{this.date}}</span>
+                                        <span class="font-medium text-md text-regal-teal">Date</span><span
+                                            class="text-md font-normal text-regal-teal ml-2">{{this.date}}</span>
                                     </div>
                                     <div class="px-0 flex items-start">
-                                        <span class="text-gray-600">Patient Name: </span><span
-                                            class="text-indigo-500 text-lg ml-1">{{this.patientData.name}}</span>
+                                        <span class="font-medium text-md text-regal-teal">Patient Name: </span><span
+                                            class="text-md font-normal text-regal-teal ml-2">{{this.patientData.name}}</span>
                                     </div>
                                     <div class="px-0 flex items-start">
-                                        <span class="text-gray-600">Contact: </span><span
-                                            class="text-indigo-500 text-lg ml-1">{{this.patientData.phone}}</span>
+                                        <span class="font-medium text-md text-regal-teal">Contact: </span><span
+                                            class="text-md font-normal text-regal-teal ml-2">{{this.patientData.phone}}</span>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="px-0 flex items-end">
-                                        <span class="text-gray-600">Invoice No # </span><span
-                                            class="text-indigo-600 text-lg ml-1">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span>
+                                        <span class="font-semibold text-md text-regal-teal">Invoice No # </span><span
+                                            class="text-md font-normal text-regal-teal ml-2">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span>
+                                    </div>
+                                    <div class=" flex items-end pl-10 mb-5 mt-10" id="no-print">
+                                        <button @click="print"
+                                            class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Print
+                                            Invoice
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <!--Services List-->
                             <div class="flex justify-between w-full">
-                                <div
-                                    class="tracking-widest text-md title-font font-bold text-gray-600  border-b border-gray-300 pb-1 pt-2 ">
+                                <div class=" text-md title-font font-bold text-regal-teal   pb-1  ">
                                     Services List:
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-center items-center mt-3">
-                                    <table class="text-left w-full border table-auto  ">
-                                        <thead class="text-center  border-b-2 border-gray-300 text-sm text-gray-400">
-                                            <th class="px-4 py-3">Date</th>
-                                            <th class="px-4 py-3  ">Treatment Plan</th>
-                                            <th class="px-4 py-3  ">Cost</th>
+                                    <table class="  p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
+                                        <thead
+                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+                                            <th class="  w-1/3 px-10 py-3">Date</th>
+                                            <th class="px-10 py-3 w-1/3 ">Treatment Done</th>
+                                            <th class="px-10 py-3 w-1/3 ">Cost</th>
                                         </thead>
 
-                                        <tbody class="">
-                                            <tr class="bg-white  border border-gray-300 hover:bg-gray-100 text-center"
+                                        <tbody class="text-left">
+                                            <tr class="bg-white  border-b border-regal-cyan border-opacity-50 "
                                                 v-for="item in Bills.items" :key="item._id">
-                                                <td class="px-4 py-3 p-4  text-gray-500 font-bold uppercase text-sm">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm">
                                                     {{item.date.substring(0,10)}}</td>
-                                                <td class="px-4 py-3 text-gray-500 font-semibold uppercase text-sm  ">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm  ">
                                                     {{item.service}}</td>
-                                                <td class="px-4 py-3 text-gray-500 font-bold uppercase text-sm ">
-                                                    {{item.cost}}</td>
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium  text-sm ">
+                                                    {{item.cost}} TK</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -87,8 +90,7 @@
                             <!--Payment Description-->
 
                             <div class="flex justify-between w-full mt-5">
-                                <div
-                                    class="tracking-widest text-md title-font font-bold text-gray-600  border-b border-gray-300 pb-1 pt-2 ">
+                                <div class=" text-md title-font font-bold text-regal-teal  pb-1 pt-2 ">
                                     Payment Description:
                                 </div>
                             </div>
@@ -96,22 +98,23 @@
                             <div>
                                 <div class="flex justify-center items-center mt-3">
 
-                                    <table class="text-left w-full border table-auto ">
-                                        <thead class="text-center  border-b-2 border-gray-300 text-sm text-gray-400">
-                                            <th class="px-4 py-3">Date</th>
-                                            <th class="px-4 py-3 ">Paid</th>
-                                            <th class="px-4 py-3 ">Payment</th>
+                                    <table class="p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
+                                        <thead
+                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
+                                            <th class="px-10 py-3 w-1/3">Date</th>
+                                            <th class="px-10 py-3 w-1/3 ">Paid</th>
+                                            <th class="px-10 py-3 w-1/3 ">Payment</th>
                                         </thead>
 
-                                        <tbody class="">
-                                            <tr class="bg-white  border border-gray-300 hover:bg-gray-100 text-center"
+                                        <tbody class="text-left">
+                                            <tr class="bg-white  border-b border-regal-cyan border-opacity-50 "
                                                 v-for="item in Bills.payment" :key="item._id">
-                                                <td class="px-4 py-3 p-4  text-gray-500 font-bold uppercase text-sm">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm">
                                                     {{item.date.substring(0,10)}}</td>
-                                                <td class="px-4 py-3 text-gray-500 font-bold uppercase text-sm  ">
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-sm  ">
                                                     {{item.paid}}</td>
 
-                                                <td class="px-4 py-3 text-gray-500 font-bold uppercase text-sm ">
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-sm ">
                                                     {{item.paymentMethod}}</td>
                                             </tr>
                                         </tbody>
@@ -120,57 +123,55 @@
                             </div>
                             <!--Payment Description-->
 
-                            <div class="mt-6">
-                                <hr>
-                            </div>
+
 
                             <!--Payment Info-->
-                            
-                            <div class="flex item-end justify-end ">
+
+                            <div class="">
                                 <div class="">
                                     <div class=" mt-5  w-full ">
-                                        <div class=" flex mb-3 ">
+                                        <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
-                                                <label class=" whitespace-nowrap" for="" > Total Cost:</label>
+                                            <div class="text-regal-teal text-md font-bold  mt-1 inline-block">
+                                                <label class=" whitespace-nowrap" for=""> Total Cost:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.total}}
                                             </div>
                                         </div>
-                                        <div class=" flex mb-3 ">
+                                        <div class=" flex justify-between mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1 inline-block">
-                                                <label class=" whitespace-nowrap" for="" > Total Paid:</label>
+                                            <div class="text-regal-teal text-md font-bold  mt-1 inline-block"> 
+                                                <label class=" whitespace-nowrap" for=""> Total Paid:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{this.paid}}
                                             </div>
                                         </div>
-                                        <div class=" flex  mb-3 " v-if="Bills.discount>0">
+                                        <div class=" flex justify-between  mb-3 " v-if="Bills.discount>0">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                            <div class="text-regal-teal text-md font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Discount:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.discount}}
                                             </div>
                                         </div>
-                                        <div class=" flex  mb-3 ">
+                                        <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                            <div class="text-regal-teal text-md font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Adjustment:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.adjustment}}
                                             </div>
                                         </div>
-                                        <div class=" flex  mb-3 ">
+                                        <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-gray-400 text-md font-bold uppercase mt-1">
+                                            <div class="text-regal-teal text-md font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Balance(Due):</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-gray-500 mt-1 font-bold">
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.balance}}
                                             </div>
                                         </div>
@@ -241,7 +242,8 @@
                     style: ['*'],
                     maxWidth: 800,
                     gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
-                    header: ['Invoice']
+                    header: ['Invoice'],
+                    ignoreElements: ['no-print']
 
                 })
             }
@@ -249,6 +251,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

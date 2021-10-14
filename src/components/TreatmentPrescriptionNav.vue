@@ -1,22 +1,21 @@
 <template>
     <div>
-        <div class="bg-white md:shadow dark:bg-gray-800  ">
-            <div
-                class="p-6 container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300">
+                       <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600  bg-regal-white border  border-regal-cyan border-opacity-20 py-3">
+
                 <button @click="activeTab = 'PatientPrescription'"
-                    :class="activeTab==='PatientPrescription' ? 'border-indigo-500' : 'border-white'"
-                    class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Prescription</button>
+                    :class="activeTab==='PatientPrescription' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent mx-1.5 mt-0.5 sm:mx-6">Prescription</button>
 
                 <button @click="activeTab = 'PrescriptionList'"
-                    :class="activeTab==='PrescriptionList' ? 'border-indigo-500' : 'border-white'"
-                    class="border-b-2 border-transparent hover:text-gray-800 dark:hover:text-gray-200 hover:border-indigo-500 mx-1.5 sm:mx-6">Past
-                    Prescription</button>
+                    :class="activeTab==='PrescriptionList' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Prescription History
+                    </button>
             </div>
             <keep-alive>
                 <component :is="activeTab" />
             </keep-alive>
 
-        </div>
+        
     </div>
 </template>
 

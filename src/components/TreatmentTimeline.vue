@@ -5,28 +5,28 @@
       <div class="container  md:px-5 mx-auto mb-5">
         <div class="mt-5  ">
 
-          <div v-if="treatmentList.length>=1">
+          <div v-if="treatmentList.length>=1" class="h-screen">
             <div class=" mb-3" v-for="tr in filteredList" :key="tr">
               <!--loop-->
 
               <div class="px-2 mb-3">
-                <div class="font-semibold title-font text-gray-700 text-left">Dr. {{tr.user.name}} </div>
+                <div class="font-semibold title-font text-regal-teal text-left">Dr. {{tr.user.name}} </div>
               </div>
 
               <div class="px-7  ">
-                <div class="mt-1 text-indigo-500 title-font font-bold text-left border-l  border-gray-300 ">
+                <div class="mt-1 text-regal-teal title-font font-bold text-left border-l  border-gray-300 ">
                   <div class="ml-3">{{tr.createdAt.substring(0,10)}}</div>
                 </div>
               </div>
 
               <div class="px-12 mt-2 text-left  ">
                 <p class="leading-relaxed  border-l border-gray-300 ">
-                  <pre class="ml-3"><span class="text-gray-400">BabyTooth:</span>{{tr.isBabyTooth}}</pre>
+                  <pre class="ml-3"><span class="text-regal-teal">BabyTooth:</span>{{tr.isBabyTooth}}</pre>
                 </p>
 
                 <div v-if="this.toothNull(tr.tooth)" class="inline-block">
                   <p class="leading-relaxed border-l border-gray-300 inline-block">
-                    <pre class="ml-3 "><span class="text-gray-400">Teeth: </span></pre>
+                    <pre class="ml-3 "><span class="text-regal-teal">Teeth: </span></pre>
                   </p>
                   <div v-for="t in tr.tooth" :key="t._id" class="inline-block">
 
@@ -36,16 +36,17 @@
                 </div>
 
                 <div class="whitespace-normal break-all mr-5  border-l border-gray-300">
-                  <div class="font-semibold text-gray-400 text-sm mb-4  flex items-start"><span
-                      class="border-b border-gray-400 ml-3">Treatment Plan:</span></div>
+                  <div class="font-semibold text-regal-teal text-sm mb-4  flex items-start"><span
+                      class="border-b border-gray-400 ml-3">Treatment Done:</span></div>
                   <div class="flex items-start ">
                     <pre class="text-left  whitespace-pre-line break-all ml-3 ">{{tr.treatmentDone}}</pre>
                   </div>
                 </div>
               </div>
-              <div class="mt-3">
-                <hr />
-              </div>
+
+              <!-- <div>
+              </div> -->
+              <hr  class="mt-6 mb-6"/>
 
             </div>
             <!--loop-->
@@ -57,16 +58,16 @@
 
             </div>
           </div>
-          <div v-else>
-            <div class="bg-indigo-200 px-6 py-4  my-4 rounded-md text-lg mx-auto flex items-center ">
-              <svg class="h-6 w-6 fill-current text-indigo-400 mr-4" xmlns="http://www.w3.org/2000/svg"
+          <div v-else class="h-screen  ">
+            <div class="  my-4 rounded-md text-lg mx-auto ">
+              <!-- <svg class="h-6 w-6 fill-current text-white mr-4" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20">
                 <path
                   d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                </svg>
-              <div>
-                <p class="font-bold text-gray-700">No Past Treatments</p>
-              </div>
+                </svg> -->
+             
+                <p class="font-bold text-regal-teal text-opacity-50 text-center">No Past Treatment Records</p>
+              
             </div>
           </div>
         </div>
@@ -83,7 +84,7 @@
     },
     data() {
       return {
-        prePage: 5,
+        prePage: 4,
         currentPage: 1,
       }
     },

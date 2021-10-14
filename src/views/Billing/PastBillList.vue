@@ -1,104 +1,74 @@
 <template>
   <div>
     <div v-if="changecomponent">
-      <div class="flex justify-end mr-6 mt-18">
-        <button @click="change()" class="button">Back to Past Bill List</button>
+      <div class="flex justify-end mr-6 mt-6">
+        <button @click="change()" class=" p-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Back to Past Bill List</button>
       </div>
 
     </div>
-    <div class=" p-2 w-full" v-if="!changecomponent">
+    <div class="  w-full" v-if="!changecomponent">
       <!--form-->
-      <div class="px-8 flex justify-center items-center" v-if="this.Bills.length >= 1">
+      <div class="" v-if="this.Bills.length >= 1">
 
         <!--items-->
-        <ul>
-          <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
-            <div class="" v-for="bill in this.Bills" :key="bill._id" @click="patientBill(bill._id)">
 
-              <li class="border-gray-400 flex justify-center mt-6 items-center  mb-2 shadow-md">
+      
+        <div class="border-b border-gray-300 hover:bg-regal-light-blue " v-for="bill in this.Bills" :key="bill" @click="patientBill(bill._id)">
+
+
+          <div class="">
+            <div class="grid grid-cols-1 gap-36 lg:grid-cols-3">
+              <div class=" text-left m-3">
+                <p class="text-regal-teal font-semibold" >Total Cost: <span class="">{{bill.total}} TK</span></p>
+                <p class="text-regal-teal " for="date">Date: <span>{{bill.createdAt.substring(0, 10)}}</span></p>
+
+              </div>
+              <div class=" m-3">
                 <div v-if="bill.balance>0">
-                  <div class="flex justify-center">
-                    <div>
-                      <svg class="w-4 h-4 mt-1" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.999 511.999"
-                        style="enable-background:new 0 0 511.999 511.999;" xml:space="preserve">
-                        <path style="fill:#E50027;"
-                          d="M501.449,368.914L320.566,66.207C306.751,43.384,282.728,29.569,256,29.569
-                                  s-50.752,13.815-64.567,36.638L10.55,368.914c-13.812,23.725-14.113,51.954-0.599,75.678c13.513,23.723,37.836,37.838,65.165,37.838
-                                  h361.766c27.329,0,51.653-14.115,65.165-37.838C515.563,420.868,515.262,392.639,501.449,368.914z" />
-                        <path style="fill:#C1001F;"
-                          d="M502.049,444.592c-13.513,23.723-37.836,37.838-65.165,37.838H256V29.57
-                                  c26.727,0,50.752,13.815,64.567,36.638L501.45,368.915C515.262,392.639,515.563,420.868,502.049,444.592z" />
-                        <path style="fill:#FD003A;"
-                          d="M75.109,452.4c-16.628,0-30.851-8.27-39.063-22.669c-8.211-14.414-8.065-31.087,0.469-45.72
-                                  L217.23,81.549c8.27-13.666,22.816-21.951,38.769-21.951s30.5,8.284,38.887,22.157l180.745,302.49
-                                  c8.388,14.4,8.534,31.072,0.322,45.485c-8.211,14.4-22.435,22.669-39.063,22.669H75.109V452.4z" />
-                        <path style="fill:#E50027;" d="M436.891,452.4c16.628,0,30.851-8.27,39.063-22.669c8.211-14.414,8.065-31.087-0.322-45.485
-                                  L294.886,81.754c-8.388-13.871-22.933-22.157-38.887-22.157V452.4H436.891z" />
-                        <path style="fill:#E1E4FB;" d="M286.03,152.095v120.122c0,16.517-13.514,30.03-30.03,30.03s-30.031-13.514-30.031-30.03V152.095
-                                  c0-16.517,13.514-30.031,30.031-30.031S286.03,135.578,286.03,152.095z" />
-                        <path style="fill:#C5C9F7;" d="M286.03,152.095v120.122c0,16.517-13.514,30.03-30.03,30.03V122.064
-                                  C272.516,122.064,286.03,135.578,286.03,152.095z" />
-                        <path style="fill:#E1E4FB;" d="M256,332.278c-24.926,0-45.046,20.119-45.046,45.046c0,24.924,20.119,45.046,45.046,45.046
-                                  s45.046-20.121,45.046-45.046C301.046,352.398,280.925,332.278,256,332.278z" />
-                        <path style="fill:#C5C9F7;" d="M301.046,377.323c0,24.924-20.119,45.046-45.046,45.046v-90.091
-                                  C280.925,332.278,301.046,352.398,301.046,377.323z" />
 
-                      </svg>
-                    </div>
-                    <div class="text-red-400 ml-2">Payment Due!</div>
-
-                  </div>
-                  <div
-                    class="select-none cursor-pointer bg-white rounded-md  items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
-                    <div class="font-semibold text-gray-800 pl-6 pr-6">{{bill.createdAt.substring(0, 10)}}</div>
-                    <div class="font-semibold text-gray-800 pl-6 pr-6"><span class="text-gray-600">Invoice:
-                      </span>{{bill._id.substring(bill._id.length - 7)}}</div>
-                  </div>
+                <p class="text-regal-teal font-semibold">Payment Status: <span class="uppercase font-semibold text-regal-red">Due</span></p>
                 </div>
                 <div v-else>
-                  <div
-                    class="select-none cursor-pointer bg-white rounded-md  items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
-                    <div class="font-semibold text-gray-800 pl-6 pr-6">{{bill.createdAt.substring(0, 10)}}</div>
-                    <div class="font-semibold text-gray-800 pl-6 pr-6"><span class="text-gray-600">Invoice:
-                      </span>{{bill._id.substring(bill._id.length - 7)}}</div>
-                  </div>
+                <p class="text-regal-teal font-semibold">Payment Status: <span class=" uppercase font-semibold text-regal-success">Paid</span></p>
                 </div>
-              </li>
+              </div>
+              <div class="m-3">
+                <p class="text-regal-teal font-semibold">Invoice No. : <span>{{bill._id.substring(bill._id.length - 7)}}</span></p>
+              </div>
+          
             </div>
+          
           </div>
-        </ul>
+        </div>
+
       </div>
       <!--form-->
 
       <!-- Alert Info -->
-      <div v-else class="flex-row w-full">
+      <div v-else class="flex-row w-full h-screen">
         <div class=" flex items-center justify-center  ">
           <div class="w-full  ">
 
-            <div class="bg-indigo-200 px-4 py-4  my-4 rounded-md text-lg mx-auto flex items-center ">
-              <svg class="h-6 w-6 fill-current text-indigo-400 mr-4" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20">
-                <path
-                  d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                </svg>
-              <div>
-                <p class="font-bold text-gray-700">No Past Bills</p>
+            <div class="  my-4 rounded-md text-lg mx-auto ">
+            
 
-              </div>
+              <p class="font-bold text-regal-teal text-opacity-50 text-center">No Past Billing Records</p>
+
             </div>
+
+
 
           </div>
         </div>
       </div>
-      <div class=" px-40 mt-10" v-if="this.Bills.length >= 1">
+      <!-- <div class=" px-40 mt-10" v-if="this.Bills.length >= 1">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" type="button"
           :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" type="button"
           @click="changePage(1)">Next </button>
 
 
-      </div>
+      </div> -->
 
       <!-- End Alert Info -->
     </div>
@@ -142,13 +112,36 @@
         Bills: [],
         billId: "",
         invoice: '',
-        prePage: 9,
+        prePage: 20,
         currentPage: 1,
         page: 1
 
       }
     },
     methods: {
+      //  async getPosts(id) {
+      //           await axios.get('patients/' + id, {
+      //                   headers: {
+      //                       "Authorization": `Bearer ${localStorage.getItem('token') }`
+      //                   }
+      //               })
+      //               .then((response) => {
+
+      //                   this.formData = response.data.result;
+      //                   const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
+      //                   const ageDate = new Date(ageDifMs);
+      //                   this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+      //                   console.log(this.formData.dob)
+
+
+      //               })
+      //               .catch((error) => {
+      //                   console.log(error)
+      //               })
+      //       },
+
+
+
       changePage(num) {
         this.currentPage = this.currentPage + num
         this.page = this.page + num
