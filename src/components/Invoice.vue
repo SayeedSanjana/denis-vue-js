@@ -30,22 +30,22 @@
                             <div class="flex flex-row w-full px-2 mb-10 justify-between">
                                 <div class=" ">
                                     <div class="px-0  flex items-start">
-                                        <span class="font-medium text-md text-regal-teal">Date</span><span
-                                            class="text-md font-normal text-regal-teal ml-2">{{this.date}}</span>
+                                        <span class="font-medium text-xs text-regal-teal">Date</span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">{{this.date}}</span>
                                     </div>
                                     <div class="px-0 flex items-start">
-                                        <span class="font-medium text-md text-regal-teal">Patient Name: </span><span
-                                            class="text-md font-normal text-regal-teal ml-2">{{this.patientData.name}}</span>
+                                        <span class="font-medium text-xs text-regal-teal">Patient Name: </span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">{{this.patientData.name}}</span>
                                     </div>
                                     <div class="px-0 flex items-start">
-                                        <span class="font-medium text-md text-regal-teal">Contact: </span><span
-                                            class="text-md font-normal text-regal-teal ml-2">{{this.patientData.phone}}</span>
+                                        <span class="font-medium text-xs text-regal-teal">Contact: </span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">{{this.patientData.phone}}</span>
                                     </div>
                                 </div>
                                 <div class="">
                                     <div class="px-0 flex items-end">
-                                        <span class="font-semibold text-md text-regal-teal">Invoice No # </span><span
-                                            class="text-md font-normal text-regal-teal ml-2">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span>
+                                        <span class="font-semibold text-xs text-regal-teal">Invoice No # </span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span>
                                     </div>
                                     <div class=" flex items-end pl-10 mb-5 mt-10" id="no-print">
                                         <button @click="print"
@@ -57,7 +57,7 @@
                             </div>
                             <!--Services List-->
                             <div class="flex justify-between w-full">
-                                <div class=" text-md title-font font-bold text-regal-teal   pb-1  ">
+                                <div class=" text-xs title-font font-bold text-regal-teal   pb-1  ">
                                     Services List:
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <div class="flex justify-center items-center mt-3">
                                     <table class="  p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
                                         <thead
-                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+                                            class="text-left text-xs text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
                                             <th class="  w-1/3 px-10 py-3">Date</th>
                                             <th class="px-10 py-3 w-1/3 ">Treatment Done</th>
                                             <th class="px-10 py-3 w-1/3 ">Cost</th>
@@ -74,11 +74,11 @@
                                         <tbody class="text-left">
                                             <tr class="bg-white  border-b border-regal-cyan border-opacity-50 "
                                                 v-for="item in Bills.items" :key="item._id">
-                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-xs">
                                                     {{item.date.substring(0,10)}}</td>
-                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm  ">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-xs  ">
                                                     {{item.service}}</td>
-                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium  text-sm ">
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium  text-xs ">
                                                     {{item.cost}} TK</td>
                                             </tr>
                                         </tbody>
@@ -90,7 +90,7 @@
                             <!--Payment Description-->
 
                             <div class="flex justify-between w-full mt-5">
-                                <div class=" text-md title-font font-bold text-regal-teal  pb-1 pt-2 ">
+                                <div class=" text-xs title-font font-bold text-regal-teal  pb-1 pt-2 ">
                                     Payment Description:
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
 
                                     <table class="p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
                                         <thead
-                                            class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
+                                            class="text-left text-xs text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
                                             <th class="px-10 py-3 w-1/3">Date</th>
                                             <th class="px-10 py-3 w-1/3 ">Paid</th>
                                             <th class="px-10 py-3 w-1/3 ">Payment</th>
@@ -109,12 +109,12 @@
                                         <tbody class="text-left">
                                             <tr class="bg-white  border-b border-regal-cyan border-opacity-50 "
                                                 v-for="item in Bills.payment" :key="item._id">
-                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-sm">
+                                                <td class="px-10 py-3 w-1/3  text-regal-teal font-medium  text-xs">
                                                     {{item.date.substring(0,10)}}</td>
-                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-sm  ">
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-xs  ">
                                                     {{item.paid}}</td>
 
-                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-sm ">
+                                                <td class="px-10 py-3 w-1/3 text-regal-teal font-medium text-xs ">
                                                     {{item.paymentMethod}}</td>
                                             </tr>
                                         </tbody>
@@ -132,46 +132,46 @@
                                     <div class=" mt-5  w-full ">
                                         <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-regal-teal text-md font-bold  mt-1 inline-block">
+                                            <div class="text-regal-teal text-xs font-bold  mt-1 inline-block">
                                                 <label class=" whitespace-nowrap" for=""> Total Cost:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                            <div class="text-xs rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.total}}
                                             </div>
                                         </div>
                                         <div class=" flex justify-between mb-3 ">
 
-                                            <div class="text-regal-teal text-md font-bold  mt-1 inline-block"> 
+                                            <div class="text-regal-teal text-xs font-bold  mt-1 inline-block"> 
                                                 <label class=" whitespace-nowrap" for=""> Total Paid:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                            <div class="text-xs rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{this.paid}}
                                             </div>
                                         </div>
                                         <div class=" flex justify-between  mb-3 " v-if="Bills.discount>0">
 
-                                            <div class="text-regal-teal text-md font-bold  mt-1">
+                                            <div class="text-regal-teal text-xs font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Discount:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                            <div class="text-xs rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.discount}}
                                             </div>
                                         </div>
                                         <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-regal-teal text-md font-bold  mt-1">
+                                            <div class="text-regal-teal text-xs font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Adjustment:</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                            <div class="text-xs rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.adjustment}}
                                             </div>
                                         </div>
                                         <div class=" flex justify-between  mb-3 ">
 
-                                            <div class="text-regal-teal text-md font-bold  mt-1">
+                                            <div class="text-regal-teal text-xs font-bold  mt-1">
                                                 <label for="" class=" whitespace-nowrap"> Balance(Due):</label>
                                             </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                            <div class="text-xs rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 TK{{Bills.balance}}
                                             </div>
                                         </div>

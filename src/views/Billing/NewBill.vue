@@ -208,22 +208,49 @@
                                     <img src="@/assets/svgs/plus.svg" alt="" srcset="">
                                 </button>
                             </div>
-                            <p v-if="!formPayValid" class="text-red-500 mb-4 text-center">Please enter valid information
+                            <p  class="text-red-500 mb-4 text-center">{{this.strPaid}}
                             </p>
+                             <!-- <p class="font-medium text-red-500">{{this.strPaid}}</p> -->
                         </div>
                         <div class=" flex items-center mt-10"
-                            v-show="(this.totalPaid+this.payment.paid)>this.totalCost">
-                            <svg class="h-6 w-6 fill-current text-red-400 mr-4" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20">
-                                <path
-                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
-                            </svg>
+                            v-if="(this.totalPaid+this.payment.paid)>this.totalCost">
+                            
                             <div>
                                 <p class="font-medium text-red-500">Paid Amount Exceeding Total Cost</p>
 
                             </div>
 
                         </div>
+                         <div class=" flex items-center mt-10"
+                            v-if="(this.payment.paid)>(this.totalCost-this.totalPaid-this.discount)">
+                            <!-- <svg class="h-6 w-6 fill-current text-red-400 mr-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                            </svg> -->
+                            <div>
+                                <p class="font-medium text-red-500">Paid Amount Exceeding balance</p>
+
+                            </div>
+
+                        </div>
+                        <!-- <div v-if="this.str.length>=1"> -->
+
+
+                                        <!-- <div class=" flex items-center mt-10 px-8">
+                                            <svg class="h-6 w-6 fill-current text-red-400 mr-4"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium text-red-500">{{this.strPaid}}</p>
+
+                                            </div>
+
+                                        </div> -->
+
+                                    <!-- </div> -->
                         <!--paymeent-->
 
                         <!--discount-->
@@ -244,21 +271,14 @@
                                     <div class="inline-flex  mt-4  mb-5">
                                         <label for="" class="mr-8 mt-0.5 text-regal-teal font-medium">Give discount in:
                                         </label>
-                                        <!-- 
+
                                         <input type="radio"  name="test_id"
-                                            @change="applyDiscount($event)" value="Amount"   v-model="type"
+                                            @change="applyDiscount()" value="Amount"   @click="onChange($event)"
                                             class="form-radio h-5 w-5   mt-1 mr-1" checked="checked"><span
                                             class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
                                         <input type="radio" name="test_id"
-                                            @change="applyDiscount($event)" value="Percentage"  v-model="type"
+                                            @change="applyDiscount()" value="Percentage" @click="onChange($event)"
                                             class="form-radio h-5 w-5   mt-1 mr-1"><span
-                                            class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span> -->
-                                        <input type="radio" name="test_id" @change="applyDiscount()" value="Amount"
-                                            @click="onChange($event)" class="form-radio h-5 w-5   mt-1 mr-1"
-                                            checked="checked"><span
-                                            class="text-regal-teal font-medium mt-1 mr-12">Amount</span>
-                                        <input type="radio" name="test_id" @change="applyDiscount()" value="Percentage"
-                                            @click="onChange($event)" class="form-radio h-5 w-5   mt-1 mr-1"><span
                                             class="text-regal-teal mt-1 mr-12 font-medium">Percentage</span>
 
                                     </div>
@@ -275,24 +295,11 @@
                                                 <input @keyup="applyDiscount" @keypress="isNumber($event)"
                                                     v-model.number="discountAmount" id="discount" type="text"
                                                     class="block w-full px-4 py-2 mt-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded focus:outline-none focus:border-regal-blue">
-
                                             </div>
-
                                         </div>
+                                        <!-- <div v-if="this.type==='Amount' || this.type==='Percentage'">
+                                            {{this.applyDiscount()}}</div> -->
 
-
-                                    </div>
-                                    <div v-if="this.str.length>=1">
-
-
-                                        <div class=" flex items-center mt-10 px-8">
-
-                                            <div>
-                                                <small class="font-medium text-regal-red">{{this.str}}</small>
-
-                                            </div>
-
-                                        </div>
 
                                     </div>
                                     <div class=" mt-5 ">
@@ -301,7 +308,8 @@
                                     <!--discount-->
                                     <div class="flex justify-start">
 
-
+                                        <!-- <div class=""> -->
+                                        <!-- <div class="  ml-6 mr-10"> -->
                                         <div class=" mt-5  w-full ">
                                             <div class=" flex justify-between mb-3 ">
 
@@ -323,13 +331,13 @@
                                             </div>
                                             <div class=" flex justify-between mb-3 ">
 
-                                                <div class="text-regal-teal text-md font-bold  mt-1">
-                                                    <label for="" class=""> Discount:</label>
-                                                </div>
-                                                <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                    {{this.discount}}TK
-                                                </div>
-                                            </div>
+                                                        <div class="text-regal-teal text-md font-bold  mt-1">
+                                                            <label for="" class=""> Discount:</label>
+                                                        </div>
+                                                        <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+                                                            {{this.discount}}TK
+                                                        </div>
+                                                    </div>
                                             <div class=" flex justify-between  mb-3 ">
 
                                                 <div class="text-regal-teal text-md font-bold  mt-1">
@@ -345,7 +353,7 @@
                                                     <label for="" class=""> Balance(Due):</label>
                                                 </div>
                                                 <div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-                                                    {{this.totalCost-this.totalPaid}}TK
+                                                    {{this.totalCost-this.totalPaid-this.discount}}TK
                                                 </div>
                                             </div>
                                         </div>
@@ -354,14 +362,32 @@
                                         <!-- </div> -->
                                     </div>
                                     <!--discount-->
+                                    <!-- <div v-if="this.str.length>=1">
 
+
+                                        <div class=" flex items-center mt-10 px-8">
+                                            <svg class="h-6 w-6 fill-current text-red-400 mr-4"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                                            </svg>
+                                            <div>
+                                                <p class="font-medium text-red-500">{{str}}</p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div> -->
                                 </form>
                                 <!--form-->
                             </div>
                         </div>
                         <!--discount-->
 
-
+                        <!-- <div class="flex justify-end mt-6 " v-if="this.str.length==0">
+                            <button @click="printBill()" class="button">Preview</button>
+                        </div> -->
                     </form>
                 </div>
                 <!--form-->
@@ -389,7 +415,7 @@
         },
         data() {
             return {
-                type: '',
+                type:'',
                 token: localStorage.getItem('token'),
                 billModal: false,
                 id: '',
@@ -406,6 +432,7 @@
 
                 openModal: false,
                 str: '',
+                strPaid:'',
                 isPercentage: null,
                 discount: 0,
                 discountAmount: 0,
@@ -436,10 +463,10 @@
         },
         methods: {
             applyDiscount() {
+                //this.onChange(event)
+                this.balance = this.totalCost - this.totalPaid-this.discount
 
-                this.balance = this.totalCost - this.totalPaid
-
-                if (this.isPercentage == 'Percentage') {
+                if (this.isPercentage === 'Percentage') {
 
                     if (this.discountAmount <= 100) {
 
@@ -529,9 +556,16 @@
 
                 if (this.payment.date === "" || this.payment.paid === "" || this.payment.paymentMethod === "") {
                     this.formPayValid = false
-                } else {
+                    //this.str="Please enter valid information"
+                } else if(this.payment.paid>(this.totalCost-this.totalPaid-this.discount)){
+                    //this.formPayValid = false
+                    //this.strPaid="Payment Exceeding Balance"
 
-                    if ((this.totalPaid + this.payment.paid) <= this.totalCost) {
+                }
+                else {
+                     this.strPaid=""
+
+                    if (((this.totalPaid + this.payment.paid) <= this.totalCost )){
                         this.form.payment.push(this.payment)
                         this.totalPaid = this.totalPaid + parseInt(this.payment.paid)
                     }
