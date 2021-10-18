@@ -1,250 +1,214 @@
 <template>
-    <div>
 
-        <!--Modal Invoice-->
+    <!--Modal Invoice-->
 
-        <div
-            class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
-            <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
+    <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
+        <div class="absolute bg-black opacity-80 inset-0 z-0 "></div>
+        
+        <!-- modal start -->
+        <div class="w-full lg:max-w-3xl max-w-lg relative mx-auto my-auto shadow-lg">  
+            
+            <div class="flex justify-between mb-3 mt-2">
+                <!-- print button -->
+                <div id="no-print">
+                    <button @click="print"
+                        class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Print
+                        Invoice
+                    </button>
+                </div>
 
-            <div
-                class="w-full  lg:max-w-3xl max-w-lg  p-6 pr-0 relative mx-auto my-auto rounded-xl shadow-lg  bg-white">
-              
-                <div class="mt-5 overflow-y-scroll h-xxl">
-                  
-                    <div class="text-center  flex-auto justify-center">
-                        <div class="flex justify-end mr-6 mb-2">
-                            <button @click="removeModalBill">
-                                <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0"
-                                        fill="#f44336" />
-                                    <path
-                                        d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0"
-                                        fill="#fafafa" /></svg>
-                            </button>
-                        </div>
-                        <div class=" flex justify-end pr-20 mb-5 mt-4" id="no-print">
-                            <button @click="print"
-                                class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Print
-                                Invoice
-                            </button>
-                        </div>
+                <!-- cross button -->
+                <div class="flex items-center">
+                    <button @click="removeModalBill">
+                        <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336" />
+                            <path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa" /></svg>
+                    </button>
+                </div>
+            </div>
 
-                        
-                        <section class="container-2xl px-12 py-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800"
-                            id="print" >
-                             
-                            <div class="flex mb-5 bg-gray-300 ">
-                                <div class="w-1/4 relative mb-1">
+            <section id="print">
+                
+                <!-- header start-->
+                <header class="bg-gray-300">
+                <!-- Logo -->
+                    <img class="px-12 py-2" src="@/assets/svgs/mt-logo-V2.svg" alt="dental-center-logo.svg">  
+                </header>
+                <!-- header end -->
 
-
-                                    <img class=" absolute bottom-0 right-0 left-4" src="@/assets/svgs/mt-logo-V2.svg"
-                                        alt="dental-center-logo.svg">
-
-
-                                </div>
-
-                                <div class="w-3/4 flex flex-col text-left">
-                                    <div class="">
-                                        <span class="font-semibold bg-gray-100 text-lg ">Next Generation</span> Hightech
-                                        Dentistry
-                                    </div>
-
-                                    <div class="">
-                                        <h1 class="text-3xl font-bold tracking-wider custom-h1">MT Dental Center</h1>
-                                    </div>
-                                </div>
+                <!-- body start-->
+                <div class="container-2xl px-12 bg-white h-screen">
+                    <div class="flex justify-end">
+                        <div class="text-right w-1/2"> 
+                            <div class="px-0">
+                                <label class="font-semibold text-xs text-regal-teal">Address: <span
+                                        class="text-xs font-normal ">{{address}}</span> </label>
 
                             </div>
-
-                            <div class="flex justify-end">
-                                <div class="text-right w-1/2"> 
-                                    <div class="px-0">
-                                        <label class="font-semibold text-xs text-regal-teal">Address: <span
-                                                class="text-xs font-normal ">{{address}}</span> </label>
-
-                                    </div>
-                                    <div class="px-0">
-                                        <label class="font-semibold text-xs text-regal-teal">Cell: <span
-                                                class="text-xs font-normal">{{mobile}}</span></label>
-
-                                    </div>
-                                    <div class="px-0">
-                                        <label class="font-semibold text-xs text-regal-teal">Email: <span
-                                                class="text-xs font-normal">{{email}}</span></label>
-
-                                    </div>
-                                </div> 
+                            <div class="px-0">
+                                <label class="font-semibold text-xs text-regal-teal">Cell: <span
+                                        class="text-xs font-normal">{{mobile}}</span></label>
 
                             </div>
+                            <div class="px-0">
+                                <label class="font-semibold text-xs text-regal-teal">Email: <span
+                                        class="text-xs font-normal">{{email}}</span></label>
 
-                            <hr class="border border-b-1 border-gray-300 mb-4">
-
-                            <div class="flex justify-between w-full px-0 mb-14  ">
-                                <div class="text-left w-1/2">
-                                    <div class="px-0">
-                                        <label class="font-semibold text-xs text-regal-teal">Patient Name: <span
-                                                class="text-xs font-normal ">{{this.patientData.name}}</span> </label>
-
-                                    </div>
-                                    <div class="px-0">
-                                        <label class="font-semibold text-xs text-regal-teal">Contact: <span
-                                                class="text-xs font-normal">{{this.patientData.phone}}</span></label>
-
-                                    </div>
-                                </div>
-
-                                <div class="text-right  w-1/2">
-                                    <div class="px-0 flex justify-end ">
-                                        <label class="font-semibold text-xs text-regal-teal">Invoice No : <span
-                                                class="font-normal ">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span></label>
-                                    </div>
-                                    <div class="px-0 flex justify-end ">
-                                        <label class="font-semibold text-xs text-regal-teal">Invoice Date : <span
-                                                class="font-normal ">{{this.date}}</span></label>
-                                    </div>
-                                </div>
                             </div>
-
-                            <div class="flex justify-center items-center mt-3">
-                                <table class="  p-5 w-full mx-auto  rounded-t-xl">
-                                    <thead class="text-left text-xs text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
-
-                                        <th class=" py-3  ">SL. no</th>
-                                        <th class=" py-3  ">Description of Treatment</th>
-                                        <th class="text-right px-4 py-3 ">Amount</th>
-                                    </thead>
-
-                                    <tbody class="text-left">
-
-                                        <tr class="bg-white  " v-for="(item,index) in Bills.items" :key="index">
-                                            <td class=" text-regal-teal  text-xs">{{index+1}}.</td>
-                                            <td class=" text-regal-teal  text-xs  ">
-                                                {{item.service}} <br>
-                                                <small>[{{item.date.substring(0,10)}}]</small>
-
-                                            </td>
-                                            <td class=" text-right px-4 py-3 text-regal-teal  text-xs ">
-                                                {{item.cost}} TK</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <hr class="border border-b-1 border-regal-teal border-opacity-30 mb-4 flex justify-between">
-
-                           
-                            <div class="flex justify-between">
-                                <div class="mt-5 text-regal-teal text-xs text-left">
-                                    <div class="font-semibold">Amount Recieved (In words) :<span
-                                            class="text-gray-500">BDT</span></div>
-                                    <div>{{this.word}}</div>
-
-                                </div>
-                                <div class="mt-5 text-right text-regal-teal text-xs">
-                                    <div class="flex justify-end ">
-
-                                        <div class="p-2 w-24">
-                                            <label class="font-bold">Subtotal</label>
-                                        </div>
-
-                                        <div class="p-2 w-24">
-                                            {{Bills.total}} TK
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-end ">
-
-                                        <div class="p-2 w-24">
-                                            <label class="font-bold">Discount</label>
-                                        </div>
-
-                                        <div class=" p-2 w-24">
-                                            {{Bills.discount}} TK
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-end  ">
-
-                                        <div class="p-2 w-24">
-                                            <label class="font-bold">Adjustment</label>
-                                        </div>
-                                        <div class=" p-2 w-24">
-                                            {{Bills.adjustment}} TK
-                                        </div>
-
-                                    </div>
-                                    <div class="flex justify-end ">
-
-                                        <div class=" p-2 w-24">
-                                            <label class="font-bold">Recieved</label>
-                                        </div>
-                                        <div class="p-2 w-24">
-                                            {{this.paid}} Tk
-                                        </div>
-
-                                    </div>
-                                    <div class="flex justify-end ">
-
-                                        <div class=" p-2 w-24">
-                                            <label class="font-bold">Balance <small>(Due)</small></label>
-                                        </div>
-                                        <div class=" p-2 w-24">
-                                            909 Tk
-
-                                        </div>
-
-                                    </div>
-                                    <hr class="border-t-2 border-regal-teal border-opacity-10 mt-2">
-                                    <div class="flex justify-end border-t-1 border-gray-300">
-
-                                        <div class=" p-2 w-24">
-                                            <label class="font-bold">Total</label>
-                                        </div>
-                                        <div class=" p-2 w-24">
-                                            {{Bills.adjustment}} Tk
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="text-left w-36 mt-10">
-                                <div class=" border-t-2 border-regal-teal border-opacity-10"><small>Signature and
-                                        Date</small></div>
-                            </div>
-                           
-                            
-                           <footer class="  pt-1bg-gray-300 mt-5 static bottom-0">
-                                <div class="container mx-auto px-6 text-left ">
-
-                             <div class="flex mt-2 mb-2">
-                                     <p class="text-sm ">
-                                  {{address}}, Cell: {{mobile}} ,   Email: {{email}} 
-                                  
-                                </p>
-                                </div>
-                             </div>
-                           </footer>
-                            
-
-
-                            
-                        </section>
-                      
-
+                        </div> 
 
                     </div>
 
+                    <hr class="border border-b-1 border-gray-300 mb-4">
+
+                    <div class="flex justify-between w-full px-0 mb-14  ">
+                        <div class="text-left w-1/2">
+                            <div class="px-0">
+                                <label class="font-semibold text-xs text-regal-teal">Patient Name: <span
+                                        class="text-xs font-normal ">{{this.patientData.name}}</span> </label>
+
+                            </div>
+                            <div class="px-0">
+                                <label class="font-semibold text-xs text-regal-teal">Contact: <span
+                                        class="text-xs font-normal">{{this.patientData.phone}}</span></label>
+
+                            </div>
+                        </div>
+
+                        <div class="text-right  w-1/2">
+                            <div class="px-0 flex justify-end ">
+                                <label class="font-semibold text-xs text-regal-teal">Invoice No : <span
+                                        class="font-normal ">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span></label>
+                            </div>
+                            <div class="px-0 flex justify-end ">
+                                <label class="font-semibold text-xs text-regal-teal">Invoice Date : <span
+                                        class="font-normal ">{{this.date}}</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center items-center mt-3">
+                        <table class="  p-5 w-full mx-auto  rounded-t-xl">
+                            <thead class="text-left text-xs text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+
+                                <th class=" py-3  ">SL. no</th>
+                                <th class=" py-3  ">Description of Treatment</th>
+                                <th class="text-right px-4 py-3 ">Amount</th>
+                            </thead>
+
+                            <tbody class="text-left">
+
+                                <tr class="bg-white  " v-for="(item,index) in Bills.items" :key="index">
+                                    <td class=" text-regal-teal  text-xs">{{index+1}}.</td>
+                                    <td class=" text-regal-teal  text-xs  ">
+                                        {{item.service}} <br>
+                                        <small>[{{item.date.substring(0,10)}}]</small>
+
+                                    </td>
+                                    <td class=" text-right px-4 py-3 text-regal-teal  text-xs ">
+                                        {{item.cost}} TK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr class="border border-b-1 border-regal-teal border-opacity-30 mb-4 flex justify-between">
+
+                    <div class="flex justify-between">
+                        <div class="mt-5 text-regal-teal text-xs text-left">
+                            <div class="font-semibold">Amount Recieved (In words) :<span
+                                    class="text-gray-500">BDT</span></div>
+                            <div>{{this.word}}</div>
+
+                        </div>
+                        <div class="mt-5 text-right text-regal-teal text-xs">
+                            <div class="flex justify-end ">
+
+                                <div class="p-2 w-24">
+                                    <label class="font-bold">Subtotal</label>
+                                </div>
+
+                                <div class="p-2 w-24">
+                                    {{Bills.total}} TK
+                                </div>
+                            </div>
+                            <div class="flex justify-end ">
+
+                                <div class="p-2 w-24">
+                                    <label class="font-bold">Discount</label>
+                                </div>
+
+                                <div class=" p-2 w-24">
+                                    {{Bills.discount}} TK
+                                </div>
+                            </div>
+                            <div class="flex justify-end  ">
+
+                                <div class="p-2 w-24">
+                                    <label class="font-bold">Adjustment</label>
+                                </div>
+                                <div class=" p-2 w-24">
+                                    {{Bills.adjustment}} TK
+                                </div>
+
+                            </div>
+                            <div class="flex justify-end ">
+
+                                <div class=" p-2 w-24">
+                                    <label class="font-bold">Recieved</label>
+                                </div>
+                                <div class="p-2 w-24">
+                                    {{this.paid}} Tk
+                                </div>
+
+                            </div>
+                            <div class="flex justify-end ">
+
+                                <div class=" p-2 w-24">
+                                    <label class="font-bold">Balance <small>(Due)</small></label>
+                                </div>
+                                <div class=" p-2 w-24">
+                                    909 Tk
+
+                                </div>
+
+                            </div>
+                            <hr class="border-t-2 border-regal-teal border-opacity-10 mt-2">
+                            <div class="flex justify-end border-t-1 border-gray-300">
+
+                                <div class=" p-2 w-24">
+                                    <label class="font-bold">Total</label>
+                                </div>
+                                <div class=" p-2 w-24">
+                                    {{Bills.adjustment}} Tk
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-left w-36 mt-10">
+                        <div class=" border-t-2 border-regal-teal border-opacity-10"><small>Signature and Date</small></div>
+                    </div>
                 </div>
-            </div>
+                <!-- body end -->
+
+                <!-- footer start -->
+                <footer class="bg-gray-300"> 
+                    <p class="px-12 py-2 text-left text-xs">House # 12 (1st Floor),Road # 14 (New), Dhanmondi, Dhaka-1209, Cell: 01688-329552, 01817-094331, <br> Email: mhkmusa@gmail.com</p>                    
+                </footer>
+                <!-- footer end -->
+                
+            </section>  
+            
         </div>
-        
+        <!-- modal end  -->
+
     </div>
+        
 </template>
 
 <script>
