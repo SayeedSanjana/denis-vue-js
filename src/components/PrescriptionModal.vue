@@ -35,10 +35,55 @@
 
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
+                            
+
+                             <div class="flex flex-row w-full  mb-10 justify-end ">
+                                <div class=" text-right ">
+                                    <div class="px-0  flex justify-end">
+                                        <span class="font-medium text-xs text-regal-teal">House # 12 (1st Floor),Road #
+                                            14 (New),</span>
+                                    </div>
+                                    <div class="px-0  flex justify-end">
+                                        <span class="font-medium text-xs text-regal-teal"> Dhanmondi, Dhaka-1209</span>
+                                    </div>
+                                    <div class="px-0 flex justify-end mt-2">
+                                        <span class="font-medium text-xs text-regal-teal"><span
+                                                class="font-bold ">Cell:</span> 01688-329552,01817-094331</span>
+                                    </div>
+                                    <div class="px-0 flex justify-end">
+                                        <span class="font-medium text-xs text-regal-teal"> <span
+                                                class="font-bold">E-mail:</span> mhkmusa@gmail.com </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="border border-b-1 border-gray-300 mb-4">
+
+                            </div>
 
                             <div class="text-gray-600 body-font">
                                 <div class="container px-5 py-8 mx-auto ">
-                                    <div class="flex flex-row w-full px-2 mb-10">
+                                     <!-- <div class="flex flex-row w-full px-0 mb-8 justify-between ">
+                                <div class=" ">
+                                    
+                                    <div class="px-0 flex items-start text-left">
+                                        <span class="font-semibold text-xs text-regal-teal">Prescription Details </span>
+                                        <span
+                                            class="text-xs font-normal text-regal-teal ml-2"></span>
+                                    </div>
+                                    <div class="px-0 flex items-start  text-left">
+                                        <span class="font-semibold text-xs text-regal-teal">Prescribed </span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">{{this.date}}</span>
+                                    </div>
+                                    <div class="px-0 flex items-start  text-left">
+                                        <span class="font-semibold text-xs text-regal-teal">Approved By</span><span
+                                            class="text-xs font-normal text-regal-teal ml-2">Dr. {{this.userData.name}}</span>
+                                    </div>
+                                </div>
+                               
+                            </div> -->
+                                    <div class="flex flex-row w-full mb-10 text-left">
                                         <div class=" ">
                                             <div class="font-semibold text-regal-teal px-0 flex items-start">
                                                 Prescription Details
@@ -55,7 +100,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="lg:flex px-2 mb-8 items-start justify-between">
+                                    <div class="lg:flex  mb-8 items-start justify-between text-left">
                                         <div class="lg:w-1/3 text-left"> <span
                                                 class="mr-1 font-semibold text-regal-teal">Name: </span><span
                                                 class="text-regal-teal">{{this.form1.name}}</span></div>
@@ -68,7 +113,7 @@
                                     </div>
                                    
                                    
-                                        <div class="px-2 mb-6 lg:w-full  w-full">
+                                        <div class=" mb-6 lg:w-full  w-full">
 
                                             <div class="whitespace-normal break-all ">
                                                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -79,7 +124,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="px-2 mb-6 lg:w-full w-full">
+                                        <div class=" mb-6 lg:w-full w-full">
 
                                             <div class="whitespace-normal break-all  ">
                                                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -93,7 +138,7 @@
                                     
 
                                     <div class="flex justify-between">
-                                        <div class="px-2 mb-4 lg:w-1/2  ">
+                                        <div class=" mb-4 lg:w-1/2 text-left">
 
                                             <div class="whitespace-normal break-all mr-5">
                                                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -104,7 +149,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="px-2 mb-4 lg:w-1/2">
+                                        <div class=" mb-4 lg:w-1/2">
 
                                             <div class="whitespace-normal break-all  ml-5">
                                                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -155,7 +200,7 @@
                                     <div class="px-2 mb-6 ">
                                         <div class="mt-8">
                                             <div class="whitespace-normal break-all">
-                                                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
+                                                <div class="font-semibold text-regal-teal mb-4  flex items-start text-left"><span
                                                         class="text-regal-teal">Advice:</span></div>
                                                 <div class="flex items-start ">
                                                     <pre
@@ -166,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="flex justify-center ">
+                             <div class="flex justify-center  " id="no-print">
                             <button @click="print" class="px-6 py-3 mr-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex"> Print And Save Prescription
                             </button>
                             <button @click="addPres" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Save Prescription
@@ -269,12 +314,17 @@
                         console.log(error)
                     })
                 printJS({
-                    printable: "print",
+                     printable: "print",
                     type: 'html',
                     targetStyles: ['*'],
-                    style: ['*'],
+                    //  style: ['*'],
                     maxWidth: 800,
-                    gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;'
+                    font_size: "10px",
+                    // header: '<h1 class="custom-h1">INVOICE</h1>',
+                    // style: '.custom-h1 { font-size:20px; text-align: right}',
+                    honorColor: true,
+                    gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
+                    ignoreElements: ['no-print']
                 })
             }
         },
