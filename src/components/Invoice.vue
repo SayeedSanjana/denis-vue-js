@@ -1,13 +1,10 @@
 <template>
-
     <!--Modal Invoice-->
-
     <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
         <div class="absolute bg-black opacity-80 inset-0 z-0 "></div>
         
         <!-- modal start -->
         <div class="w-full lg:max-w-3xl max-w-lg relative mx-auto my-auto shadow-lg">  
-            
             <div class="flex justify-between mb-3 mt-2">
                 <!-- print button -->
                 <div id="no-print">
@@ -26,189 +23,127 @@
                             <path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa" /></svg>
                     </button>
                 </div>
-            </div>
-
-            <section id="print">
+        </div>
+        <section id="print" class="bg-white font-sans">
                 
-                <!-- header start-->
-                <header class="bg-gray-300">
-                <!-- Logo -->
-                    <img class="px-12 py-2" src="@/assets/svgs/mt-logo-V2.svg" alt="dental-center-logo.svg">  
-                </header>
-                <!-- header end -->
+            <!-- header start-->
+            <header class="flex justify-between pb-4">
+            <!-- Logo -->
+                <img class="px-12 py-4" src="@/assets/svgs/mt-logo-V2.svg" alt="dental-center-logo.svg">  
+                <p class="text-xs text-left py-5 mx-6 text-gray-900">Address: House No 12 (1st Floor), Road No 14 (New) <br> Dhanmondi, Dhaka-1209, Mobile: 01688-329552, 01817-094331, Email: mhkmusa@gmail.com</p>
+            </header>
+            <!-- header end -->
+            
+            <!-- body start-->
+            <div class="container-2xl px-12 h-screen">                    
+                <!-- patient info table starts-->
+                <table class=" w-full">
+                    <tr class="text-gray-900">
+                        <td class="text-left ">
+                            <label class="text-xs text-gray-900 font-semibold">Patient Name: <span class="text-xs font-normal text-gray-600">{{this.patientData.name}}</span> </label>                                
+                        </td>
+                        <td class="text-right">
+                            <label class="text-gray-900  font-semibold text-xs">Invoice Number: <span class="font-normal text-gray-600">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span></label>
+                        </td>
+                    </tr>
+                    <tr class="text-gray-900">
+                        <td class="text-left">
+                            <label class="text-gray-900 font-semibold text-xs">Contact Number: <span class="text-xs font-normal text-gray-600">{{this.patientData.phone}}</span></label>
+                        </td>
+                        <td class="text-right">
+                            <label class="text-gray-900 font-semibold text-xs">Invoice Date: <span class="font-normal text-gray-600">{{this.date}}</span></label>
+                        </td>                        
+                    </tr>
+                    <tr class="text-gray-900">
+                        <td></td>
+                        <td class="text-right">
+                            <label class="text-gray-900 font-semibold text-xs">Patient ID: <span class="font-normal text-gray-600">P-{{this.id.substring(this.id.length - 7)}}</span></label>
+                        </td>
+                    </tr>
+                </table>
+                <!-- patient and billing info ends -->
+                
+                <!-- billing info table starts -->
+                <div class="border-t-2 mt-8 border-b-2">
+                    <table class="w-full">
 
-                <!-- body start-->
-                <div class="container-2xl px-12 bg-white h-screen">
-                    <div class="flex justify-end">
-                        <div class="text-right w-1/2"> 
-                            <div class="px-0">
-                                <label class="font-semibold text-xs text-regal-teal">Address: <span
-                                        class="text-xs font-normal ">{{address}}</span> </label>
+                        <thead class="text-left text-xs text-gray-900">
+                            <th class="py-3">SL No.</th>
+                            <th class="py-3">Description</th>
+                            <th class="text-right py-3 ">Amount</th>
+                        </thead>
 
-                            </div>
-                            <div class="px-0">
-                                <label class="font-semibold text-xs text-regal-teal">Cell: <span
-                                        class="text-xs font-normal">{{mobile}}</span></label>
+                        <tbody class="text-left">
+                        <tr class="bg-white text-gray-700" v-for="(item,index) in Bills.items" :key="index">
+                            <td class="text-xs">{{index+1}}.</td>
+                            <td class="text-xs pt-1 pb-2">
+                                {{item.service}} 
+                                <br>
+                                <span class="text-gray-500">({{item.date.substring(0,10)}})</span>
+                            </td>
+                            <td class="text-right py-3 text-xs">{{item.cost}} TK</td>
+                        </tr>
+                        </tbody>
 
-                            </div>
-                            <div class="px-0">
-                                <label class="font-semibold text-xs text-regal-teal">Email: <span
-                                        class="text-xs font-normal">{{email}}</span></label>
+                    </table>
+                </div>
+                <!-- billing info table ends -->
 
-                            </div>
-                        </div> 
-
-                    </div>
-
-                    <hr class="border border-b-1 border-gray-300 mb-4">
-
-                    <div class="flex justify-between w-full px-0 mb-14  ">
-                        <div class="text-left w-1/2">
-                            <div class="px-0">
-                                <label class="font-semibold text-xs text-regal-teal">Patient Name: <span
-                                        class="text-xs font-normal ">{{this.patientData.name}}</span> </label>
-
-                            </div>
-                            <div class="px-0">
-                                <label class="font-semibold text-xs text-regal-teal">Contact: <span
-                                        class="text-xs font-normal">{{this.patientData.phone}}</span></label>
-
-                            </div>
+                <!-- billing details starts -->
+                <div class="flex justify-end py-5">
+                    <div class="text-right text-gray-900 text-xs">
+                        <div class="flex justify-end">
+                            <div class="p-2 w-24"><label class="font-bold">Subtotal : </label></div>
+                            <div class="p-2 w-24 text-gray-700">{{Bills.total}} TK </div>
                         </div>
-
-                        <div class="text-right  w-1/2">
-                            <div class="px-0 flex justify-end ">
-                                <label class="font-semibold text-xs text-regal-teal">Invoice No : <span
-                                        class="font-normal ">{{this.Bills._id.substring(this.Bills._id.length - 7)}}</span></label>
-                            </div>
-                            <div class="px-0 flex justify-end ">
-                                <label class="font-semibold text-xs text-regal-teal">Invoice Date : <span
-                                        class="font-normal ">{{this.date}}</span></label>
-                            </div>
+                        <div class="flex justify-end ">
+                            <div class="p-2 w-24"><label class="font-bold">Discount : </label></div>
+                            <div class=" p-2 w-24 text-gray-700">{{Bills.discount}} TK </div>
                         </div>
-                    </div>
-
-                    <div class="flex justify-center items-center mt-3">
-                        <table class="  p-5 w-full mx-auto  rounded-t-xl">
-                            <thead class="text-left text-xs text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
-
-                                <th class=" py-3  ">SL. no</th>
-                                <th class=" py-3  ">Description of Treatment</th>
-                                <th class="text-right px-4 py-3 ">Amount</th>
-                            </thead>
-
-                            <tbody class="text-left">
-
-                                <tr class="bg-white  " v-for="(item,index) in Bills.items" :key="index">
-                                    <td class=" text-regal-teal  text-xs">{{index+1}}.</td>
-                                    <td class=" text-regal-teal  text-xs  ">
-                                        {{item.service}} <br>
-                                        <small>[{{item.date.substring(0,10)}}]</small>
-
-                                    </td>
-                                    <td class=" text-right px-4 py-3 text-regal-teal  text-xs ">
-                                        {{item.cost}} TK</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <hr class="border border-b-1 border-regal-teal border-opacity-30 mb-4 flex justify-between">
-
-                    <div class="flex justify-between">
-                        <div class="mt-5 text-regal-teal text-xs text-left">
-                            <div class="font-semibold">Amount Recieved (In words) :<span
-                                    class="text-gray-500">BDT</span></div>
-                            <div>{{this.word}}</div>
-
+                        <div class="flex justify-end">
+                            <div class="p-2 w-24"><label class="font-bold">Adjustment : </label></div>
+                            <div class=" p-2 w-24 text-gray-700">{{Bills.adjustment}} TK </div>
                         </div>
-                        <div class="mt-5 text-right text-regal-teal text-xs">
-                            <div class="flex justify-end ">
-
-                                <div class="p-2 w-24">
-                                    <label class="font-bold">Subtotal</label>
-                                </div>
-
-                                <div class="p-2 w-24">
-                                    {{Bills.total}} TK
-                                </div>
-                            </div>
-                            <div class="flex justify-end ">
-
-                                <div class="p-2 w-24">
-                                    <label class="font-bold">Discount</label>
-                                </div>
-
-                                <div class=" p-2 w-24">
-                                    {{Bills.discount}} TK
-                                </div>
-                            </div>
-                            <div class="flex justify-end  ">
-
-                                <div class="p-2 w-24">
-                                    <label class="font-bold">Adjustment</label>
-                                </div>
-                                <div class=" p-2 w-24">
-                                    {{Bills.adjustment}} TK
-                                </div>
-
-                            </div>
-                            <div class="flex justify-end ">
-
-                                <div class=" p-2 w-24">
-                                    <label class="font-bold">Recieved</label>
-                                </div>
-                                <div class="p-2 w-24">
-                                    {{this.paid}} Tk
-                                </div>
-
-                            </div>
-                            <div class="flex justify-end ">
-
-                                <div class=" p-2 w-24">
-                                    <label class="font-bold">Balance <small>(Due)</small></label>
-                                </div>
-                                <div class=" p-2 w-24">
-                                    909 Tk
-
-                                </div>
-
-                            </div>
-                            <hr class="border-t-2 border-regal-teal border-opacity-10 mt-2">
-                            <div class="flex justify-end border-t-1 border-gray-300">
-
-                                <div class=" p-2 w-24">
-                                    <label class="font-bold">Total</label>
-                                </div>
-                                <div class=" p-2 w-24">
-                                    {{Bills.adjustment}} Tk
-
-                                </div>
-
-                            </div>
-
+                        <div class="flex justify-end">
+                            <div class=" p-2 w-24"><label class="font-bold">Recieved : </label></div>
+                            <div class="p-2 w-24 text-gray-700">{{this.paid}} Tk </div>
                         </div>
-                    </div>
-
-                    <div class="text-left w-36 mt-10">
-                        <div class=" border-t-2 border-regal-teal border-opacity-10"><small>Signature and Date</small></div>
+                        <div class="flex justify-end">
+                            <div class=" p-2 w-24"><label class="font-bold">Balance<span class="text-gray-500 font-normal">(Due) </span>:</label></div>
+                            <div class=" p-2 w-24 text-gray-700">{{Bills.balance}} TK</div>
+                        </div>                           
                     </div>
                 </div>
-                <!-- body end -->
+                <!-- billing detail ends -->
+                        
+                <!-- signature and total start -->
+                <hr class="border-t-2 text-gray-900 py-2">
+                <div class="flex justify-between">
+                    <div class="text-xs text-left text-gray-700 flex justify-start">
+                            <label><span class="text-gray-900 font-bold">Total in words: </span> {{this.word}} Taka Only. </label>                        
+                    </div>                                                 
+                    <div class="text-xs flex justify-end">
+                        <div class="w-28"><label class="font-bold">Total :</label></div>
+                        <div class="text-gray-700 px-2">{{Bills.adjustment}} TK </div>
+                    </div>
+                </div>
+                <div class="flex justify-start text-xs pt-24">  
+                    <div class=" border-t-2 border-regal-teal border-opacity-10">Signature and Date</div>                   
+                </div>
+                <!-- signature and total ends -->
+        
+            </div>
+            <!-- body end -->
 
-                <!-- footer start -->
-                <footer class="bg-gray-300"> 
-                    <p class="px-12 py-2 text-left text-xs">House # 12 (1st Floor),Road # 14 (New), Dhanmondi, Dhaka-1209, Cell: 01688-329552, 01817-094331, <br> Email: mhkmusa@gmail.com</p>                    
-                </footer>
-                <!-- footer end -->
-                
-            </section>  
-            
+            <!-- footer start **overlap and padding issues-->
+            <!-- <footer class="bg-gray-300"> 
+                <p class="px-12 py-2 text-left text-xs">House # 12 (1st Floor),Road # 14 (New), Dhanmondi, Dhaka-1209, Cell: 01688-329552, 01817-094331, <br> Email: mhkmusa@gmail.com</p>                    
+            </footer> -->
+            <!-- footer end -->                
+        </section>              
         </div>
         <!-- modal end  -->
-
-    </div>
-        
+    </div>        
 </template>
 
 <script>
@@ -237,6 +172,7 @@
 
                 patientData: {},
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
+                id:this.$route.params.id
             }
         },
 
@@ -256,19 +192,19 @@
                 }
 
                 /* Array of units as words */
-                units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
-                    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
-                    'nineteen'
+                units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                    'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen',
+                    'Nineteen'
                 ];
 
                 /* Array of tens as words */
-                tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+                tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
                 /* Array of scales as words */
-                scales = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion',
-                    'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 'undecillion',
-                    'duodecillion', 'tredecillion', 'quatttuor-decillion', 'quindecillion', 'sexdecillion',
-                    'septen-decillion', 'octodecillion', 'novemdecillion', 'vigintillion', 'centillion'
+                scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 'Quintillion',
+                    'Sextillion', 'Septillion', 'Octillion', 'Nonillion', 'Secillion', 'Undecillion',
+                    'Duodecillion', 'Tredecillion', 'Quatttuor-decillion', 'Quindecillion', 'Sexdecillion',
+                    'Septen-Decillion', 'Octodecillion', 'Novemdecillion', 'Vigintillion', 'Centillion'
                 ];
 
                 /* Split user arguemnt into 3 digit chunks from right to left */
