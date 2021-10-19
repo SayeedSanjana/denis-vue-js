@@ -107,7 +107,7 @@
                                                 <th class="px-4 py-3">Name</th>
                                                 <th class="px-4 py-3">Duration</th>
                                                 <th class="px-4 py-3">Frequency</th>
-                                                <th class="px-4 py-3">Relation with Meals</th>
+                                                <th class="px-4 py-3">Relation with Meal</th>
 
                                             </thead>
 
