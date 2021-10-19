@@ -32,9 +32,7 @@
 .newbutton1{
     @apply px-10 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
 }
-.newbutton3{
-    @apply px-10 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
-}
+
 .newbutton2{
     @apply px-8 py-2 bg-regal-light-blue text-center border text-regal-cyan font-semibold rounded-md text-sm flex ;
 }
