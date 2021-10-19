@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Patient from '../views/Patient.vue'
+import Patient from '../views/Patient.vue';
+import AccountSettings from '../views/AccountSettings.vue';
+
 import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
 import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
 import PatientListBilling from '../views/Billing/PatientListBilling';
@@ -16,6 +18,13 @@ const routes = [
     name: 'Patient',
     component: Patient
   },
+  
+  {
+    path: '/AccountSettings',
+    name: 'AccountSettings',
+    component: AccountSettings
+  },
+
   {
     path: '/',
     name: 'Login',

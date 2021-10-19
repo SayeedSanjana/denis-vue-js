@@ -35,6 +35,9 @@
                                     class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
 
+                                <router-link to="/AccountSettings"
+                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline" >
+                                   Settings</router-link>
                                 <router-link to="/" @click="logout"
                                     class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Logout
