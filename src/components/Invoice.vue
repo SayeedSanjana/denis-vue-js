@@ -307,13 +307,8 @@
                     printable: "print",
                     type: 'html',
                     targetStyles: ['*'],
-                    // style: ['*'],
-                    // css: "./src/assets/tailwind.css",
-                    // maxWidth: 800,
                     font_size: "12px",
-                    // header: '<h1 class="custom-h1">INVOICE</h1>',
                     style: '.custom-h1 { font-size:24px}',
-                    // honorColor: true,
                     gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
                     ignoreElements: ['no-print']
 
