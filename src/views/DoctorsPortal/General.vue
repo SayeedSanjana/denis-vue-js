@@ -165,10 +165,13 @@
                 icon: "success",
                 timer: 1000,
                 buttons: false
-              })
-              this.$router.push({
-                name: 'PatientDetails'
-              });
+              }).then(function () {
+                  new Promise(resolve => setTimeout(resolve, 2000));
+                  window.location = `/patient-details1/${id}`;
+               })
+              // this.$router.push({
+              //   name: 'PatientDetails'
+              // });
               console.log(response);
 
             })

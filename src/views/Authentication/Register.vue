@@ -250,20 +250,18 @@ import PinNumber from "../../components/PinNumber.vue";
                           this.strName= '', 
                    this.strPassword = 'Password should be atleast 8 characters'
                 }
-                  
-                   
-                 
-                  
-                 
-
-
             else{
+                this.strDob ='',
+                this.strEmail= '',
+                this.strPhone='',
+                this.strAddress='',
+                this.strGender='',
+                this.strName= '',
+                this. strPassword="",
                 this.str=""
                 this.openModal=true
-        
              }
             },
-            
             
             //Get the Pin 
              async getPin(){

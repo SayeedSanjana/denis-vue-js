@@ -131,19 +131,10 @@
                                         <div class=" flex justify-between mb-3 ">
 
                                             <div class="text-regal-teal text-md font-bold  mt-1">
-                                                <label for="" class=""> Total Cost:</label>
+                                                <label for="" class=""> Subtotal:</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
                                                 {{this.totalCost}} TK
-                                            </div>
-                                        </div>
-                                        <div class=" flex justify-between mb-3 ">
-
-                                            <div class="text-regal-teal text-md font-bold  mt-1">
-                                                <label for="" class=""> Total Paid:</label>
-                                            </div>
-                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
-                                                {{this.totalPaid}} TK
                                             </div>
                                         </div>
                                         <div class=" flex justify-between mb-3 " v-if="this.discount>0">
@@ -164,13 +155,21 @@
                                                 {{this.totalCost-this.discount}} TK
                                             </div>
                                         </div>
+                                         <div class=" flex justify-between mb-3 ">
+                                            <div class="text-regal-teal text-md font-bold  mt-1">
+                                                <label for="" class="">Recieved:</label>
+                                            </div>
+                                            <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
+                                                {{this.totalPaid}} TK
+                                            </div>
+                                        </div>
                                         <div class=" flex justify-between mb-3 ">
 
                                             <div class="text-regal-teal ml-1 text-md font-bold  mt-1">
                                                 <label for="" class=""> Balance(Due):</label>
                                             </div>
                                             <div class="text-md rounded ml-2 text-regal-teal mt-1 font-bold">
-                                                {{this.totalCost-this.totalPaid}} TK
+                                                {{this.totalCost-this.totalPaid-this.discount}} TK
                                             </div>
                                         </div>
                                     </div>
