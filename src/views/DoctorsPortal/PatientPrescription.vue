@@ -303,57 +303,51 @@
            addItem() {
                 if(this.medicine.catagory === "" ){
                     this.strRWM=''
-                     this.strMF=''
-                     this.strMD=''
+                    this.strMF=''
+                    this.strMD=''
                     this.strMN=""
-                     this.strCT="Enter Category"
-                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
-                //     .medicine.relationWithMeals === "") {
-                //     this.formVal = false
+                    this.strCT="Enter Category"
+                    this.formVal = false
                 } 
                 else if(this.medicine.name === "" ){
-                     this.strCT=''
+                    this.strCT=''
                     this.strRWM=''
-                     this.strMF=''
-                     this.strMD=''
+                    this.strMF=''
+                    this.strMD=''
                     this.strMN="Enter Medicine Name"
-                // if (this.medicine.name === "" || this.medicine.frequency === "" || this.medicine.duration === "" || this
-                //     .medicine.relationWithMeals === "") {
-                //     this.formVal = false
+                    this.formVal = false
                 } 
                 else if (this.medicine.relationWithMeals === "" ){
-                      this.strCT=''
+                    this.strCT=''
                     this.strMN=''
-                     this.strMF=''
-                     this.strMD=''
-                     this.strRWM="Choose Relation with Meals"
+                    this.strMF=''
+                    this.strMD=''
+                    this.strRWM="Choose Relation with Meals"
 
                 }
                 else if (this.medicine.frequency === "" ){
-                      this.strCT=''
+                    this.strCT=''
                     this.strMN=''
-                     this.strRWM=''
-                     this.strMD=''
-                     this.strMF="Choose Frequency"
+                    this.strRWM=''
+                    this.strMD=''
+                    this.strMF="Choose Frequency"
 
                 }
                  else if (this.medicine.duration === "" ){
                     this.strCT=''
                     this.strMN=''
-                     this.strMF=''
-                     this.strRWM=''
-                      this.strMD="Enter a duration"
+                    this.strMF=''
+                    this.strRWM=''
+                    this.strMD="Enter a duration"
 
                 }
                 else {
                     this.strRWM=''
-                     this.strMF=''
-                     this.strMD=''
+                    this.strMF=''
+                    this.strMD=''
                     this.strMN=""
-                     this.strCT=""
-
+                    this.strCT=""
                     this.items.push(this.medicine)
-
                     this.medicine = {
                         catagory: '',
                         name: '',
@@ -362,10 +356,8 @@
                         relationWithMeals: '',
 
                     }
-
                     console.log(this.med)
                     this.formVal = true
-
                 }
             },
             deleteItem(i) {
@@ -399,55 +391,47 @@
                 this.formIsValid = true;
                 if(this.formData.cc === ''){
                     this.strOE=''
-                     this.strTP=''
-                     this.strIN=''
+                    this.strTP=''
+                    this.strIN=''
                     this.strCC="CC cannot be blank"
-                // if (this.formData.cc === '' || this.formData.oe === '' || this.formData.advice === '' || this.formData
-                //     .treatmentPlan === '' || this.formData.medicine.name === '' ||
-                //     this.formData.medicine.frequency === '' || this.formData.medicine.duration === '' || this.formData
-                //     .medicine.relationWithMeals === '') {
-                //     this.formIsValid = false;
-                //     return;
                 } 
                 else if(this.formData.oe === ''){
                     this.strCC='';
-                     this.strTP='';
-                     this.strIN='';
+                    this.strTP='';
+                    this.strIN='';
                     this.strOE="OE cannot be blank"
                 }
                 else if(this.formData.investigation=== ''){
-                     this.strCC='';
-                     this.strOE='';
-                     this.strTP='';
-                       this.strIN=" Investigation cannot be blank"
+                    this.strCC='';
+                    this.strOE='';
+                    this.strTP='';
+                    this.strIN=" Investigation cannot be blank"
                        
                 }
                 else if(this.formData.treatmentPlan=== ''){
-                     this.strCC='';
-                     this.strOE='';
-                     this.strIN='';
-                       this.strTP="Treatment Plan  cannot be blank"
+                    this.strCC='';
+                    this.strOE='';
+                    this.strIN='';
+                    this.strTP="Treatment Plan  cannot be blank"
                 }
                  else if(this.formData.advice=== ''){
-                     this.strCC='';
-                     this.strOE='';
-                     this.strIN='';
-                     this.strTP='';
-                     this.strAD='Advice cannot be blank';
+                    this.strCC='';
+                    this.strOE='';
+                    this.strIN='';
+                    this.strTP='';
+                    this.strAD='Advice cannot be blank';
 
                 }
-                
                 else {
                     this.strCC='';
-                     this.strTP='';
-                     this.strIN='';
+                    this.strTP='';
+                    this.strIN='';
                     this.strOE="";
                     this.strRWM=''
-                     this.strMF=''
-                     this.strMD=''
+                    this.strMF=''
+                    this.strMD=''
                     this.strMN=""
-                     this.strCT=""
-
+                    this.strCT=""
                     this.formIsValid = true;
                     this.openModal = true
                 }
@@ -468,13 +452,10 @@
                         this.age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
                     })
-
-
                     .catch((error) => {
                         console.log(error)
 
                     })
-
             },
 
             removeModal() {

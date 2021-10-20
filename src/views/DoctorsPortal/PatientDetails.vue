@@ -5,8 +5,6 @@
             <Nav />
         </header>
 
-      
-
             <div class="md:flex  bg-white   ">
                 <!--main-->
                 <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
@@ -20,7 +18,6 @@
 
                 <div class=" lg:w-3/4  ">
                     <!--nav-->
-
                     <div class="xl:flex justify-between min-h-screen ">
                         <div class="xl:w-3/5  md:mb-4  ">
 
@@ -29,18 +26,12 @@
                         <div class="xl:w-2/5 xl:pt-0 border border-regal-cyan border-opacity-20">
 
                             <PastPresGeneralNav :id="$route.params.id"></PastPresGeneralNav>
-
-
                         </div>
                     </div>
-
-
                 </div>
                 <!--nav-->
-
             </div>
             <!--main-->
-       
     </div>
 </template>
 

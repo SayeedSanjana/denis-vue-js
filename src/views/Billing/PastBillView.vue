@@ -479,16 +479,10 @@
             </div>
         </div>
 
-
         <div class="mt-5 " v-if="modalInvoice">
             <Invoice @billEvent="removeModal" :Bills="Bills" :paid="paid" />
         </div>
         <!--modal service-->
-
-        <!--modal discount -->
-
-        <!--modal discount-->
-
 
     </div>
 </template>

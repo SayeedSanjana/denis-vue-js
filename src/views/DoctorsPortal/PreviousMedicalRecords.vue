@@ -1,13 +1,9 @@
 <template>
     <div>
-        
-
             <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
                <div class="m-0.5 text-regal-teal font-medium">
                   Patient Information
                </div>
-              
-                 
             </div>
 
 
@@ -72,10 +68,8 @@
                         <!--habit-->
                         <PersonalHabits :formData="formData" @myEvent="getPosts" />
                     </div>
-
                 </nav>
             </div>
-        
     </div>
 </template>
 

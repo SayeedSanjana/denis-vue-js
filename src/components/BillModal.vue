@@ -24,11 +24,7 @@
                                         fill="#fafafa" /></svg>
                             </button>
                         </div>
-                        <!-- <div class="flex justify-start px-2 mb-5">
-                            <button @click="print" class="button"> Save
-                            </button>
-                        </div> -->
-
+                        
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
                             <div class=" mb-4 flex justify-between">
