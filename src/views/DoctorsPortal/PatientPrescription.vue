@@ -226,12 +226,12 @@
 
         data() {
             return {
-                 strAD:'',
-                 strCT:'',
-                 strMN:'',
-                 strMF:'',
-                 strRWM:'',
-                 strMD:'',
+                strAD:'',
+                strCT:'',
+                strMN:'',
+                strMF:'',
+                strRWM:'',
+                strMD:'',
                 strCC:'',
                 strOE:'',
                 strTP:'',

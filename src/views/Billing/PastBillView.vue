@@ -101,7 +101,7 @@
 
         <div class="mr-3 flex-1 w-full mb-10 mt-10">
             <button @click="printModal"
-                class=" inline-flex border rounded-md border-regal-teal text-regal-teal text-center font-bold text-md  p-2 pl-3 pr-2">
+                class="px-6 py-3 bg-regal-light-blue text-center border text-regal-teal font-bold  rounded-md text-xs inline-flex">
                 <svg class="w-5 h-5 mr-2 fill-current text-regal-teal" height="457pt" viewBox="-15 0 457 457.14286"
                     width="457pt" xmlns="http://www.w3.org/2000/svg">
                     <path

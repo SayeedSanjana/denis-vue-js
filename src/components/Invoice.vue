@@ -5,6 +5,7 @@
         
         <!-- modal start -->
         <div class="w-full lg:max-w-3xl max-w-lg relative mx-auto my-auto shadow-lg">  
+         <!-- <div class="overflow-hidden overflow-y-scroll h-screen no-scrollbar">  -->
             <div class="flex justify-between mb-3 mt-2">
                 <!-- print button -->
                 <div id="no-print">
@@ -140,7 +141,8 @@
                 <p class="px-12 py-2 text-left text-xs">House # 12 (1st Floor),Road # 14 (New), Dhanmondi, Dhaka-1209, Cell: 01688-329552, 01817-094331, <br> Email: mhkmusa@gmail.com</p>                    
             </footer> -->
             <!-- footer end -->                
-        </section>              
+        </section>  
+        <!-- </div>             -->
         </div>
         <!-- modal end  -->
     </div>        
@@ -319,6 +321,16 @@
 </script>
 
 <style scoped>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 
 
 </style>
