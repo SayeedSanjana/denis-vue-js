@@ -13,10 +13,10 @@
                 Prescription Details
               </div>
               <div class="px-0  flex items-start">
-                <span class="text-regal-teal font-medium ">Prescribed </span><span class="text-regal-teal ml-2">{{this.date}}</span>
+                <span class="text-regal-teal font-medium ">Prescribed Date:</span><span class="text-regal-teal ml-2">{{this.date}}</span>
               </div>
               <div class="px-0 flex items-start">
-                <span class="text-regal-teal font-medium">Approved By </span><span class="text-regal-teal ml-2 ">Dr.
+                <span class="text-regal-teal font-medium">Prescribed By </span><span class="text-regal-teal ml-2 ">Dr.
                   {{this.user}}</span>
               </div>
             </div>
@@ -53,12 +53,8 @@
                 </div>
               </div>
             </div>
-          
 
-
-
-          <div class="flex justify-between">
-            <div class="px-2 mb-6 lg:w-1/2  ">
+              <div class="px-2 mb-6 lg:w-full">
 
               <div class="whitespace-normal break-all">
                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -68,7 +64,8 @@
                 </div>
               </div>
             </div>
-            <div class="px-2 mb-6 lg:w-1/2">
+
+              <div class="px-2 mb-6 lg:w-full">
 
               <div class="whitespace-normal break-all">
                 <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
@@ -78,20 +75,11 @@
                 </div>
               </div>
             </div>
-          </div>
-
+          
           <div>
 
             <div class="px-2 mt-5 mb-5">
-              <svg class="w-6 h-6" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 210 210"
-                style="enable-background:new 0 0 210 210;" xml:space="preserve">
-                <path d="M11.842,145.349v30h38.329v-65.605H76.47c1.879,0,3.722-0.051,5.53-0.152l28.328,35.483L77.136,180H57.789v30h32.222
-    l39.212-41.26l32.94,41.26h35.995v-30h-21.558l-26.515-33.211l28.655-30.152h19.417v-30h-32.292l-34.675,36.485l-17.733-22.212
-    c15.95-9.269,25.018-25.423,25.018-46.515C138.476,20.843,114.717,0,76.47,0H38.842H20.171h-8.329v30h8.329v115.349H11.842z
-     M50.171,30H76.47c32.006,0,32.006,18.361,32.006,24.396c0,5.555-0.002,21.166-22.266,24.652c-3.483,0.342-6.495,0.593-9.74,0.593
-    H50.171V30z" />
-              </svg>
+              <img src="@/assets/svgs/prescription.svg" alt="">
             </div>
 
             <table class="ml-2 w-full mb-5 bg-regal-blue bg-opacity-30 rounded-t-xl  ">

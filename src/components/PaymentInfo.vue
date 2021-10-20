@@ -4,19 +4,10 @@
 		<div class=" flex justify-between mb-3 ">
 
 			<div class="text-regal-teal text-md font-bold  mt-1">
-				<label for="" class=""> Total Cost:</label>
+				<label for="" class=""> Subtotal:</label>
 			</div>
 			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
 				{{Bills.total}}TK
-			</div>
-		</div>
-		<div class=" flex justify-between mb-3 ">
-
-			<div class="text-regal-teal text-md font-bold  mt-1">
-				<label for="" class=""> Total Paid:</label>
-			</div>
-			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
-				{{this.paid}}TK
 			</div>
 		</div>
 		<div class=" flex justify-between mb-3 ">
@@ -36,6 +27,15 @@
 			</div>
 			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
 				{{Bills.adjustment-this.discount}}TK
+			</div>
+		</div>
+			<div class=" flex justify-between mb-3 ">
+
+			<div class="text-regal-teal text-md font-bold  mt-1">
+				<label for="" class=""> Recieved:</label>
+			</div>
+			<div class="text-md rounded ml-2 text-regal-teal mt-1 mr-16 font-bold">
+				{{this.paid}}TK
 			</div>
 		</div>
 		<div class=" flex justify-between  mb-3 ">

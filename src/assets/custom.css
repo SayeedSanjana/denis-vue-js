@@ -1,4 +1,0 @@
-.button{
-    @apply bg-indigo-500 text-center hover:bg-transparent p-2 m-2 border border-indigo-500 text-white font-semibold hover:text-indigo-500 rounded text-sm;
-    
-}

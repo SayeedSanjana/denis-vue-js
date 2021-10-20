@@ -122,7 +122,7 @@
                             </div>
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
-                                <input v-model="medicine.duration" id="Duration" type="text" placeholder="1 month"
+                                <input v-model="medicine.duration" id="Duration" type="text" placeholder=""
                                     class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
                              <small class="text-regal-red mb-2">{{this.strMD}}</small>
                             </div>
@@ -157,7 +157,7 @@
                                 <th class="px-4 py-3">Name</th>
                                 <th class="px-4 py-3">Duration</th>
                                 <th class="px-4 py-3">Frequency</th>
-                                <th class="px-4 py-3">Relation with Meals</th>
+                                <th class="px-4 py-3">Relation with Meal</th>
                                 <th class="px-4 py-3"></th>
                             </thead>
 
@@ -226,12 +226,12 @@
 
         data() {
             return {
-                 strAD:'',
-                 strCT:'',
-                 strMN:'',
-                 strMF:'',
-                 strRWM:'',
-                 strMD:'',
+                strAD:'',
+                strCT:'',
+                strMN:'',
+                strMF:'',
+                strRWM:'',
+                strMD:'',
                 strCC:'',
                 strOE:'',
                 strTP:'',
@@ -494,9 +494,6 @@
                         console.log(error)
                     })
             },
-
-
-
         }
 
     }
