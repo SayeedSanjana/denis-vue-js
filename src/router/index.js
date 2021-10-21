@@ -10,7 +10,8 @@ import SpecificBilling from '../views/Billing/SpecificBilling.vue';
 import PastBillView from '../views/Billing/PastBillView';
 import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
-
+import AppointmentList from "../views/AppointmentList.vue";
+import WaitingList from "../views/WaitingList.vue";
 const routes = [
  
   {
@@ -23,6 +24,16 @@ const routes = [
     path: '/AccountSettings',
     name: 'AccountSettings',
     component: AccountSettings
+  },
+  {
+    path: '/AppointmentList',
+    name: 'AppointmentList',
+    component: AppointmentList
+  },
+  {
+    path: '/WaitingList',
+    name: 'WaitingList',
+    component: WaitingList
   },
 
   {
