@@ -30,7 +30,7 @@
               Date Of Birth :
             </label>
             <input 
-              class="appearance-none block w-full bg-regal-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
+              class="appearance-none block w-full text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
               id="dob" type="date" placeholder="1990-09-08" v-model="formData.dob">
 
           </div>
@@ -39,7 +39,7 @@
               Gender :
             </label>
             <input readonly
-              class="appearance-none block w-full bg-regal-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
+              class="appearance-none block w-full text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
               id="gender" type="text" placeholder="Gender" v-model="formData.gender">
           </div>
 
