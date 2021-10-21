@@ -11,7 +11,7 @@
 
                     <div class="flex justify-between mb-3 mt-2 mr-2">
                         <!-- Button for print and save prescription and cross button -->
-                        <div class="flex justify-center  " id="no-print">
+                        <div class="flex justify-center " id="no-print">
                             <button @click="print" class="px-6 py-3 mr-2 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex"> Print And Save Prescription</button>
                             <button @click="addPres" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Save Prescription</button>
                         </div> 
@@ -27,7 +27,7 @@
                     </div>
 
                 <!--main content-->
-                    <section class="bg-white font-sans px-10" id="print">
+                    <section class="bg-white font-sans" id="print">
                             
                         <!-- header start-->
                         <header class="flex justify-between pb-4">
@@ -41,31 +41,31 @@
                         <div class="container-2xl px-12"> 
                             
                         <!--  Doctor Info -->
-                            <div class="mb-5 text-sm font-sans">
-                                <label class="font-semibold text-gray-900 px-0 flex items-start">Prescription Details </label>
-                                <label class="font-semibold flex items-start text-gray-900 ">Prescribed Date: <span class="text-gray-700 font-normal">{{this.date}}</span></label>
-                                <label class="font-semibold flex items-start text-gray-900 ">Prescribed By: <span class="text-gray-700">Dr. {{this.userData.name}}{{this.$emit("getUser")}}</span></label> 
+                            <div class="py-3 text-sm font-sans">
+                                <label class="font-bold text-gray-900 flex items-start pb-2">Prescription Details </label>
+                                <label class="font-semibold flex items-start text-gray-900">Prescribed Date: <span class="text-gray-700 font-normal">{{this.date}}</span></label>
+                                <label class="font-semibold flex items-start text-gray-900">Doctor: <span class="text-gray-700">Dr. {{this.userData.name}}{{this.$emit("getUser")}}</span></label> 
                             </div> 
 
-                        <hr>  
+                         <hr class="border-1 border-opacity-50">
 
                         <!-- Patient Info starts-->
-                            <div class="lg:flex items-start justify-between my-4 text-sm mb-5 font-sans">
-                                <label class="lg:w-1/4 text-left  font-semibold  mr-1 text-gray-700">ID : <span class="text-gray-700 font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></label>
-                                <label class="lg:w-1/4 text-left  font-semibold  mr-1 text-gray-700">Name : <span class="text-gray-700 font-normal">{{this.form1.name}}</span></label>
-                                <label class="lg:w-1/4 text-left  font-semibold  mr-1 text-gray-700">Age : <span class="text-gray-700 font-normal">{{this.age}}years</span></label>
-                                <label class="lg:w-1/4 text-left  font-semibold mr-1 text-gray-700">Gender :<span class="text-gray-700 font-normal">{{this.form1.gender}}</span></label>
+                            <div class="lg:flex items-start justify-between text-sm font-sans py-2">
+                                <label class="text-left  font-semibold  mr-1 text-gray-900">ID : <span class="text-gray-700 font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></label>
+                                <label class="text-left  font-semibold  mr-1 text-gray-900">Name : <span class="text-gray-700 font-normal">{{this.form1.name}}</span></label>
+                                <label class="text-left  font-semibold  mr-1 text-gray-900">Age : <span class="text-gray-700 font-normal">{{this.age}}years</span></label>
+                                <label class="text-left  font-semibold  mr-1 text-gray-900">Gender :<span class="text-gray-700 font-normal">{{this.form1.gender}}</span></label>
                             </div>
                         <!-- Patient Info ends-->
 
-
+                         <hr class="border-2 border-opacity-50">
                         <!--Prescription Body-->
 
                         <!-- C/C starts -->
-                            <div class="mb-4 w-full text-sm font-sans">
+                            <div class="py-4 w-full text-sm font-sans">
                                 <div class="whitespace-normal break-all mr-5">
-                                    <label class="font-bold flex items-start"><span class="">C/C</span></label>
-                                    <label class="flex items-start"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.cc}}</pre></label>
+                                    <label class="font-semibold flex items-start text-gray-900"><span class="">C/C</span></label>
+                                    <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.cc}}</pre></label>
                                 </div>
                             </div>
                         <!-- C/C ends -->
@@ -73,8 +73,8 @@
                         <!-- O/E starts -->
                             <div class="mb-4 text-sm w-full">
                                 <div class="whitespace-normal break-all mr-5">
-                                    <label class="font-bold flex items-start"><span class="">O/E</span></label>
-                                    <label class="flex items-start"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.oe}}</pre></label>
+                                    <label class="font-semibold flex items-start text-gray-900"><span class="">O/E</span></label>
+                                    <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.oe}}</pre></label>
                                 </div>
                             </div>
                         <!-- O/E ends -->
@@ -82,8 +82,8 @@
                         <!-- Treatment Plan starts -->
                             <div class="mb-4 text-sm w-full">
                                 <div class="whitespace-normal break-all">
-                                    <label class="font-bold flex items-start">Treatment Plan</label>
-                                    <label class="flex items-start"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.treatmentPlan}}</pre></label>
+                                    <label class="font-semibold flex items-start text-gray-900">Treatment Plan</label>
+                                    <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.treatmentPlan}}</pre></label>
                                 </div>
                             </div>
                         <!-- Treatment Plan ends -->
@@ -91,8 +91,8 @@
                         <!-- Investigation starts-->
                             <div class="mb-4 text-sm w-full">
                                 <div class="whitespace-normal break-all">
-                                    <label class="font-bold flex items-start">Investigation</label>
-                                    <label class="flex items-start"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.treatmentPlan}}</pre></label>
+                                    <label class="font-semibold flex items-start text-gray-900 ">Investigation</label>
+                                    <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.treatmentPlan}}</pre></label>
                                 </div>
                             </div>
                         <!-- Investigation starts-->
@@ -102,19 +102,19 @@
                             <img class="my-5" src="@/assets/svgs/prescription.svg" alt="">
                             <table class="p-5 w-full mx-auto border border-gray-400 border-opacity-25 mt-5">
                                 <thead class="text-left text-sm border border-gray-400 border-opacity-30">
-                                    <th class="px-4 py-3">Category</th>
-                                    <th class="px-4 py-3">Name</th>
-                                    <th class="px-4 py-3">Duration</th>
-                                    <th class="px-4 py-3">Frequency</th>
-                                    <th class="px-4 py-3">Relation with Meal</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Category</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Name</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Duration</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Frequency</th>
+                                    <th class="px-4 py-3 font-semibold text-gray-900">Relation with Meal</th>
                                 </thead>
                                 <tbody class="text-left">
                                     <tr class="bg-white border border-gray-400 border-opacity-30" v-for="item in formData.medicine" :key="item._id">
-                                        <td class="px-4 py-3">{{item.catagory}}</td>
-                                        <td class="px-4 py-3">{{item.name}}</td>
-                                        <td class="px-4 py-3">{{item.duration}}</td>
-                                        <td class="px-4 py-3">{{item.frequency}}</td>
-                                        <td class="px-4 py-3">{{item.relationWithMeals}}</td>
+                                        <td class="px-4 py-3 font-semibold text-gray-600 text-xs">{{item.catagory}}</td>
+                                        <td class="px-4 py-3 font-semibold text-gray-600 text-xs">{{item.name}}</td>
+                                        <td class="px-4 py-3 font-semibold text-gray-600 text-xs">{{item.duration}}</td>
+                                        <td class="px-4 py-3 font-semibold text-gray-600 text-xs">{{item.frequency}}</td>
+                                        <td class="px-4 py-3 font-semibold text-gray-600 text-xs">{{item.relationWithMeals}}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -1,5 +1,5 @@
 <template>
-    <div  class="bg-white md:shadow-sm rounded md:my-6  pt-1   ">
+    <div  class="bg-white rounded md:my-6  pt-1   ">
 		<div class="flex justify-center items-center ">
 
 			<!-- List Of Services Starts -->
@@ -11,7 +11,7 @@
 						<th class="p-4 w-1/3 text-regal-teal font-bold uppercase text-sm">Cost</th>
 					</tr>
 				</thead>
-				<tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 15vh;">
+				<tbody class="bg-grey-light flex flex-col items-center justify-between  w-full">
 					<tr class="flex w-full mb-4 border-b"  v-for="item in Bills.items" :key="item" >
 						<td class="p-4 w-1/3 text-regal-teal font-medium  text-sm">{{item.date.substring(0,10)}}</td>
 						<td class="p-4 w-1/3 2xl:ml-4 text-regal-teal font-medium  text-sm">  {{item.service}}</td>
