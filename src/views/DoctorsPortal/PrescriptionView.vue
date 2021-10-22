@@ -156,11 +156,11 @@
         </div>
       </div>
       <div v-if="fullPresModal">
-        <FullPrescription :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date"
+        <FullPrescription :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeFullPres="removeFullPres" />
       </div>
       <div v-if="medModal">
-        <Medication :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date"
+        <Medication :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeMedication="removeMedication" />
       </div>
 
@@ -200,7 +200,8 @@
         dob: '',
         gender: '',
         date: '',
-        age: ''
+        age: '',
+        phone:''
       }
     },
     methods: {
@@ -215,6 +216,8 @@
             this.name = this.formData.patient.name
             this.gender = this.formData.patient.gender
             this.user = this.formData.user.name
+            this.phone=this.formData.user.phone
+            console.log(this.formData)
             //this.userName = this.formData.user.name
             console.log(this.name)
             const ageDifMs = Date.now() - new Date(this.formData.patient.dob.substring(0, 10)).getTime();
