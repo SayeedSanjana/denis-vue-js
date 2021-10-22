@@ -4,34 +4,38 @@
       <div class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto ">
           <div class="flex flex-row w-full px-2 mb-8">
-            <div class=" ">
+            <div class="">
               <div class="font-semibold text-regal-teal px-0 flex items-start">
                 Prescription Details
               </div>
-              <div class="px-0  flex items-start">
-                <span class="text-regal-teal font-medium ">Prescribed Date:</span><span
-                  class="text-regal-teal ml-2">{{this.date}}</span>
+              <div class="flex items-start">
+                <span class="text-regal-teal font-semibold ">Date:</span><span
+                  class="text-regal-teal ml-1 font-normal">{{this.date}}</span>
               </div>
-              <div class="px-0 flex items-start">
-                <span class="text-regal-teal font-medium">Prescribed By </span><span class="text-regal-teal ml-2 ">Dr.
+              <div class="flex items-start">
+                <span class="text-regal-teal font-semibold">Doctor:</span><span class="text-regal-teal font-normal ml-1">Dr.
                   {{this.user}}</span>
               </div>
             </div>
           </div>
-          <div class="lg:flex px-2 mb-8 items-start justify-between">
-            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Name: </span><span
-                class="text-regal-teal">{{this.name}}</span></div>
-            <div class="lg:w-1/3  text-left"><span class="mr-1 font-semibold text-regal-teal">Age: </span><span
-                class="text-regal-teal">{{this.age}} years</span></div>
-            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
-                class="text-regal-teal">{{this.gender}}</span> </div>
+          <hr class="border-1 border-opacity-50">
+          <div class="lg:flex px-2 py-2 items-start justify-between">
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Patient ID: </span><span
+                class="text-regal-teal font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></div>
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Name: </span><span
+                class="text-regal-teal font-normal">{{this.name}}</span></div>
+            <div class="text-left"><span class="mr-1 font-semibold text-regal-teal">Age: </span><span
+                class="text-regal-teal  font-normal">{{this.age}} years</span></div>
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
+                class="text-regal-teal  font-normal">{{this.gender}}</span> </div>
           </div>
+          <hr class="border-2 border-opacity-50 ">
 
-          <div class="px-2 mb-6 lg:w-full  ">
+          <div class="px-2 mb-6 lg:w-full mt-6">
             <div class="whitespace-normal break-all">
-              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">C/C</span></div>
+              <div class="font-semibold text-regal-teal mb-4 flex items-start"><span class="">C/C</span></div>
               <div class="flex items-start ">
-                <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.cc}}</pre>
               </div>
             </div>
           </div>
@@ -40,7 +44,7 @@
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">O/E</span></div>
               <div class="flex items-start ">
-                <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all font-sans">{{this.formData.oe}}</pre>
               </div>
             </div>
           </div>
@@ -51,7 +55,7 @@
               </div>
               <div class="flex items-start ">
                 <pre
-                  class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
+                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre>
               </div>
             </div>
           </div>
@@ -61,9 +65,9 @@
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Investigation</span>
               </div>
-              <div class="flex items-start ">
+              <div class="flex items-start">
                 <pre
-                  class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.investigation}}</pre>
+                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre>
               </div>
             </div>
           </div>
@@ -104,7 +108,7 @@
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Advice</span></div>
               <div class="flex items-start ">
-                <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.advice}}</pre>
               </div>
             </div>
           </div>
@@ -189,6 +193,7 @@
 
     data() {
       return {
+        id:this.$route.params.id,
         fullPresModal: false,
         medModal: false,
         userName: '',

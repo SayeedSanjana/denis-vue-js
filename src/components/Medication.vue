@@ -40,21 +40,22 @@
                     <!--  Doctor Info starts-->
                     <div class="mb-5 text-sm font-sans">
                         <label class="font-bold text-gray-900 flex items-start pb-2">Prescription Details </label>
-                        <label class="font-semibold flex items-start text-gray-900 ">Prescribed Date: <span class="text-gray-700 font-normal">{{this.date}}</span></label>
+                        <label class="font-semibold flex items-start text-gray-900 ">Date: <span class="text-gray-700 font-normal">{{this.date}}</span></label>
                         <label class="font-semibold flex items-start text-gray-900">Doctor: <span class="text-gray-700">Dr. {{this.user}}</span></label> 
                     </div> 
                     <!--  Doctor Info ends-->
 
-                    <hr>  
+                    <hr class="border-1 border-opacity-50">
 
                     <!-- Patient Info starts-->
-                    <div class="lg:flex items-start justify-between my-4 text-sm mb-5 font-sans py-2">
+                    <div class="lg:flex items-start justify-between text-sm font-sans py-2">
                         <label class=" text-left  font-semibold  mr-1 text-gray-700">ID : <span class="text-gray-700 font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></label>
                         <label class="text-left  font-semibold  mr-1 text-gray-700">Name : <span class="text-gray-700 font-normal">{{this.name}}</span></label>
                         <label class="text-left  font-semibold  mr-1 text-gray-700">Age : <span class="text-gray-700 font-normal">{{this.age}} years</span></label>
                         <label class="text-left  font-semibold mr-1 text-gray-700">Gender :<span class="text-gray-700 font-normal">{{this.gender}}</span></label>
                     </div>
                     <!-- Patient Info ends-->
+                    <hr class="border-2 border-opacity-50">
 
                     <!--Prescription Body-->
 

@@ -31,17 +31,17 @@
                         <!-- Patient Information starts -->
                             <div class=" mb-4 flex justify-between">
                                 <div class=" mb-6  w-full text-left flex justify-start">
-                                    <div>
-                                        <div class="font-medium text-md text-regal-teal "> Date:
-                                            <span class="text-md font-normal  text-regal-teal ml-2 ">{{this.date}}</span>
+                                    <div class="">
+                                        <div class="font-semibold text-regal-teal "> Date:
+                                            <span class="font-normal text-regal-teal ml-1">{{this.date}}</span>
                                         </div>
-                                        <div class="font-medium text-md text-regal-teal inline-flex"> PatientName:
+                                        <div class="font-semibold text-regal-teal inline-flex"> Patient Name:
                                             <span
-                                                class="text-md font-normal text-regal-teal ml-2 ">{{this.patientData.name}}</span>
+                                                class="font-normal text-regal-teal ml-1">{{this.patientData.name}}</span>
                                         </div>
 
-                                        <div class="text-regal-teal font-medium text-md ">Contact:<span
-                                                class="text-md text-regal-teal font-normal ml-2">{{this.patientData.phone}}</span>
+                                        <div class=" font-semibold text-regal-teal">Contact:<span
+                                                class="text-regal-teal font-normal ml-1">{{this.patientData.phone}}</span>
                                         </div>
                                     </div>
                                 </div>

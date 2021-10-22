@@ -33,53 +33,53 @@
                             <div class="text-gray-600 body-font">
                                 <div class="container px-6 py-8 mx-auto ">
                                     <div class="flex flex-row w-full px-2 mb-10">
-                                        <div class=" ">
-                                            <div class="font-semibold px-0 flex items-start">Prescription Details</div>
-                                            <div class="px-0  flex items-start"><span class="text-gray-600 ">Date: </span><span class="text-gray-500 ml-1">{{this.date}}</span></div>
-                                            <div class="px-0 flex items-start"><span class="text-gray-600">Doctor:</span><span class="text-gray-500 ml-1">Dr. {{this.userData.name}}{{this.$emit("getUser")}}</span></div>
+                                        <div class="">
+                                            <div class="text-regal-teal font-semibold px-0 flex items-start">Prescription Details</div>
+                                            <div class="text-regal-teal flex items-start"><span class="font-semibold">Date: </span><span class="font-normal ml-1">{{this.date}}</span></div>
+                                            <div class="text-regal-teal flex items-start"><span class="font-semibold">Doctor:</span><span class="font-normal ml-1">Dr. {{this.userData.name}}{{this.$emit("getUser")}}</span></div>
                                         </div>
                                     </div>
 
                                     <div class="lg:flex mb-4items-start justify-between px-2 text-sm">
-                                        <div class="text-left"><span class="font-semibold text-gray-500">Patient ID: </span><span class="mr-1">{{this.age}}years</span></div>
-                                        <div class="text-left"> <span class="font-semibold text-gray-500">Name: </span><span class="mr-1">{{this.form1.name}}</span></div>
-                                        <div class="text-left"><span class="font-semibold text-gray-500">Age: </span><span class="mr-1">{{this.age}}years</span></div>
-                                        <div class="text-left"> <span class="font-semibold text-gray-500">Gender: </span><span class="mr-1">{{this.form1.gender}}</span> </div>
+                                        <div class="text-left text-regal-teal"><span class="font-semibold">Patient ID: </span><span class="font-normal mr-1">P-{{this.id.substring(this.id.length - 7)}}</span></div>
+                                        <div class="text-left text-regal-teal"> <span class="font-semibold">Name: </span><span class="font-normal  mr-1">{{this.form1.name}}</span></div>
+                                        <div class="text-left text-regal-teal"><span class="font-semibold">Age: </span><span class="font-normal  mr-1">{{this.age}}years</span></div>
+                                        <div class="text-left text-regal-teal"> <span class="font-semibold">Gender: </span><span class="font-normal  mr-1">{{this.form1.gender}}</span> </div>
                                     </div>
                                     <div class=" mt-5 mb-5">
                                         <hr>
                                     </div>
-                                    <div class="flex flex-wrap justify-between  ">
+                                    <div class="flex flex-wrap justify-between">
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start">C/C:</div>
-                                                <div class="flex items-start "><pre class="text-left  whitespace-pre-line break-all ">{{this.formData.cc}}</pre></div>
+                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">C/C:</div>
+                                                <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.cc}}</pre></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap justify-between  ">
+                                    <div class="flex flex-wrap justify-between text-regal-teal">
                                         <div class="px-2 mb-4 w-full">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start">O/E:</div>
-                                                <div class="flex items-start "><pre class="text-left  whitespace-pre-line break-all">{{this.formData.oe}}</pre></div>
+                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">O/E:</div>
+                                                <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.oe}}</pre></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flex justify-between">
                                         <div class="px-2 mb-4 ">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start">Treatment Plan:</div>
-                                                <div class="flex items-start "><pre class="text-left  whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre></div>
+                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Treatment Plan:</div>
+                                                <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre></div>
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="flex flex-wrap justify-between  ">
+                                     <div class="flex flex-wrap justify-between">
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start">Investigation:</div>
-                                                <div class="flex items-start "><pre class="text-left  whitespace-pre-line break-all">{{this.formData.investigation}}</pre></div>
+                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Investigation:</div>
+                                                <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre></div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                             </svg>
                                         </div>
                                         <table class="p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
-                                            <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+                                            <thead class="text-left text-regal-teal text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
                                                 <th class="px-4 py-3">Category</th>
                                                 <th class="px-4 py-3">Name</th>
                                                 <th class="px-4 py-3">Duration</th>
@@ -107,7 +107,7 @@
                                             </thead>
 
                                             <tbody class="">
-                                                <tr class="bg-white  border-b border-regal-cyan border-opacity-50"
+                                                <tr class="bg-white text-regal-teal border-b border-regal-cyan border-opacity-50"
                                                     v-for="item in formData.medicine" :key="item._id">
                                                     <td class="px-4 py-3">{{item.catagory}}</td>
                                                     <td class="px-4 py-3">{{item.name}}</td>
@@ -122,12 +122,8 @@
                                     <div class="px-2 mb-6 ">
                                         <div class="mt-8">
                                             <div class="whitespace-normal break-all">
-                                                <div class="font-semibold text-gray-600 mb-4  flex items-start"><span
-                                                        class="border-b border-gray-400">Advice:</span></div>
-                                                <div class="flex items-start ">
-                                                    <pre
-                                                        class="text-left  whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
-                                                </div>
+                                                <div class="font-semibold text-regal-teal mb-4 flex items-start">Advice:</div>
+                                                <div class="flex items-start text-regal-teal"><pre class="text-left  whitespace-pre-line break-all font-sans">{{this.formData.advice}}</pre></div>
                                             </div>
                                         </div>
                                     </div>
