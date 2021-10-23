@@ -28,6 +28,8 @@
                         <!--main content-->
                         <section class="max-w-4xl p-6 pt-4 mx-auto bg-white rounded-md  dark:bg-gray-800  h-screen" id="print">
 
+                            <!-- patient -->
+
                         <!-- Patient Information starts -->
                             <div class=" mb-4 flex justify-between">
                                 <div class=" mb-6  w-full text-left flex justify-start">
