@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Patient from '../views/Patient.vue'
+import Patient from '../views/Patient.vue';
+import AccountSettings from '../views/AccountSettings.vue';
+
 import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
 import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
 import PatientListBilling from '../views/Billing/PatientListBilling';
@@ -8,7 +10,8 @@ import SpecificBilling from '../views/Billing/SpecificBilling.vue';
 import PastBillView from '../views/Billing/PastBillView';
 import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
-
+import AppointmentList from "../views/AppointmentList.vue";
+import WaitingList from "../views/WaitingList.vue";
 const routes = [
  
   {
@@ -16,6 +19,23 @@ const routes = [
     name: 'Patient',
     component: Patient
   },
+  
+  {
+    path: '/AccountSettings',
+    name: 'AccountSettings',
+    component: AccountSettings
+  },
+  {
+    path: '/AppointmentList',
+    name: 'AppointmentList',
+    component: AppointmentList
+  },
+  {
+    path: '/WaitingList',
+    name: 'WaitingList',
+    component: WaitingList
+  },
+
   {
     path: '/',
     name: 'Login',

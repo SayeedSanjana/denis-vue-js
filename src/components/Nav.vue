@@ -29,19 +29,52 @@
                         <div>
                             <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
                                 <router-link to="/patient"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline" >
+                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Patient</router-link>
+
+                                <!-- appointment -->
+                               
+
+                                    <div class="dropdown inline-block relative">
+                                        <button
+                                            class=" my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                            <span class="">Appointment</span>
+                                        </button>
+                                        <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1">
+                                            <li class="">
+                                                <router-link to="/AppointmentList"
+                                                    class="rounded-t bg-white hover:bg-regal-white py-2 px-1 block whitespace-no-wrap">
+                                                    Appointment List</router-link>
+                                            </li>
+                                            <li class=""><router-link to="/WaitingList"
+                                                    class="bg-white hover:bg-regal-white py-2 px-1 block whitespace-no-wrap"
+                                                    >Waiting List</router-link></li>
+                                        </ul>
+                                    </div>
+
+                            
+
+
+
+                                <!-- appointment -->
+
+
+
+
                                 <router-link to="/patient-list-billing"
                                     class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
 
+                                <router-link to="/AccountSettings"
+                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    Settings</router-link>
                                 <router-link to="/" @click="logout"
                                     class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Logout
                                 </router-link>
                             </div>
                         </div>
-                        
+
                         <!-- Search input on mobile screen -->
                         <div class="mt-3 md:hidden hidden">
                             <div class="relative">
@@ -71,13 +104,16 @@
         data() {
             return {
                 isOpen: true,
+
             }
         },
         methods: {
 
             toggle: function () {
                 this.isOpen = !this.isOpen
+
             },
+
 
 
             logout() {
@@ -88,5 +124,7 @@
 </script>
 
 <style scoped>
-
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
 </style>

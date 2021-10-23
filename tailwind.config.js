@@ -13,7 +13,10 @@ module.exports = {
       'regal-green':'#A6D2E3',
       'regal-light-blue':'#E5F2F7',
       'regal-red' : '#FE646F',
-      'regal-success' : '#3EBB52'
+      'regal-success' : '#3EBB52',
+      'regal-examined' : '#BDD2CB',
+      'regal-scheduled' : '#2BD799',
+      'regal-cancelled' : '#FF796F',
     },
     height: {
       sm: '8px',
