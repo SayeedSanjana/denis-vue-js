@@ -1,81 +1,77 @@
 <template>
   <div>
-    <!-- <div hidden>{{this.parseJwt(this.token)}}</div> -->
     <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800">
-      <!-- <div>
-            <PrescriptionList />
-           </div> -->
       <div class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto ">
           <div class="flex flex-row w-full px-2 mb-8">
-            <div class=" ">
+            <div class="">
               <div class="font-semibold text-regal-teal px-0 flex items-start">
                 Prescription Details
               </div>
-              <div class="px-0  flex items-start">
-                <span class="text-regal-teal font-medium ">Prescribed Date:</span><span class="text-regal-teal ml-2">{{this.date}}</span>
+              <div class="flex items-start">
+                <span class="text-regal-teal font-semibold ">Date:</span><span
+                  class="text-regal-teal ml-1 font-normal">{{this.date}}</span>
               </div>
-              <div class="px-0 flex items-start">
-                <span class="text-regal-teal font-medium">Prescribed By </span><span class="text-regal-teal ml-2 ">Dr.
+              <div class="flex items-start">
+                <span class="text-regal-teal font-semibold">Doctor:</span><span class="text-regal-teal font-normal ml-1">Dr.
                   {{this.user}}</span>
               </div>
             </div>
+          </div>
+          <hr class="border-1 border-opacity-50">
+          <div class="lg:flex px-2 py-2 items-start justify-between">
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Patient ID: </span><span
+                class="text-regal-teal font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></div>
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Name: </span><span
+                class="text-regal-teal font-normal">{{this.name}}</span></div>
+            <div class="text-left"><span class="mr-1 font-semibold text-regal-teal">Age: </span><span
+                class="text-regal-teal  font-normal">{{this.age}} years</span></div>
+            <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
+                class="text-regal-teal  font-normal">{{this.gender}}</span> </div>
+          </div>
+          <hr class="border-2 border-opacity-50 ">
 
+          <div class="px-2 mb-6 lg:w-full mt-6">
+            <div class="whitespace-normal break-all">
+              <div class="font-semibold text-regal-teal mb-4 flex items-start"><span class="">C/C</span></div>
+              <div class="flex items-start ">
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.cc}}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="px-2 mb-6 lg:w-full">
 
+            <div class="whitespace-normal break-all">
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">O/E</span></div>
+              <div class="flex items-start ">
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all font-sans">{{this.formData.oe}}</pre>
+              </div>
+            </div>
           </div>
 
-          <div class="lg:flex px-2 mb-8 items-start justify-between">
-            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Name: </span><span
-                class="text-regal-teal">{{this.name}}</span></div>
-            <div class="lg:w-1/3  text-left"><span class="mr-1 font-semibold text-regal-teal">Age: </span><span
-                class="text-regal-teal">{{this.age}} years</span></div>
-            <div class="lg:w-1/3  text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
-                class="text-regal-teal">{{this.gender}}</span> </div>
+          <div class="px-2 mb-6 lg:w-full">
+            <div class="whitespace-normal break-all">
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Treatment Plan</span>
+              </div>
+              <div class="flex items-start ">
+                <pre
+                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre>
+              </div>
+            </div>
           </div>
-          
-            <div class="px-2 mb-6 lg:w-full  ">
 
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
-                    class="">C/C</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.cc}}</pre>
-                </div>
+          <div class="px-2 mb-6 lg:w-full">
+
+            <div class="whitespace-normal break-all">
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Investigation</span>
+              </div>
+              <div class="flex items-start">
+                <pre
+                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre>
               </div>
             </div>
-            <div class="px-2 mb-6 lg:w-full">
+          </div>
 
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
-                    class="">O/E</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.oe}}</pre>
-                </div>
-              </div>
-            </div>
-
-              <div class="px-2 mb-6 lg:w-full">
-
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
-                    class="">Treatment Plan</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.treatmentPlan}}</pre>
-                </div>
-              </div>
-            </div>
-
-              <div class="px-2 mb-6 lg:w-full">
-
-              <div class="whitespace-normal break-all">
-                <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
-                    class="">Investigation</span></div>
-                <div class="flex items-start ">
-                  <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.investigation}}</pre>
-                </div>
-              </div>
-            </div>
-          
           <div>
 
             <div class="px-2 mt-5 mb-5">
@@ -108,14 +104,11 @@
             </table>
           </div>
 
-
           <div class="px-2 mb-6 ">
-
             <div class="whitespace-normal break-all">
-              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span
-                  class="">Advice</span></div>
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Advice</span></div>
               <div class="flex items-start ">
-                <pre class="text-left text-regal-teal whitespace-pre-line break-all ">{{this.formData.advice}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.advice}}</pre>
               </div>
             </div>
           </div>
@@ -138,7 +131,7 @@
                     d="m293.910156 342.242188h-160.472656c-5.050781 0-9.144531 4.09375-9.144531 9.140624 0 5.050782 4.09375 9.144532 9.144531 9.144532h160.472656c5.050782 0 9.144532-4.09375 9.144532-9.144532 0-5.046874-4.09375-9.140624-9.144532-9.140624zm0 0" />
                   <path
                     d="m293.910156 388.492188h-160.472656c-5.050781 0-9.144531 4.09375-9.144531 9.140624 0 5.050782 4.09375 9.144532 9.144531 9.144532h160.472656c5.050782 0 9.144532-4.09375 9.144532-9.144532 0-5.046874-4.09375-9.140624-9.144532-9.140624zm0 0" />
-                  </svg>
+                </svg>
                 Print Medication And Advice
               </button>
               <button @click="printFullPres"
@@ -157,7 +150,7 @@
                     d="m293.910156 342.242188h-160.472656c-5.050781 0-9.144531 4.09375-9.144531 9.140624 0 5.050782 4.09375 9.144532 9.144531 9.144532h160.472656c5.050782 0 9.144532-4.09375 9.144532-9.144532 0-5.046874-4.09375-9.140624-9.144532-9.140624zm0 0" />
                   <path
                     d="m293.910156 388.492188h-160.472656c-5.050781 0-9.144531 4.09375-9.144531 9.140624 0 5.050782 4.09375 9.144532 9.144531 9.144532h160.472656c5.050782 0 9.144532-4.09375 9.144532-9.144532 0-5.046874-4.09375-9.140624-9.144532-9.140624zm0 0" />
-                  </svg>
+                </svg>
                 Print Full Prescription
               </button>
             </div>
@@ -167,11 +160,11 @@
         </div>
       </div>
       <div v-if="fullPresModal">
-        <FullPrescription :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date"
+        <FullPrescription :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeFullPres="removeFullPres" />
       </div>
       <div v-if="medModal">
-        <Medication :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date"
+        <Medication :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeMedication="removeMedication" />
       </div>
 
@@ -200,6 +193,7 @@
 
     data() {
       return {
+        id:this.$route.params.id,
         fullPresModal: false,
         medModal: false,
         userName: '',
@@ -211,7 +205,8 @@
         dob: '',
         gender: '',
         date: '',
-        age: ''
+        age: '',
+        phone:''
       }
     },
     methods: {
@@ -226,6 +221,8 @@
             this.name = this.formData.patient.name
             this.gender = this.formData.patient.gender
             this.user = this.formData.user.name
+            this.phone=this.formData.user.phone
+            console.log(this.formData)
             //this.userName = this.formData.user.name
             console.log(this.name)
             const ageDifMs = Date.now() - new Date(this.formData.patient.dob.substring(0, 10)).getTime();

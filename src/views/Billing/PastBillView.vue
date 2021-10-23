@@ -5,13 +5,16 @@
         <div class=" mb-4 flex justify-between">
             <div class=" mb-6  w-full text-left">
                 <div>
-                    <div class="font-semibold text-md text-regal-teal "> Date:
-                        <span class="text-lg font-medium text-regal-teal  ">{{this.date}}</span></div>
-                    <div class="font-semibold text-md text-regal-teal  "> Patient Name:
-                        <span class="text-lg font-medium text-regal-teal">{{this.patientData.name}}</span></div>
-
-                    <div class="text-regal-teal font-semibold text-md ">Contact: <span
-                            class="text-regal-teal text-lg font-medium">{{this.patientData.phone}}</span> </div>
+                    <div class="font-semibold text-regal-teal "> Date:
+                        <span class="font-normal text-regal-teal">{{this.date}}</span></div>
+                    <div class="font-semibold text-regal-teal"> Patient ID:
+                        <span class="font-normal text-regal-teal">P-{{this.id.substring(this.id.length - 7)}}</span>
+                    </div>
+                    <div class="font-semibold text-regal-teal"> Patient Name:
+                        <span class="font-normal text-regal-teal">{{this.patientData.name}}</span>
+                    </div>
+                    <div class="text-regal-teal font-semibold text-md">Contact: <span
+                            class="text-regal-teal font-normal">{{this.patientData.phone}}</span> </div>
                 </div>
             </div>
         </div>
@@ -479,16 +482,10 @@
             </div>
         </div>
 
-
         <div class="mt-5 " v-if="modalInvoice">
             <Invoice @billEvent="removeModal" :Bills="Bills" :paid="paid" />
         </div>
         <!--modal service-->
-
-        <!--modal discount -->
-
-        <!--modal discount-->
-
 
     </div>
 </template>
@@ -521,6 +518,7 @@
         },
         data() {
             return {
+                id:this.$route.params.id,
                 type: '',
                 token: localStorage.getItem('token'),
                 formValid: true,

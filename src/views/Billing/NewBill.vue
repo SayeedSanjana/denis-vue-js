@@ -6,17 +6,18 @@
                 <!--form-->
                 <div class="px-8 flex justify-center items-center">
                     <form @submit.prevent>
-
                         <!--items-->
 
                         <div class="mt-4 mb-6  w-full text-left flex justify-between">
                             <div>
-                                <div class="font-semibold text-md text-regal-teal  "> Date:
-                                    <span class="text-lg font-medium text-regal-teal   ">{{this.date}}</span></div>
-                                <div class="font-semibold text-md text-regal-teal   "> Patient Name:
-                                    <span class="text-lg font-medium text-regal-teal ">{{this.formData.name}}</span>
+                                <div class="font-semibold text-regal-teal"> Date:
+                                    <span class="text-lg font-medium text-regal-teal">{{this.date}}</span></div>
+                                <div class="font-semibold text-regal-teal"> Patient ID:
+                                    <span class="text-lg font-medium text-regal-teal">P-{{this.id1.substring(this.id1.length - 7)}}</span>
                                 </div>
-
+                                <div class="font-semibold text-regal-teal"> Patient Name:
+                                    <span class="text-lg font-medium text-regal-teal">{{this.formData.name}}</span>
+                                </div>
                                 <div class="text-regal-teal font-semibold text-md ">Contact: <span
                                         class="text-lg text-regal-teal  font-medium">{{this.formData.phone}}</span>
                                 </div>
@@ -362,6 +363,7 @@
         },
         data() {
             return {
+                id1:this.$route.params.id,
                 type:'',
                 token: localStorage.getItem('token'),
                 billModal: false,

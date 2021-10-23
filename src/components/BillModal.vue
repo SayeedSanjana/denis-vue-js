@@ -3,38 +3,45 @@
        
         <div class="max-h-screen  fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
             <div class="absolute bg-black opacity-80 inset-0 z-0  "></div>
-            <div class="w-full  lg:max-w-3xl max-w-lg   rounded-xl p-6 pr-0 relative mx-auto my-auto  shadow-lg  bg-white">
+            <div class="w-full  lg:max-w-3xl max-w-lg  rounded-xl relative mx-auto my-auto shadow-lg ">
 
-                <!--scrollable content-->
-                <div class="mt-5 overflow-y-scroll h-xxl">
+                <div class="mt-5">
 
                     <!--body starts-->
                     <div class="text-center  flex-auto justify-center">
-                        <div class="flex justify-end mr-6">
-                            <button @click="removeModalBill">
-                                <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg">
-                                <path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336" />
-                                <path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa" /></svg>
-                            </button>
+                         <!-- Save button starts -->
+                         <div class="flex justify-between mb-3 mt-2 ">
+                            <div id="no-print">
+                                <button @click="print" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex">Save</button>
+                            </div>
+                            <div class="flex items-center">
+                                <button @click="removeModalBill">
+                                    <svg class="w-5 h-5" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336" />
+                                        <path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa" />
+                                    </svg>
+                                </button>
+                            </div>                    
                         </div>
+                        <!-- Save button ends -->
                         
                         <!--main content-->
-                        <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800" id="print">
+                        <section class="max-w-4xl p-6 pt-4 mx-auto bg-white rounded-md  dark:bg-gray-800  h-screen" id="print">
 
                         <!-- Patient Information starts -->
                             <div class=" mb-4 flex justify-between">
                                 <div class=" mb-6  w-full text-left flex justify-start">
-                                    <div>
-                                        <div class="font-medium text-md text-regal-teal "> Date:
-                                            <span class="text-md font-normal  text-regal-teal ml-2 ">{{this.date}}</span>
+                                    <div class="">
+                                        <div class="font-semibold text-regal-teal "> Date:
+                                            <span class="font-normal text-regal-teal ml-1">{{this.date}}</span>
                                         </div>
-                                        <div class="font-medium text-md text-regal-teal inline-flex"> PatientName:
+                                        <div class="font-semibold text-regal-teal inline-flex"> Patient Name:
                                             <span
-                                                class="text-md font-normal text-regal-teal ml-2 ">{{this.patientData.name}}</span>
+                                                class="font-normal text-regal-teal ml-1">{{this.patientData.name}}</span>
                                         </div>
 
-                                        <div class="text-regal-teal font-medium text-md ">Contact:<span
-                                                class="text-md text-regal-teal font-normal ml-2">{{this.patientData.phone}}</span>
+                                        <div class=" font-semibold text-regal-teal">Contact:<span
+                                                class="text-regal-teal font-normal ml-1">{{this.patientData.phone}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +57,7 @@
                            
                         <div class="flex justify-center items-center mt-3">
 
-                            <table class="  p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
+                            <table class=" p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
                                 <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
                                     <th class="  w-1/3 px-10 py-3">Date</th>
                                     <th class="px-10 py-3 w-1/3 ">Treatment Done</th>
@@ -158,9 +165,9 @@
                             </div>
                             <!--Payment Info-->
 
-                        <div class="flex justify-center px-2 mb-5 mt-6">
+                        <!-- <div class="flex justify-center px-2 mb-5 mt-6">
                             <button @click="print" class="px-6 py-3 bg-regal-teal text-center border text-white font-semibold  rounded-md text-xs flex"> Save</button>
-                        </div>
+                        </div> -->
                         </section>
                         <!--main content-->
                     </div>
