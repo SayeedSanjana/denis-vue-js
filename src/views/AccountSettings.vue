@@ -191,43 +191,43 @@
                 this.formValid = true
                 },
 
-                async changePassword() {
-                    const pattern =new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$")
-                    if (this.newPassword === '' || this.confirmPassword==='') {
-                    this.str= 'Password cannot be blank';
-                    } else if (this.newPassword.length< 8) {
-                    this.str= 'Password should be atleast 8 characters'
-                    }else if(pattern.test(this.newPassword)){
-                        this.str="(Should include 0-9,A-Z, a-z and special characters)"
-                    }
-                    // else if(this.newPassword===this.confirmPassword){
-                    //     this.str=''
-                    //     console.log(this.formData)
-                    //    await axios.put('users/update/'+ this.uid, this.formData, {
-                    // headers: {
-                    //     "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    // }
-                    // })
-                    // .then((response) => {
-                    // swal({
-                    //     title: "Success",
-                    //     text: "Information updated Successfully!",
-                    //     icon: "success",
-                    //     timer: 1000,
-                    //     buttons: false
-                    // })
-                    // console.log(response);
-                    // })
-                    // .catch((error) => {
-                    // console.log(error)
-                    // })
-                    // this.str=''
-                    // console.log("wrong")
-                    // }
-                    else{
-                    this.str="Password doesnot match"
-                    }
-                },
+                // async changePassword() {
+                //    // const pattern =new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$")
+                //     if (this.newPassword === '' || this.confirmPassword==='') {
+                //     this.str= 'Password cannot be blank';
+                //     } else if (this.newPassword.length< 8) {
+                //     this.str= 'Password should be atleast 8 characters'
+                //     }else if(pattern.test(this.newPassword)){
+                //         this.str="(Should include 0-9,A-Z, a-z and special characters)"
+                //     }
+                //     // else if(this.newPassword===this.confirmPassword){
+                //     //     this.str=''
+                //     //     console.log(this.formData)
+                //     //    await axios.put('users/update/'+ this.uid, this.formData, {
+                //     // headers: {
+                //     //     "Authorization": `Bearer ${localStorage.getItem('token') }`
+                //     // }
+                //     // })
+                //     // .then((response) => {
+                //     // swal({
+                //     //     title: "Success",
+                //     //     text: "Information updated Successfully!",
+                //     //     icon: "success",
+                //     //     timer: 1000,
+                //     //     buttons: false
+                //     // })
+                //     // console.log(response);
+                //     // })
+                //     // .catch((error) => {
+                //     // console.log(error)
+                //     // })
+                //     // this.str=''
+                //     // console.log("wrong")
+                //     // }
+                //     else{
+                //     this.str="Password doesnot match"
+                //     }
+                // },
 
       },
 
