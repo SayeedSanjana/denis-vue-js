@@ -26,7 +26,7 @@
 
                     <!-- sortby -->
                     <div class="relative ml-4 mt-5">
-                        <select class="selectclass" id="sortby">
+                        <select class="selectclass" id="sortby"  v-model="sort">
 
                             <option hidden class="text-regal-teal">Sort By</option>
                             <option class="text-regal-teal">Examined</option>
@@ -71,17 +71,17 @@
                 </tr>
                 <!-- thead -->
                 <!-- tbody -->
-                 <tr v-for="(item,index) in appointmentList" :key="index" class="trbody" >
-                    <td class="px-2 ">{{index+1}}</td>
+                 <tr v-for="(item,index) in filteredList" :key="index" class="trbody" >
+                    <td class="px-2 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{item.name}}</td>
                     <td class="px-2 py-3">{{item.age}}/{{item.gender}}</td>
                     <td class="px-2 py-3">A-{{item.appointmentID}}</td>
                     <td class="px-2 py-3">{{item.contact}}</td>
                     <td class="px-2 py-3">{{item.visitingTime}}</td>
                     <td class="px-2 py-3">{{item.complaint}}</td>
-                    <td class="px-2 py-3 " :class="item.status==='Cancelled' ? 'text-regal-examined' : 'text-regal-examined'">{{item.status}}</td>
+                    <td class="px-2 py-3 " :class="['text-regal-examined', (item.status === 'Scheduled' ? 'text-regal-scheduled' : 'text-regal-examined'), (item.status === 'Cancelled'  ? 'text-regal-cancelled' : 'text-regal-examined')]">{{item.status}}</td>
                     <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button><button class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1  bg-regal-examined"></td>
+                    <td class="border border-r-1" :class="['bg-regal-examined', (item.status === 'Scheduled' ? 'bg-regal-scheduled' : 'bg-regal-examined'), (item.status === 'Cancelled'  ? 'bg-regal-cancelled' : 'bg-regal-examined')]"></td>
                 </tr>
                 <!-- <tr class="trbody">
                     <td class="px-2 ">1</td>
@@ -219,10 +219,10 @@
             <!-- pagination -->
             <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
-                    <button class="pagebutton" type="button"> Previous</button>
+                    <button class="pagebutton" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
                 </div>
                 <div class="px-40">
-                    <button class="pagebutton" type="button">Next </button>
+                    <button class="pagebutton" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
                 </div>
             </div>
             <!-- pagination -->
@@ -238,8 +238,23 @@
             Nav,
 
         },
+        
+        computed: {
+            filteredList() {
+                const star = (this.currentPage - 1) * this.prePage
+                const end = this.currentPage * this.prePage
+                const result = this.appointmentList.slice(star, end)
+                return result.filter(item => {
+               return item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1
+          })
+            }
+            
+        },
         data(){
             return{
+            prePage:10,
+            currentPage: 1,    
+            sort:'',
             appointmentList:[
             {
              name:'Iktisad Rashid',
@@ -261,7 +276,7 @@
              complaint:'Surgery',
              status:'Scheduled',
             },
-             {
+            {
              name:'Semonti Banik',
              age:'91',
              gender:'Female',
@@ -271,9 +286,67 @@
              complaint:'Surgery',
              status:'Cancelled',
             },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Examined',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Scheduled',
+            },
             ]
             }
-        }
+        },
+        methods:{
+             changePage(num) {
+                this.currentPage = this.currentPage + num
+            },
+
+            //hit get api
+            //hit delete api to delete patient from appointment list
+        }     
     }
 </script>
 

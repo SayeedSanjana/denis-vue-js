@@ -55,19 +55,19 @@
                 </tr>
                 <!-- thead -->
                 <!-- tbody -->
-                <tr class="trbody">
-                    <td class="px-2 ">1</td>
-                    <td class="px-2 py-3">Patient A</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">A4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">Severe Tooth Ache</td>
-                    <td class="px-2 py-3">16/10/2021</td>
+                <tr class="trbody" v-for="(pat,index) in filteredList" :key="index">
+                    <td class="px-2 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
+                    <td class="px-2 py-3">{{pat.name}}</td>
+                    <td class="px-2 py-3">{{pat.age}}/{{pat.gender}}</td>
+                    <td class="px-2 py-3">{{pat.appointmentID}}</td>
+                    <td class="px-2 py-3">{{pat.contact}}</td>
+                    <td class="px-2 py-3">{{pat.reason}}</td>
+                    <td class="px-2 py-3">{{pat.requestDate}}</td>
 
                     <td class="px-2 py-3 "> <button class="  px-2 py-1  text-regal-red">Cancel Request</button></td>
 
                 </tr>
-                <tr class="trbody">
+                <!-- <tr class="trbody">
                     <td class="px-2 ">2</td>
                     <td class="px-2 py-3">Patient A</td>
                     <td class="px-2 py-3">24/Male</td>
@@ -174,7 +174,7 @@
 
                     <td class="px-2 py-3 "> <button class="  px-2 py-1  text-regal-red">Cancel Request</button></td>
 
-                </tr>
+                </tr> -->
 
                 <!-- tbody -->
             </table>
@@ -182,10 +182,10 @@
             <!-- pagination -->
             <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
-                    <button class="pagebutton" type="button"> Previous</button>
+                    <button class="pagebutton" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
                 </div>
                 <div class="px-40">
-                    <button class="pagebutton" type="button">Next </button>
+                    <button class="pagebutton" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
                 </div>
             </div>
             <!-- pagination -->
@@ -199,8 +199,109 @@
     export default {
         components: {
             Nav,
-
         },
+         computed: {
+            filteredList() {
+                const start = (this.currentPage - 1) * this.prePage
+                const end = this.currentPage * this.prePage
+                const result =this.waitingList.slice(start, end)
+                return result
+            }
+        },
+        data(){
+            return{
+            prePage:5,
+            currentPage: 1,    
+            sort:'',
+            waitingList:[
+            {
+             name:'Iktisad Rashid',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234567',
+             contact:'01701883412',
+             requestDate:'11:00AM',
+             reason:'Surgery',
+             status:'Examined',
+            },
+             {
+             name:'Samee Sayeed',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'12:00AM',
+              reason:'Surgery',
+             status:'Scheduled',
+            },
+            {
+             name:'Semonti Banik',
+             age:'91',
+             gender:'Female',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+              reason:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+             reason:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+             reason:'Surgery',
+             status:'Examined',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+             reason:'Surgery',
+             status:'Cancelled',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+             reason:'Surgery',
+            },
+             {
+             name:'Boo Islam',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             requestDate:'1:30PM',
+             reason:'Surgery',
+            },
+            ]
+
+            }
+        },
+        methods:{
+             changePage(num) {
+                this.currentPage = this.currentPage + num
+            },
+        }
+           
     }
 </script>
 
