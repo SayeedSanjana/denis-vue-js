@@ -62,8 +62,8 @@
                     <th class="px-4 py-3">SL No.</th>
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Age/Gender</th>
-                    <th class="px-4 py-3">Patient ID</th>
-                    <th class="px-4 py-3">Contact Number</th>
+                    <th class="px-4 py-3">Appointment ID</th>
+                    <th class="px-4 py-3">Contact</th>
                     <th class="px-4 py-3">Visiting Time</th>
                     <th class="px-4 py-3">Complaint</th>
                     <th class="px-4 py-3">Status</th>
@@ -71,7 +71,19 @@
                 </tr>
                 <!-- thead -->
                 <!-- tbody -->
-                <tr class="trbody">
+                 <tr v-for="(item,index) in appointmentList" :key="index" class="trbody" >
+                    <td class="px-2 ">{{index+1}}</td>
+                    <td class="px-2 py-3">{{item.name}}</td>
+                    <td class="px-2 py-3">{{item.age}}/{{item.gender}}</td>
+                    <td class="px-2 py-3">A-{{item.appointmentID}}</td>
+                    <td class="px-2 py-3">{{item.contact}}</td>
+                    <td class="px-2 py-3">{{item.visitingTime}}</td>
+                    <td class="px-2 py-3">{{item.complaint}}</td>
+                    <td class="px-2 py-3 " :class="item.status==='Cancelled' ? 'text-regal-examined' : 'text-regal-examined'">{{item.status}}</td>
+                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button><button class=" text-regal-red">Cancel</button></td>
+                    <td class="border border-r-1  bg-regal-examined"></td>
+                </tr>
+                <!-- <tr class="trbody">
                     <td class="px-2 ">1</td>
                     <td class="px-2 py-3">Patient A</td>
                     <td class="px-2 py-3">24/Male</td>
@@ -200,7 +212,7 @@
                     <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
                             class=" text-regal-red">Cancel</button></td>
                     <td class="border border-r-1 bg-regal-examined"></td>
-                </tr>
+                </tr> -->
                 <!-- tbody -->
             </table>
             <!-- table -->
@@ -226,6 +238,42 @@
             Nav,
 
         },
+        data(){
+            return{
+            appointmentList:[
+            {
+             name:'Iktisad Rashid',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234567',
+             contact:'01701883412',
+             visitingTime:'11:00AM',
+             complaint:'Surgery',
+             status:'Examined',
+            },
+             {
+             name:'Samee Sayeed',
+             age:'91',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'12:00AM',
+             complaint:'Surgery',
+             status:'Scheduled',
+            },
+             {
+             name:'Semonti Banik',
+             age:'91',
+             gender:'Female',
+             appointmentID:'234566',
+             contact:'01701883412',
+             visitingTime:'1:30PM',
+             complaint:'Surgery',
+             status:'Cancelled',
+            },
+            ]
+            }
+        }
     }
 </script>
 

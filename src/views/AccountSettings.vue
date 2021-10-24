@@ -57,7 +57,7 @@
                         <!-- old password -->
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Old Password</label>
-                            <input type="password"  class="inputfield">
+                            <input type="password" class="inputfield" v-model="oldPassword">
                         </div>
                         <!-- old password -->
                         <div class="flex">
@@ -134,7 +134,9 @@
                     phone:'',
                     gender:'',
                     address:'',
+                    password:''
                 },
+                oldPassword:'',
                 newPassword:'',
                 confirmPassword:'',
                 a: false
@@ -152,7 +154,8 @@
                 this.uid = payload.sub
                 console.log(payload.sub);
             },
-
+            
+            //get the specific user
              async getUser() {
                 await axios.get('users/search/' + this.uid, {
                         headers: {
@@ -190,47 +193,49 @@
                     })
                 this.formValid = true
                 },
+                
 
+                // checking validation while changing the password
                 async changePassword() {
-                    const pattern =new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$")
+                    const pattern=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                    //if old passwords matches the one in the database
                     if (this.newPassword === '' || this.confirmPassword==='') {
                     this.str= 'Password cannot be blank';
                     } else if (this.newPassword.length< 8) {
                     this.str= 'Password should be atleast 8 characters'
-                    }else if(pattern.test(this.newPassword)){
-                        this.str="(Should include 0-9,A-Z, a-z and special characters)"
+                    }else if(!(pattern.test(this.newPassword))){
+                    this.str="(Should include 0-9,A-Z, a-z and special characters like '@,#,$,*')"
+                    }else if(this.newPassword===this.confirmPassword){
+                    this.formData.password=this.newPassword
+                    this.str=''
+                    console.log(this.formData)
+                    await axios.put('users/update/'+ this.uid, this.formData, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
-                    // else if(this.newPassword===this.confirmPassword){
-                    //     this.str=''
-                    //     console.log(this.formData)
-                    //    await axios.put('users/update/'+ this.uid, this.formData, {
-                    // headers: {
-                    //     "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    // }
-                    // })
-                    // .then((response) => {
-                    // swal({
-                    //     title: "Success",
-                    //     text: "Information updated Successfully!",
-                    //     icon: "success",
-                    //     timer: 1000,
-                    //     buttons: false
-                    // })
-                    // console.log(response);
-                    // })
-                    // .catch((error) => {
-                    // console.log(error)
-                    // })
-                    // this.str=''
-                    // console.log("wrong")
-                    // }
-                    else{
+                    })
+                    .then((response) => {
+                    swal({
+                        title: "Success",
+                        text: "Information updated Successfully!",
+                        icon: "success",
+                        timer: 1000,
+                        buttons: false
+                    })
+                    console.log(response);
+                    })
+                    .catch((error) => {
+                    this.str="Something went wrong"
+                    console.log(error)
+                    })
+                    }
+                    else if(this.newPassword!==this.confirmPassword){
                     this.str="Password doesnot match"
+                    }else{
+                    this.str="Something went wrong"
                     }
                 },
-
       },
-
         }
 
 </script>
