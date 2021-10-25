@@ -26,13 +26,12 @@
 
                     <!-- sortby -->
                     <div class="relative ml-4 mt-5">
-                        <select class="selectclass" id="sortby"  v-model="sort">
-
-                            <option hidden class="text-regal-teal">Sort By</option>
-                            <option class="text-regal-teal">Examined</option>
-                            <option class="text-regal-teal">Scheduled</option>
-                            <option class="text-regal-teal">Cancelled</option>
-
+                        <select class="selectclass" id="sortby" @click="status($event)">
+                            <option class="text-regal-teal" >All</option>
+                            <option class="text-regal-teal" value="Examined" >Examined</option>
+                            <option class="text-regal-teal" value="Scheduled">Scheduled</option>
+                            <option class="text-regal-teal" value="Cancelled">Cancelled</option>
+                            
                         </select>
                         <div class=" selectsvg">
                             <img src="@/assets/svgs/select.svg">
@@ -83,148 +82,19 @@
                     <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button><button class=" text-regal-red">Cancel</button></td>
                     <td class="border border-r-1" :class="['bg-regal-examined', (item.status === 'Scheduled' ? 'bg-regal-scheduled' : 'bg-regal-examined'), (item.status === 'Cancelled'  ? 'bg-regal-cancelled' : 'bg-regal-examined')]"></td>
                 </tr>
-                <!-- <tr class="trbody">
-                    <td class="px-2 ">1</td>
-                    <td class="px-2 py-3">Patient A</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-examined">Examined</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1  bg-regal-examined"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">2</td>
-                    <td class="px-2 py-3">Patient B</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-scheduled">Scheduled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-scheduled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">3</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-cancelled">Cancelled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-cancelled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">4</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-cancelled">Cancelled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-cancelled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">5</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-scheduled">Scheduled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-scheduled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">6</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-cancelled">Cancelled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-cancelled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">7</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-examined">Examined</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-examined"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">8</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-cancelled">Cancelled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-cancelled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">9</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-cancelled">Cancelled</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-cancelled"></td>
-                </tr>
-                <tr class="trbody">
-                    <td class="px-2 ">10</td>
-                    <td class="px-2 py-3">Patient C</td>
-                    <td class="px-2 py-3">24/Male</td>
-                    <td class="px-2 py-3">P4321234</td>
-                    <td class="px-2 py-3">01928374654</td>
-                    <td class="px-2 py-3">11:00AM-11:30AM</td>
-                    <td class="px-2 py-3">Surgery</td>
-                    <td class="px-2 py-3 text-regal-examined">Examined</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button> <button
-                            class=" text-regal-red">Cancel</button></td>
-                    <td class="border border-r-1 bg-regal-examined"></td>
-                </tr> -->
+
                 <!-- tbody -->
             </table>
             <!-- table -->
             <!-- pagination -->
-            <div class="flex px-40 flex-row justify-center">
+            <!-- <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
                     <button class="pagebutton" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
                 </div>
                 <div class="px-40">
                     <button class="pagebutton" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
                 </div>
-            </div>
+            </div> -->
             <!-- pagination -->
         </section>
 
@@ -241,18 +111,19 @@
         
         computed: {
             filteredList() {
-                const star = (this.currentPage - 1) * this.prePage
-                const end = this.currentPage * this.prePage
-                const result = this.appointmentList.slice(star, end)
-                return result.filter(item => {
-               return item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1
-          })
+                if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
+                   return this.appointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
+                }
+                //this.sort="";
+                return this.appointmentList
+           
             }
             
         },
         data(){
             return{
-            prePage:10,
+            result:[],
+            prePage:4,
             currentPage: 1,    
             sort:'',
             appointmentList:[
@@ -343,7 +214,39 @@
              changePage(num) {
                 this.currentPage = this.currentPage + num
             },
+            status(event){
+                this.sort=event.target.value
+                /**
+                 * first capture the event value
+                 * pass the event value 
+                 * based on event filter the array list
+                 * display
+                 * if no value is not there then no action
+                 */
+                
+                // const star = (this.currentPage - 1) * this.prePage;
+                // const end = this.currentPage * this.prePage;
+                // const result = this.appointmentList.slice(star, end); 
+              
+                // console.log(event.target.value);
+            //     if (event.target.value=='sch'){
+            //         this.sort = event.target.innerHTML;
+            //     }
 
+            //     else if (event.target.value=='ex'){
+            //         this.sort = event.target.innerHTML;
+            //     }
+
+            //     else if (event.target.value=='ca'){
+            //         this.sort = event.target.innerHTML;
+            //     }
+               
+            //     console.log(this.sort)
+            //     //result.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
+            //     // if(this.sort==="Examined" || this.sort==="Cancelled" ||this.sort==="Scheduled"){
+            //     // }
+             }
+            
             //hit get api
             //hit delete api to delete patient from appointment list
         }     
