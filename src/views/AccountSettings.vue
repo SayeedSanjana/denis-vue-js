@@ -49,6 +49,9 @@
                 <button v-show="!a" @click="a = true" class="newbutton">Change Password</button>
             </div>
             <!-- change password -->
+
+            
+            <form action="">
             <div v-show="a" class=" w-full formbox">
                 <div class="flex">
                    
@@ -79,7 +82,7 @@
                     </div>
                 </div>
             </div>
-
+            </form>
 
             <!-- change password -->
 

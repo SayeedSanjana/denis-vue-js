@@ -55,7 +55,7 @@
                 </tr>
                 <!-- thead -->
                 <!-- tbody -->
-                <tr class="trbody">
+                <tr class="trbody" @click="appointmentDetails">
                     <td class="px-2 ">1</td>
                     <td class="px-2 py-3">Patient A</td>
                     <td class="px-2 py-3">24/Male</td>
@@ -201,6 +201,15 @@
             Nav,
 
         },
+        methods:{
+             appointmentDetails() {
+                this.$router.push({
+                    name: 'CreateAppointment',
+                   
+                })
+            },
+
+        }
     }
 </script>
 
