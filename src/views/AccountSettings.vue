@@ -6,7 +6,7 @@
     <!-- header -->
     <div class="h-screen bg-regal-white">
         <section class="w-full">
-            <p class="headername">Account Settings </p>
+            <h3 class="headername">Account Settings </h3>
             <!-- form -->
             <form  @submit.prevent="updateUser()" class="w-1/2">
                 <!-- fullname -->
@@ -41,8 +41,8 @@
 
             </form>
             <!-- form -->
-
-            <p class="headername">Password Settings </p>
+              
+            <h3 class="headername">Password Settings </h3>
             <!-- change password -->
             
             <div class="formbox">
