@@ -87,14 +87,14 @@
             </table>
             <!-- table -->
             <!-- pagination -->
-            <!-- <div class="flex px-40 flex-row justify-center">
+            <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
                     <button class="pagebutton" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
                 </div>
                 <div class="px-40">
                     <button class="pagebutton" type="button" :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
                 </div>
-            </div> -->
+            </div>
             <!-- pagination -->
         </section>
 
@@ -114,8 +114,12 @@
                 if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
                    return this.appointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
                 }
+                const star = (this.currentPage - 1) * this.prePage
+                const end = this.currentPage * this.prePage
+                const result = this.appointmentList.slice(star, end)
+                return result
                 //this.sort="";
-                return this.appointmentList
+                //return 
            
             }
             
@@ -123,7 +127,7 @@
         data(){
             return{
             result:[],
-            prePage:4,
+            prePage:10,
             currentPage: 1,    
             sort:'',
             appointmentList:[
