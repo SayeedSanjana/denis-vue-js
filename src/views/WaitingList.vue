@@ -29,12 +29,12 @@
 
                 <!-- create new appointment -->
                 <div class="flex justify-end px-48">
-                    <button class="newbutton mt-5 mb-2 " @click="modal">
+                    <router-link to="/Createnewappointment" class="newbutton mt-5 mb-2 " @click="modal">
                         <span class=" mt-1 mr-2"> Create New Appointment</span>
                         <span class="mr-2">
                             <img src="@/assets/svgs/add2.svg" class="w-3 h-7 ">
                         </span>
-                    </button>
+                    </router-link>
 
                 </div>
                 <!-- create new appointment -->
