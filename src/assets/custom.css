@@ -75,3 +75,15 @@
 .selectsvg{
     @apply  mb-3 mr-1 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2;
 }
+
+.calabel{
+    @apply flex  text-regal-teal text-sm font-semibold mb-2 justify-start;
+}
+
+.cainput{
+    @apply appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded  leading-tight focus:outline-none focus:border-regal-blue;
+}
+
+.btnampm{
+    @apply border bg-white focus:bg-regal-cyan-blue px-2 py-1.5;
+}

@@ -1,67 +1,79 @@
-<template>
+<template >
 <!-- header -->
     <header class="headerclass">
         <Nav />
     </header>
     <!-- header -->
-    <div class="bg-regal-white h-full ">
+    <div class="bg-regal-white h-screen ">
             <p class="caheadername ml-52">Create New Appointment </p>
         <section class="max-w-4xl md:p-6 p-3 mx-auto   ">
 
-      <div class="flex items-center justify-center p-6 mx-14 my-4 bg-white  ">
+      <div class="flex items-center justify-center p-6 mx-24 my-4 bg-white  ">
         <form  class="w-full max-w-lg ">
-             <p class=" caheadername ">Patient Information </p>
+             <p class=" caheadername -my-1 ">Patient Information </p>
 
           <div class="w-full lg:w-full ">
-            <label class="flex  text-regal-teal text-sm font-semibold mb-2 justify-start mt-4" for="duuid">
+            <label class="calabel mt-8" >
                Name 
             </label>
             <input
-              class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
+              class="cainput py-2 px-4 mb-4"
               id="name" type="text"  >
 
           </div>
           
 
-
-          <div class="w-full lg:w-full mt-6 ">
-            <label class="flex justify-start text-regal-teal text-sm font-medium mb-2" for="dob">
+          <div class="flex lg:w-full">
+            
+          
+          <div class=" lg:w-3/5  ">
+            <label class="calabel" for="dob">
               Date Of Birth 
             </label>
             <input 
-              class="appearance-none block w-full bg-regal-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
-              id="dob" type="date" placeholder="1990-09-08" >
+              class="cainput py-2 px-4 mb-6"
+              id="dob" type="date"  >
 
           </div>
-          <div class="w-full lg:w-full  ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">
+          <div class=" lg:w-2/5 ml-4 ">
+            <label class="calabel" for="gender">
               Gender 
             </label>
-            <input 
-              class="appearance-none block w-full  text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
-              id="gender" type="text" >
+           <div class="relative">
+                      <select
+                        class=" cainput py-2.5 px-2 mb-7 "
+                        id="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Others</option>
+                      </select>
+                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                      </div>
+                    </div>
           </div>
-
+          </div>
          
           <div class="w-full lg:w-full ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="contact">
+            <label class="calabel" for="contact">
               Contact Number 
             </label>
             <input
-              class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
-              id="contact" type="text" placeholder="" >
+              class="cainput py-2 px-4 mb-7 "
+              id="contact" type="text"  >
           </div>
           <!-- </div> -->
 
-          <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="flex flex-wrap -mx-3 mb-28">
 
 
             <div class="w-full lg:w-full px-3">
-              <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nationality">
+              <label class="calabel" for="">
                 Reason 
               </label>
               <textarea
-                class="appearance-none block w-full h-36 bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                class="cainput h-36  py-3 px-4 "
                 id="nationality" type="text" placeholder="" ></textarea>
             </div>
           </div>
@@ -69,7 +81,7 @@
           
         </form>
       </div>
-      <div class="mt-8 py-3 px-3 flex justify-center mb-4">
+      <div class="mt-4 py-3 px-3 flex justify-center mb-4">
             <button class="newbutton">
               Create Appointment
             </button>
