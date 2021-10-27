@@ -45,7 +45,7 @@
                 </tr>
                 <!-- thead -->
                 <!-- tbody -->
-                <tr class="trbody" v-for="(pat,index) in filteredList" :key="index">
+                <tr  @click="appointmentDetails" class="trbody" v-for="(pat,index) in filteredList" :key="index">
                     <td class="px-2 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{pat.name}}</td>
                     <td class="px-2 py-3">{{pat.age}}/{{pat.gender}}</td>
@@ -289,6 +289,12 @@
         methods:{
              changePage(num) {
                 this.currentPage = this.currentPage + num
+            },
+            appointmentDetails() {
+                this.$router.push({
+                    name: 'CreateAppointment',
+                   
+                })
             },
         }
            

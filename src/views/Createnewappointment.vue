@@ -8,19 +8,20 @@
             <p class="caheadername ml-52">Create New Appointment </p>
         <section class="max-w-4xl md:p-6 p-3 mx-auto   ">
 
-      <div class="flex items-center justify-center p-6 mx-24 my-4 bg-white  ">
+    <div class="flex items-center justify-center p-6 mx-24 my-4 bg-white  ">
         <form class="w-full max-w-lg" @submit.prevent="submitForm">
+        
              <p class=" caheadername -my-1 ">Patient Information </p>
 
           <div class="w-full lg:w-full ">
-            <label class="calabel mt-8" >
+            <label class="calabel mt-4" >
                Name 
             </label>
             <input
               class="cainput py-2 px-4 mb-4"
               id="name" type="text" v-model="formdata.name" >
-                <small class="text-regal-red mb-2 flex justify-start">{{this.strName}}</small>
           </div>
+           <small class="text-regal-red mb-2 flex justify-start">{{this.strName}}</small>
         
           
 
@@ -32,10 +33,11 @@
               Date Of Birth 
             </label>
             <input 
-              class="cainput py-2 px-4 mb-6"
+              class="cainput py-2 px-4 mb-4"
               id="dob" type="date" v-model="formdata.dob">
-              <small class="text-regal-red mb-2 flex justify-start">{{this.strDob}}</small>
+               <small class="text-regal-red mb-2 flex justify-start">{{this.strDob}}</small>
           </div>
+         
              
           <div class=" lg:w-2/5 ml-4 ">
             <label class="calabel" for="gender">
@@ -43,7 +45,7 @@
             </label>
            <div class="relative">
                       <select v-model="formdata.gender"
-                        class=" cainput py-2.5 px-2 mb-7 "
+                        class=" cainput py-2 px-2 mb-4"
                         id="gender">
                         <option>Male</option>
                         <option>Female</option>
@@ -56,6 +58,7 @@
                     </div>
                      <small class="text-regal-red mb-2 flex justify-start">{{this.strGender}}</small>
           </div>
+          
              
           </div>
          
@@ -64,10 +67,11 @@
               Contact Number 
             </label>
             <input
-              class="cainput py-2 px-4 mb-7 " v-model="formdata.phone"
+              class="cainput py-2 px-4 mb-4 " v-model="formdata.phone"
               id="contact" type="text"  >
-              <small class="text-regal-red mb-2 flex justify-start">{{this.strPhone}}</small>
+                <small class="text-regal-red mb-2 flex justify-start ml-3">{{this.strPhone}}</small>
           </div>
+        
               
           <!-- </div> -->
 
@@ -79,20 +83,19 @@
                 Reason 
               </label>
               <textarea
-                class="cainput h-36  py-3 px-4 "
+                class="cainput h-36  py-3 px-4 mb-4"
                 id="nationality" type="text" placeholder="" v-model="formdata.reason" ></textarea>
-                <small class="text-regal-red mb-2 flex justify-start">{{this.strReason}}</small>
-
             </div>
+             <small class="text-regal-red mb-2 flex justify-start ml-3">{{this.strReason}}</small>
           </div>
-        
-            <div class="mt-4 py-3 px-3 flex justify-center mb-4">
-            <button class="newbutton">
+          
+        </form>
+      </div>
+      <div class="mt-4 py-3 px-3 flex justify-center mb-4 ">
+            <button class="newbutton" @click="submitForm">
               Create Appointment
             </button>
           </div>
-        </form>
-      </div>
     
 
     </section>

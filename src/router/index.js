@@ -13,6 +13,7 @@ import Login from '../views/Authentication/Login.vue';
 import AppointmentList from "../views/AppointmentList.vue";
 import WaitingList from "../views/WaitingList.vue";
 import Createnewappointment from "../views/Createnewappointment.vue";
+import CreateAppointment from "../views/CreateAppointment.vue";
 const routes = [
  
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/AppointmentList',
     name: 'AppointmentList',
     component: AppointmentList
+  },
+  {
+    path: '/CreateAppointment',
+    name: 'CreateAppointment',
+    component: CreateAppointment
   },
   {
     path: '/WaitingList',

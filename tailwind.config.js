@@ -5,6 +5,7 @@ module.exports = {
     extend: { colors: {
       'regal-blue': '#73C6CA',
       'regal-cyan': '#036792',
+      'regal-cyan-blue': '#C5F7FA',
       'regal-paste': '#CEF0FF',
       'regal-teal' : '#005072',
       'regal-white' : '#F2FBFC',
@@ -17,6 +18,7 @@ module.exports = {
       'regal-examined' : '#BDD2CB',
       'regal-scheduled' : '#2BD799',
       'regal-cancelled' : '#FF796F',
+      'regal-gray' : '#E9F0F0',
     },
     height: {
       sm: '8px',
