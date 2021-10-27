@@ -53,7 +53,7 @@
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">C/C:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">C/C:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.cc}}</pre></div>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                     <div class="flex flex-wrap justify-between text-regal-teal">
                                         <div class="px-2 mb-4 w-full">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">O/E:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">O/E:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.oe}}</pre></div>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="flex justify-between">
                                         <div class="px-2 mb-4 ">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Treatment Plan:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">Treatment Plan:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre></div>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Investigation:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">Investigation:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre></div>
                                             </div>
                                         </div>

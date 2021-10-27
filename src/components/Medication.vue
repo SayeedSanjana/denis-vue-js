@@ -30,7 +30,7 @@
                     <header class="flex justify-between pb-4">
                     <!-- Logo -->
                         <img class="px-12 py-4" src="@/assets/svgs/mt-logo-V2.svg" alt="dental-center-logo.svg">  
-                        <p class="text-xs text-left py-5 mx-6 text-gray-900">Address: House No 12 (1st Floor), Road No 14 (New) <br> Dhanmondi, Dhaka-1209, Mobile: 01688-329552, 01817-094331, Email: mhkmusa@gmail.com</p>
+                        <p class="text-xs pl-10 text-left py-5 mr-2 text-gray-900">Address: House No 12 (1st Floor), Road No 14 (New) <br> Dhanmondi, Dhaka-1209, Mobile: 01688-329552, 01817-094331, <br> Email: mhkmusa@gmail.com</p>
                     </header>
                     <!-- header end -->
 
