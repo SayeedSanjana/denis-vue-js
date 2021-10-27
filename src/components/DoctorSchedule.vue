@@ -113,7 +113,7 @@
                 </div>
                 <!-- label -->
                 <div class="w-3/5">
-                <input type="date" class="border border-gray-300 px-1 py-2 -ml-20 mr-2">
+                <input type="date" class="border border-gray-300 px-1 py-2 -ml-20 mr-2" v-model="formData.date">
                     <!-- <select name="" class="border px-3 py-2 -ml-20 mr-2 ">
                         <option v-for="items in 31" :key="items" >{{items}}</option>
 
@@ -128,7 +128,7 @@
                 </div>
                 <!-- label -->
                 <div class="w-3/5">
-                    <select name="" class="border px-3 py-2 mr-2 -ml-8">
+                    <select name="" class="border px-3 py-2 mr-2 -ml-8" v-model="startTime">
                         <option v-for="(item,index) in time" :key="index" >{{item}}</option>
 
                     </select>
@@ -143,17 +143,17 @@
                 </div>
                 <!-- label -->
                 <div class="w-3/5">
-                    <select name="" class="border px-3 py-2 mr-2 -ml-8">
+                    <select name="" class="border px-3 py-2 mr-2 -ml-8" v-model="endTime">
                         <option v-for="(item,index) in time" :key="index" >{{item}}</option>
 
                     </select>
-                    <button class="btnampm">AM</button>
-                    <button class="btnampm">PM</button>
+                    <button class="btnampm" @click="setAm">AM</button>
+                    <button class="btnampm" @click="setPm">PM</button>
                 </div>
             </div>
         </form>
     
-        <button class="resetnewbutton2 mx-36 mt-12">Reset</button>
+        <button class="resetnewbutton2 mx-36 mt-12" >Reset</button>
         <button class="canewbutton1 mx-36 mt-6 mb-9">Create Appointment</button>
 
         
@@ -186,7 +186,11 @@
                         date:'',
                         startTime:'',
                         endTime:''
-                    }
+                    },
+                    startTime:'',
+                    endTime:'',
+                    am:false,
+                    pm:false
                 
                 }
             },
@@ -197,7 +201,15 @@
                     const ageDate = new Date(ageDifMs);
                     this.waitingList.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
                     console.log( this.waitingList.dob)
-                }
+                },
+                setAm(){
+                    this.am=true
+                },
+                setPm(){
+                    this.PM=true
+                },
+
+
             }
     }
 </script>
