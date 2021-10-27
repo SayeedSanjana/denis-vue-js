@@ -12,6 +12,7 @@
             <input
               class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
               id="name" type="text" placeholder="Name" v-model="formData.name">
+                <small class="text-regal-red mb-2">{{this.strName}}</small>
 
           </div>
           <div class="w-full lg:w-full ">
@@ -32,7 +33,7 @@
             <input 
               class="appearance-none block w-full text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue "
               id="dob" type="date" placeholder="1990-09-08" v-model="formData.dob">
-
+                <small class="text-regal-red mb-2">{{this.strDob}}</small>
           </div>
           <div class="w-full lg:w-full  ">
             <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">
@@ -58,6 +59,7 @@
             <input
               class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
               id="contact" type="text" placeholder="" v-model="formData.phone">
+                <small class="text-regal-red mb-2">{{this.strPhone}}</small>
           </div>
           <!-- </div> -->
 
@@ -73,8 +75,7 @@
                 id="nationality" type="text" placeholder="" v-model="formData.address"></textarea>
             </div>
           </div>
-          <p v-if="!formValid" class="text-red-500 mb-4 text-center">Please enter valid information, <span>Phone number
-              should be 11 digits, nid atleast 9 digits and other entities should atleast 3 letters</span> </p>
+        
           <div class="mt-8 py-3 px-3 flex justify-end">
             <button class="buttonsubmit">
               Update Profile
@@ -105,6 +106,10 @@
     },
     data() {
       return {
+        strName: "",
+        strDob: "",
+        strGender: "",
+        strPhone: "",
         token: localStorage.getItem('token'),
         formValid: true,
         formData: {
@@ -146,13 +151,39 @@
       },
       async updatePosts(id) {
         console.log(this.formData)
-        if (this.formData.name === "" || this.formData.name < 3 || this.formData.phone === "" || this.formData.phone <
-          11 || this.formData.dob === "" || this.formData.dob < 3 ||
-          this.formData.nid === "" || this.formData.nid < 9 || this.formData.gender === "" || this.formData.gender <
-          3 || this.formData.occupation === "" || this.formData.occupation < 3 ||
-          this.formData.address === "" || this.formData.address < 3) {
-          this.formValid = false
+       this.formData.phone = this.formData.phone.replace(/\s/g, '')
+        if (this.formData.name === '') {
+          this.strName = 'Name cannot be blank';
+        } else if (this.formData.name.length < 3 || this.formData.name.length > 255) {
+          this.strDob = '',
+          this.strGender = '',
+          this.strPhone = '',
+          this.strName = 'Minimum length 3 & Maximum length 255 ';
+        } else if (this.formData.phone === '') {
+          this.strDob = '',
+          this.strGender = '',
+          this.strName = '',
+          this.strPhone = 'Phone cannot be blank';
+        } else if (this.formData.phone.length < 11 || this.formData.phone.length > 14) {
+          this.strDob = '',
+          this.strGender = '',
+          this.strName = '',
+          this.strPhone = 'Minimum length 11 & Maximum length 14';
+        } else if (this.formData.gender === '') {
+          this.strDob = '',
+          this.strName = '',
+          this.strPhone = '',
+          this.strGender = 'Gender cannot be blank';
+        } else if (this.formData.dob === '') {
+          this.strName = '',
+          this.strGender = '',
+          this.strPhone = '',
+          this.strDob = 'Date of Birth cannot be blank';
         } else {
+           this.strDob = '',
+          this.strGender = '',
+          this.strPhone = '',
+          this.strName = '';
           await axios.patch('patients/' + id + '/update-patient', this.formData, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`

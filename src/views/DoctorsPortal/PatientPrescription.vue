@@ -245,11 +245,11 @@
                 Prescription: [],
                 frequency: [
                     "Daily", "Every Other Day", "Twice A Day", "Three Times A Day", "Four Times A Day",
-                    "Every Bed Time", "Every 4 Hours",
+                    "Every Bed Time", "Every 4 Hours", "Every 6 Hours", "Every 8 Hours", "Every 12 Hours",
                     "Every 4 to 6 Hours", "Every Week", "0-0-1", "0-1-0", "0-1-1", "1-0-0", "1-0-1", "1-1-0",
                     "1-1-1", "0-0-0-1", "0-0-1-0", "0-0-1-1",
                     "0-1-0-0", "0-1-0-1", "0-1-1-0", "0-1-1-1", "1-0-0-0", "1-0-0-1", "1-0-1-0", "1-0-1-1",
-                    "1-1-0-0", "1-1-0-1", "1-1-1-0", "1-1-1-1"
+                    "1-1-0-0", "1-1-0-1", "1-1-1-0", "1-1-1-1", 
                 ],
 
                 items: [],
