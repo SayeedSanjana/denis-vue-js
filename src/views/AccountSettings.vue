@@ -1,0 +1,256 @@
+<template>
+    <!-- header -->
+    <header class="headerclass">
+        <Nav />
+    </header>
+    <!-- header -->
+    <div class="h-screen bg-regal-white">
+        <section class="w-full">
+            <h3 class="headername">Account Settings </h3>
+            <!-- form -->
+            <form @submit.prevent="updateUser()" class="w-1/2">
+                <!-- fullname -->
+                <div class="formbox">
+                    <label for="" class="labeldesign">Full Name</label>
+
+                    <input type="text" class="inputfield" v-model="formData.name">
+                </div>
+                <!-- fullname -->
+                <div class="flex formbox">
+                    <!-- email -->
+                    <div class="w-1/2 pr-4">
+                        <label for="" class="labeldesign">Email</label>
+
+                        <input type="text" class="inputfield" v-model="formData.email">
+                    </div>
+                    <!-- email -->
+                    <!-- phone number -->
+                    <div class="w-1/2">
+                        <label for="" class="labeldesign">Phone Number</label>
+
+                        <input type="text" class="inputfield" v-model="formData.phone">
+                    </div>
+                    <!-- phone number -->
+                </div>
+                <!-- address -->
+                <div class="formbox">
+                    <label for="" class="labeldesign">Address</label>
+                    <textarea type="text" class="h-40 inputfield" v-model="formData.address"></textarea>
+                </div>
+                <!-- address -->
+                <div class="flex formbox">
+                    <!-- Save -->
+                    <button @click="updateUser()" class="newbutton1  mr-5">Save</button>
+                    <!-- Save -->
+                    <!-- cancel -->
+                    <button class="newbutton2">Cancel</button>
+                    <!-- cancel -->
+                </div>
+
+            </form>
+            <!-- form -->
+
+            <h3 class="headername">Password Settings </h3>
+            <!-- change password -->
+
+            <div class="formbox">
+                <button v-show="!a" @click="a = true" class="newbutton">Change Password</button>
+            </div>
+            <!-- change password -->
+            <form @submit.prevent="changePassword()">
+                <div v-show="a" class=" w-full formbox">
+                    <div class="flex">
+
+                        <div class="w-1/2 pr-12">
+                            <!-- old password -->
+                            <div class="w-1/2 pr-4">
+                                <label for="" class="labeldesign">Old Password</label>
+                                <input type="password" class="inputfield" v-model="oldPassword">
+                            </div>
+                            <!-- old password -->
+                            <div class="flex">
+                                <!--new password -->
+                                <div class="w-1/2 pr-4">
+                                    <label for="" class="labeldesign">New Password</label>
+                                    <input type="password" class="inputfield" v-model="newPassword">
+                                </div>
+                                <!--new password -->
+                                <!-- confirm password-->
+                                <div class="w-1/2">
+                                    <label for="" class="labeldesign">Confirm Password</label>
+                                    <input type="password" class="inputfield" v-model="confirmPassword">
+                                    
+                                </div>
+                                <!-- confirm password -->
+                            </div>
+                            <small>
+                                <p class="text-regal-red text-left">{{this.str}}</p>
+                            </small>
+                        </div>
+                        <div class="w-1/2 mt-24 mr-28 ">
+                            <button @click="changePassword()" class="newbutton1 mt-2.5">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <!-- change password -->
+
+            <div v-show="!a" class="h-28 ">
+
+            </div>
+
+
+            <!-- <p class="secondaryheadername">Additional Information </p> -->
+
+            <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign"> 20 April,2021 at
+                    8.56 PM </span></p>
+
+
+
+
+        </section>
+    </div>
+</template>
+
+<script>
+    import Nav from "../components/Nav.vue";
+    import axios from "axios";
+    import swal from 'sweetalert';
+    export default {
+        components: {
+            Nav,
+        },
+        created() {
+            //this.parseJwt(this.token)
+            this.getUser()
+        },
+        data() {
+            return {
+                token: localStorage.getItem('token'),
+                uid: '6177c773c45c053bef21bcfe',
+                str: '',
+                formData: {
+                    name: '',
+                    email: '',
+                    phone: '',
+                    gender: '',
+                    address: '',
+                    password: ''
+                },
+                oldPassword: '',
+                newPassword: '',
+                confirmPassword: '',
+                a: false,
+                form:{
+                    oldPassword:'',
+                    newPassword:''
+                }
+            }
+        },
+        methods: {
+            parseJwt(token) {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (
+                    c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                const payload = JSON.parse(jsonPayload);
+                this.uid = payload.sub
+                console.log(payload.sub);
+            },
+
+            //get the specific user
+            async getUser() {
+                await axios.get('users/search/' + this.uid, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        }
+                    })
+                    .then((response) => {
+                        this.formData = response.data['result'];
+                        console.log(this.formData)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            },
+
+            async updateUser() {
+                console.log(this.formData)
+                await axios.put('users/update/' + this.uid, this.formData, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        }
+                    })
+                    .then((response) => {
+                        swal({
+                            title: "Success",
+                            text: "Information updated Successfully!",
+                            icon: "success",
+                            timer: 1000,
+                            buttons: false
+                        })
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                this.formValid = true
+            },
+
+
+            // checking validation while changing the password
+            async changePassword() {
+                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+                if(this.oldPassword===""){
+                    this.str="Provide your old password"
+                }
+                else if(this.oldPassword===this.newPassword){
+                    this.str="Old Password cannot match New Password"
+                }
+                else if (this.newPassword === '' || this.confirmPassword === '') {
+                    this.str = 'Password cannot be blank';
+                } else if (this.newPassword.length < 8) {
+                    this.str = 'Password should be atleast 8 characters'
+                } else if (!(pattern.test(this.newPassword))) {
+                    this.str = "(Should include 0-9,A-Z, a-z and special characters like '@,#,$,*')"
+                } else if (this.newPassword === this.confirmPassword) {
+                    this.form.oldPassword = this.oldPassword
+                    this.form.newPassword = this.newPassword
+                    this.str = ''
+                    console.log(this.formData)
+                    await axios.patch('users/update-password/' + this.uid, this.form, {
+                            headers: {
+                                "Authorization": `Bearer ${localStorage.getItem('token') }`
+                            }
+                        })
+                        .then((response) => {
+                            swal({
+                                title: "Success",
+                                text: "Password updated Successfully!",
+                                icon: "success",
+                                timer: 1000,
+                                buttons: false
+                            })
+                            console.log(response);
+                        })
+                        .catch((error) => {
+                            this.str = "Old Password"
+                            console.log(error)
+                        })
+                } else if (this.newPassword !== this.confirmPassword) {
+                    this.str = "Password doesnot match"
+                } else {
+                    this.str = "Something went wrong"
+                }
+            },
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

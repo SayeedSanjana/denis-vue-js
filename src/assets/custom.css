@@ -1,0 +1,91 @@
+.button{
+    @apply bg-indigo-500 text-center hover:bg-transparent p-2 m-2 border border-indigo-500 text-white font-semibold hover:text-indigo-500 rounded text-sm;
+    
+}
+
+.headerclass{
+    @apply sticky top-0 z-50;
+}
+
+.headername{
+    @apply text-xl text-left font-bold pt-8 px-52 text-regal-teal;
+}
+.caheadername{
+    @apply text-xl text-left font-bold pt-8  text-regal-teal;
+}
+.headernames{
+    @apply text-xl text-left font-bold pt-8 px-36 text-regal-teal;
+}
+.secondaryheadername{
+    @apply text-lg text-left font-semibold pt-8 px-52 text-regal-teal;
+}
+
+.formbox{
+    @apply w-full pl-52 mt-5;
+}
+
+.labeldesign{
+    @apply flex justify-start text-regal-teal text-sm font-medium mb-2 ;
+}
+
+.inputfield{
+    @apply appearance-none block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded mb-3 leading-tight focus:outline-none focus:border-regal-blue;
+}
+
+.newbutton{
+    @apply px-8 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
+}
+.newbutton1{
+    @apply px-10 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
+}
+.canewbutton1{
+    @apply px-8 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
+}
+
+.newbutton2{
+    @apply px-8 py-2 bg-regal-light-blue text-center border text-regal-cyan font-semibold rounded-md text-sm flex ;
+}
+.resetnewbutton2{
+    @apply px-20 py-2 bg-regal-light-blue text-center border text-regal-cyan font-semibold rounded-md text-sm flex ;
+}
+.searchinput{
+    @apply flex-grow outline-none text-regal-teal focus:text-gray-600 w-96 h-8;
+}
+
+.trhead{
+    @apply text-center  text-regal-teal h-14;
+}
+
+.trbody{
+    @apply border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan;
+}
+
+.searchdivclass{
+    @apply mt-5 mb-2 border-2 border-regal-blue border-opacity-50 py-1 px-3 flex justify-between  rounded-md;
+}
+
+.pagebutton{
+    @apply bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4;
+}
+
+.selectclass{
+    @apply appearance-none block w-full  text-regal-teal border-2 border-regal-blue bg-white hover:bg-regal-white pl-2 h-11 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none focus:bg-white;
+}
+
+.selectsvg{
+    @apply  mb-3 mr-1 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2;
+}
+
+.calabel{
+    @apply flex  text-regal-teal text-sm font-semibold mb-2 justify-start;
+}
+
+.cainput{
+    @apply appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded  leading-tight focus:outline-none focus:border-regal-blue;
+}
+
+.btnampm{
+    @apply border bg-white px-2 py-1.5;
+}
+
+/*  */
