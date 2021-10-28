@@ -242,11 +242,7 @@
                     console.log(this.startTime)
                     console.log(this.endTime)
                     this.formData.date=''
-
                 }
-
-
-
             }
     }
 </script>

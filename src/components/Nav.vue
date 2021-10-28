@@ -29,7 +29,7 @@
                         <div>
                             <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
                                 <router-link to="/patient"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Patient</router-link>
 
                                 <!-- appointment -->
@@ -37,7 +37,7 @@
 
                                     <div class="dropdown inline-block relative">
                                         <button
-                                            class=" my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                            class=" 2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                             <span class="">Appointment</span>
                                         </button>
                                         <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1">
@@ -62,14 +62,14 @@
 
 
                                 <router-link to="/patient-list-billing"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
 
                                 <router-link to="/AccountSettings"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Settings</router-link>
                                 <router-link to="/" @click="logout"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Logout
                                 </router-link>
                             </div>
@@ -98,7 +98,6 @@
         </nav>
     </div>
 </template>
-
 <script>
     export default {
         data() {

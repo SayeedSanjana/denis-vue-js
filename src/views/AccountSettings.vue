@@ -37,6 +37,9 @@
                     <label for="" class="labeldesign">Address</label>
                     <textarea type="text" class="h-40 inputfield" v-model="formData.address"></textarea>
                 </div>
+
+                   <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign"> 20 April,2021 at
+                    8.56 PM </span></p>
                 <!-- address -->
                 <div class="flex formbox">
                     <!-- Save -->
@@ -104,8 +107,8 @@
 
             <!-- <p class="secondaryheadername">Additional Information </p> -->
 
-            <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign"> 20 April,2021 at
-                    8.56 PM </span></p>
+            <!-- <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign"> 20 April,2021 at
+                    8.56 PM </span></p> -->
 
 
 
