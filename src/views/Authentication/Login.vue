@@ -10,7 +10,7 @@
 
                         <!-- Heading starts-->
                         <div class="2xl:-mx-12">
-                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left mt-12  " style="color:#005072">MT Dental Center</h1>
+                            <h1 class="text-xl md:text-3xl font-bold leading-tight text-left mt-12  " style="color:#005072">Demo</h1>
                             <h1 class="text-xl md:text-3xl font-bold leading-tight text-left  md:mt-32 mt-16 mb-6" style="color:#005072">Log In</h1>
                         </div>
                         <!-- Heading ends-->

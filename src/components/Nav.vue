@@ -6,7 +6,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
                             <a class="text-xl font-semibold text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
-                                href="#" style="color:#005072">MT Dental Center</a>
+                                href="#" style="color:#005072">Demo</a>
 
                         </div>
 

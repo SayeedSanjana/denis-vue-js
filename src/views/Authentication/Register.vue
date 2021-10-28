@@ -8,8 +8,7 @@
       <div class=" bg-white  2xl:mt-12 2xl:mb-12 w-full 2xl:mx-52 flex px-10 md:px-0 ">
         <div class=" md:max-w-md  md:mx-auto  md:w-1/2 w-full flex  ">
           <div class="w-full mt-5 ">
-            <h1 class="text-xl md:text-3xl font-bold leading-tight  text-left mb-10" style="color:#005072 font-mono">MT
-              Dental Center</h1>
+            <h1 class="text-xl md:text-3xl font-bold leading-tight  text-left mb-10" style="color:#005072 font-mono">Demo</h1>
             <h1 class="text-xl md:text-3xl font-bold leading-tight mt-2 text-left mb-5" style="color:#005072">Sign Up
             </h1>
 

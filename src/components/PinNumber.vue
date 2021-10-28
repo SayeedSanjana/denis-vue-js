@@ -69,6 +69,8 @@
       async validate() {
 
         var code = this.pinno
+        //console.log(this.pin)
+         console.log(code)
         console.log(typeof (this.pin))
 
         code = parseInt(code)
