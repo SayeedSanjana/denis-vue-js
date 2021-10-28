@@ -132,8 +132,8 @@
                         <option v-for="(item,index) in time" :key="index" >{{item}}</option>
 
                     </select>
-                    <button class="btnampm">AM</button>
-                    <button class="btnampm">PM</button>
+                    <button type="button" class="btnampm" :class="this.startam===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="startTimesetAm()">AM</button>
+                    <button type="button" class="btnampm" :class="this.startpm===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="startTimesetPm()">PM</button>
                 </div>
             </div>
             <div class="flex justify-center ">
@@ -147,13 +147,13 @@
                         <option v-for="(item,index) in time" :key="index" >{{item}}</option>
 
                     </select>
-                    <button class="btnampm" @click="setAm">AM</button>
-                    <button class="btnampm" @click="setPm">PM</button>
+                    <button type='button' class="btnampm"  :class="this.endam===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="endTimesetAm()">AM</button>
+                    <button type='button' class="btnampm" :class="this.endpm===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="endTimesetPm()">PM</button>
                 </div>
             </div>
         </form>
     
-        <button class="resetnewbutton2 mx-36 mt-12" >Reset</button>
+        <button class="resetnewbutton2 mx-36 mt-12" @click="updateSchedule">Reset</button>
         <button class="canewbutton1 mx-36 mt-6 mb-9">Create Appointment</button>
 
         
@@ -171,7 +171,6 @@
                 return{
                     time:["01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00",
                     "07:30","08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30"],
-
                     waitingList:
                     {
                         name:'Iktisad Rashid',
@@ -189,8 +188,10 @@
                     },
                     startTime:'',
                     endTime:'',
-                    am:false,
-                    pm:false
+                    endam:false,
+                    endpm:false,
+                    startam:false,
+                    startpm:false
                 
                 }
             },
@@ -202,12 +203,48 @@
                     this.waitingList.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
                     console.log( this.waitingList.dob)
                 },
-                setAm(){
-                    this.am=true
+                endTimesetAm(){
+                    this.endam=true
+                    this.endpm=false
                 },
-                setPm(){
-                    this.PM=true
+                endTimesetPm(){
+                    this.endpm=true
+                    this.endam=false
                 },
+                startTimesetAm(){
+                    this.startam=true
+                    this.startpm=false
+                },
+                startTimesetPm(){
+                    this.startpm=true
+                    this.startam=false
+                },
+                updateSchedule(){
+                    if(this.startam===true){
+                    this.startTime=this.startTime+'AM'
+                    }
+                    if(this.startpm===true){
+                    this.startTime=this.startTime+'PM'
+                    }
+                    if(this.endam===true){
+                    this.endTime=this.endTime+'AM'  
+                    }
+                    if(this.endpm===true){
+                    this.endTime=this.endTime+'PM'  
+                    }
+                    this.startam=false
+                    this.startpm=false
+                    this.endam=false
+                    this.endpm=false
+                    this.formData.startTime=this.startTime
+                    this.formData.endTime=this.endTime
+                    console.log(this.formData)
+                    console.log(this.startTime)
+                    console.log(this.endTime)
+                    this.formData.date=''
+
+                }
+
 
 
             }
