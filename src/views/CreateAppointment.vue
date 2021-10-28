@@ -4,9 +4,9 @@
         <Nav />
     </header>
 
-
+<div class="bg-regal-white h-screen">
     <!-- header -->
-     <p class="headernames">Create Appointment </p>
+     <p class="headernames -ml-4">Create Appointment <span class="ml-80 pl-5">Your Timeline</span> </p>
     <div class="flex">
 
         <div class="lg:w-1/3">
@@ -18,6 +18,7 @@
         </div>
 
     </div>
+</div>
 </template>
 
 <script>

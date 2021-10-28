@@ -6,6 +6,7 @@ module.exports = {
       'regal-blue': '#73C6CA',
       'regal-cyan': '#036792',
       'regal-cyan-blue': '#C5F7FA',
+      'regal-cyan-teal': '#26A9AF',
       'regal-paste': '#CEF0FF',
       'regal-teal' : '#005072',
       'regal-white' : '#F2FBFC',
@@ -19,6 +20,8 @@ module.exports = {
       'regal-scheduled' : '#2BD799',
       'regal-cancelled' : '#FF796F',
       'regal-gray' : '#E9F0F0',
+      'regal-lightblue' : '#407BFF',
+
       
     },
     height: {
@@ -27,6 +30,7 @@ module.exports = {
       lg: '24px',
       xl: '48px',
       yxl: '500px',
+      zxl: '770px',
       xxl: '800px',
      }
   },
