@@ -150,7 +150,7 @@
 
       },
       async updatePosts(id) {
-        console.log(this.formData)
+       console.log(this.formData)
        this.formData.phone = this.formData.phone.replace(/\s/g, '')
         if (this.formData.name === '') {
           this.strName = 'Name cannot be blank';

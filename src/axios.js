@@ -7,7 +7,7 @@ import axios from "axios"
 // console.log(process.env.DEV);
 // if ( NODE_ENV == 'development') {
    
-    axios.defaults.baseURL= 'http://localhost:3000/api/';
+    //axios.defaults.baseURL= 'http://localhost:3000/api/';
 // } else {
     
     axios.defaults.baseURL= 'http://178.128.127.150:81/api/';
