@@ -184,6 +184,9 @@
           this.strGender = '',
           this.strPhone = '',
           this.strName = '';
+          if(this.formData.address===""){
+          this.formData.address='N/A'
+          }
           await axios.patch('patients/' + id + '/update-patient', this.formData, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`
