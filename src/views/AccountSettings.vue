@@ -42,7 +42,7 @@
                     </div>
                     <!-- address -->
 
-                    <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign"> 20 April,2021 at 8.56 PM </span></p>
+                    <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
 
                     <div class="flex formbox">
                         <!-- Save -->
@@ -173,6 +173,8 @@
         },
         data() {
             return {
+                time:'',
+                createDate:'',
                 token: localStorage.getItem('token'),
                 uid: '',
                 str: '',
@@ -216,6 +218,27 @@
                     })
                     .then((response) => {
                         this.formData = response.data['result'];
+
+                        //Getting the date from ISO Fromat
+                        let date = new Date(this.formData.createdAt);
+                        let year = date.getFullYear();
+                        let month = date.getMonth()+1;
+                        let dt = date.getDate();
+
+                        if (dt < 10) {
+                        dt = '0' + dt;
+                        }
+                        if (month < 10) {
+                        month = '0' + month;
+                        }
+                        date=year+'-' + month + '-'+dt;
+                        this.createDate=date
+                        
+
+                        //Getting the UTC+6 time from the the ISO Format
+                        var d = new Date(this.formData.createdAt);
+                        this.time=d.toLocaleTimeString();
+                        // this.time=d.toTimeString();
                         console.log(this.formData)
                     })
                     .catch((error) => {
