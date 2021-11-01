@@ -148,6 +148,7 @@
                     }
                 })
                 this.Patients = response.data['result'];
+                console.log(this.Patients)
             },
 
             modal() {

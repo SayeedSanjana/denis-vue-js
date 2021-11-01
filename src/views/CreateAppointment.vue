@@ -4,20 +4,21 @@
         <Nav />
     </header>
 
-
+<div class="bg-regal-white h-screen">
     <!-- header -->
-     <p class="headernames">Create Appointment </p>
+     <p class="headernames -ml-4">Create Appointment <span class="ml-80 pl-5">Your Timeline</span> </p>
     <div class="flex">
 
-        <div class="lg:w-1/3">
+        <div class="lg:w-1/3 ">
 
             <DoctorSchedule />
         </div>
-        <div class="lg:w-2/3">
+        <div class="lg:w-2/3 ">
             <PatientAppointment />
         </div>
 
     </div>
+</div>
 </template>
 
 <script>

@@ -74,13 +74,16 @@
                  <tr v-for="(item,index) in filteredList" :key="index" class="trbody" >
                     <td class="px-2 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{item.name}}</td>
-                    <td class="px-2 py-3">{{item.age}}/{{item.gender}}</td>
+                    <td class="px-2 py-3">{{getAge(item.dob)}} years / {{item.gender}}</td>
                     <td class="px-2 py-3">A-{{item.appointmentID}}</td>
                     <td class="px-2 py-3">{{item.contact}}</td>
-                    <td class="px-2 py-3">{{item.visitingTime}}</td>
+                    <td class="px-2 py-3">{{item.startTime}}</td>
                     <td class="px-2 py-3">{{item.complaint}}</td>
                     <td class="px-2 py-3 " :class="['text-regal-examined', (item.status === 'Scheduled' ? 'text-regal-scheduled' : 'text-regal-examined'), (item.status === 'Cancelled'  ? 'text-regal-cancelled' : 'text-regal-examined')]">{{item.status}}</td>
-                    <td class="px-2 py-3"><button class="text-regal-cyan mr-2">Edit</button><button class=" text-regal-red">Cancel</button></td>
+                    <td class="px-2 py-3">
+                    <!-- <button class="text-regal-cyan mr-2">Edit</button> -->
+                    <button class=" text-regal-red" @click="cancel(index)">Cancel</button>
+                    </td>
                     <td class="border border-r-1" :class="['bg-regal-examined', (item.status === 'Scheduled' ? 'bg-regal-scheduled' : 'bg-regal-examined'), (item.status === 'Cancelled'  ? 'bg-regal-cancelled' : 'bg-regal-examined')]"></td>
                 </tr>
 
@@ -104,26 +107,32 @@
 
 <script>
     import Nav from "../components/Nav.vue";
+    
     export default {
         components: {
             Nav,
-
         },
-        
+        // created() {
+        //     this.getAppointmentList()
+        // },
+
         computed: {
             filteredList() {
-                if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
-                   return this.appointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
-                }
+    //             if(this.searchQuery){
+    //   return this.resources.filter((item)=>{
+    //     return this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
+    //   })
                 const star = (this.currentPage - 1) * this.prePage
                 const end = this.currentPage * this.prePage
+                if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
+                   return this.appointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1).slice(star, end);
+                }
+               
                 const result = this.appointmentList.slice(star, end)
                 return result
                 //this.sort="";
                 //return 
-           
-            }
-            
+            }  
         },
         data(){
             return{
@@ -134,84 +143,88 @@
             appointmentList:[
             {
              name:'Iktisad Rashid',
-             age:'91',
+             dob:'2009-11-26T17:00:00.000+00:00',
              gender:'Male',
              appointmentID:'234567',
              contact:'01701883412',
-             visitingTime:'11:00AM',
+             startTime:'11:00AM',
+             endTime:'12:00PM',
              complaint:'Surgery',
              status:'Examined',
             },
              {
              name:'Samee Sayeed',
-             age:'91',
+             dob:'2015-07-28T00:00:00.000+00:00',
              gender:'Male',
              appointmentID:'234566',
              contact:'01701883412',
-             visitingTime:'12:00AM',
-             complaint:'Surgery',
+             startTime:'12:30PM',
+             endTime:'1:00PM',
+             complaint:'Cavities',
              status:'Scheduled',
             },
             {
-             name:'Semonti Banik',
-             age:'91',
-             gender:'Female',
+             name:'Kabir Ahmed',
+             dob:'2007-06-27T18:00:00.000+00:00',
+             gender:'Male',
              appointmentID:'234566',
              contact:'01701883412',
-             visitingTime:'1:30PM',
-             complaint:'Surgery',
+             startTime:'1:30PM',
+             endTime:'2:00PM',
+             complaint:'Pain in the gum',
              status:'Cancelled',
             },
              {
-             name:'Boo Islam',
-             age:'91',
+             name:'Mushfiq Rahman',
+             dob:'2014-06-30T00:00:00.000+00:00',
              gender:'Male',
              appointmentID:'234566',
              contact:'01701883412',
-             visitingTime:'1:30PM',
+             startTime:'2:30PM',
+             endTime:'3:00PM',
              complaint:'Surgery',
              status:'Cancelled',
             },
-             {
-             name:'Boo Islam',
-             age:'91',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             visitingTime:'1:30PM',
-             complaint:'Surgery',
-             status:'Examined',
-            },
-             {
-             name:'Boo Islam',
-             age:'91',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             visitingTime:'1:30PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-            },
-             {
-             name:'Boo Islam',
-             age:'91',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             visitingTime:'1:30PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-            },
-             {
-             name:'Boo Islam',
-             age:'91',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             visitingTime:'1:30PM',
-             complaint:'Surgery',
-             status:'Scheduled',
-            },
+            //  {
+            //  name:'Mushfiq Rahman',
+            //  age:'91',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  visitingTime:'1:30PM',
+            //  complaint:'Surgery',
+            //  status:'Examined',
+            // },
+            //  {
+            //  name:'Boo Islam',
+            //  age:'91',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  visitingTime:'1:30PM',
+            //  complaint:'Surgery',
+            //  status:'Cancelled',
+            // },
+            //  {
+            //  name:'Boo Islam',
+            //  age:'91',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  visitingTime:'1:30PM',
+            //  complaint:'Surgery',
+            //  status:'Cancelled',
+            // },
+            //  {
+            //  name:'Boo Islam',
+            //  age:'91',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  visitingTime:'1:30PM',
+            //  complaint:'Surgery',
+            //  status:'Scheduled',
+            // },
             ]
             }
         },
@@ -221,46 +234,24 @@
             },
             status(event){
                 this.sort=event.target.value
-                /**
-                 * first capture the event value
-                 * pass the event value 
-                 * based on event filter the array list
-                 * display
-                 * if no value is not there then no action
-                 */
-                
-                // const star = (this.currentPage - 1) * this.prePage;
-                // const end = this.currentPage * this.prePage;
-                // const result = this.appointmentList.slice(star, end); 
-              
-                // console.log(event.target.value);
-            //     if (event.target.value=='sch'){
-            //         this.sort = event.target.innerHTML;
-            //     }
+             },
+              createnewappointment() {
+             this.$router.push({ name: 'Createnewappointment',})
+        },
 
-            //     else if (event.target.value=='ex'){
-            //         this.sort = event.target.innerHTML;
-            //     }
+        getAge(dob){
+            //console.log(this.appointmentList)
+            const ageDifMs = Date.now() - new Date(dob.substring(0, 10)).getTime();
+            const ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
 
-            //     else if (event.target.value=='ca'){
-            //         this.sort = event.target.innerHTML;
-            //     }
-               
-            //     console.log(this.sort)
-            //     //result.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
-            //     // if(this.sort==="Examined" || this.sort==="Cancelled" ||this.sort==="Scheduled"){
-            //     // }
-             }
-            
-            //hit get api
-            //hit delete api to delete patient from appointment list
+
+        },
+        cancel(i){
+            this.appointmentList.splice(i, 1)
+        }
         } ,
-        createnewappointment() {
-                this.$router.push({
-                    name: 'Createnewappointment',
-                   
-                })
-            },
+       
     
     }
 </script>
