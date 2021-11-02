@@ -64,9 +64,9 @@
                     <th class="px-4 py-3">Age/Gender</th>
                     <th class="px-4 py-3">Appointment ID</th>
                     <th class="px-4 py-3">Contact</th>
+                      <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Visiting Time</th>
-                    <th class="px-4 py-3">Complaint</th>
-                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Reason</th>
                     <th class="px-4 py-3">Action</th>
                 </tr>
                 <!-- thead -->
@@ -77,9 +77,9 @@
                     <td class="px-2 py-3">{{getAge(item.dob)}} years / {{item.gender}}</td>
                     <td class="px-2 py-3">A-{{item.appointmentID}}</td>
                     <td class="px-2 py-3">{{item.contact}}</td>
+                    <td class="px-2 py-3 " :class="['text-regal-examined', (item.status === 'Scheduled' ? 'text-regal-scheduled' : 'text-regal-examined'), (item.status === 'Cancelled'  ? 'text-regal-cancelled' : 'text-regal-examined')]">{{item.status}}</td>
                     <td class="px-2 py-3">{{item.startTime}}</td>
                     <td class="px-2 py-3">{{item.complaint}}</td>
-                    <td class="px-2 py-3 " :class="['text-regal-examined', (item.status === 'Scheduled' ? 'text-regal-scheduled' : 'text-regal-examined'), (item.status === 'Cancelled'  ? 'text-regal-cancelled' : 'text-regal-examined')]">{{item.status}}</td>
                     <td class="px-2 py-3">
                     <!-- <button class="text-regal-cyan mr-2">Edit</button> -->
                     <button class=" text-regal-red" @click="cancel(index)">Cancel</button>
@@ -107,21 +107,19 @@
 
 <script>
     import Nav from "../components/Nav.vue";
+    import swal from "sweetalert";
+    //import data from "../data/db.json";
     
     export default {
         components: {
             Nav,
         },
-        // created() {
-        //     this.getAppointmentList()
-        // },
+        created() {
+            this.getAppointmentList()
+        },
 
         computed: {
             filteredList() {
-    //             if(this.searchQuery){
-    //   return this.resources.filter((item)=>{
-    //     return this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
-    //   })
                 const star = (this.currentPage - 1) * this.prePage
                 const end = this.currentPage * this.prePage
                 if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
@@ -140,92 +138,53 @@
             prePage:10,
             currentPage: 1,    
             sort:'',
-            appointmentList:[
-            {
-             name:'Iktisad Rashid',
-             dob:'2009-11-26T17:00:00.000+00:00',
-             gender:'Male',
-             appointmentID:'234567',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Examined',
-            },
-             {
-             name:'Samee Sayeed',
-             dob:'2015-07-28T00:00:00.000+00:00',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'12:30PM',
-             endTime:'1:00PM',
-             complaint:'Cavities',
-             status:'Scheduled',
-            },
-            {
-             name:'Kabir Ahmed',
-             dob:'2007-06-27T18:00:00.000+00:00',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'1:30PM',
-             endTime:'2:00PM',
-             complaint:'Pain in the gum',
-             status:'Cancelled',
-            },
-             {
-             name:'Mushfiq Rahman',
-             dob:'2014-06-30T00:00:00.000+00:00',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'2:30PM',
-             endTime:'3:00PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-            },
-            //  {
-            //  name:'Mushfiq Rahman',
-            //  age:'91',
+            appointmentList:[]
+            // appointmentList:[
+            // {
+            //  name:'Iktisad Rashid',
+            //  dob:'2009-11-26T17:00:00.000+00:00',
             //  gender:'Male',
-            //  appointmentID:'234566',
+            //  appointmentID:'234567',
             //  contact:'01701883412',
-            //  visitingTime:'1:30PM',
+            //  startTime:'11:00AM',
+            //  endTime:'12:00PM',
             //  complaint:'Surgery',
             //  status:'Examined',
             // },
             //  {
-            //  name:'Boo Islam',
-            //  age:'91',
+            //  name:'Samee Sayeed',
+            //  dob:'2015-07-28T00:00:00.000+00:00',
             //  gender:'Male',
             //  appointmentID:'234566',
             //  contact:'01701883412',
-            //  visitingTime:'1:30PM',
-            //  complaint:'Surgery',
-            //  status:'Cancelled',
-            // },
-            //  {
-            //  name:'Boo Islam',
-            //  age:'91',
-            //  gender:'Male',
-            //  appointmentID:'234566',
-            //  contact:'01701883412',
-            //  visitingTime:'1:30PM',
-            //  complaint:'Surgery',
-            //  status:'Cancelled',
-            // },
-            //  {
-            //  name:'Boo Islam',
-            //  age:'91',
-            //  gender:'Male',
-            //  appointmentID:'234566',
-            //  contact:'01701883412',
-            //  visitingTime:'1:30PM',
-            //  complaint:'Surgery',
+            //  startTime:'12:30PM',
+            //  endTime:'1:00PM',
+            //  complaint:'Cavities',
             //  status:'Scheduled',
             // },
-            ]
+            // {
+            //  name:'Kabir Ahmed',
+            //  dob:'2007-06-27T18:00:00.000+00:00',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  startTime:'1:30PM',
+            //  endTime:'2:00PM',
+            //  complaint:'Pain in the gum',
+            //  status:'Cancelled',
+            // },
+            //  {
+            //  name:'Mushfiq Rahman',
+            //  dob:'2014-06-30T00:00:00.000+00:00',
+            //  gender:'Male',
+            //  appointmentID:'234566',
+            //  contact:'01701883412',
+            //  startTime:'2:30PM',
+            //  endTime:'3:00PM',
+            //  complaint:'Surgery',
+            //  status:'Cancelled',
+            // },
+            // ]
             }
         },
         methods:{
@@ -248,9 +207,57 @@
 
         },
         cancel(i){
-            this.appointmentList.splice(i, 1)
+                swal({
+                title: "Are you sure you want to remove patient fron the list?",
+                text: "Once deleted, you will not be able to view the patient in the list!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    this.appointmentList.splice(i, 1)//basically will hit the api
+                    swal("Patient deleted from the list sucessfully!", {
+                    icon: "success",
+                    });
+                }else {
+                    swal("Patient not Deleted!");
+                }
+                });
+                
+            // swal("Are you sure to delete the patient from the appointment list?", {
+            // buttons: {
+            //     cancel:"Cancel",
+            //     delete: {
+            //     text: "Delete",
+            //     value: "delete",
+            //     dangerMode: true,
+            //     },
+            // },
+            // })
+            // .then((value) => {
+            // switch (value) {
+            
+            
+            //     case "delete":
+            //     this.appointmentList.splice(i, 1)
+            //     swal("Patient Deleted Successfully");
+            //     break;
+            
+            //     default:
+            //     swal("Patient is not deleted from the list");
+            // }
+            // });
+          
+        },
+         getAppointmentList(){
+            fetch('http://localhost:3000/appointmentList')
+            .then(res=>res.json())
+            .then(data=>this.appointmentList=data)
+            .catch(err=>console.log(err.message))
         }
-        } ,
+        } 
+       
        
     
     }

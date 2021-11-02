@@ -48,93 +48,93 @@
       //get the doctor id by pwd function
       data(){
           return{
-              appointmentList:[
-            {
-             name:'Iktisad Rashid',
-             dob:'34',
-             gender:'Male',
-             appointmentID:'234567',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Examined',
-             date:'2021/09/07'
-            },
-             {
-             name:'Samee Sayeed',
-             dob:'67',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Scheduled',
-             date:'2021/09/07'
-            },
-            {
-             name:'Semonti Banik',
-             dob:'12',
-             gender:'Female',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-             date:'2021/09/07'
-            },
-             {
-             name:'Boo Islam',
-             dob:'1',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-             date:'2021/09/07'
-            },
-             {
-             name:'Boo Islam',
-             dob:'2',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Examined',
-             date:'2021/09/07'
-            },
-             {
-             name:'Boo Islam',
-             dob:'3',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-             date:'2021/09/07'
-            },
-             {
-             name:'Boo Islam',
-             dob:'4',
-             gender:'Male',
-             appointmentID:'234566',
-             contact:'01701883412',
-             startTime:'11:00AM',
-             endTime:'12:00PM',
-             complaint:'Surgery',
-             status:'Cancelled',
-             date:'2021/09/07'
-            },
-            
-            ]
+              appointmentList:
+[
+    {
+     name:'Iktisad Rashid',
+     dob:'34',
+     gender:'Male',
+     appointmentID:'234567',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Examined',
+     date:'2021/09/07'
+    },
+     {
+     name:'Samee Sayeed',
+     dob:'67',
+     gender:'Male',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Scheduled',
+     date:'2021/09/07'
+    },
+    {
+     name:'Semonti Banik',
+     dob:'12',
+     gender:'Female',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Cancelled',
+     date:'2021/09/07'
+    },
+     {
+     name:'Boo Islam',
+     dob:'1',
+     gender:'Male',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Cancelled',
+     date:'2021/09/07'
+    },
+     {
+     name:'Boo Islam',
+     dob:'2',
+     gender:'Male',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Examined',
+     date:'2021/09/07'
+    },
+     {
+     name:'Boo Islam',
+     dob:'3',
+     gender:'Male',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Cancelled',
+     date:'2021/09/07'
+    },
+     {
+     name:'Boo Islam',
+     dob:'4',
+     gender:'Male',
+     appointmentID:'234566',
+     contact:'01701883412',
+     startTime:'11:00AM',
+     endTime:'12:00PM',
+     complaint:'Surgery',
+     status:'Cancelled',
+     date:'2021/09/07'
+    }
+    ]
           }
       },
       methods:{
