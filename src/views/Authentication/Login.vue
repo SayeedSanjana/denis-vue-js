@@ -26,7 +26,7 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model.trim="formData.email" type="email"
+                                            <input v-model.trim="formData.email" type="email" @keypress="validate"
                                                 class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
                                                 style="background:#E7FBFC">
                                         </div>
@@ -43,7 +43,7 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="formData.password" type="password"
+                                            <input v-model="formData.password" type="password" @keypress="validate"
                                                 class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
                                                 style="background:#E7FBFC">
                                         </div>
@@ -95,53 +95,53 @@
 
 <script>
     import axios from 'axios';
+    import useValidate from '@vuelidate/core';
+    import {required,minLength,email} from '@vuelidate/validators';
     export default {
+       
         data() {
             return {
+                v$:useValidate(),
                 err: '',
                 formData: {
-
-                    email: '',
-                    password: '',
+                email: '',
+                password: '',
                 },
-                strPassword: '',
-                strEmail: '',
-                formIsValid: true
-
             }
         },
+     validations(){
+     //const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+     return{
+      formData:{
+      email:{required,email},
+      password:{required,minLength: minLength(8)},
+      }
+     }
+    },
         methods: {
+            onChange(){
+              this.v$.$validate()
+            },
             //Login Form
             async submitForm() {
-                this.formIsValid = true;
-
-                if (this.formData.email === '') {
-                    this.strPassword = '',
-                        this.strEmail = 'Email cannot be blank';
-                } else if (this.formData.password === '') {
-                    this.strEmail = '',
-                        this.strPassword = 'Password cannot be blank';
-                } else if (this.formData.password.length < 8) {
-                    this.strEmail = '',
-                        this.strPassword = 'Password should be atleast 8 characters'
-                } else {
-                    await axios.post('users/login', this.formData, )
-                        .then((response) => {
-                            if (response.data.token) {
-                                localStorage.setItem("token", response.data.token)
-                            }
-                            this.$router.push('/patient');
-                        })
-                        .catch((error) => {
-                            this.err = "Invalid Information"
-                            console.log(error)
-                        })
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                await axios.post('users/login', this.formData, )
+                .then((response) => {
+                if (response.data.token) {
+                    localStorage.setItem("token", response.data.token)
+                }
+                this.$router.push('/patient');
+                })
+                .catch((error) => {
+                this.err = "Invalid Information"
+                console.log(error)
+            })
+           
+            }
+                    
                 }
             },
-
-
-
-        }
     }
 </script>
 

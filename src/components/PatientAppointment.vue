@@ -19,8 +19,6 @@
                     class="ml-1 text-regal-lightblue">{{pat.date}}</span> </h1>
                 <h1 class="flex justify-start text-xs text-regal-teal font-semibold  ">Time: <span
                     class="ml-1 text-regal-lightblue">{{pat.startTime}}-{{pat.endTime}}</span> </h1>
-
-
               </div>
               <div class="mr-3">
                 <h1 class="text-xs font-semibold mb-2 mt-2" :class="['text-regal-examined', (pat.status === 'Scheduled' ? 'text-regal-scheduled' : 'text-regal-examined'), (pat.status === 'Cancelled'  ? 'text-regal-cancelled' : 'text-regal-examined')]">{{pat.status}}</h1>
