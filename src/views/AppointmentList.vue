@@ -115,7 +115,7 @@
             Nav,
         },
         created() {
-            this.getAppointmentList()
+            //this.getAppointmentList()
         },
 
         computed: {
@@ -138,53 +138,53 @@
             prePage:10,
             currentPage: 1,    
             sort:'',
-            appointmentList:[]
-            // appointmentList:[
-            // {
-            //  name:'Iktisad Rashid',
-            //  dob:'2009-11-26T17:00:00.000+00:00',
-            //  gender:'Male',
-            //  appointmentID:'234567',
-            //  contact:'01701883412',
-            //  startTime:'11:00AM',
-            //  endTime:'12:00PM',
-            //  complaint:'Surgery',
-            //  status:'Examined',
-            // },
-            //  {
-            //  name:'Samee Sayeed',
-            //  dob:'2015-07-28T00:00:00.000+00:00',
-            //  gender:'Male',
-            //  appointmentID:'234566',
-            //  contact:'01701883412',
-            //  startTime:'12:30PM',
-            //  endTime:'1:00PM',
-            //  complaint:'Cavities',
-            //  status:'Scheduled',
-            // },
-            // {
-            //  name:'Kabir Ahmed',
-            //  dob:'2007-06-27T18:00:00.000+00:00',
-            //  gender:'Male',
-            //  appointmentID:'234566',
-            //  contact:'01701883412',
-            //  startTime:'1:30PM',
-            //  endTime:'2:00PM',
-            //  complaint:'Pain in the gum',
-            //  status:'Cancelled',
-            // },
-            //  {
-            //  name:'Mushfiq Rahman',
-            //  dob:'2014-06-30T00:00:00.000+00:00',
-            //  gender:'Male',
-            //  appointmentID:'234566',
-            //  contact:'01701883412',
-            //  startTime:'2:30PM',
-            //  endTime:'3:00PM',
-            //  complaint:'Surgery',
-            //  status:'Cancelled',
-            // },
-            // ]
+            //appointmentList:[]
+            appointmentList:[
+            {
+             name:'Iktisad Rashid',
+             dob:'2009-11-26T17:00:00.000+00:00',
+             gender:'Male',
+             appointmentID:'234567',
+             contact:'01701883412',
+             startTime:'11:00AM',
+             endTime:'12:00PM',
+             complaint:'Surgery',
+             status:'Examined',
+            },
+             {
+             name:'Samee Sayeed',
+             dob:'2015-07-28T00:00:00.000+00:00',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             startTime:'12:30PM',
+             endTime:'1:00PM',
+             complaint:'Cavities',
+             status:'Scheduled',
+            },
+            {
+             name:'Kabir Ahmed',
+             dob:'2007-06-27T18:00:00.000+00:00',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             startTime:'1:30PM',
+             endTime:'2:00PM',
+             complaint:'Pain in the gum',
+             status:'Cancelled',
+            },
+             {
+             name:'Mushfiq Rahman',
+             dob:'2014-06-30T00:00:00.000+00:00',
+             gender:'Male',
+             appointmentID:'234566',
+             contact:'01701883412',
+             startTime:'2:30PM',
+             endTime:'3:00PM',
+             complaint:'Surgery',
+             status:'Cancelled',
+            },
+            ]
             }
         },
         methods:{
@@ -203,8 +203,7 @@
             const ageDifMs = Date.now() - new Date(dob.substring(0, 10)).getTime();
             const ageDate = new Date(ageDifMs);
             return Math.abs(ageDate.getUTCFullYear() - 1970);
-
-
+            
         },
         cancel(i){
                 swal({
@@ -250,13 +249,17 @@
             // });
           
         },
-         getAppointmentList(){
-            fetch('http://localhost:3000/appointmentList')
-            .then(res=>res.json())
-            .then(data=>this.appointmentList=data)
-            .catch(err=>console.log(err.message))
-        }
-        } 
+        //  getAppointmentList(){
+        //     fetch('http://localhost:3000/appointmentList', {
+        //         headers: {
+        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
+        //         }
+        // })
+        //     .then(res=>res.json())
+        //     .then(data=>this.appointmentList=data)
+        //     .catch(err=>console.log(err.message))
+        // }
+         } 
        
        
     

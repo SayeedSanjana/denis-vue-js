@@ -78,7 +78,7 @@
           <div class="w-full lg:w-full ">
             <label class="calabel" for="contact">Specialist Name</label>
             <input class="cainput py-2 px-4 mb-4 " v-model="formdata.specialist" id="contact" type="text">
-            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.specialist.$error">{{v$.specialist.$errors[0].$message}}</small>
+           <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.specialist.$error">{{v$.formdata.specialist.$errors[0].$message}}</small>
           </div>
         <!-- Input Specialist Name Ends-->
 
@@ -147,7 +147,7 @@
 <script>
   import Nav from "../components/Nav.vue";
   import useValidate from '@vuelidate/core';
-  import {required,minLength} from '@vuelidate/validators';
+  import {required,minLength,maxLength,numeric} from '@vuelidate/validators';
   //import {reactive,computed} from "vue";
 
   export default {
@@ -223,10 +223,10 @@
     validations(){
      return{
       formdata:{
-      name:{required,minLength: minLength(3)},
+      name:{required,minLength: minLength(3),maxLength:maxLength(255)},
       dob: {required},
       gender: {required},
-      phone: {required},
+      phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
       reason: {required},
       specialist: {required},
       date: {required},

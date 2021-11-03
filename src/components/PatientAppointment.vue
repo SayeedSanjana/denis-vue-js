@@ -6,8 +6,8 @@
     <div class="container  px-5 py-16  bg-white  ">
       <div class="flex flex-wrap relative -mt-40 overflow-y-scroll h-zxl no-scrollbar " >
         <!-- 1 -->
-        <div  v-for="pat in appointmentList" :key="pat._id" class="">
-        <div class=" p-2 lg:w-1/3  w-full">
+        <!-- <div   class=""> -->
+        <div class=" p-2 lg:w-1/3  w-full " v-for="pat in appointmentList" :key="pat._id">
           <div class="ml-14 w-72 h-44  bg-white border border-gray-200 rounded-lg shadow-md">
             <div class="flex justify-between  ">
               <div class="ml-3 ">
@@ -31,7 +31,7 @@
           </div>
         </div>
         <!-- 1 -->
-        </div>
+        <!-- </div> -->
         <!-- 2 -->
 
         
