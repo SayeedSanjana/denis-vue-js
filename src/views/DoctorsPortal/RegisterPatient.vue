@@ -17,7 +17,7 @@
                 <div class="flex flex-wrap -mx-3 mb-2 mt-4">
                   <div class="w-full  px-3 mb-6 md:mb-0">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="name">Full Name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e ' .,/# ')</span></label>
-                    <input class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    <input  @blur="v$.formdata.name.$touch()" class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id="name" type="text" placeholder="" v-model="formdata.name">
                      <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.name.$error">{{v$.formdata.name.$errors[0].$message}}</small>
                   </div>
@@ -26,8 +26,7 @@
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full px-3">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="phone">Phone <span class="text-xs text-gray-400 font-medium">(Should include only digits i.e 0-9 , no special characters i.e ' + ' )</span></label>
-                    <input
-                      class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    <input  @blur="v$.formdata.phone.$touch()" class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                       id="phone" type="text" placeholder="" v-model="formdata.phone">
                     <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.phone.$error">{{v$.formdata.phone.$errors[0].$message}}</small>
                   </div>
@@ -37,7 +36,7 @@
                   <div class="w-full px-3 ">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="gender"> Gender</label>
                     <div class="relative">
-                      <select class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                      <select @blur="v$.formdata.gender.$touch()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="gender" v-model="formdata.gender">
                         <option>Male</option>
                         <option>Female</option>
@@ -56,7 +55,7 @@
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full  px-3">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="dob">Date Of Birth</label>
-                    <input class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
+                    <input  @blur="v$.formdata.dob.$touch()" class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
                     <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.dob.$error">{{v$.formdata.dob.$errors[0].$message}}</small>
                   </div>
                 </div>
@@ -72,12 +71,11 @@
     </div>
   </div>
 </template>
-
 <script>
   import axios from 'axios';
   import swal from 'sweetalert';
   import useValidate from '@vuelidate/core';
-  import {required,minLength,maxLength,numeric} from '@vuelidate/validators';
+  import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
   export default {
     components: {
 
@@ -95,9 +93,10 @@
       }
     },
     validations(){
+     const nospecial=helpers.regex(/^[A-Za-z]*$/);
      return{
       formdata:{
-      name:{required,minLength: minLength(3)},
+      name:{required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
       gender: {required},
       phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
       dob: {required},
@@ -107,9 +106,8 @@
     },
     methods: {
       async createPatient() {
-        this.formIsValid = true;
         this.formdata.phone = this.formdata.phone.replace(/\s/g, '')
-        this.v$.$validate()
+        this.v$.$touch()
         if (!this.v$.$error) {
           await axios.post('patients/create-patient', this.formdata, {
               headers: {

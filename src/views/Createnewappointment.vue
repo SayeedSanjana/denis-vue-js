@@ -21,8 +21,8 @@
          
          <!-- Input Patient Name Starts -->
           <div class="w-full lg:w-full ">
-            <label class="calabel mt-4">Name</label>
-            <input class="cainput py-2 px-4 mb-4" id="name" type="text" v-model="formdata.name">
+            <label class="calabel mt-4">Name <span class="text-xs text-gray-400 font-medium mt-1  ml-1">(Should include A-Z, a-z and no special characters i.e' .,/# ')</span></label>
+            <input class="cainput py-2 px-4 mb-4" id="name" type="text" v-model="formdata.name" @blur="v$.formdata.name.$touch()">
           </div>
           <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.name.$error">{{v$.formdata.name.$errors[0].$message}}</small>
       <!-- Input Patient Name Ends -->
@@ -32,7 +32,7 @@
           <!-- Input Date Of Birth Starts -->
             <div class=" lg:w-3/5  ">
               <label class="calabel" for="dob">Date Of Birth</label>
-              <input class="cainput py-2 px-4 mb-4" id="dob" type="date" v-model="formdata.dob">
+              <input class="cainput py-2 px-4 mb-4" id="dob" type="date" v-model="formdata.dob"  @blur="v$.formdata.dob.$touch()">
               <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.dob.$error">{{v$.formdata.dob.$errors[0].$message}}</small>
             </div>
           <!-- Input Date Of Birth Ends -->
@@ -41,7 +41,7 @@
             <div class=" lg:w-2/5 ml-4 ">
               <label class="calabel" for="gender">Gender</label>
               <div class="relative">
-                <select v-model="formdata.gender" class=" cainput py-2 px-2 mb-4" id="gender">
+                <select v-model="formdata.gender"  @blur="v$.formdata.gender.$touch()" class=" cainput py-2 px-2 mb-4" id="gender">
                   <option>Male</option>
                   <option>Female</option>
                   <option>Others</option>
@@ -57,8 +57,8 @@
 
         <!-- Input Contact Number Starts-->
           <div class="w-full lg:w-full ">
-            <label class="calabel" for="contact">Contact Number</label>
-            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.phone" id="contact" type="text">
+            <label class="calabel" for="contact">Contact Number <span class="text-xs text-gray-400 font-medium mt-1 ml-1">(Should include only digits i.e 0-9)</span></label>
+            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.phone" id="contact" type="text"  @blur="v$.formdata.phone.$touch()">
             <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.phone.$error">{{v$.formdata.phone.$errors[0].$message}}</small>
           </div>
         <!-- Input Contact Number Ends-->
@@ -67,7 +67,7 @@
           <div class="flex flex-wrap -mx-3">  
             <div class="w-full lg:w-full px-3">
               <label class="calabel" for="">Reason</label>
-              <textarea class="cainput h-36  py-3 px-4 mb-4" id="nationality" type="text" placeholder="" v-model="formdata.reason"></textarea>
+              <textarea class="cainput h-36  py-3 px-4 mb-4" id="nationality" type="text" placeholder="" v-model="formdata.reason"  @blur="v$.formdata.reason.$touch()"></textarea>
               <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.reason.$error">{{v$.formdata.reason.$errors[0].$message}}</small>
             </div>
           </div>
@@ -76,8 +76,8 @@
       
         <!-- Input Specialist Name Starts-->
           <div class="w-full lg:w-full ">
-            <label class="calabel" for="contact">Specialist Name</label>
-            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.specialist" id="contact" type="text">
+            <label class="calabel" for="contact">Specialist Name <span class="text-xs text-gray-400 font-medium mt-1 ml-1">(Should include A-Z, a-z and no special characters i.e' .,/# ')</span></label>
+            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.specialist"  @blur="v$.formdata.specialist.$touch()" id="contact" type="text">
            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.specialist.$error">{{v$.formdata.specialist.$errors[0].$message}}</small>
           </div>
         <!-- Input Specialist Name Ends-->
@@ -85,7 +85,7 @@
         <!-- Input Appointment Date Starts-->
           <div class="w-full lg:w-4/6 ">
             <label class="calabel" for="contact">Appointment Date</label>
-            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.date" id="contact" type="date">
+            <input class="cainput py-2 px-4 mb-4 " v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" type="date">
            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.date.$error">{{v$.formdata.date.$errors[0].$message}}</small>
           </div>
         <!-- Input Appointment Date Ends-->
@@ -99,14 +99,13 @@
               </div>
               <!-- label -->
               <div class=" py-2">
-                <select @change="onChange()" class="text-regal-teal border  border-regal-teal border-opacity-50 rounded  leading-tight  focus:border-regal-blue px-4 py-2 mr-2 focus:outline-none" v-model="startTime">
+                <select @change="onChange()" class="text-regal-teal border  border-regal-teal border-opacity-50 rounded  leading-tight  focus:border-regal-blue px-4 py-2 mr-2 focus:outline-none bg-white" v-model="startTime">
                   <option v-for="(item,index) in time" :key="index">{{item}} </option>
                 </select>
                 <button type="button" class="btnampm" :class="this.startam===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="startTimesetAm()">AM</button>
                 <button type="button" class="btnampm" :class="this.startpm===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="startTimesetPm()">PM</button>
                 <small class="text-regal-red mb-2 flex justify-start">{{this.strstart}}</small>
               </div>
-                 <!-- <small class="text-regal-red mb-2 flex justify-start" >{{this.str}}</small> -->
             </div>
             <!-- Start Time Ends-->
 
@@ -117,16 +116,14 @@
               </div>
               <!-- label -->
               <div class=" py-2">
-                <select @change="onChange()" name="" class="px-4 py-2 mr-2 text-regal-teal border  border-regal-teal border-opacity-50 rounded  leading-tight focus:outline-none focus:border-regal-blue" v-model="endTime">
+                <select @change="onChange()" name="" class="px-4 py-2 mr-2 text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue bg-white" v-model="endTime">
                   <option v-for="(item,index) in time" :key="index">{{item}}</option>
                 </select>
                 <button type='button' class="btnampm" :class="this.endam===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="endTimesetAm()">AM</button>
                 <button type='button' class="btnampm" :class="this.endpm===true ? 'bg-regal-cyan-blue' : 'bg-white'" @click="endTimesetPm()">PM</button>
                 <small class="text-regal-red mb-2 flex justify-start">{{this.strend}}</small>
               </div>
-              
             </div>
-            
             <!-- Start Time Ends-->
           </div>
         </form>
@@ -147,7 +144,7 @@
 <script>
   import Nav from "../components/Nav.vue";
   import useValidate from '@vuelidate/core';
-  import {required,minLength,maxLength,numeric} from '@vuelidate/validators';
+  import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
   //import {reactive,computed} from "vue";
 
   export default {
@@ -221,14 +218,15 @@
       }
     },
     validations(){
+     const nospecial=helpers.regex(/^[A-Za-z]*$/);
      return{
       formdata:{
-      name:{required,minLength: minLength(3),maxLength:maxLength(255)},
+      name:{required,minLength: minLength(3),maxLength:maxLength(255),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
       dob: {required},
       gender: {required},
       phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
       reason: {required},
-      specialist: {required},
+      specialist: {required,nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
       date: {required},
       startTime:{required},
       endTime:{required}
@@ -296,7 +294,7 @@
           this.formdata.startTime=this.startTime
           this.formdata.endTime=this.endTime
         }   
-        this.v$.$validate()
+        this.v$.$touch()
         //console.log(this.v$.name.$error)
         if (!this.v$.$error) {
           this.appointmentList.push(this.formdata)

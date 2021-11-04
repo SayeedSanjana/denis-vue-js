@@ -26,11 +26,9 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model.trim="formData.email" type="email" @keypress="validate"
-                                                class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
-                                                style="background:#E7FBFC">
+                                            <input v-model.trim="formData.email" type="email" @blur="v$.formData.email.$touch()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
-                                        <small class="text-regal-red mb-2">{{this.strEmail}}</small>
+                                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                                     </div>
                                 </div>
                                 <!-- Email Input ends-->
@@ -43,11 +41,9 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="formData.password" type="password" @keypress="validate"
-                                                class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
-                                                style="background:#E7FBFC">
+                                            <input v-model="formData.password" type="password" @blur="v$.formData.phone.$touch()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
-                                        <small class="text-regal-red mb-2">{{this.strPassword}}</small>
+                                      <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.password.$error">{{v$.formData.password.$errors[0].$message}}</small>
                                     </div>
                                 </div>
                                   <!-- Password Input starts--> 
@@ -124,7 +120,7 @@
             },
             //Login Form
             async submitForm() {
-            this.v$.$validate()
+            this.v$.$touch()
             if (!this.v$.$error) {
                 await axios.post('users/login', this.formData, )
                 .then((response) => {

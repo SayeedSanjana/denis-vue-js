@@ -163,6 +163,8 @@
     import Nav from "../components/Nav.vue";
     import axios from "axios";
     import swal from 'sweetalert';
+    //import useValidate from '@vuelidate/core';
+    import {required,minLength,helpers} from '@vuelidate/validators';
     export default {
         components: {
             Nav,
@@ -196,6 +198,14 @@
                 }
             }
         },
+         validations(){
+            const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+            return{
+            form:{
+            password:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
+      }
+     }
+    },
         methods: {
             parseJwt(token) {
                 var base64Url = token.split('.')[1];

@@ -18,12 +18,12 @@
               <!-- Input name starts -->
                 <div class="flex 2xl:-mr-12 -mx-1">
                   <div class="w-full  mb-1 text-left ">
-                    <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e' .,/# ' and no Dr./Mr.)</span> </label>
+                    <label for="" class="text-sm font-medium px-1 text-regal-teal">Full name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e' .,/# ' and no Dr./Mr.)</span></label>
                     <div class="flex">
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                         <i class="mdi mdi-account-outline text-gray-400 text-lg"></i>
                       </div>
-                      <input v-model.trim="formData.name" type="text" @keypress="onChange('name')" 
+                      <input v-model.trim="formData.name" type="text" @blur="v$.formData.name.$touch()"
                         class="w-full -ml-10 h-11 pl-4 rounded outline-none text-regal-teal"
                         style="background:#E7FBFC">
                     </div>
@@ -37,7 +37,7 @@
                   <div class="w-1/2 mr-3 mb-1 text-left">
                     <label for="" class="text-sm font-medium px-1 text-regal-teal">Gender</label>
                     <div class="relative">
-                      <select class="block appearance-none w-full  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white" style="background:#E7FBFC" id="gender" v-model="formData.gender">
+                      <select class="block appearance-none w-full  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white" style="background:#E7FBFC" id="gender" v-model="formData.gender"  @blur="v$.formData.gender.$touch()">
                         <option>Male</option>
                         <option>Female</option>
                         <option>Others</option>
@@ -53,7 +53,7 @@
                     <label for="" class="text-sm font-medium px-1 text-regal-teal">Date of Birth</label>
                     <div class=""> 
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                      <input class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none  pl-10 text-regal-teal" style="background:#E7FBFC" id="date" type="date" placeholder="" v-model="formData.dob">
+                      <input class="appearance-none block w-full rounded py-3 px-4 leading-tight focus:outline-none  pl-10 text-regal-teal" style="background:#E7FBFC" id="date" type="date" placeholder="" v-model="formData.dob"  @blur="v$.formData.dob.$touch()">
                     </div>
                    <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
                   </div>
@@ -66,7 +66,7 @@
                     <label for="" class="text-sm font-medium px-1 text-regal-teal">Address</label>
                     <div class="flex ">
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                      <textarea v-model.trim="formData.address" type="text" class="w-full -ml-10 pl-4 pr-3 py-2 text-regal-teal rounded h-24 outline-none " style="background:#E7FBFC"></textarea>
+                      <textarea v-model.trim="formData.address"  @blur="v$.formData.address.$touch()" type="text" class="w-full -ml-10 pl-4 pr-3 py-2 text-regal-teal rounded h-24 outline-none " style="background:#E7FBFC"></textarea>
                     </div>
                     <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
                   </div>
@@ -79,7 +79,7 @@
                     <label for="" class="text-sm font-medium px-1  text-regal-teal">Phone <span class="text-xs text-gray-400 font-medium">(Should include only digits i.e 0-9)</span></label>
                     <div class="flex">
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                      <input v-model.trim="formData.phone" type="text" class="w-full -ml-10 h-11 py-2 pl-4 rounded outline-none text-regal-teal" style="background:#E7FBFC">
+                      <input v-model.trim="formData.phone"  @blur="v$.formData.phone.$touch()" type="text" class="w-full -ml-10 h-11 py-2 pl-4 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                     </div>
                   <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                   </div>
@@ -92,7 +92,7 @@
                     <label for="" class="text-sm font-medium px-1  text-regal-teal">Email</label>
                     <div class="flex">
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                      <input v-model.trim="formData.email" type="email" class="w-full -ml-10 h-11 py-2 pl-4 text-regal-teal rounded outline-none" style="background:#E7FBFC">
+                      <input v-model.trim="formData.email" type="email"  @blur="v$.formData.email.$touch()" class="w-full -ml-10 h-11 py-2 pl-4 text-regal-teal rounded outline-none" style="background:#E7FBFC">
                     </div>
                     <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                   </div>
@@ -105,7 +105,7 @@
                     <label for="" class="text-sm font-medium px-1  text-regal-teal">Password <span class="text-xs text-gray-400 font-medium">(Should include 0-9,A-Z, a-z and special characters)</span></label>
                     <div class="flex">
                       <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                      <input v-model="formData.password" type="password" class="w-full -ml-10 h-11 py-2 pl-4 rounded outline-none text-regal-teal" style="background:#E7FBFC">
+                      <input v-model="formData.password"  @blur="v$.formData.password.$touch()" type="password" class="w-full -ml-10 h-11 py-2 pl-4 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                     </div>
                     <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.password.$error">{{v$.formData.password.$errors[0].$message}}</small>
                   </div>
@@ -202,14 +202,14 @@
      }
     },
     methods: {
-      onChange(v){
-        console.log(v)
-        //console.log(this.v$.v)
-      },
+      // onChange(v){
+      //   console.log(v)
+      //   /console.log(this.v$.name)
+      // },
       //Sign In
       async signupForm() {
         this.formData.phone = this.formData.phone.replace(/\s/g,'')
-        this.v$.$validate()
+        this.v$.$touch()
          if (!this.v$.$error) {
           this.openModal = true
         }
