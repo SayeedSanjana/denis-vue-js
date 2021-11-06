@@ -122,27 +122,31 @@
                             <!-- old password -->
                             <div class="w-1/2 pr-4">
                                 <label for="" class="labeldesign">Old Password</label>
-                                <input type="password" class="inputfield" v-model="oldPassword">
+                                <input type="password" class="inputfield" v-model="form.oldPassword"  @blur="v$.form.oldPassword.$touch()" @keydown="onChange()">
+                                <small class="text-regal-red flex justify-start text-xs" v-if="v$.form.oldPassword.$error">{{v$.form.oldPassword.$errors[0].$message}}</small>
+                                <small class="text-regal-red flex justify-start text-xs">{{this.str}}</small>
                             </div>
                             <!-- old password -->
                             <div class="flex">
                                 <!--new password -->
                                 <div class="w-1/2 pr-4">
                                     <label for="" class="labeldesign">New Password</label>
-                                    <input type="password" class="inputfield" v-model="newPassword">
+                                    <input type="password" class="inputfield" v-model="form.newPassword"  @blur="v$.form.newPassword.$touch()"  @keyup="sameAs($event)">
+                                    <small class="text-regal-red flex justify-start text-xs" v-if="v$.form.newPassword.$error">{{v$.form.newPassword.$errors[0].$message}}</small>
+                                    <small class="text-regal-red flex justify-start text-xs">{{this.strSame}}</small>
                                 </div>
                                 <!--new password -->
                                 <!-- confirm password-->
                                 <div class="w-1/2">
                                     <label for="" class="labeldesign">Confirm Password</label>
-                                    <input type="password" class="inputfield" v-model="confirmPassword">
-
+                                    <input type="password" class="inputfield" v-model="confirmPassword"  @blur="v$.confirmPassword.$touch()">
+                                    <small class="text-regal-red flex justify-start text-xs" v-if="v$.confirmPassword.$error">{{v$.confirmPassword.$errors[0].$message}}</small>
                                 </div>
                                 <!-- confirm password -->
                             </div>
-                            <small>
+                            <!-- <small>
                                 <p class="text-regal-red text-left">{{this.str}}</p>
-                            </small>
+                            </small> -->
                         </div>
                         <div class="w-1/2 mt-24 mr-28 ">
                             <button @click="changePassword()" class="newbutton1 mt-2.5">Confirm</button>
@@ -163,8 +167,8 @@
     import Nav from "../components/Nav.vue";
     import axios from "axios";
     import swal from 'sweetalert';
-    //import useValidate from '@vuelidate/core';
-    import {required,minLength,helpers} from '@vuelidate/validators';
+    import useValidate from '@vuelidate/core';
+    import {required,minLength,sameAs,helpers} from '@vuelidate/validators';
     export default {
         components: {
             Nav,
@@ -175,12 +179,14 @@
         },
         data() {
             return {
+                v$:useValidate(),
                 time:'',
+                strSame:'',
                 createDate:'',
                 token: localStorage.getItem('token'),
                 uid: '',
                 str: '',
-                formData: {
+               formData: {
                     name: '',
                     email: '',
                     phone: '',
@@ -188,8 +194,8 @@
                     address: '',
                     password: ''
                 },
-                oldPassword: '',
-                newPassword: '',
+                //oldPassword: '',
+               // newPassword: '',
                 confirmPassword: '',
                 a: false,
                 form: {
@@ -202,8 +208,10 @@
             const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
             return{
             form:{
-            password:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
-      }
+            oldPassword:{required,minLength: minLength(8)},
+            newPassword:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
+            },
+            confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
      }
     },
         methods: {
@@ -217,6 +225,18 @@
                 const payload = JSON.parse(jsonPayload);
                 this.uid = payload.sub
                 console.log(payload.sub);
+            },
+
+           onChange(){
+               this.strSame=""
+               this.str=""
+            },
+            sameAs(evt){
+              if(evt.target.value===this.form.oldPassword){
+                  this.strSame="Cannot match Old Password"
+              }else{
+                   this.strSame=""
+              }
             },
 
             //get the specific user
@@ -234,7 +254,6 @@
                         let year = date.getFullYear();
                         let month = date.getMonth()+1;
                         let dt = date.getDate();
-
                         if (dt < 10) {
                         dt = '0' + dt;
                         }
@@ -243,8 +262,6 @@
                         }
                         date=year+'-' + month + '-'+dt;
                         this.createDate=date
-                        
-
                         //Getting the UTC+6 time from the the ISO Format
                         var d = new Date(this.formData.createdAt);
                         this.time=d.toLocaleTimeString();
@@ -282,23 +299,11 @@
 
             // checking validation while changing the password
             async changePassword() {
-                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-                if (this.oldPassword === "") {
-                    this.str = "Provide your old password"
-                } else if (this.oldPassword === this.newPassword) {
-                    this.str = "Old Password cannot match New Password"
-                } else if (this.newPassword === '' || this.confirmPassword === '') {
-                    this.str = 'Password cannot be blank';
-                } else if (this.newPassword.length < 8) {
-                    this.str = 'Password should be atleast 8 characters'
-                } else if (!(pattern.test(this.newPassword))) {
-                    this.str = "(Should include 0-9,A-Z, a-z and special characters like '@,#,$,*')"
-                } else if (this.newPassword === this.confirmPassword) {
-                    this.form.oldPassword = this.oldPassword
-                    this.form.newPassword = this.newPassword
-                    this.str = ''
-                    console.log(this.formData)
-                    await axios.patch('users/update-password/' + this.uid, this.form, {
+                  this.v$.$touch()
+                    if (!this.v$.$error && this.strSame.length<=0) {
+                    this.str=""
+                    this.strSame=""
+                    await axios.patch('users/update-password/'+ this.uid, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             }
@@ -314,14 +319,10 @@
                             console.log(response);
                         })
                         .catch((error) => {
-                            this.str = "Old Password"
+                            this.str = "Old Password doesnot match"
                             console.log(error)
                         })
-                } else if (this.newPassword !== this.confirmPassword) {
-                    this.str = "Password doesnot match"
-                } else {
-                    this.str = "Something went wrong"
-                }
+                    }
             },
         },
     }
