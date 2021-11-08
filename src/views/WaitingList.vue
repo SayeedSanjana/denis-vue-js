@@ -52,8 +52,8 @@
                     <td class="px-2 py-3">{{pat.appointmentID}}</td>
                     <td class="px-2 py-3">{{pat.contact}}</td>
                     <td class="px-2 py-3">{{pat.reason}}</td>
-                    <td class="px-2 py-3">{{pat.requestDate}}</td>
-                    <td class="px-2 py-3 "> <button class="  px-2 py-1  text-regal-red">Cancel Request</button></td>
+                    <td class="px-2 py-3">{{pat.requestDate}}</td>@click.prevent="delete()
+                    <td class="px-2 py-3"> <button class="px-2 py-1 text-regal-red">Cancel Request</button></td>
                 </tr>
                 <!-- <tr class="trbody">
                     <td class="px-2 ">2</td>
