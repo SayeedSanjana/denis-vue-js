@@ -64,6 +64,9 @@
                                 <router-link to="/patient-list-billing"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
+                                <router-link to="/Tooth"
+                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    Tooth</router-link>
 
                                 <router-link to="/AccountSettings"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">

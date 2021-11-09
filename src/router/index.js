@@ -14,6 +14,7 @@ import AppointmentList from "../views/AppointmentList.vue";
 import WaitingList from "../views/WaitingList.vue";
 import CreateAppointment from "../views/CreateAppointment.vue";
 import Createnewappointment from "../views/Createnewappointment.vue";
+import Tooth from "../views/DoctorsPortal/Tooth.vue";
 
 const routes = [
  
@@ -21,6 +22,12 @@ const routes = [
     path: '/patient',
     name: 'Patient',
     component: Patient
+  },
+ 
+  {
+    path: '/Tooth',
+    name: 'Tooth',
+    component: Tooth
   },
   
   {
