@@ -21,6 +21,7 @@ module.exports = {
       'regal-cancelled' : '#FF796F',
       'regal-gray' : '#E9F0F0',
       'regal-lightblue' : '#407BFF',
+      'regal-teethblue':'#46CDD3'
 
       
     },
