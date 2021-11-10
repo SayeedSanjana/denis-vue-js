@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Calendar from "../views/Calendar.vue";
 
 import Patient from '../views/Patient.vue';
 import AccountSettings from '../views/AccountSettings.vue';
@@ -16,6 +17,11 @@ import Createnewappointment from "../views/Createnewappointment.vue";
 import CreateAppointment from "../views/CreateAppointment.vue";
 const routes = [
  
+  {
+    path: '/calendar',
+    name: 'Calendar',
+    component: Calendar
+  },
   {
     path: '/patient',
     name: 'Patient',
