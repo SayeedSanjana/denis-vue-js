@@ -1,6 +1,6 @@
 <template>
     <div>
-            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
+            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3 border-b-0">
                <div class="m-0.5 text-regal-teal font-medium">
                   Patient Information
                </div>
@@ -8,7 +8,9 @@
 
 
             <div class="flex flex-col justify-between flex-1 pb-4">
-                <nav>
+                <nav> 
+
+                <!-- Patient information starts here-->
                   <div class="bg-regal-white">
                     <div class="flex items-center   px-8 py-2 text-gray-700 ">
                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
@@ -55,17 +57,20 @@
                         </div>
                     </div>
                 </div>
+                <!-- Patient information ends here-->
+
+                <!-- Allergy component called here -->
                     <div class=" border-t border-gray-300 ">
-                        <!--allergy-->
                         <Allergies :formData="formData" @myEvent="getPosts" />
                     </div>
-
-                    <div class="  ">
-                        <!--habit-->
+                
+                <!-- Disease component called here -->
+                    <div>
                         <Disease :formData="formData" @myEvent="getPosts" />
                     </div>
-                    <div class="  ">
-                        <!--habit-->
+
+                <!-- PersonalHabit component called here -->
+                    <div>
                         <PersonalHabits :formData="formData" @myEvent="getPosts" />
                     </div>
                 </nav>

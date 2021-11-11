@@ -1,7 +1,6 @@
 <template>
     <div>
-                       <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600  bg-regal-white border  border-regal-cyan border-opacity-20 py-3">
-
+            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 py-3">
                 <button @click="activeTab = 'PatientPrescription'"
                     :class="activeTab==='PatientPrescription' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5 mt-0.5 sm:mx-6">Prescription</button>
