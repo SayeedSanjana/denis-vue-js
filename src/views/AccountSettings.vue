@@ -4,7 +4,7 @@
         <Nav />
     </header>
     <!-- header -->
-    <div class="h-screen bg-regal-white">
+    <div class="h-full bg-regal-white">
         <section class="w-full">
             <h3 class="headername">Account Settings </h3>
             <div class="w-full flex">
@@ -21,7 +21,6 @@
                     <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Email</label>
-
                             <input type="text" class="inputfield" v-model="formData.email">
                         </div>
                         <!-- email -->
@@ -29,12 +28,10 @@
                         <!-- phone number -->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Phone Number</label>
-
                             <input type="text" class="inputfield" v-model="formData.phone">
                         </div>
                         <!-- phone number -->
                     </div>
-
                     <!-- address -->
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
@@ -42,9 +39,34 @@
                     </div>
                     <!-- address -->
 
-                    <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
+                     <!-- More Settings starts -->
+               <h3 class="headername my-1">More Settings </h3>
+                    <!-- Qualifications -->
+                    <div class="formbox w-3/5">
+                        <label for="" class="labeldesign">Qualifications</label>
+                        <textarea type="text" class="inputfield" v-model="formData.qualifications"></textarea>
+                    </div>
+                    <!-- Qualifications-->
 
-                    <div class="flex formbox">
+                    <!-- Role -->
+                    <div class="formbox  w-3/5">
+                        <label for="" class="labeldesign">Role/User Catagory</label>
+                        <input type="text" class="inputfield bg-regal-white" v-model="formData.role" readonly>
+                    </div>
+                    <!-- Role -->
+
+                     <!-- Role -->
+                    <div class="formbox w-3/5 mb-7 ">
+                        <label for="" class="labeldesign">BMDC no.</label>
+                        <input type="text" class="inputfield bg-regal-white" v-model="formData.BMDC" readonly>
+                    </div>
+                    <!-- Role -->
+
+                   <!-- More Settings ends-->
+
+                    <!-- <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p> -->
+
+                    <div class="flex formbox ">
                         <!-- Save -->
                         <button @click="updateUser()" class="newbutton1  mr-5">Save</button>
                         <!-- Save -->
@@ -52,9 +74,7 @@
                         <button class="newbutton2">Cancel</button>
                         <!-- cancel -->
                     </div>
-
                 </form>
-
                 <!-- form -->
 
                 <!-- Visiting Card -->
@@ -67,6 +87,7 @@
                             <div class="flex justify-between p-4 mt-2">
                                 <div class="ml-3 ">
                                     <h4 class="text-xl text-regal-teal font-semibold mb-2">Dr. {{this.formData.name}}</h4>
+                                    <p class="text-left text-regal-teal ">Role {{this.formData.role}}</p>
                                 </div>
                                 <div class="mr-3">
                                     <h4 class="text-xl text-regal-teal font-semibold mb-2"> MT DENTAL CENTER</h4>
@@ -192,7 +213,10 @@
                     phone: '',
                     gender: '',
                     address: '',
-                    password: ''
+                    password: '',
+                    qualifications:'',
+                    role:'',
+                    BMDC:''
                 },
                 //oldPassword: '',
                // newPassword: '',

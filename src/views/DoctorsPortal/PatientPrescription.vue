@@ -9,56 +9,52 @@
                     <input hidden type="text" v-model="formData.patient">
                 </div>
                 <div class="flex justify-between ">
-
                     <div class="w-full lg:w-1/2 p-2">
                         <label class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
-                        <textarea v-model="formData.cc" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
-                     <small class="text-regal-red mb-2">{{this.strCC}}</small>
+                        <textarea @blur="v$.formData.cc.$touch()" v-model="formData.cc" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none "></textarea>
+                      <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.cc.$error">{{v$.formData.cc.$errors[0].$message}}</small>
                     </div>
-
                     <div class="w-full lg:w-1/2 p-2">
                         <label class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white  text-left">O/E</label>
-                        <textarea v-model="formData.oe" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
-                    <small class="text-regal-red mb-2">{{this.strOE}}</small>
+                        <textarea  @blur="v$.formData.oe.$touch()" v-model="formData.oe" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                        <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.oe.$error">{{v$.formData.oe.$errors[0].$message}}</small>
                     </div>
                 </div>
                 <div class="flex justify-between">
                     <div class="w-full lg:w-1/2 mt-4 p-2">
                         <label class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Investigation</label>
-                        <textarea v-model="formData.investigation" class="block w-full h-40 px-4 py-2 text-regal-tealbg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
-                        <small class="text-regal-red mb-2">{{this.strIN}}</small>
+                        <textarea  @blur="v$.formData.investigation.$touch()" v-model="formData.investigation" class="block w-full h-40 px-4 py-2 text-regal-tealbg-white border border-regal-teal border-opacity-50 focus:border-regal-blue rounded-md focus:outline-none"></textarea>
+                        <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.investigation.$error">{{v$.formData.investigation.$errors[0].$message}}</small>
                     </div>
                     <div class="w-full mt-4 lg:w-1/2 p-2">
                         <label class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left ">Treatment Plan</label>
-                        <textarea v-model="formData.treatmentPlan" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
-                        <small class="text-regal-red mb-2">{{this.strTP}}</small>
+                        <textarea  @blur="v$.formData.treatmentPlan.$touch()" v-model="formData.treatmentPlan" class="block w-full h-40 px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md focus:border-regal-blue  focus:outline-none"></textarea>
+                        <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.treatmentPlan.$error">{{v$.formData.treatmentPlan.$errors[0].$message}}</small>
                     </div>
                 </div>
                 <div>
-
                     <!--medication input starts here-->
                     <div class=" p-4">
                         <div class="grid grid-cols-1 gap-6 mt-4 lg:grid-cols-3">
                             <div>
                                 <label class="flex justify-start text-regal-teal " for="category">Category</label>
-                                <input v-model="medicine.catagory" id="category" type="text" class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
+                                <input @keydown="onChange()" v-model="medicine.catagory" id="category" type="text" class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue focus:outline-none ">
                                 <small class="text-regal-red mb-2">{{this.strCT}}</small>
                             </div>
                             <div>
                                 <label class="flex justify-start text-regal-teal" for="name">Medication</label>
-                                <input v-model="medicine.name" id="name" type="text" placeholder="" class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                                <input @keydown="onChange()" v-model="medicine.name" id="name" type="text" placeholder="" class="block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
                                <small class="text-regal-red mb-2">{{this.strMN}}</small>
                             </div>
                              <div>
                                 <label class="flex justify-start text-regal-teal" for="Meals">Relation with Meal</label>
                                 <div class="relative">
-                                    <select class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none " id="gender" v-model="medicine.relationWithMeals">
-                                         <option value="" selected="selected" disabled="disabled">Select</option>
+                                    <select @change="onChange()" class="block appearance-none w-full px-4 py-2 mt-1 text-regal-teal bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none " id="gender" v-model="medicine.relationWithMeals">
+                                        <option value="" selected="selected" disabled="disabled">Select</option>
                                         <option>Before Meal</option>
                                         <option>After Meal</option>
                                         <option>At BedTime</option>
                                         <option>Between Meals</option>
-
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center py-2 pr-4 mt-1 text-gray-700 ">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -73,7 +69,7 @@
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Frequency">Frequency</label>
                                 <div class="relative">
-                                    <select class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none " id="gender" v-model="medicine.frequency">
+                                    <select @change="onChange()" class="block appearance-none w-full px-4 py-2 mt-1 text-gray-700 bg-regal-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none " id="gender" v-model="medicine.frequency">
                                         <option value="" selected="selected" disabled="disabled">Select</option>
                                         <option v-for="f in frequency" :key="f._id">{{f}}</option>
                                     </select>
@@ -87,7 +83,7 @@
                             </div>
                             <div>
                                 <label class="flex justify-start text-gray-700 dark:text-gray-200" for="Duration">Duration</label>
-                                <input v-model="medicine.duration" id="Duration" type="text" placeholder="" class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
+                                <input  @keydown="onChange()" v-model="medicine.duration" id="Duration" type="text" placeholder="" class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-regal-blue  focus:outline-none ">
                                 <small class="text-regal-red mb-2">{{this.strMD}}</small>
                             </div>
                             <div class=" mt-7 flex justify-end">
@@ -100,7 +96,7 @@
                               </span>
                             </button>
                         </div>
-                          <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p>
+                          <!-- <p v-if="!formVal" class="text-red-500 mb-4 text-center">Please enter valid information </p> -->
                         </div>
                     </div>
                 </div>
@@ -118,7 +114,6 @@
                                 <th class="px-4 py-3">Relation with Meal</th>
                                 <th class="px-4 py-3"></th>
                             </thead>
-
                             <tbody class="">
                                 <tr class="bg-white  border border-regal-blue rounded-b-lg border-opacity-25 hover:bg-regal-white hover:opacity-80 text-regal-teal "
                                     v-for="(item,index) in items " :key="index">
@@ -138,12 +133,10 @@
                 <div class="flex justify-between">
                     <div class="w-full  mt-4 p-2">
                         <label class="block mb-2 text-md font-medium text-regal-teal capitalize dark:text-white  text-left">Advice</label>
-                        <textarea v-model="formData.advice" class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
-                        <small class="text-regal-red mb-2">{{this.strAD}}</small>
+                        <textarea  @blur="v$.formData.advice.$touch()" v-model="formData.advice" class="block w-full h-20 px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none"></textarea>
+                        <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.advice.$error">{{v$.formData.advice.$errors[0].$message}}</small>
                     </div>
                 </div>
-                <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">Please enter valid prescription information</p>
-
                 <!-- Button for previewing starts  -->
                 <div class="flex justify-center mt-4">
                     <button @click="addPrint" class=" px-4 py-2 bg-regal-blue text-center border text-white font-semibold  rounded-md text-sm flex">Preview</button>
@@ -163,9 +156,9 @@
 
 <script>
     import axios from "axios"
+    import useValidate from '@vuelidate/core';
+    import {required} from '@vuelidate/validators';
     import PrescriptionModal from "../../components/PrescriptionModal.vue";
-
-
     export default {
         components: {
             PrescriptionModal
@@ -178,19 +171,14 @@
 
         data() {
             return {
-                strAD:'',
+                v$:useValidate(),
                 strCT:'',
                 strMN:'',
                 strMF:'',
                 strRWM:'',
                 strMD:'',
-                strCC:'',
-                strOE:'',
-                strTP:'',
-                strIN:'',
                 userData: {},
                 token: localStorage.getItem('token'),
-                formIsValid: true,
                 openModal: false,
                 formVal: true,
                 submit: false,
@@ -203,7 +191,6 @@
                     "0-1-0-0", "0-1-0-1", "0-1-1-0", "0-1-1-1", "1-0-0-0", "1-0-0-1", "1-0-1-0", "1-0-1-1",
                     "1-1-0-0", "1-1-0-1", "1-1-1-0", "1-1-1-1"
                 ],
-
                 items: [],
                 date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
 
@@ -216,7 +203,6 @@
                     duration: '',
                     relationWithMeals: ''
                 },
-
                 formData: {
                     user: '',
                     patient: '',
@@ -237,9 +223,20 @@
                 },
                 form1: {},
                 age: ''
-
             }
         },
+      validations(){
+      return{
+      formData:{
+      cc:{required},
+      oe: {required},
+      treatmentPlan: {required},
+      investigation: {required},
+      advice:{required}
+      }
+
+     }
+    },
         methods: {
             parseJwt(token) {
                 var base64Url = token.split('.')[1];
@@ -251,6 +248,13 @@
                 const payload = JSON.parse(jsonPayload);
                 this.uid = payload.sub
                 console.log(payload.sub);
+            },
+            onChange(){
+                this.strRWM=''
+                this.strMF=''
+                this.strMD=''
+                this.strMN=""
+                this.strCT=""
             },
            addItem() {
                 if(this.medicine.catagory === "" ){
@@ -341,50 +345,8 @@
                 console.log(this.formData)
                 this.formData.medicine = [...this.items];
                 this.formIsValid = true;
-                if(this.formData.cc === ''){
-                    this.strOE=''
-                    this.strTP=''
-                    this.strIN=''
-                    this.strCC="CC cannot be blank"
-                } 
-                else if(this.formData.oe === ''){
-                    this.strCC='';
-                    this.strTP='';
-                    this.strIN='';
-                    this.strOE="OE cannot be blank"
-                }
-                else if(this.formData.investigation=== ''){
-                    this.strCC='';
-                    this.strOE='';
-                    this.strTP='';
-                    this.strIN=" Investigation cannot be blank"
-                       
-                }
-                else if(this.formData.treatmentPlan=== ''){
-                    this.strCC='';
-                    this.strOE='';
-                    this.strIN='';
-                    this.strTP="Treatment Plan  cannot be blank"
-                }
-                 else if(this.formData.advice=== ''){
-                    this.strCC='';
-                    this.strOE='';
-                    this.strIN='';
-                    this.strTP='';
-                    this.strAD='Advice cannot be blank';
-
-                }
-                else {
-                    this.strCC='';
-                    this.strTP='';
-                    this.strIN='';
-                    this.strOE="";
-                    this.strRWM=''
-                    this.strMF=''
-                    this.strMD=''
-                    this.strMN=""
-                    this.strCT=""
-                    this.formIsValid = true;
+                this.v$.$touch()
+                 if (!this.v$.$error) {
                     this.openModal = true
                 }
 

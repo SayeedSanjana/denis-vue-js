@@ -29,7 +29,7 @@
           </div>
           <div class="w-full lg:w-full ">
             <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="contact">Phone :</label>
-            <input class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue" id="contact" type="text" placeholder="" v-model="formData.phone">
+            <input  @blur="v$.formData.phone.$touch()" class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue" id="contact" type="text" placeholder="" v-model="formData.phone">
             <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
           </div>
           <!-- </div> -->
@@ -50,7 +50,6 @@
         </form>
         <!-- form ends -->
       </div>
-
     </section>
   </div>
 </template>
@@ -113,7 +112,9 @@
           })
       },
       async updatePosts(id) {
-       console.log(this.formData)
+      console.log(this.formData)
+      this.v$.$touch()
+      if (!this.v$.$error) {
        this.formData.phone = this.formData.phone.replace(/\s/g, '')
           if(this.formData.address===""){
           this.formData.address='N/A'
@@ -142,7 +143,7 @@
             .catch((error) => {
               console.log(error)
             })
-          this.formValid = true
+      }
         }
       },   
   }
