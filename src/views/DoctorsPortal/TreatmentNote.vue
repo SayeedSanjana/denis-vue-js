@@ -185,12 +185,12 @@
                             <input v-model="formData.date" readonly class="block w-full px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md ">
                         </div>
                     </div>
-                    {{this.isAll()}}
+                    <!-- {{this.isAll()}}
                     <div class=" flex justify-start items-start mt-5 mb-5">
                         <label for="" class="m-1 text-regal-teal mt-2 ">All Teeth?</label>
                         <input @keypress="this.isAll()" v-model="formData.isAll" value="true" type="radio" class="form-radio h-5 w-5 text-regal-teal mt-3 ml-10"><span class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
                         <input @keypress="this.isAll()" v-model="formData.isAll" value="false" type="radio" checked="checked" class="form-radio h-5 w-5 text-regal-teal mt-3 ml-10"><span class="ml-2 text-gray-700 mt-3">No</span>
-                    </div>
+                    </div> -->
 
 
                     <!-- <small v-if="disabled == 1" class="text-red-500 mb-4 text-center">You can't select and enter tooth number</small> -->
@@ -201,11 +201,11 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-start items-start mt-5 mb-5">
+                    <!-- <div class="flex justify-start items-start mt-5 mb-5">
                         <label for="" class="m-1 text-regal-teal text-left">Is BabyTooth?</label>
                         <input v-model="formData.isBabyTooth" value="true" type="radio" class="form-radio h-5 w-5 bg-regal-teal mt-3 ml-5"><span class="ml-2 mr-2 text-gray-700 mt-3">Yes</span>
                         <input v-model="formData.isBabyTooth" value="false" type="radio" checked="checked" class="form-radio h-5 w-5 bg-regal-teal mt-3 ml-6"><span class="ml-2 text-gray-700 mt-3">No</span>
-                    </div>
+                    </div> -->
 
                     <div class="w-full mt-6">
                         <label class="block mb-2  font-medium  text-regal-teal text-left">Treatment Note</label>
@@ -383,18 +383,19 @@
                 this.formData.doctorName = 'Iktisad'
 
                 //Checking if All Teeth selected
-                if (this.formData.isAll == "true" && this.formData.isBabyTooth=='false'){
-
-                   for (var i of this.adultTeeth) {
-                   this.formData.tooth.push(i);
-                    }
-                }else if(this.formData.isAll == "true" && this.formData.isBabyTooth=='true'){
-                   for (var j of this.babyTeeth) {
-                   this.formData.tooth.push(j);
-                    }
-                }else{
+                // if (this.formData.isAll == "true" && this.formData.isBabyTooth=='false'){
+                //    console.log("Adult Teeth")
+                //    for (var ateeth of this.adultTeeth) {
+                //    this.formData.tooth.push(ateeth);
+                //     }
+                // }else if(this.formData.isAll == "true" && this.formData.isBabyTooth=='true'){
+                //       console.log("baby teeth Teeth")
+                //    for (var bteeth of this.babyTeeth) {
+                //    this.formData.tooth.push(bteeth);
+                //     }
+                // }else{
                     this.formData.tooth = this.teeth.split(',');
-                }
+                //}
                
                //Checking if all input given properly
                 if (this.formData.treatmentDone === '') {

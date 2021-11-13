@@ -188,7 +188,8 @@
      const val1 =(value)=>!value.includes('Dr.');
      const val2 =(value)=>!value.includes('dr.');
      const val3 =(value)=>!value.includes('DR.');
-     const nospecial=helpers.regex(/^[A-Za-z]*$/);
+     //const nospecial=helpers.regex(/^[A-Za-z]*$/);
+     const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
      return{
       formData:{
       name:{required,minLength: minLength(3),maxLength:maxLength(255),val1:helpers.withMessage("Don't include Dr. in the name",val1),val2:helpers.withMessage("Don't include Dr. in the name",val2),val3:helpers.withMessage("Don't include Dr. in the name",val3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},

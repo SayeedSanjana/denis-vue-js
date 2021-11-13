@@ -18,9 +18,12 @@
               </div>
               <div class="px-12 mt-2 text-left">
                 <div class=" border-l border-gray-300">
-                <p class="leading-relaxed  ">
-                  <pre class="ml-3"><span class="text-regal-teal">BabyTooth:</span>{{tr.isBabyTooth}}</pre>
-                </p>
+                <!-- <p class="leading-relaxed  ">
+                  <pre class="ml-3"><span class="text-regal-teal">BabyTooth: </span>{{tr.isBabyTooth}}</pre>
+                </p>-->
+                <!-- <p class="leading-relaxed" v-if="tr.isAll">
+                  <pre class="ml-3"><span class="text-regal-teal">All Teeth Selected: </span>{{tr.isAll}}</pre>
+                </p>  -->
                 <div v-if="this.toothNull(tr.tooth) " class="inline-block">
                   <p class="leading-relaxed  inline-block">
                     <pre class="ml-3 "><span class="text-regal-teal">Teeth: </span></pre>
@@ -33,7 +36,7 @@
 
                <!-- Treatment Done Starts -->
                 <div class="whitespace-normal break-all mr-5  border-l border-gray-300">
-                   <div class="font-semibold text-regal-teal text-sm mb-4  flex items-start">
+                   <div class="font-semibold text-regal-teal text-sm mb-2 flex items-start">
                      <span class="border-b border-gray-400 ml-3">Treatment Done:</span>
                     </div>
                   <div class="flex items-start ">

@@ -100,7 +100,7 @@
       }
     },
     validations(){
-     const nospecial=helpers.regex(/^[A-Za-z]*$/);
+     const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
      return{
       formdata:{
       name:{required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},

@@ -26,7 +26,7 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model.trim="formData.email" type="email" @blur="v$.formData.email.$touch()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
+                                            <input v-model.trim="formData.email" type="email" @blur="v$.formData.email.$touch()" @keydown="toggle()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
                                         <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                                     </div>
@@ -41,7 +41,7 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="formData.password" type="password" @blur="v$.formData.phone.$touch()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
+                                            <input v-model="formData.password" type="password" @blur="v$.formData.phone.$touch()"  @keydown="toggle()" class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
                                       <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.password.$error">{{v$.formData.password.$errors[0].$message}}</small>
                                     </div>
@@ -115,6 +115,10 @@
      }
     },
         methods: {
+            toggle(){
+              this.str=""
+              this.err=""
+            },
             onChange(){
               this.v$.$validate()
             },

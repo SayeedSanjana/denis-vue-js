@@ -53,7 +53,7 @@
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">C/C:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">C/C:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.cc}}</pre></div>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                     <div class="flex flex-wrap justify-between text-regal-teal">
                                         <div class="px-2 mb-4 w-full">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">O/E:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">O/E:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.oe}}</pre></div>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="flex justify-between">
                                         <div class="px-2 mb-4 ">
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Treatment Plan:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">Treatment Plan:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre></div>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                                         <div class="px-2 mb-4 w-full">
 
                                             <div class="whitespace-normal break-all mr-5">
-                                                <div class="text-regal-teal font-semibold text-gray-600 mb-4  flex items-start">Investigation:</div>
+                                                <div class="text-regal-teal font-semibold  mb-4  flex items-start">Investigation:</div>
                                                 <div class="text-regal-teal flex items-start "><pre class="text-left  whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre></div>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                             </svg>
                                         </div>
                                         <table class="p-5 w-full mx-auto bg-regal-blue bg-opacity-30 rounded-t-xl">
-                                            <thead class="text-left text-regal-teal text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30  ">
+                                            <thead class="text-left text-regal-teal text-sm   border-b-2 border-regal-teal border-opacity-30  ">
                                                 <th class="px-4 py-3">Category</th>
                                                 <th class="px-4 py-3">Name</th>
                                                 <th class="px-4 py-3">Duration</th>
@@ -136,7 +136,7 @@
             </div>
         </div>
         <!--Modal Prescription-->
-        
+       
 
         <!--Modal Prescription-->
     </div>
