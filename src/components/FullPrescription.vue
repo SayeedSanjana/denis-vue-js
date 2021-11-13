@@ -87,7 +87,7 @@
                     <div class="mb-4 text-sm w-full">
                         <div class="whitespace-normal break-all">
                             <label class="font-semibold flex items-start text-gray-900 ">Investigation</label>
-                            <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.treatmentPlan}}</pre></label>
+                            <label class="flex items-start text-gray-600"><pre class="text-left whitespace-pre-line break-all font-sans">{{this.formData.investigation}}</pre></label>
                         </div>
                     </div>
                     <!-- Investigation ends -->
