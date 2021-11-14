@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Patient from '../views/Patient.vue';
 import AccountSettings from '../views/AccountSettings.vue';
-
 import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
 import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
 import PatientListBilling from '../views/Billing/PatientListBilling';
@@ -10,10 +9,11 @@ import SpecificBilling from '../views/Billing/SpecificBilling.vue';
 import PastBillView from '../views/Billing/PastBillView';
 import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
-import AppointmentList from "../views/AppointmentList.vue";
-import WaitingList from "../views/WaitingList.vue";
-import Createnewappointment from "../views/Createnewappointment.vue";
-import CreateAppointment from "../views/CreateAppointment.vue";
+import AppointmentPortal from "../views/Appointment/AppointmentPortal.vue";
+// import AppointmentList from "../views/AppointmentList.vue";
+// import WaitingList from "../views/WaitingList.vue";
+// import Createnewappointment from "../views/Createnewappointment.vue";
+// import CreateAppointment from "../views/CreateAppointment.vue";
 const routes = [
  
   {
@@ -28,26 +28,30 @@ const routes = [
     component: AccountSettings
   },
   {
-    path: '/AppointmentList',
-    name: 'AppointmentList',
-    component: AppointmentList
+    path: '/AppointmentPortal',
+    name: 'AppointmentPortal',
+    component: AppointmentPortal
   },
-  {
-    path: '/CreateAppointment',
-    name: 'CreateAppointment',
-    component: CreateAppointment
-  },
-  {
-    path: '/WaitingList',
-    name: 'WaitingList',
-    component: WaitingList
-  },
-  {
-    path: '/Createnewappointment',
-    name: 'Createnewappointment',
-    component: Createnewappointment
-  },
-
+  // {
+  //   path: '/AppointmentList',
+  //   name: 'AppointmentList',
+  //   component: AppointmentList
+  // },
+  // {
+  //   path: '/CreateAppointment',
+  //   name: 'CreateAppointment',
+  //   component: CreateAppointment
+  // },
+  // {
+  //   path: '/WaitingList',
+  //   name: 'WaitingList',
+  //   component: WaitingList
+  // },
+  // {
+  //   path: '/Createnewappointment',
+  //   name: 'Createnewappointment',
+  //   component: Createnewappointment
+  // },
   {
     path: '/',
     name: 'Login',

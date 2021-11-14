@@ -7,15 +7,12 @@
         <div class="mt-5">
           <!--body-->
           <div class="text-center  flex-auto justify-center">
-
             <section class="max-w-4xl md:p-6 p-1 mx-auto bg-white  flex flex-row  justify-center  dark:bg-gray-800 ">
-
             <!-- form input starts here -->
               <form @submit.prevent="createPatient" class="w-full max-w-lg mx-24">
                 <div class=" text-xl title-font font-bold text-regal-teal pb-3 pt-2 ">
                   Register New Patient
                 </div>
-
                 <div class="flex flex-wrap -mx-3 mb-2 mt-4">
                   <div class="w-full  px-3 mb-6 md:mb-0">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="name">Full Name <span class="text-xs text-gray-400 font-medium">(Should include A-Z, a-z and no special characters i.e ' .,/# ')</span></label>
@@ -23,7 +20,6 @@
                       id="name" type="text" placeholder="" v-model="formdata.name">
                      <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.name.$error">{{v$.formdata.name.$errors[0].$message}}</small>
                   </div>
-
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full px-3">
@@ -51,7 +47,6 @@
                     </div>
                     <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.gender.$error">{{v$.formdata.gender.$errors[0].$message}}</small>
                   </div>
-
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full  px-3">
@@ -60,17 +55,14 @@
                     <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.dob.$error">{{v$.formdata.dob.$errors[0].$message}}</small>
                   </div>
                 </div>
-
                 <!-- Buttons for creating new patient and cancelling starts -->
                 <div class=" flex justify-between mt-6">
                   <button class=" px-10 bg-regal-teal text-center p-2 m-2 border  text-white font-semibold  rounded-lg text-sm">Create Patient</button>
                   <button @click="closeModal" class=" px-10 bg-regal-green text-center p-2 m-2 border  text-regal-teal font-semibold  rounded-lg text-sm">Cancel</button>
                 </div>
                 <!-- Buttons for creating new patient and cancelling ends -->
-
               </form>
               <!-- form input ends here -->
-
             </section>
           </div>
         </div>

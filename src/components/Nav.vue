@@ -31,35 +31,13 @@
                                 <router-link to="/patient"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Patient</router-link>
-
                                 <!-- appointment -->
-                               
-
-                                    <div class="dropdown inline-block relative">
-                                        <button
-                                            class=" 2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                        <router-link to='/AppointmentPortal'
+                                            class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                             <span class="">Appointment</span>
-                                        </button>
-                                        <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1">
-                                            <li class="">
-                                                <router-link to="/AppointmentList"
-                                                    class="rounded-t bg-white hover:bg-regal-white py-2 px-1 block whitespace-no-wrap">
-                                                    Appointment List</router-link>
-                                            </li>
-                                            <li class=""><router-link to="/WaitingList"
-                                                    class="bg-white hover:bg-regal-white py-2 px-1 block whitespace-no-wrap"
-                                                    >Waiting List</router-link></li>
-                                        </ul>
-                                    </div>
-
-                            
-
-
-
+                                        </router-link>
+                                        
                                 <!-- appointment -->
-
-
-
 
                                 <router-link to="/patient-list-billing"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
