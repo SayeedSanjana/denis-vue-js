@@ -4,19 +4,19 @@
             <Nav />
         </header>
 
-            <div class="md:flex bg-white   ">
+            <div class="lg:flex bg-white ">
                 <!--main-->
-                <div class=" mx-auto  bg-white w-full rounded-sm md:w-1/3 min-h-screen border border-regal-cyan border-opacity-20 ">
+                <div class=" mx-auto  bg-white w-full rounded-sm lg:w-1/3 min-h-screen border border-regal-cyan border-opacity-20 ">
                     <!--sidebar-->
                     <div class="">
-                        <PatientList/>
+                        <AppointmentCard/>
                     </div>
                 </div>
                 <!--sidebar-->
 
-                <div class=" md:w-3/4 w-full">
+                <div class=" lg:w-3/4 w-full ">
                     <!--nav-->           
-                <div class="justify-between container md:flex md:justify-center text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 border-b-0 py-3">
+                <div class="justify-between w-full xl:container md:flex md:justify-center text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 border-b-0 py-3">
                     <div class="md:w-1/3 md:text-right">
                     <button @click="activeTab = 'TodaysAppointmentList'" :class="activeTab==='TodaysAppointmentList' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5 mt-0.5">Today's appointment</button>
@@ -46,13 +46,15 @@ import Nav from "../../components/Nav.vue";
 import TodaysAppointmentList from "../Appointment/TodaysAppointmentList.vue";
 import AllAppointmentList from "../Appointment/AllAppointmentList.vue";
 import Calendar from "../Appointment/Calendar.vue";
+import AppointmentCard from "../Appointment/AppointmentCard.vue";
     export default {
     components: {
         Nav,
         PatientList,
         TodaysAppointmentList,
         AllAppointmentList,
-        Calendar
+        Calendar,
+        AppointmentCard
     },  
      data() {
             return {

@@ -2,15 +2,14 @@
     <div class="bg-white">
 
         <!-- Title Starts Here -->
-        <div class="container md:flex md:items-center md:justify-center text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 py-3 border-b-0">
+        <!-- <div class="container md:flex md:items-center md:justify-center text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 py-3 border-b-0">
             <div class="m-0.5 text-regal-teal font-medium">
                 Patient List
             </div>
-        </div> 
+        </div>  -->
         <!-- Title Ends Here -->
     
     <!-- Search bar starts here -->
-
     <div class="block relative w-1/2 mx-4 bg-regal-light-blue ">
         <form>
             <div class="mt-5 mb-2 border-2  border-regal-light-blue border-opacity-30 py-1 px-3 flex justify-between rounded-md  ">
@@ -26,77 +25,14 @@
     <!-- List of patient starts here -->
     <div class="mx-4 py-4  mt-5 ">
         <div class="border border-regal-blue border-opacity-30 rounded-t-xl bg-regal-light-blue py-3 flex">
-            <div class="w-1/6 text-regal-teal text-sm font-semibold text-left lg:ml-8">Sl No</div>
-            <div class=" w-3/6  text-regal-teal text-sm text-left font-semibold lg:ml-3 ">Name</div>
-            <div class=" w-2/6 text-regal-teal text-sm text-center font-semibold lg:mr-12">Contact</div>
+            <div class="w-1/6 text-regal-teal text-sm font-semibold text-left lg:ml-8 ml-12">Sl No</div>
+            <div class=" w-3/6  text-regal-teal text-sm text-left font-semibold lg:ml-3 ml-4 ">Name</div>
+            <div class=" w-2/6 text-regal-teal text-sm text-center font-semibold lg:mr-12 mr-16">Contact</div>
         </div>     
         <ul class=" md:flex-row  p-4 md:w-full bg-regal-white">
-                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
+                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0" v-for="i in 10" :key="i">
                   <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
                    <div class="w-1/6 text-regal-teal text-sm text-left lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                 <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                 <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                 <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                 <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
-                   <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
-                  </div>
-                </li>
-                 <li class="border-gray-400 md:flex justify-center  items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 ">
-                  <div class="select-none cursor-pointer bg-white rounded-md flex flex-1 justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">                
-                   <div class="w-1/6 text-regal-teal text-sm text-left  lg:ml-2">1.</div>
                    <div class=" w-3/6  text-regal-teal text-sm text-left ">Abdur Rahman </div>
                    <div class=" w-2/6 text-regal-teal text-sm text-center ">0987654321</div>
                   </div>
@@ -121,7 +57,7 @@
 
 <script>
     export default {
-        
+      
     }
 </script>
 
