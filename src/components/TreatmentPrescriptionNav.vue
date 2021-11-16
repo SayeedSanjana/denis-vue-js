@@ -5,9 +5,13 @@
                     :class="activeTab==='PatientPrescription' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5 mt-0.5 sm:mx-6">Prescription</button>
 
-                <button @click="activeTab = 'PrescriptionList'"
+                <!-- <button @click="activeTab = 'PrescriptionList'"
                     :class="activeTab==='PrescriptionList' ? 'border-regal-teal' : 'border-regal-white'"
-                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Prescription History
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Patient Dashboard
+                    </button> -->
+                <button @click="activeTab = 'PatientDashboard'"
+                    :class="activeTab==='PatientDashboard' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Patient Dashboard
                     </button>
             </div>
             <keep-alive>
@@ -20,12 +24,13 @@
 
 <script>
     import PatientPrescription from "../views/DoctorsPortal/PatientPrescription.vue";
-    import PrescriptionList from "../views/DoctorsPortal/PrescriptionList.vue";
+    //import PrescriptionList from "../views/DoctorsPortal/PrescriptionList.vue";
+    import PatientDashboard from "../views/DoctorsPortal/PatientDashboard.vue";
     export default {
         props: ['id'],
         components: {
             PatientPrescription,
-            PrescriptionList
+            PatientDashboard
         },
         data() {
             return {

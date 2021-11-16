@@ -9,38 +9,50 @@
             </div>
         </div>
 
-
+<!-- checking condition if both existingPatient and newPatient is false -->
 <div v-if="!this.newPatient && !this.existingPatient">
-<div class="flex justify-center items-center mt-5 " @click="existPat">
-  <div class="flex flex-col justify-between w-72 sm:w-72 h-72 bg-white bg-center text-gray-800 shadow-md overflow-hidden cursor-pointer border border-gray-500">
+
+<!-- Card for Existing Patient starts here -->
+<div class="flex justify-center items-center mt-5   " @click="existPat()">
+  <div class="flex flex-col justify-between w-72 sm:w-72 h-72 bg-white bg-center text-gray-800 shadow-lg overflow-hidden cursor-pointer  hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">
     <div class="flex justify-between items-center ml-4 pr-8">
-      Existing Patient
-      <!-- <div class="bg-red-600 text-white bg-opacity-95 shadow px-2 py-1 flex items-center font-bold text-xs rounded">Some information</div>
-      <div class="bg-red-600 w-10 h-12 shadow flex flex-col-reverse p-2 text-center font-bold text-white rounded-b-full">%</div> -->
+        svg
     </div>
-    <!-- <div class="bg-white bg-opacity-95 shadow-md rounded-r-xl p-4 flex flex-col mr-4 mb-8">
-      <h3 class="text-xl font-bold pb-2">Happy Nowruz 1400</h3>
-      <p class="truncate text-gray-500 text-sm">Nowruz is the Persian New Year, which begins on the Spring equinox, marking the first day of Farvardin, the first month of the Iranian solar calendar.</p>
-      <div class="flex justify-between items-center">
-        <span class="text-gray-400 text-xs">Have a nice year...</span>
-      </div>
-    </div> -->
+    <!-- card footer -->
+        <div class="p-3 bg-regal-footer text-right border rounded-tl-3xl rounded-tr-3xl">
+            <!-- button link -->
+            <p class="text-sm text-regal-teal font-semibold py-3 md:px-8 px-4 rounded text-center">Existing Patient</p>
+        </div>
   </div>
 </div>
-<div class="flex justify-center items-center mt-5"  @click="newPat">
-  <div class="flex flex-col justify-between w-72 sm:w-72 h-72 bg-white bg-center text-gray-800 shadow-md overflow-hidden cursor-pointer border border-gray-500">
+<!-- Card for Existing patient ends here -->
+
+<!-- Card for new Patient starts here -->
+<div class="flex justify-center items-center mt-5 "  @click="newPat()">
+  <div class="flex flex-col justify-between w-72 sm:w-72 h-72 bg-white bg-center text-gray-800 shadow-lg overflow-hidden cursor-pointer  hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm">
     <div class="flex justify-between items-center ml-4 pr-8">
-         New Patient
+        svg
     </div>
+    <!-- card footer -->
+        <div class="p-3 bg-regal-footer text-right border rounded-tl-3xl rounded-tr-3xl ">
+            <!-- button link -->
+            <p class=" text-sm text-regal-teal font-semibold py-3 md:px-8 px-4 rounded  text-center" >New Patient</p>
+        </div>
   </div>
 </div>
+<!-- Card for new Patient ends here -->
 </div>
-<div v-else>
-    <div v-if="this.existingPatient && !this.newPatient">
-        <PatientList/>
+
+<!-- else condition-->
+<div v-else> 
+  <!-- Calling new appointment component -->
+    <div v-if="this.existingPatient===false && this.newPatient===true">
+      <NewAppointment @cancelEvent="formtoCard"/>
     </div>
-    <div v-if="!this.existingPatient && this.newPatient"></div>
-    <NewAppointment/>
+  <!-- Calling Patient list component -->
+    <div v-else >
+      <PatientList  @cancelEventPatient="formtoCard"  @newForm="newPat" />
+    </div>
 </div>
 
     </div>
@@ -61,13 +73,22 @@ import NewAppointment from "../Appointment/NewAppointment.vue";
      }
     },
     methods:{
+      // If existing patient card is clicked
         existPat(){
-        this.existingPatient=true
         this.newPatient=false
+        this.existingPatient=true
         },
+
+        // If new patient card is clicked
         newPat(){
         this.existingPatient=false
         this.newPatient=true
+        },
+
+      //  Method to come back to initial card design
+        formtoCard(){
+        this.existingPatient=false
+        this.newPatient=false
         }
       }
         

@@ -23,7 +23,12 @@ module.exports = {
       'regal-lightblue' : '#407BFF',
       'regal-teethblue':'#46CDD3',
       'regal-light-green':'#7BF2FF',
-      'regal-delay':'#F3CA8D'
+      'regal-delay':'#F3CA8D',
+      'regal-gradientButton1':'#58AFBC',
+      'regal-gradientButton2':'#13759A',
+      'regal-ash':'#C9DBDE',
+      'regal-footer':'#E7EEEF'
+
 
       
     },
