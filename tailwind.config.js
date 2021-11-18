@@ -27,10 +27,12 @@ module.exports = {
       'regal-gradientButton1':'#58AFBC',
       'regal-gradientButton2':'#13759A',
       'regal-ash':'#C9DBDE',
-      'regal-footer':'#E7EEEF'
-
-
-      
+      'regal-footer':'#E7EEEF',
+      'regal-presGreen':'#47B2B7',  
+      'regal-treatGreen':'#2E8E93',
+      'regal-xrayGreen':'#206C70',
+      'regal-visGreen':'#174D50',
+      'rregal-black':'#292929'
     },
     height: {
       sm: '8px',
@@ -40,7 +42,10 @@ module.exports = {
       yxl: '500px',
       zxl: '770px',
       xxl: '800px',
-     }
+     },
+      borderRadius: {
+       '4xl': '2.5rem',
+      }
   },
   },
   variants: {

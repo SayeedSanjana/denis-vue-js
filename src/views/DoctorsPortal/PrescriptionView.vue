@@ -1,9 +1,13 @@
 <template>
   <div>
     <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800">
+       <div class="mt-12 text-left text-regal-teal font-semibold text-xs mx-7 tracking-widest">
+          Prescription History > Details
+      </div>
       <div class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto ">
-          <div class="flex flex-row w-full px-2 mb-8">
+          <!-- Title date and doctor's name starts here -->
+          <div class="flex justify-between w-full px-2 mb-8">
             <div class="">
               <div class="font-semibold text-regal-teal px-0 flex items-start">
                 Prescription Details
@@ -17,8 +21,15 @@
                   {{this.user}}</span>
               </div>
             </div>
+            <!-- Back to list button starts here -->
+            <div class="flex justify-end">     
+              <button class="py-2 px-5 h-8 text-white text-center rounded font-semibold  text-xs flex bg-regal-teal" @click="backToList()">Back to List</button>
+           </div>
+           <!-- Back to list button ends here -->
           </div>
+           <!-- Title date and doctor's name starts here -->
           <hr class="border-1 border-opacity-50">
+          <!-- Patient Info starts here -->
           <div class="lg:flex px-2 py-2 items-start justify-between">
             <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Patient ID: </span><span
                 class="text-regal-teal font-normal">P-{{this.id.substring(this.id.length - 7)}}</span></div>
@@ -29,8 +40,11 @@
             <div class="text-left"> <span class="mr-1 font-semibold text-regal-teal">Gender: </span><span
                 class="text-regal-teal  font-normal">{{this.gender}}</span> </div>
           </div>
-          <hr class="border-2 border-opacity-50 ">
+          <!-- Patient Info ends here -->
 
+          <hr class="border-2 border-opacity-50 ">
+          
+          <!-- cc starts here -->
           <div class="px-2 mb-6 lg:w-full mt-6">
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4 flex items-start"><span class="">C/C</span></div>
@@ -39,8 +53,10 @@
               </div>
             </div>
           </div>
-          <div class="px-2 mb-6 lg:w-full">
+          <!-- cc ends here -->
 
+          <!-- oe starts here -->
+          <div class="px-2 mb-6 lg:w-full">
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">O/E</span></div>
               <div class="flex items-start ">
@@ -48,36 +64,36 @@
               </div>
             </div>
           </div>
-
+          <!-- oe ends here -->
+          
+        <!--treatment plan starts here -->
           <div class="px-2 mb-6 lg:w-full">
             <div class="whitespace-normal break-all">
-              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Treatment Plan</span>
-              </div>
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Treatment Plan</span></div>
               <div class="flex items-start ">
-                <pre
-                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.treatmentPlan}}</pre>
               </div>
             </div>
           </div>
+          <!--treatment plan ends here -->
 
           <div class="px-2 mb-6 lg:w-full">
-
             <div class="whitespace-normal break-all">
-              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Investigation</span>
-              </div>
+              <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Investigation</span></div>
               <div class="flex items-start">
-                <pre
-                  class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre>
+                <pre class="text-left text-regal-teal whitespace-pre-line break-all  font-sans">{{this.formData.investigation}}</pre>
               </div>
             </div>
           </div>
-
           <div>
 
+          <!-- RX svg starts here -->
             <div class="px-2 mt-5 mb-5">
               <img src="@/assets/svgs/prescription.svg" alt="">
             </div>
+          <!-- RX svg ends here -->
 
+          <!-- Medicine List starts here -->
             <table class="ml-2 w-full mb-5 bg-regal-blue bg-opacity-30 rounded-t-xl  ">
               <thead class="text-left text-sm text-regal-teal  border-b-2 border-regal-teal border-opacity-30 ">
                 <th class="px-4 py-3">Category</th>
@@ -85,9 +101,7 @@
                 <th class="px-4 py-3">Duration</th>
                 <th class="px-4 py-3">Frequency</th>
                 <th class="px-4 py-3">Relation with Meals</th>
-
               </thead>
-
               <tbody class="text-left">
                 <tr class="bg-white  border-b border-regal-cyan border-opacity-50" v-for="item in formData.medicine"
                   :key="item._id">
@@ -96,14 +110,14 @@
                   <td class="px-4 py-3 text-regal-teal">{{item.duration}}</td>
                   <td class="px-4 py-3 text-regal-teal">{{item.frequency}}</td>
                   <td class="px-4 py-3 text-regal-teal">{{item.relationWithMeals}}</td>
-
                 </tr>
               </tbody>
-
-
             </table>
-          </div>
+            <!-- Medicine List ends here -->
 
+          </div>
+         
+         <!-- Advice starts here -->
           <div class="px-2 mb-6 ">
             <div class="whitespace-normal break-all">
               <div class="font-semibold text-regal-teal mb-4  flex items-start"><span class="">Advice</span></div>
@@ -112,7 +126,9 @@
               </div>
             </div>
           </div>
+          <!-- Advice ends here -->
 
+         <!-- Printing option starts here -->
           <div class="flex justify-center mt-20">
             <div class="flex justify-between px-10 ">
               <button @click="printMedication"
@@ -155,14 +171,16 @@
               </button>
             </div>
           </div>
-
-
+          <!-- Printing option ends here -->
         </div>
       </div>
+
+      <!-- fullPrescription component is called -->
       <div v-if="fullPresModal">
         <FullPrescription :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeFullPres="removeFullPres" />
       </div>
+      <!-- medication component is called -->
       <div v-if="medModal">
         <Medication :formData="formData" :user="user" :name="name" :age="age" :gender="gender" :date="date" :phone="phone"
           @removeMedication="removeMedication" />
@@ -236,6 +254,9 @@
           .catch((error) => {
             console.log(error)
           })
+      },
+      backToList(){
+          this.$emit("backToList")
       },
 
       printFullPres() {

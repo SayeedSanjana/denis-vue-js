@@ -5,7 +5,7 @@
             <Nav />
         </header>
 
-            <div class="md:flex  bg-white   ">
+            <div class="lg:flex bg-white   ">
                 <!--main-->
                 <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
                     <!--sidebar-->
@@ -43,7 +43,6 @@
     import axios from "axios";
     export default {
         components: {
-
             Nav,
             TreatmentPrescriptionNav,
             PastPresGeneralNav,
@@ -65,20 +64,15 @@
                     allergies: [],
                     badHabits: []
                 }
-
             }
         },
-
-
         methods: {
-
             showAllergy() {
                 this.show = !this.show;
             },
             showBadHabits() {
                 this.showHabits = !this.showHabits
             },
-
             async getPatient(id) {
                 await axios.get('patients/' + id, {
                         headers: {
@@ -86,7 +80,6 @@
                         }
                     })
                     .then((response) => {
-
                         this.formData = response.data.result;
                         const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
                         const ageDate = new Date(ageDifMs);
@@ -102,5 +95,4 @@
 </script>
 
 <style scoped>
-
 </style>
