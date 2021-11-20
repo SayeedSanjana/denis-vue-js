@@ -10,50 +10,86 @@
             <div class="w-full flex">
                 <!-- form -->
                 <form @submit.prevent="updateUser()" class="w-1/2">
-                    <!-- fullname -->
-                    <div class="formbox">
-                        <label for="" class="labeldesign">Full Name</label>
-                        <input type="text" class="inputfield" v-model="formData.name">
-                    </div>
-                    <!-- fullname -->
+                     <div class="flex formbox">
+                         <!-- first name starts -->
+                        <div class="w-1/2 pr-4">
+                            <label for="" class="labeldesign">First Name</label>
+                            <input type="text" class="inputfield" v-model="this.formData.name">
+                        </div>
+                        <!-- first name ends-->
 
-                     <!-- email -->
+                        <!-- last name starts -->
+                        <div class="w-1/2">
+                            <label for="" class="labeldesign">Last Name</label>
+                            <input type="text" class="inputfield" v-model="this.formData.name">
+                        </div>
+                        <!-- last name ends-->
+
+                    </div>
+                    <!--date of birth starts-->
+                     <div class="flex formbox">
+                        <div class="w-1/2 pr-4">
+                            <label for="" class="labeldesign">Date of Birth</label>
+                            <input type="date" class="inputfield" v-model="formData.dob">
+                        </div>
+                    <!-- date of birth ends -->
+
+                    <!-- gender starts-->
+                        <div class="w-1/2">
+                            <label for="" class="labeldesign">Gender</label>
+                            <input type="text" class="inputfield" v-model="formData.gender">
+                        </div>
+                    <!-- gender ends -->
+
+                    </div>
+                    
+                     <!-- email starts -->
                     <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Email</label>
                             <input type="text" class="inputfield" v-model="formData.email">
                         </div>
-                        <!-- email -->
+                    <!-- email ends -->
 
-                        <!-- phone number -->
+                    <!-- user ID starts -->
                         <div class="w-1/2">
-                            <label for="" class="labeldesign">Phone Number</label>
+                            <label for="" class="labeldesign">User ID</label>
+                            <input type="text" class="inputfield" v-model="formData._id" readonly>
+                        </div>
+                    <!-- user ID ends-->
+                    </div>
+
+                    <!-- contact starts -->
+                     <div class="flex formbox">
+                        <div class="w-1/2 pr-4">
+                            <label for="" class="labeldesign">Contact</label>
                             <input type="text" class="inputfield" v-model="formData.phone">
                         </div>
-                        <!-- phone number -->
+                        <!-- contact ends -->
                     </div>
-                    <!-- address -->
+
+                    <!-- address starts -->
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
                         <textarea type="text" class="h-40 inputfield" v-model="formData.address"></textarea>
                     </div>
-                    <!-- address -->
+                    <!-- address ends -->
 
                      <!-- More Settings starts -->
                <h3 class="headername my-1">More Settings </h3>
                     <!-- Qualifications -->
-                    <div class="formbox w-3/5">
+                    <!-- <div class="formbox w-3/5">
                         <label for="" class="labeldesign">Qualifications</label>
                         <textarea type="text" class="inputfield" v-model="formData.qualifications"></textarea>
-                    </div>
+                    </div> -->
                     <!-- Qualifications-->
 
-                    <!-- Role -->
+                    <!-- Role starts -->
                     <div class="formbox  w-3/5">
                         <label for="" class="labeldesign">Role/User Catagory</label>
                         <input type="text" class="inputfield bg-regal-white" v-model="formData.role" readonly>
                     </div>
-                    <!-- Role -->
+                    <!-- Role ends -->
 
                      <!-- Role -->
                     <div class="formbox w-3/5 mb-7 ">
@@ -207,6 +243,8 @@
                 token: localStorage.getItem('token'),
                 uid: '',
                 str: '',
+                fname:'',
+                lname:'',
                formData: {
                     name: '',
                     email: '',
@@ -272,7 +310,6 @@
                     })
                     .then((response) => {
                         this.formData = response.data['result'];
-
                         //Getting the date from ISO Fromat
                         let date = new Date(this.formData.createdAt);
                         let year = date.getFullYear();

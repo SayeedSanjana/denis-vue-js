@@ -10,6 +10,7 @@ import PastBillView from '../views/Billing/PastBillView';
 import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
 import AppointmentPortal from "../views/Appointment/AppointmentPortal.vue";
+import EmployeeList from "../views/Employee/EmployeeList.vue";
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
 // import Createnewappointment from "../views/Createnewappointment.vue";
@@ -20,6 +21,11 @@ const routes = [
     path: '/patient',
     name: 'Patient',
     component: Patient
+  },
+  {
+    path: '/EmployeeList',
+    name: 'EmployeeList',
+    component: EmployeeList
   },
   
   {

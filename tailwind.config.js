@@ -32,7 +32,19 @@ module.exports = {
       'regal-treatGreen':'#2E8E93',
       'regal-xrayGreen':'#206C70',
       'regal-visGreen':'#174D50',
-      'rregal-black':'#292929'
+      'regal-black':'#292929',
+      'regal-dark-red':'#AE3939',
+      'regal-light-red':'#FFDFE1',
+      'regal-light-green':'#E3FFDF',
+      'regal-dark-green':'#0F7D56',
+      'regal-brown':'#805C27',
+      'regal-yellow-ochre':'#CAA273',
+      'regal-skin':'#FFE3BA'
+      
+      
+
+      
+
     },
     height: {
       sm: '8px',
