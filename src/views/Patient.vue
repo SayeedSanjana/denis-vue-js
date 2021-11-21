@@ -48,8 +48,9 @@
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                    @click="patientDetails(post._id)" v-for="(post,index) in filteredList " :key="index">
-                    <td class="py-3 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
+                    @click="patientDetails(post._id)" v-for="(post,index) in this.Patients " :key="index">
+                    <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>
+                    <!-- <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td> -->
                     <td class="px-2 py-3">{{post.name}}</td>
                     <td class="px-2 py-3">{{post.phone}}</td>
                     <td class="px-2 py-3">{{post.gender}}</td>
@@ -57,7 +58,11 @@
                     <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
                 </tr>
             </table>
-            <div class="flex px-40 flex-row justify-center">
+           
+            <div class="flex px-40 flex-row justify-center bg-regal-white">
+            <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+            </div>
+            <!-- <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
                     <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                         :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
@@ -66,7 +71,7 @@
                     <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                         :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
                 </div>
-            </div>
+            </div> -->
         </section>
         <div v-if="openModal">
             <RegisterPatient @closeModal="closeModal" />
@@ -75,6 +80,8 @@
 </template>
 
 <script>
+    import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+    // import '@ocrv/vue-tailwind-pagination/dist/style.css'
     import axios from "axios";
     import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
@@ -82,16 +89,19 @@
     export default {
         components: {
             Nav,
-            RegisterPatient
+            RegisterPatient,
+            VueTailwindPaginaiton
+
         },
         created() {
+            this.currentPage=1
             this.getPatients()
         },
 
         computed: {
             filteredList() {
-                const star = (this.currentPage - 1) * this.prePage
-                const end = this.currentPage * this.prePage
+                const star = (this.currentPage - 1) * this.perPage
+                const end = this.currentPage * this.perPage
                 const result = this.Patients.slice(star, end)
                 return result
             }
@@ -99,16 +109,23 @@
 
         data() {
             return {
+                total:0,
+                // currentPg:1,
                 Patients: [],
-                prePage: 10,
+                perPage: 3,
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',
+                //perPg:10
                 //count:0
             }
         },
 
         methods: {
+            pageChange(pageNumber){
+               this.currentPage=pageNumber
+               this.getPatients(this.currentPage)
+            },
             
              dateConversion(date) {
              return moment(date).format('LL')
@@ -133,8 +150,11 @@
             },
 
             async getPatients() {
+               
                 const response = await axios.get('patients', {
                     params: {
+                        page:this.currentPage,
+                        limit:this.perPage,
                         q: this.text
                     },
                     headers: {
@@ -142,6 +162,7 @@
                     }
                 })
                 this.Patients = response.data['result'];
+                this.total=response.data.totalPages;
                 console.log(this.Patients)
             },
 

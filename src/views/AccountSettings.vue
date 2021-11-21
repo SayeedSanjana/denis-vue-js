@@ -160,9 +160,7 @@
                     </div>
                 </div>
                 <!-- Visiting Card -->
-
             </div>
-
 
             <h3 class="headername">Password Settings </h3>
             <!-- change password -->
@@ -211,11 +209,8 @@
                     </div>
                 </div>
             </form>
-
             <!-- change password -->
-
             <div v-show="!a" class="h-28 "></div>
-
         </section>
     </div>
 </template>

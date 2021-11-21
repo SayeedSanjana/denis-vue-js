@@ -40,7 +40,6 @@
                 </svg> 
               </button>   
               <!-- Next button ends here -->
-
             </div>
           </div>
           
@@ -60,10 +59,16 @@
           <div class="shadow-md border bg-regal-white border-regal-blue border-opacity-30 justify-center mx-12 my-6 hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm " v-if="!changecomponents">
 
             <!-- upper portion info of the card starts here -->
-            <div class="bg-regal-presGreen rounded-br-3xl py-4 h-full shadow-inner lg:w-1/3">
+            <div class="lg:flex w-full justify-between">
+            <div class="bg-regal-presGreen rounded-br-3xl py-4 h-full shadow-inner lg:w-1/3 ">
               <div class="flex mx-3">
                 <div class="text-white text-sm font-bold text-left mr-2">Visiting date: </div>
                 <div class="text-white text-sm font-bold text-left">10 November,2021</div>
+              </div>        
+            </div>
+            <div class="mx-3 py-4">
+                <div class=" text-xs font-bold text-left mr-2 text-regal-teal">Prescribed by: </div>
+                <div class=" text-sm font-bold text-left text-regal-teal">Dr. Jan Doe</div>
               </div>
             </div>
             <!-- upper portion info of the card starts here -->
