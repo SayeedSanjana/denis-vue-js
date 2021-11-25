@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Patient from '../views/Patient.vue';
 import AccountSettings from '../views/AccountSettings.vue';
+import ProfileSettings from '../views/User/ProfileSettings.vue';
+import EmployeeProfile from '../views/Employee/EmployeeProfile.vue';
 import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
 import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
 import PatientListBilling from '../views/Billing/PatientListBilling';
@@ -32,6 +34,16 @@ const routes = [
     path: '/AccountSettings',
     name: 'AccountSettings',
     component: AccountSettings
+  },
+  {
+    path: '/ProfileSettings',
+    name: 'ProfileSettings',
+    component: ProfileSettings
+  },
+  {
+    path: '/EmployeeProfile',
+    name: 'EmployeeProfile',
+    component: EmployeeProfile
   },
   {
     path: '/AppointmentPortal',

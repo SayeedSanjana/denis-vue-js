@@ -17,7 +17,7 @@
                         <form class="bg-white ">
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
                                 <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96" name="q"
-                                    type="text" placeholder="Search by name or phone number" v-model="text"
+                                    type="text" placeholder="Search by name or phone number" 
                                     @keydown="this.getPosts()" />
                                 <span class="ml-10">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +44,8 @@
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(post._id)" 
-                    v-for="(post,index) in filteredList " :key="index">
-                    <td class=" py-3 ">{{(this.prePage *(this.currentPage-1))+index+1}}</td>
+                    v-for="(post,index) in this.Patients " :key="index">
+                    <td class=" py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>
                     <td class="px-2 py-3">{{post.name}}</td>
                     <td class="px-2 py-3">{{post.phone}}</td>
                     <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
@@ -54,8 +54,12 @@
                     
                 </tr>
             </table>
+
+             <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+                <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+            </div>
             
-            <div class="flex px-40 flex-row justify-center">
+            <!-- <div class="flex px-40 flex-row justify-center">
                 <div class="px-40"> 
                 <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                     :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
@@ -64,7 +68,7 @@
                 <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                     :disabled="filteredList.length<prePage || filteredList.length==0" @click="changePage(1)">Next </button>
                     </div>
-            </div>
+            </div> -->
         </section>
         
     </div>
@@ -81,40 +85,47 @@
 <script>
     import Nav from "../../components/Nav.vue";
     import axios from 'axios';
-    import moment from "moment"
+    import moment from "moment";
+    import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
 
         created() {
-            this.getPosts();
+            this.currentPage=1
+            this.getPatients();
         },
         components: {
-            Nav
+            Nav,
+             VueTailwindPaginaiton
         },
 
 
-        computed: {
-            filteredList() {
+        // computed: {
+        //     filteredList() {
 
-                const star = (this.currentPage - 1) * this.prePage
-                const end = this.currentPage * this.prePage
-                const result = this.Patients.slice(star, end)
-                return result
-            }
-        },
+        //         const star = (this.currentPage - 1) * this.prePage
+        //         const end = this.currentPage * this.prePage
+        //         const result = this.Patients.slice(star, end)
+        //         return result
+        //     }
+        // },
 
         data() {
             return {
+                total:0,
                 token: localStorage.getItem('token'),
                 open: false,
                 Patients: [],
-                prePage: 10,
+                perPage: 10,
                 currentPage: 1,
-                text: "",
                 dateCon:""
 
             }
         },
         methods: {
+            pageChange(pageNumber){
+               this.currentPage=pageNumber
+               this.getPatients(this.currentPage)
+            },
             
              dateConversion(date) {
              return moment(date).format('LL')
@@ -136,9 +147,11 @@
                     }
                 })
             },
-            async getPosts() {
+            async getPatients() {
                 await axios.get('patients', {
                             params: {
+                                page:this.currentPage,
+                                limit:this.perPage,
                                 q: this.text
                             },
 
@@ -148,7 +161,8 @@
                         }
                     )
                     .then((response) => {
-                        console.log(response.data['result']);
+                        //console.log(response.data['result']);
+                        this.total=response.data.totalPages;
                         this.Patients = response.data['result'];
                         console.log(this.Patients)
                     })

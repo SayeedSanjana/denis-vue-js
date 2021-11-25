@@ -47,14 +47,13 @@
 <div v-else> 
   <!-- Calling new appointment component -->
     <div v-if="this.existingPatient===false && this.newPatient===true">
-      <NewAppointment @cancelEvent="formtoCard"/>
+      <NewAppointment @cancelEvent="formtoCard" :patientId="patientId"/>
     </div>
   <!-- Calling Patient list component -->
     <div v-else >
-      <PatientList  @cancelEventPatient="formtoCard"  @newForm="newPat" />
+      <PatientList :patientList="patientID" @cancelEventPatient="formtoCard"  @newForm="newPat" />
     </div>
 </div>
-
     </div>
 </template>
 
@@ -69,7 +68,8 @@ import NewAppointment from "../Appointment/NewAppointment.vue";
     data(){
      return{
       existingPatient:false,
-      newPatient:false
+      newPatient:false,
+      patientId:''
      }
     },
     methods:{
@@ -89,9 +89,14 @@ import NewAppointment from "../Appointment/NewAppointment.vue";
         formtoCard(){
         this.existingPatient=false
         this.newPatient=false
+        },
+        patientID(id){
+          this.patientId=id
+          //console.log(this.patientId)
+          this.existingPatient=false
+          this.newPatient=true
         }
-      }
-        
+      }      
     }
     
 </script>

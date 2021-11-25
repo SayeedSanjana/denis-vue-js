@@ -37,7 +37,6 @@
                         id="gender" v-model="formdata.gender">
                         <option>Male</option>
                         <option>Female</option>
-                        <!-- <option>Transgender</option> -->
                         <option>Others</option>
                       </select>
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -110,7 +109,7 @@
         if (!this.v$.$error) {
           await axios.post('patients/create-patient', this.formdata, {
               headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token') }`
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
               }
             })
             .then((response) => {
@@ -138,7 +137,5 @@
     }
   }
 </script>
-
 <style scoped>
-
 </style>

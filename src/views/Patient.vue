@@ -11,7 +11,7 @@
                         <form class="bg-white ">
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
                                 <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96 h-8"
-                                    name="q" type="text" placeholder="Search by name or phone number" v-model="text"
+                                    name="q" type="text" placeholder="Search by name or phone number" 
                                     @keydown="this.getPatients()" />
                                 <span class="ml-10">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +59,8 @@
                 </tr>
             </table>
            
-            <div class="flex px-40 flex-row justify-center bg-regal-white">
-            <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+            <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+              <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
             </div>
             <!-- <div class="flex px-40 flex-row justify-center">
                 <div class="px-40">
@@ -98,21 +98,21 @@
             this.getPatients()
         },
 
-        computed: {
-            filteredList() {
-                const star = (this.currentPage - 1) * this.perPage
-                const end = this.currentPage * this.perPage
-                const result = this.Patients.slice(star, end)
-                return result
-            }
-        },
+        // computed: {
+        //     filteredList() {
+        //         const star = (this.currentPage - 1) * this.perPage
+        //         const end = this.currentPage * this.perPage
+        //         const result = this.Patients.slice(star, end)
+        //         return result
+        //     }
+        // },
 
         data() {
             return {
                 total:0,
                 // currentPg:1,
                 Patients: [],
-                perPage: 3,
+                perPage: 10,
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',

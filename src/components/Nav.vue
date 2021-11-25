@@ -7,9 +7,7 @@
                         <div class="flex items-center">
                             <a class="text-xl font-semibold text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
                                 href="#" style="color:#005072">MT Dental Center</a>
-
                         </div>
-
                         <!-- Mobile menu button -->
                         <div class="flex md:hidden">
                             <button type="button" @click="toggle"
@@ -23,8 +21,6 @@
                             </button>
                         </div>
                     </div>
-
-
                     <div class="items-center md:flex">
                         <div>
                             <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
@@ -32,41 +28,65 @@
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Patient</router-link>
                                 <!-- appointment -->
-                                        <router-link to='/AppointmentPortal'
-                                            class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                            <span class="">Appointment</span>
-                                        </router-link>
-                                        
+                                <router-link to='/AppointmentPortal'
+                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    <span class="">Appointment</span>
+                                </router-link>
+                                <router-link to='/EmployeeProfile'
+                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    <span class="">EmployeeProfile</span>
+                                </router-link>
                                 <!-- appointment -->
-
                                 <router-link to="/patient-list-billing"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
-
-                                <router-link to="/AccountSettings"
+                                <!-- <router-link to="/AccountSettings"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Settings</router-link>
-
-                                <router-link to="/EmployeeList"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Employee</router-link>
-
-                                <router-link to="/" @click="logout"
+                                    Settings</router-link> -->
+                                <!-- <router-link to="/" @click="logout"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Logout
-                                </router-link>
+                                </router-link> -->
+                                <!-- user profile -->
+                                <div class="dropdown inline-block relative pl-4">
+                                    <button class="">
+
+                                    <img class=" w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
+                                    </button>
+                                    <div class="mr-8">                                 
+                                    <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1 border border-regal-teal border-opacity-10 rounded-md border-t-0 ">
+                                        <li class="">
+                                            <router-link to="/ProfileSettings"
+                                                class=" rounded-t bg-white hover:bg-regal-white py-1 px-9 block whitespace-no-wrap">
+                                                ProfileSettings</router-link>
+                                        </li>
+                                        <li class="">
+                                            <router-link to="/AccountSettings"
+                                                class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
+                                                Settings</router-link>
+                                        </li>
+                                        <li class="">
+                                            <router-link to="/" @click="logout"
+                                                class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
+                                                Logout
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                                <!--                                 
+                                <router-link to="/AccountSettings">
+                                <img class="w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
+                                </router-link> -->
+                                <!-- user profile -->
                             </div>
                         </div>
-
                         <!-- Search input on mobile screen -->
                         <div class="mt-3 md:hidden hidden">
                             <div class="relative">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                        <path
-                                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
+                                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
                                 </span>
 
@@ -86,18 +106,12 @@
         data() {
             return {
                 isOpen: true,
-
             }
         },
         methods: {
-
             toggle: function () {
                 this.isOpen = !this.isOpen
-
             },
-
-
-
             logout() {
                 localStorage.clear()
             },
