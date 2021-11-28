@@ -51,14 +51,14 @@
                 <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in AppointmentList" :key="index">
                    <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
                     :class="['border-regal-examined', (i.status === 'Scheduled' ? 'border-regal-scheduled ' : 'border-regal-examined'), (i.status === 'Cancelled'  ? 'border-regal-cancelled' : 'border-regal-examined')]">                
-                   <div class="text-regal-teal text-sm text-left lg:ml-2">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
-                   <div class="text-regal-teal text-sm text-left ">Abdur Rahman </div>
-                   <div class="text-regal-teal text-sm text-left">24/Female</div>
-                   <div class="text-regal-teal text-sm text-left lg:ml-2">P-1234567</div>
-                   <div class="text-regal-teal text-sm text-left ">{{i.start_time}}-{{i.end_time}}</div>
-                   <div class="text-regal-teal text-sm text-center ">{{i.reason}}</div>
-                   <div class="text-regal-teal text-sm text-center ml-6">{{this.dateConversion(i.date.substring(0, 10))}}</div>
-                   <div class="text-regal-teal text-sm text-center ml-6 ">
+                   <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
+                   <div class="text-regal-teal text-sm text-left  w-44">Abdur Rahman </div>
+                   <div class="text-regal-teal text-sm text-left w-44">24/Female</div>
+                   <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
+                   <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
+                   <div class="text-regal-teal text-sm text-center break-words w-44">{{i.reason}}</div>
+                   <div class="text-regal-teal text-sm text-center ml-6 w-44">{{this.dateConversion(i.date.substring(0, 10))}}</div>
+                   <div class="text-regal-teal text-sm text-center ml-6  w-44">
                        <div class="relative inline-flex">
   <!-- <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg> -->
                         <select class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center">
@@ -115,9 +115,13 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             VueTailwindPaginaiton
 
         },
+        //  computed(){
+        //    return this.getAppointmentList()
+        // },
         created() {
          this.getAppointmentList()
         },
+       
         data(){
             return{
                 total:0,
