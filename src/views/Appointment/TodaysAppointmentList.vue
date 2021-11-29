@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div v-if=" this.TodayAppointmentList>=1">
         <div class="flex flex-row mb-1 sm:mb-0 px-4">
      <!-- search starts -->
         <div class="block relative">
@@ -81,7 +82,14 @@
         </div>
    </div>
    <!-- Pagination ends here -->
+        </div>
+       <div v-else class="h-screen  ">
+            <div class="  my-4 rounded-md text-lg mx-auto ">
+                <p class="font-bold text-regal-teal text-opacity-50 text-center">No Appointments for Today</p>
+            </div>
+          </div>
 
+    
 
     </div>
 </template>
@@ -130,19 +138,13 @@ import moment from 'moment'
                 let today = new Date();
                 let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 this.AppointmentList.forEach(i => {
-                     //console.log(i.toLowerCase())
-                     //console.log(this.item)
                     if (i.date.substring(0, 10) ===date){
-                        this.TodayAppointmentList.push(i)
-                    //    this.err="Allergy already exist"
-                    //    this.dup=true
-
-                       console.log(this.err)   
+                        this.TodayAppointmentList.push(i) 
                     }
                  });
                 //today.toLocaleDateString();
                 //this.total=response.data.totalPages;
-                console.log(this.AppointmentList)
+                //console.log(this.AppointmentList)
             },
         }
     }

@@ -91,17 +91,11 @@
 </div>
 
 <!-- If appointment list is empty -->
-<div v-else>
-     <div class="flex items-center justify-center px-12 mt-6">
-          
-          <div class="bg-regal-teal px-6 py-4  my-4 rounded-md text-lg mx-auto flex items-center  w-full ">
-            <svg class="h-6 w-6 fill-current text-white mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg>
-            <div>
-              <p class="font-bold text-white">No Patients in the Appointment List</p>
+ <div v-else class="h-screen  ">
+            <div class="  my-4 rounded-md text-lg mx-auto ">
+                <p class="font-bold text-regal-teal text-opacity-50 text-center">No Appointments</p>
             </div>
           </div>
-        </div>
-</div>
 
     </div>
 </template>
@@ -154,7 +148,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
                 })
                 this.AppointmentList = response.data['result'];
                 //this.total=response.data.totalPages;
-                console.log(this.AppointmentList)
+                //console.log(this.AppointmentList)
             },
         }
     }

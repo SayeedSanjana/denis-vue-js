@@ -288,7 +288,7 @@
                 }).join(''));
                 const payload = JSON.parse(jsonPayload);
                 this.uid = payload.sub
-                console.log(payload.sub);
+                //console.log(payload.sub);
             },
             onChange() {
                 this.str = ""
