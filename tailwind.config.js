@@ -39,7 +39,8 @@ module.exports = {
       'regal-dark-green':'#0F7D56',
       'regal-brown':'#805C27',
       'regal-yellow-ochre':'#CAA273',
-      'regal-skin':'#FFE3BA'
+      'regal-skin':'#FFE3BA',
+      'regal-sta-green':'#0F7D56'
       
       
 

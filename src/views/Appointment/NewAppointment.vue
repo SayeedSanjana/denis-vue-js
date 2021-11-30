@@ -288,96 +288,68 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
      //create new appointment
       async submitForm() {
           //console.log('entered')
-          if(this.patientId.length>=1){
-            this.form.address='N/A'
+          if (this.patientId.length >= 1) {
+            this.form.address = 'N/A'
           }
-          // if(this.patientId.length==0){
-          //   console.log("yyuyuyu")
-          //   console.log(this.patientId)
-          //   this.v$.$touch()
-          //   if (!this.v$.$error) {
-          //     console.log(this.form)
-          //     this.form.phone = this.form.phone.replace(/\s/g, '')
-          //      await axios.post('patients/create-patient', this.form, {
-          //      headers: {
-          //       "Authorization": `Bearer ${localStorage.getItem('token')}`
-          //     }
-          //   })
-          //   .then((response) => {
-          //     console.log(response)
-          //   })
-          //   .catch((error) => {
-          //     console.log(error)
-          //     console.log("Something went wrong. Please try again")
-          //   })
-          // }
-          // }     
-        if(this.endTime==='' ||this.endam===false && this.endpm===false){
-          this.strstart=""
-          this.strend="Choose End Time and AM or PM"
-        }
-        if(this.startTime==='' ||this.startam===false && this.startpm===false){
-          this.strend=""
-          this.strstart="Choose Start Time and AM or PM"
-        }
-          console.log(this.startTime)
-          console.log(this.endTime)
-           console.log (this.v$.$error);
-           if (!this.v$.$error) { 
-          this.startam===true ? this.startTime=this.startTime+''+'AM' : this.startTime=this.startTime+''+'PM'
-          this.endam===true ?  this.endTime=this.endTime+''+'AM' : this.endTime=this.endTime+''+'PM'     
-          this.formdata.patient=this.patientId
-          console.log(this.formdata.patient)
-          this.formdata.user=this.uid
-          this.formdata.doctor=this.doctorId
-          this.formdata.status='Scheduled'
-          this.formdata.start_time=moment(this.startTime, "h:mm:ss A").format("HH:mm:ss")
-          this.formdata.end_time=moment(this.endTime, "h:mm:ss A").format("HH:mm:ss")
-          console.log(this.formdata)
-           console.log('entered6')
-         // this.formdata.user=''  
-          await axios.post('appointments/create', this.formdata, {
+          this.v$.$touch()
+          if (this.endTime === '' || this.endam === false && this.endpm === false) {
+            this.strstart = ""
+            this.strend = "Choose End Time and AM or PM"
+          }
+          if (this.startTime === '' || this.startam === false && this.startpm === false) {
+            this.strend = ""
+            this.strstart = "Choose Start Time and AM or PM"
+          }
+          if (!this.v$.$error) {
+            this.startam === true ? this.startTime = this.startTime + '' + 'AM' : this.startTime = this.startTime + '' + 'PM'
+            this.endam === true ? this.endTime = this.endTime + '' + 'AM' : this.endTime = this.endTime + '' + 'PM'
+            this.formdata.patient = this.patientId
+            //console.log(this.formdata.patient)
+            this.formdata.user = this.uid
+            this.formdata.doctor = this.doctorId
+            this.formdata.status = 'Scheduled'
+            this.formdata.start_time = moment(this.startTime, "h:mm:ss A").format("HH:mm:ss")
+            this.formdata.end_time = moment(this.endTime, "h:mm:ss A").format("HH:mm:ss")
+            //console.log(this.formdata) 
+            await axios.post('appointments/create', this.formdata, {
+                headers: {
+                  "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+              })
+              .then((response) => {
+                console.log(response)
+                swal({
+                  title: "Success",
+                  text: "Appointment created Successfully!",
+                  icon: "success",
+                  timer: 1000,
+                  buttons: false
+                }).then(function () {
+                  new Promise(resolve => setTimeout(resolve, 2000));
+                  //window.location = `/AppointmentPortal`;
+                })
+              })
+              .catch((error) => {
+                console.log(error)
+                console.log("Something went wrong. Please try again")
+              })
+          }
+        },
+
+        //Get  information of the specific patient
+        async getSpecificPatient() {
+          await axios.get('patients/' + this.patientId, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`
               }
             })
             .then((response) => {
-              console.log(response)
-              swal({
-                title: "Success",
-                text: "Appointment created Successfully!",
-                icon: "success",
-                timer: 1000,
-                buttons: false
-              }).then(function () {
-                new Promise(resolve => setTimeout(resolve, 2000));
-                //window.location = `/AppointmentPortal`;
-              })
+              this.form = response.data.result;
             })
             .catch((error) => {
               console.log(error)
-              console.log("Something went wrong. Please try again")
             })
-        }   
-       
-        //console.log(this.v$.name.$error)
-        
-      },
-
-      //Get  information of the specific patient
-      async getSpecificPatient(){
-         await axios.get('patients/' + this.patientId, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token') }`
-                        }
-                    })
-                    .then((response) => {
-                        this.form = response.data.result;
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-      },
+        },
 
       //Getting the user list
       async getUser(){

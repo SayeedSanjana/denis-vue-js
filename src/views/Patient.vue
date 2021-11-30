@@ -131,9 +131,9 @@
              return moment(date).format('LL')
 
       },
-            changePage(num) {
-                this.currentPage = this.currentPage + num
-            },
+            // changePage(num) {
+            //     this.currentPage = this.currentPage + num
+            // },
 
 
             toggle() {

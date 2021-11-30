@@ -32,9 +32,9 @@
                                     class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     <span class="">Appointment</span>
                                 </router-link>
-                                <router-link to='/EmployeeProfile'
+                                <router-link to='/EmployeeList'
                                     class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    <span class="">EmployeeProfile</span>
+                                    <span class="">Employee</span>
                                 </router-link>
                                 <!-- appointment -->
                                 <router-link to="/patient-list-billing"

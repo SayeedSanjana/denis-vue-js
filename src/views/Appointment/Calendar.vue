@@ -8,16 +8,27 @@
               <div class="flex flex-nowrap " v-if="this.list1.length>=1">
                 <div class="inline-block px-3" v-for="i in list1" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
+                       <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
                         <div class="flex">
-                          <div>
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
                               Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -34,22 +45,32 @@
      <div class="flex border-b border-regal-blue border-opacity-30">
             <div class="font-semibold text-xl py-16 -ml-12 text-regal-teal w-1/6 ">
             <h1 class="ml-36">{{this.dateArr[1]}}</h1>
-
             </div>
              <div class="flex overflow-x-scroll pb-5 ml-24 hide-scroll-bar w-5/6">
               <div class="flex flex-nowrap" v-if="this.list2.length>=1">
                 <div class="inline-block px-3" v-for="i in list2" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
-                        <div class="flex">
-                          <div>
+                         <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
+                       <div class="flex">
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
-                              Visiting time:{{i.start_time}}-{{i.end_time}}
+                              Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -66,7 +87,6 @@
        <div class="flex border-b border-regal-blue border-opacity-30">
             <div class="font-semibold text-xl py-16 -ml-12 text-regal-teal w-1/6 ">
             <h1 class="ml-36">
-                
                  {{this.dateArr[2]}}
                 </h1>
                  </div>
@@ -74,16 +94,27 @@
               <div class="flex flex-nowrap " v-if="this.list3.length>=1">
                 <div class="inline-block px-3" v-for="i in list3" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
-                        <div class="flex">
-                          <div>
+                         <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
+                       <div class="flex">
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
-                              Visiting time:{{i.start_time}}-{{i.end_time}}
+                              Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -99,8 +130,7 @@
         </div>
         <div class="flex border-b border-regal-blue border-opacity-30" v-show="this.list4">
             <div class="font-semibold text-xl py-16 -ml-12 text-regal-teal w-1/6 ">
-            <h1 class="ml-36">
-                
+            <h1 class="ml-36">    
                  {{this.dateArr[3]}}
                 </h1>
                  </div>
@@ -108,16 +138,27 @@
               <div class="flex flex-nowrap" v-if="this.list4.length>=1">
                 <div class="inline-block px-3" v-for="i in list4" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
+                        <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
                         <div class="flex">
-                          <div>
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
-                              Visiting time:{{i.start_time}}-{{i.end_time}}
+                              Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -133,8 +174,7 @@
         </div>
       <div class="flex border-b border-regal-blue border-opacity-30">
             <div class="font-semibold text-xl py-16 -ml-12 text-regal-teal w-1/6 ">
-            <h1 class="ml-36">
-                
+            <h1 class="ml-36">              
                  {{this.dateArr[4]}}
                 </h1>
                  </div>
@@ -142,16 +182,27 @@
               <div class="flex flex-nowrap" v-if="this.list5.length>=1">
                 <div class="inline-block px-3" v-for="i in list5" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
+                         <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
                         <div class="flex">
-                          <div>
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
                               Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -176,16 +227,27 @@
               <div class="flex flex-nowrap" v-if="this.list6.length>=1">
                 <div class="inline-block px-3" v-for="i in list6" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
+                        <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
                         <div class="flex">
-                          <div>
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
-                              Visiting time:{{i.start_time}}-{{i.end_time}}
+                              Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -210,16 +272,27 @@
               <div class="flex flex-nowrap" v-if="this.list7.length>=1">
                 <div class="inline-block px-3" v-for="i in list7" :key="i">
                     <div class="text-regal-teal text-left mt-12 px-3 w-64 h-32 max-w-xs overflow-hidden  rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                        <h1 class="font-semibold mt-4">Patient A</h1>
-                        <p class="text-sm mt-2">09876543212</p>
-                        <div class="flex">
-                          <div>
+                         <div class="flex justify-between">
+                        <div>
+                          <h1 class="font-semibold mt-4">Patient A</h1>
+                           <p class="text-sm mt-2">09876543212</p>
+                        </div>
+                        <div class="mt-4">
+                           <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="#005072"/>
+                           <path d="M2 12C3.10457 12 4 11.1046 4 10C4 8.89543 3.10457 8 2 8C0.89543 8 0 8.89543 0 10C0 11.1046 0.89543 12 2 12Z" fill="#005072"/>
+                           <path d="M2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.89543 16 0 16.8954 0 18C0 19.1046 0.89543 20 2 20Z" fill="#005072"/>
+                        </svg>
+                        </div>
+                        </div>
+                       <div class="flex">
+                          <div class="w-2/3 mb-2">
                              <div class="text-xs mt-6">
                               Visiting time: {{i.start_time}}-{{i.end_time}}
                             </div>
                           </div>
-                            <div class="mt-5 ml-2">
-                               <div class="border text-xs border-regal-blue rounded-full  px-0.5 py-0.5  bg-regal-scheduled text-white focus:outline-none appearance-none text-center">Scheduled</div> 
+                            <div class="mt-7 ml-2 w-1/3 ">
+                               <div class="border text-xs  rounded-full  px-0.5  py-0.5 text-white focus:outline-none appearance-none text-center "   :class="[(i.status === 'Scheduled' ? ' bg-regal-scheduled border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'bg-regal-cancelled border-regal-cancelled' : ''), (i.status === 'Examined' ? 'bg-regal-examined border-regal-examined text-regal-teal' : ''),(i.status === 'Delayed' ? 'bg-regal-delay border-regal-delay text-regal-brown' : '')]">{{i.status}}</div> 
                             </div>
                         </div>
                     </div>
@@ -315,7 +388,7 @@ import axios from 'axios'
                     //console.log(this.uid)
                     if (i.doctor===this.uid){
                         this.DoctorAppointment.push(i)
-                       console.log(this.DoctorAppointment)   
+                       //console.log(this.DoctorAppointment)   
                     }
                  });
                  this.DoctorAppointment.forEach(i => {

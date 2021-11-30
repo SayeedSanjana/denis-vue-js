@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if=" this.TodayAppointmentList>=1">
+        <div v-if="this.TodayAppointmentList.length>=1">
         <div class="flex flex-row mb-1 sm:mb-0 px-4">
      <!-- search starts -->
         <div class="block relative">
@@ -40,15 +40,15 @@
             <div class="text-regal-teal text-sm font-semibold  text-left ml-2">Age/Gender</div>
             <div class="text-regal-teal text-sm font-semibold text-left ml-2">Patient ID</div>
             <div class="text-regal-teal text-sm font-semibold text-left mr-4">Visiting time</div>
-            <div class="text-regal-teal text-sm font-semibold text-left mr-2">Complaint</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-8">Contact</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-6">Status</div>
+            <div class="text-regal-teal text-sm font-semibold text-left mr-2 ml-8">Complaint</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-16">Contact</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-12">Status</div>
         </div>     
         <ul class=" lg:flex-row 2xl:p-4 lg:p-3 pt-4 md:w-full bg-regal-white">
-                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="i in TodayAppointmentList" :key="i">
+                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in TodayAppointmentList" :key="i">
                    <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
-                                 :class="['border-regal-examined', (i.status === 'Scheduled' ? 'border-regal-scheduled ' : 'border-regal-examined'), (i.status === 'Cancelled'  ? 'border-regal-cancelled' : 'border-regal-examined')]">                
-                   <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">1.</div>
+                    :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">   
+                   <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
                    <div class="text-regal-teal text-sm text-left  w-44">Abdur Rahman </div>
                    <div class="text-regal-teal text-sm text-left w-44">24/Female</div>
                    <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
@@ -58,7 +58,9 @@
                    <div class="text-regal-teal text-sm text-center ml-6  w-44">
                        <div class="relative inline-flex">
   <!-- <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg> -->
-                        <select class="border border-regal-blue rounded-full text-gray-600 hpx-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center">
+                        <select class="border border-regal-blue rounded-full text-gray-600 hpx-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                        :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">
+                            
                             <option>{{i.status}}</option>
                             <option v-if="i.status!=='Examined'">Examined</option>
                             <option  v-if="i.status!=='Scheduled'">Scheduled</option>
