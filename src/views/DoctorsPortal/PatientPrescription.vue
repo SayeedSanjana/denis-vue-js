@@ -383,7 +383,7 @@
                     })
                     .then((response) => {
                         this.userData = response.data['result'];
-                        console.log(response)
+                        //console.log(response)
                     })
                     .catch((error) => {
                         console.log(error)

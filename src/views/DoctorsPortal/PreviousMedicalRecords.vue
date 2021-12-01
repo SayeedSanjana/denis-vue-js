@@ -115,7 +115,7 @@
                         const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
                         const ageDate = new Date(ageDifMs);
                         this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        console.log(this.formData.dob)
+                        //console.log(this.formData.dob)
                     })
                     .catch((error) => {
                         console.log(error)

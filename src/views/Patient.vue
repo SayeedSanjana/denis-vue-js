@@ -163,7 +163,7 @@
                 })
                 this.Patients = response.data['result'];
                 this.total=response.data.totalPages;
-                console.log(this.Patients)
+                //console.log(this.Patients)
             },
 
             modal() {

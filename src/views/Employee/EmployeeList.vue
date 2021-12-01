@@ -119,7 +119,8 @@ import  Nav from "../../components/Nav.vue";
         data(){
             return{
                 attendance:'Present',
-                status:'Active'
+                status:'Active',
+                EmployeeList:[]
             }
         },
         methods:{
@@ -128,7 +129,23 @@ import  Nav from "../../components/Nav.vue";
           },
           changeAttendance(){
 
-          }
+          },
+        //    async getEmployeeList() {
+               
+        //     const response = await axios.get('employee-details/search/', {
+        //         params: {
+        //          page:this.currentPage,
+        //          limit:this.perPage,
+        //         // q: this.text
+        //         },
+        //         headers: {
+        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
+        //         }
+        //         })
+        //         this.AppointmentList = response.data['result'];
+        //         //this.total=response.data.totalPages;
+        //         //console.log(this.AppointmentList)
+        //     },
 
         }
     }

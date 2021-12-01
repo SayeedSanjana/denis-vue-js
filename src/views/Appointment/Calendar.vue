@@ -348,7 +348,6 @@ import axios from 'axios'
             },
             date1() {
                 let date = new Date();
-
                // let dateArr = [];
                 this.dateArr[0] = new Date().toISOString();
                 this.dateISO[0]= this.dateArr[0]

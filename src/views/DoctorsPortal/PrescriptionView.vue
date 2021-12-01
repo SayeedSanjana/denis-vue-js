@@ -240,16 +240,11 @@
             this.gender = this.formData.patient.gender
             this.user = this.formData.user.name
             this.phone=this.formData.user.phone
-            console.log(this.formData)
-            //this.userName = this.formData.user.name
-            console.log(this.name)
             const ageDifMs = Date.now() - new Date(this.formData.patient.dob.substring(0, 10)).getTime();
-
             const ageDate = new Date(ageDifMs);
             this.age = Math.abs(ageDate.getUTCFullYear() - 1970);
             this.date = this.formData.createdAt.substring(0, 10)
             this.date = moment(this.date).format('LL')
-            console.log(this.date)
           })
           .catch((error) => {
             console.log(error)

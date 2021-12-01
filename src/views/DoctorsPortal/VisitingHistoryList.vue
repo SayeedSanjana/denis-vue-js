@@ -12,7 +12,7 @@
           <div class="flex relative">
             <form >
               <div class="mt-5 mb-2 border border-regal-teal bg-regal-light-blue  border-opacity-30 py-1 px-3 flex justify-between rounded-md">
-                <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue  rounded-md " name="q" type="text" placeholder="Search" v-model="text" />
+                <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue  rounded-md " name="q" type="text" placeholder="Search"  />
                 <span class="ml-10">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-regal-teal transition duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </span>
@@ -57,7 +57,7 @@
         <!-- Search area ends here -->
 
        <!-- visiting list starts here -->
-        <div v-for="i in 4" :key="i">
+        <div v-for="i in this.AppointmentList" :key="i">
           <div class="lg:flex shadow-md border border-regal-blue border-opacity-30 justify-center mx-12 my-6 hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm " v-if="!changecomponents">
 
             <!-- left portion info of the card starts here -->
@@ -69,11 +69,11 @@
               <div class="grid grid-cols-2 gap-1 mx-3">
                 <div class="text-white text-sm text-left">Visiting date: </div>
                 <!-- {{this.dateConversion(pres.createdAt.substring(0, 10))}} -->
-                <div class="text-white text-sm  text-left">November 20, 2021</div>
+                <div class="text-white text-sm  text-left">{{dateConversion(i.date)}}</div>
               </div>
               <div class="grid grid-cols-2 gap-1 mx-3 ">
                 <div class="text-white text-sm text-left ">Visiting session:</div>
-                <div class="text-white text-sm text-left">20 mins</div>
+                <div class="text-white text-sm text-left">{{this.visitingDuration(i.start_time,i.end_time)}} min</div>
               </div>
             </div>
             <!-- left portion info of the card starts here -->
@@ -87,7 +87,7 @@
                   <p class="text-regal-teal text-sm font-semibold">Reason :</p>
                 </div>
                 <div class="flex flex-row lg:justify-start">
-                  <div class="text-regal-teal text-sm text-left whitespace-nowrap overflow-ellipsis overflow-hidden break-words w-10/12 flex-wrap h-10">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+                  <div class="text-regal-teal text-sm text-left whitespace-nowrap overflow-ellipsis overflow-hidden break-words w-10/12 flex-wrap h-10">{{i.reason}}</div>
                 </div>
               </div>
               <!-- Reason ends here -->
@@ -139,7 +139,7 @@
 </template>
 
 <script>
-  //import axios from "axios";
+  import axios from "axios";
   import moment from "moment";
   //import PrescriptionView from "../DoctorsPortal/PrescriptionView.vue";
   export default {
@@ -150,7 +150,7 @@
       //PrescriptionView
     },
     created() {
-      //this.getPosts(this.$route.params.id)
+      this.getAppointmentList(this.$route.params.id)
     },
 
     data() {
@@ -166,54 +166,62 @@
         currentPage: 1,
         dateCon: "",
         result: [],
-        id: this.$route.params.id
+        id: this.$route.params.id,
+        AppointmentList:[]
 
 
       }
     },
     computed: {
-      filteredList() {
+      // filteredList() {
 
-        const star = (this.currentPage - 1) * this.prePage
-        const end = this.currentPage * this.prePage
-        const result = this.Prescription.slice(star, end)
-        console.log(result)
-        return result
-      }
+      //   const star = (this.currentPage - 1) * this.prePage
+      //   const end = this.currentPage * this.prePage
+      //   const result = this.Prescription.slice(star, end)
+      //   console.log(result)
+      //   return result
+      // }
     },
     methods: {
       dateConversion(date) {
-        this.dateCon = moment(date).format('LL')
+        return moment(date).format('DD MMM , yyyy')
 
+      },
+      visitingDuration(sttime,endtime){
+          // start time and end time
+        let startTime = moment(sttime, "HH:mm:ss ");
+        let endTime = moment(endtime, "HH:mm:ss ");
+        // calculate total duration
+        let duration = moment.duration(endTime.diff(startTime));
+         // duration in minutes
+        let result = parseInt(duration.asMinutes());
+        return result;
       },
       changePage(num) {
         this.currentPage = this.currentPage + num
 
       },
-    //   async getPosts(id) {
-    //     this.id = id
-    //     await axios.get('prescriptions/' + id + '/list?page=1&limit=10', {
-    //         headers: {
-    //           "Authorization": `Bearer ${localStorage.getItem('token') }`
-    //         }
-    //       })
-    //       .then((response) => {
-    //         this.Prescription = response.data['result'];
-    //         console.log(this.Prescription)
-
-    //       })
-
-    //       .catch((error) => {
-    //         console.log(error)
-    //         this.errorMsg = 'Error retrieving data'
-    //       })
-    //   },
       change() {
         this.changecomponents = !this.changecomponents
       },
       backToDashBoard() {
         this.$emit("dashboard")
       },
+      async getAppointmentList() {
+               
+            const response = await axios.get('appointments/search', {
+                params: {
+                 page:this.currentPage,
+                 limit:this.perPage,
+                // q: this.text
+                },
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.AppointmentList = response.data['result'];
+                //console.log(this.AppointmentList)
+            },
     //   patientPrescription(id) {
     //     this.changecomponents = true
     //     this.presId = id

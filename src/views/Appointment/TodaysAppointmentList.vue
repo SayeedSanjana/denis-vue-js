@@ -102,9 +102,11 @@ import moment from 'moment'
     export default {
         created(){
           this.getAppointmentList()
+          this.parseJwt(this.token)
         },
         data(){
             return{
+            token: localStorage.getItem('token'),
             total:0,
             TodayAppointmentList:[],
             AppointmentList:[],
@@ -114,7 +116,18 @@ import moment from 'moment'
             }
         },
       
-              methods:{
+        methods:{
+        parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (
+                c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+            this.uid = payload.sub
+            //console.log(payload.sub);
+        },
         pageChange(pageNumber){
             this.currentPage=pageNumber
             this.getAppointmentList(this.currentPage)
@@ -137,16 +150,16 @@ import moment from 'moment'
                 }
                 })
                 this.AppointmentList = response.data['result'];
-                let today = new Date();
-                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                let today = new Date().toISOString();
+                //let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 this.AppointmentList.forEach(i => {
-                    if (i.date.substring(0, 10) ===date){
+                    if (i.date.substring(0, 10)===today.substring(0, 10) && i.doctor===this.uid){
                         this.TodayAppointmentList.push(i) 
                     }
                  });
                 //today.toLocaleDateString();
                 //this.total=response.data.totalPages;
-                //console.log(this.AppointmentList)
+                console.log(this.TodayAppointmentList)
             },
         }
     }
