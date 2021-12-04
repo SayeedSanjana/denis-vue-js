@@ -48,7 +48,7 @@
             <div class="text-regal-teal text-sm font-semibold text-left ml-12">Status</div>
         </div>     
         <ul class=" lg:flex-row 2xl:p-4 lg:p-3 pt-4 md:w-full bg-regal-white">
-                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in AppointmentList" :key="index">
+                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in filteredList" :key="index">
                    <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
                       :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">             
                    <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
@@ -110,9 +110,16 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             VueTailwindPaginaiton
 
         },
-        //  computed(){
-        //    return this.getAppointmentList()
-        // },
+         computed:{
+        filteredList(){
+         if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
+                   return this.AppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
+        }
+               
+                const result = this.AppointmentList;
+                return result
+        }
+        },
         created() {
          this.getAppointmentList()
         },
