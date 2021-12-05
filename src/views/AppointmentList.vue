@@ -27,7 +27,7 @@
                     <!-- sortby -->
                     <div class="relative ml-4 mt-5">
                         <select class="selectclass" id="sortby" @click="status($event)">
-                            <option class="text-regal-teal" >All</option>
+                            <option class="text-regal-teal">All</option>
                             <option class="text-regal-teal" value="Examined" >Examined</option>
                             <option class="text-regal-teal" value="Scheduled">Scheduled</option>
                             <option class="text-regal-teal" value="Cancelled">Cancelled</option>
@@ -188,14 +188,14 @@
             }
         },
         methods:{
-             changePage(num) {
-                this.currentPage = this.currentPage + num
-            },
-            status(event){
-                this.sort=event.target.value
-             },
-              createnewappointment() {
-             this.$router.push({ name: 'Createnewappointment',})
+        changePage(num) {
+           this.currentPage = this.currentPage + num
+        },
+        status(event){
+            this.sort=event.target.value
+        },
+        createnewappointment() {
+            this.$router.push({ name: 'Createnewappointment',})
         },
 
         getAge(dob){

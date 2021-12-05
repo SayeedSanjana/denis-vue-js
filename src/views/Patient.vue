@@ -57,21 +57,10 @@
                     <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
                     <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
                 </tr>
-            </table>
-           
+            </table>         
             <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
               <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
             </div>
-            <!-- <div class="flex px-40 flex-row justify-center">
-                <div class="px-40">
-                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                        :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
-                </div>
-                <div class="px-40">
-                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                        :disabled="filteredList.length<prePage" @click="changePage(1)">Next </button>
-                </div>
-            </div> -->
         </section>
         <div v-if="openModal">
             <RegisterPatient @closeModal="closeModal" />

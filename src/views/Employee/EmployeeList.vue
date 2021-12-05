@@ -54,7 +54,7 @@
             <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Attendence</div>
         </div>     
         <ul class=" lg:flex-row 2xl:p-2  pt-4 md:w-full bg-regal-white">
-                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="i in 10" :key="i">
+                <li @click="employeeProfile(index)" class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in 10" :key="index">
                    <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-10 border-r-8 border-regal-scheduled  ">                
                    <div class="text-regal-teal text-sm text-left lg:ml-2 flex">
                        <div class="2xl:mr-4">1.</div>
@@ -126,6 +126,14 @@ import  Nav from "../../components/Nav.vue";
         methods:{
           changeStatus(evt){
            this.status=evt.target.value
+          },
+          employeeProfile(index){
+            this.$router.push({
+                    name: 'EmployeeProfile',
+                    params: {
+                        id: index
+                    }
+                })
           },
           changeAttendance(){
 

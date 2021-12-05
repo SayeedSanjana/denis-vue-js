@@ -14,14 +14,16 @@
                          <!-- first name starts -->
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">First Name</label>
-                            <input type="text" class="inputfield" v-model="this.formData.name">
+                            <input type="text" class="inputfield" v-model="this.formData.name" @blur="v$.formData.name.$touch()" >
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
                         </div>
                         <!-- first name ends-->
 
                         <!-- last name starts -->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Last Name</label>
-                            <input type="text" class="inputfield" v-model="this.formData.name">
+                            <input type="text" class="inputfield" v-model="this.formData.name" @blur="v$.formData.name.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
                         </div>
                         <!-- last name ends-->
 
@@ -37,7 +39,8 @@
                     <!-- gender starts-->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Gender</label>
-                            <input type="text" class="inputfield" v-model="formData.gender">
+                            <input type="text" class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
                         </div>
                     <!-- gender ends -->
 
@@ -47,7 +50,8 @@
                     <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Email</label>
-                            <input type="text" class="inputfield" v-model="formData.email">
+                            <input type="text" class="inputfield" v-model="formData.email" @blur="v$.formData.email.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                         </div>
                     <!-- email ends -->
 
@@ -64,6 +68,7 @@
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Contact</label>
                             <input type="text" class="inputfield" v-model="formData.phone">
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                         </div>
                         <!-- contact ends -->
                     </div>
@@ -72,6 +77,7 @@
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
                         <textarea type="text" class="h-40 inputfield" v-model="formData.address"></textarea>
+                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                     </div>
                     <!-- address ends -->
 
@@ -104,7 +110,7 @@
 
                     <div class="flex formbox ">
                         <!-- Save -->
-                        <button @click="updateUser()" class="newbutton1  mr-5">Save</button>
+                        <button class="newbutton1  mr-5">Save</button>
                         <!-- Save -->
                         <!-- cancel -->
                         <button class="newbutton2">Cancel</button>
@@ -220,7 +226,7 @@
     import axios from "axios";
     import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
-    import {required,minLength,sameAs,helpers} from '@vuelidate/validators';
+    import {required,minLength,sameAs,helpers,maxLength,email,numeric} from '@vuelidate/validators';
     export default {
         components: {
             Nav,
@@ -248,8 +254,8 @@
                     address: '',
                     password: '',
                     qualifications:'',
-                    role:'',
-                    BMDC:''
+                    role:'Doctor',
+                    BMDC:'1234567'
                 },
                 //oldPassword: '',
                // newPassword: '',
@@ -263,10 +269,21 @@
         },
          validations(){
             const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+            const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
             return{
             form:{
             oldPassword:{required,minLength: minLength(8)},
             newPassword:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
+            },
+            formData:{
+             name: {required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
+             email:{required,email},
+             phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
+             gender:{required},
+             address:{required},
+             qualifications:'',
+             role:{required},
+             BMDC:{required}
             },
             confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
      }
@@ -330,7 +347,9 @@
             },
 
             async updateUser() {
-                console.log(this.formData)
+                console.log(this.v$.formData.$touch())
+                
+                if (!this.v$.$error && this.strSame.length<=0) {
                 await axios.put('users/update/' + this.uid, this.formData, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -350,6 +369,7 @@
                         console.log(error)
                     })
                 this.formValid = true
+                }
             },
 
 

@@ -108,8 +108,6 @@
         dateCon: "",
         result: [],
         id: this.$route.params.id
-
-
       }
     },
     // computed: {

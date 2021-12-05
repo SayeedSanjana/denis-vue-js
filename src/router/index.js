@@ -41,7 +41,7 @@ const routes = [
     component: ProfileSettings
   },
   {
-    path: '/EmployeeProfile',
+    path: '/EmployeeProfile/:id',
     name: 'EmployeeProfile',
     component: EmployeeProfile
   },
