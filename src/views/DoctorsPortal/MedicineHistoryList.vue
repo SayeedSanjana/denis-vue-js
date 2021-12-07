@@ -41,7 +41,7 @@
             <div class="bg-regal-presGreen rounded-br-3xl py-4 h-full shadow-inner lg:w-1/3 ">
               <div class="flex mx-3">
                 <div class="text-white text-sm font-bold text-left mr-2">Visiting date: </div>
-                <div class="text-white text-sm font-bold text-left">{{i.createdAt.substring(0,10)}}</div>
+                <div class="text-white text-sm font-bold text-left">{{this.dateConversion(i.createdAt.substring(0,10))}}</div>
               </div>        
             </div>
             <div class="mx-3 py-4">
@@ -121,7 +121,7 @@
     // },
     methods: {
       dateConversion(date) {
-        this.dateCon = moment(date).format('LL')
+        return moment(date).format('DD MMM , YYYY')
 
       },
       changePage(num) {
@@ -144,7 +144,6 @@
             this.Prescription = response.data['result'];
             this.total=response.data.totalPages;
             //console.log(this.Prescription)
-
           })
 
           .catch((error) => {

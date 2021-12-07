@@ -50,7 +50,7 @@
             <div class="text-regal-teal text-sm font-semibold text-left ml-2">Patient ID</div>
             <div class="text-regal-teal text-sm font-semibold text-left mr-4">Visiting time</div>
             <div class="text-regal-teal text-sm font-semibold text-left mr-2 ml-9">Complaint</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-9">Visiting date</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-10">Visiting date</div>
             <div class="text-regal-teal text-sm font-semibold text-left ml-12">Status</div>
         </div>     
         <ul class=" lg:flex-row 2xl:p-4 lg:p-3 pt-4 md:w-full bg-regal-white">

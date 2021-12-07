@@ -67,7 +67,7 @@
                      <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Contact</label>
-                            <input type="text" class="inputfield" v-model="formData.phone">
+                            <input type="text" class="inputfield" v-model="formData.phone" @blur="v$.formData.phone.$touch()">
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                         </div>
                         <!-- contact ends -->
@@ -76,8 +76,8 @@
                     <!-- address starts -->
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
-                        <textarea type="text" class="h-40 inputfield" v-model="formData.address"></textarea>
-                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.phone.$errors[0].$message}}</small>
+                        <textarea type="text" class="h-40 inputfield" v-model="formData.address" @blur="v$.formData.address.$touch()"></textarea>
+                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
                     </div>
                     <!-- address ends -->
 
@@ -210,7 +210,7 @@
                             </small> -->
                         </div>
                         <div class="w-1/2 mt-24 mr-28 ">
-                            <button @click="changePassword()" class="newbutton1 mt-2.5">Confirm</button>
+                            <button class="newbutton1 mt-2.5">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -262,8 +262,9 @@
                 confirmPassword: '',
                 a: false,
                 form: {
-                    oldPassword: '',
-                    newPassword: ''
+                   oldPassword: '',
+                   newPassword: '',
+                   email:''
                 }
             }
         },
@@ -298,7 +299,6 @@
                 }).join(''));
                 const payload = JSON.parse(jsonPayload);
                 this.uid = payload.sub
-                console.log(payload.sub);
             },
 
            onChange(){
@@ -339,7 +339,7 @@
                         var d = new Date(this.formData.createdAt);
                         this.time=d.toLocaleTimeString();
                         // this.time=d.toTimeString();
-                        console.log(this.formData)
+                        //console.log(this.formData)
                     })
                     .catch((error) => {
                         console.log(error)
@@ -347,9 +347,12 @@
             },
 
             async updateUser() {
-                console.log(this.v$.formData.$touch())
-                
-                if (!this.v$.$error && this.strSame.length<=0) {
+                this.v$.formData.name.$touch();
+                this.v$.formData.gender.$touch();
+                this.v$.formData.email.$touch();
+                this.v$.formData.phone.$touch();
+                this.v$.formData.address.$touch();                         
+                if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (this.strSame.length<=0)) {
                 await axios.put('users/update/' + this.uid, this.formData, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -374,11 +377,14 @@
 
 
             // checking validation while changing the password
-            async changePassword() {
-                  this.v$.$touch()
-                    if (!this.v$.$error && this.strSame.length<=0) {
+               async changePassword() {
+                  this.v$.form.oldPassword.$touch()
+                  this.v$.form.newPassword.$touch()
+                  this.v$.confirmPassword.$touch()
+                    if (!this.v$.form.oldPassword.$error && !this.v$.form.newPassword.$error && !this.v$.confirmPassword.$error && this.strSame.length<=0) {
                     this.str=""
                     this.strSame=""
+                    this.form.email=this.formData.email
                     await axios.patch('users/update-password/'+ this.uid, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`

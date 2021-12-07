@@ -49,9 +49,9 @@
             <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in filteredList" :key="i">
                 <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
                 :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">   
-                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
-                <div class="text-regal-teal text-sm text-left  w-44">Abdur Rahman </div>
-                <div class="text-regal-teal text-sm text-left w-44">24/Female</div>
+                <div class="text-regal-teal text-sm text-left lg:ml-2 w-24">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
+                <div class="text-regal-teal text-sm text-left -ml-8 w-44 break-words">Abdur Rahman Khaleq mohammad Islam </div>
+                <div class="text-regal-teal text-sm text-left -ml-2 w-44">24/Female</div>
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
                 <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
                 <div class="text-regal-teal text-sm text-center  w-44">{{i.reason}}</div>
