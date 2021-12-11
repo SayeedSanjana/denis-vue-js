@@ -92,6 +92,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
          }
      },
       methods:{
+        //Pagination
         pageChange(pageNumber){
             this.currentPage=pageNumber
             this.getPatients(this.currentPage)

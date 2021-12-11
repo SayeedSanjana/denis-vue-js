@@ -291,6 +291,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
           if (this.patientId.length >= 1) {
             this.form.address = 'N/A'
           }
+          //validations
           this.v$.$touch()
           if (this.endTime === '' || this.endam === false && this.endpm === false) {
             this.strstart = ""
@@ -300,6 +301,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
             this.strend = ""
             this.strstart = "Choose Start Time and AM or PM"
           }
+          //If it met all the requirements then enter into this condition
           if (!this.v$.$error) {
             this.startam === true ? this.startTime = this.startTime + '' + 'AM' : this.startTime = this.startTime + '' + 'PM'
             this.endam === true ? this.endTime = this.endTime + '' + 'AM' : this.endTime = this.endTime + '' + 'PM'
@@ -326,7 +328,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
                   buttons: false
                 }).then(function () {
                   new Promise(resolve => setTimeout(resolve, 2000));
-                  //window.location = `/AppointmentPortal`;
+                  window.location = `/AppointmentPortal`;
                 })
               })
               .catch((error) => {
@@ -351,7 +353,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
             })
         },
 
-      //Getting the user list
+      //Getting the user list for specialist dropdown
       async getUser(){
          await axios.get('users/search' , {
                         headers: {

@@ -38,6 +38,12 @@
 .newbutton1{
     @apply px-10 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
 }
+.changebutton1{
+    @apply px-10 py-2 bg-regal-ash text-center border text-regal-teal font-semibold rounded-md text-sm flex ;
+}
+/* .changebutton2{
+    @apply px-10 py-2 bg-regal-light-pink text-center border  font-semibold rounded-md text-sm flex ;
+} */
 .canewbutton1{
     @apply px-8 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
 }
@@ -87,5 +93,3 @@
 .btnampm{
     @apply border bg-white px-2 py-1.5;
 }
-
-/*  */

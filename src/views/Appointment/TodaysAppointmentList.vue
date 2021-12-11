@@ -6,7 +6,7 @@
         <div class="block relative">
             <form class="bg-regal-light-blue">
                 <div class="mt-5 mb-2 border-2  border-regal-light-blue border-opacity-30 py-1 px-3 flex justify-between rounded-lg">
-                    <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue" name="q" type="text" placeholder="Search" v-model="text"/>
+                    <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue" name="q" type="text" placeholder="Search" />
                     <span class="ml-10">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 hover:text-blue-400 transition duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </span>
@@ -18,14 +18,13 @@
         <div class="relative ml-4 mt-5">
             <select @click="status($event)" class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
                 <option class="text-regal-teal" >All</option>
-                <option class="text-regal-teal" value="Examined">Oldest</option>
-                <option class="text-regal-teal" value="Scheduled">Newest</option>
-                <option class="text-regal-teal" value="Cancelled">Cancelled</option>
+                <!-- <option class="text-regal-teal" value="Examined">Oldest</option> -->
+                <!-- <option class="text-regal-teal" value="Scheduled">Newest</option> -->
+                <option class="text-regal-teal" value="Delayed">Delayed</option>
                 <option class="text-regal-teal" value="Examined" >Examined</option>
                 <option class="text-regal-teal" value="Scheduled">Scheduled</option>
                 <option class="text-regal-teal" value="Cancelled">Cancelled</option>
             </select> 
-
             <div class=" selectsvg">
                 <img src="@/assets/svgs/select.svg">
             </div>
@@ -73,15 +72,10 @@
         </ul>
     </div>
     <!-- List of patient ends here -->
-    <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center">
-        <div class="px-4 mx-4">
-            <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded-tl-full rounded-bl-full rounded-br-full w-28 mt-4 text-sm" type="button">Previous</button>
-        </div>
-        <div class="px-4 mx-4">
-            <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded-tr-full rounded-br-full rounded-bl-full w-28 mt-4 text-sm" type="button">Next </button>
-        </div>
-   </div>
+   <!-- Pagination starts here -->
+    <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+        <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+    </div>
    <!-- Pagination ends here -->
         </div>
        <div v-else class="h-screen  ">
@@ -96,15 +90,20 @@
 </template>
 
 <script>
-import axios from 'axios'
-import moment from 'moment'
+import axios from 'axios';
+import moment from 'moment';
+import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
+        components: {
+            VueTailwindPaginaiton
+        },
         created(){
           this.getAppointmentList()
           this.parseJwt(this.token)
         },
         data(){
             return{
+            sort:'',
             token: localStorage.getItem('token'),
             total:0,
             TodayAppointmentList:[],
@@ -116,7 +115,7 @@ import moment from 'moment'
         },
         computed:{
         filteredList(){
-         if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
+         if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined" || this.sort==="Delayed"){
             return this.TodayAppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
         }  
             const result = this.TodayAppointmentList;
@@ -136,11 +135,14 @@ import moment from 'moment'
             this.uid = payload.sub
             //console.log(payload.sub);
         },
+
+        //Pagination
         pageChange(pageNumber){
             this.currentPage=pageNumber
             this.getAppointmentList(this.currentPage)
         },
-
+        
+        //Date Conversion
         dateConversion(date) {
             return moment(date).format('LL')
 
@@ -148,6 +150,8 @@ import moment from 'moment'
         status(event){
             this.sort=event.target.value
         },
+
+        // Get Today's appointment list
         async getAppointmentList() {         
             const response = await axios.get('appointments/search', {
                 params: {

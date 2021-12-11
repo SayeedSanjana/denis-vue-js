@@ -27,6 +27,7 @@
                 <option class="text-regal-teal" value="Examined" >Examined</option>
                 <option class="text-regal-teal" value="Scheduled">Scheduled</option>
                 <option class="text-regal-teal" value="Cancelled">Cancelled</option>
+                <option class="text-regal-teal" value="Delayed">Delayed</option>
             </select>   
             <div class=" selectsvg">
                 <img src="@/assets/svgs/select.svg">
@@ -69,10 +70,10 @@
                     <select  class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                     :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">    
                         <option>{{i.status}}</option>
+                        <option v-if="i.status!=='Delayed'">Delayed</option>
                         <option v-if="i.status!=='Examined'">Examined</option>
-                        <option  v-if="i.status!=='Scheduled'">Scheduled</option>
-                        <option  v-if="i.status!=='Cancelled'">Cancelled</option>
-                        <option  v-if="i.status!=='Delayed'">Delayed</option>
+                        <option v-if="i.status!=='Scheduled'">Scheduled</option>
+                        <option v-if="i.status!=='Cancelled'">Cancelled</option>
                     </select>
                 </div>
                 </div>
@@ -106,14 +107,42 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             VueTailwindPaginaiton
         },
         computed:{
+
+        //filtering the appointment list wrt to status and date  
         filteredList(){
-         if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined"){
-            return this.AppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
-        }if(this.date) {
-            return this.AppointmentList.filter(item => item.date.substring(0,10).indexOf(this.date) > -1);
-        }
-            const result = this.AppointmentList;
-            return result
+            let resultAppointment;
+            if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined" || this.sort==="Delayed"){
+               return this.AppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
+            }else if(this.date.length>=1){
+               return this.AppointmentList.filter(item => item.date.substring(0,10).indexOf(this.date) > -1)
+            }else if((this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined" || this.sort==="Delayed") && this.date.length>=1){
+                if(this.sort.length>=1){
+                   resultAppointment= this.AppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
+                   return resultAppointment.filter(item => item.date.substring(0,10).indexOf(this.date) > -1)
+                }else{
+                    resultAppointment= this.AppointmentList.filter(item => item.date.substring(0,10).indexOf(this.date) > -1);
+                   return resultAppointment.filter(item => item.date.substring(0,10).indexOf(this.date) > -1)
+                }     
+            }else{
+               const result = this.AppointmentList;
+            return result 
+            }
+            //let resultAppointment ;
+             //if(this.date.length>=1) {
+            //    resultAppointment=this.AppointmentList.filter(item => item.date.substring(0,10).indexOf(this.date) )
+            //    return resultAppointment.filter(item => { 
+            //        if (condition) {
+                       
+            //        } 
+            //         item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1
+                   
+            //        });
+            
+        
+            // console.log(this.date)
+            // console.log(this.sort)
+            // const result = this.AppointmentList;
+            // return result
         }
         },
         created() {
@@ -131,20 +160,22 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             }
         },
         methods:{
+        //For filtering data by date converting date to string 
         localizeDate(date) {
-            // console.log(date)
-        if (!date || !date.includes('-')) return date
-        const [yyyy, mm, dd] = date.split('-')
-        this.date=new Date(`${mm}/${dd}/${yyyy}`)
-        console.log(this.date)
+        this.date=date.toString();
        },
+
+       //Pagination
         pageChange(pageNumber){
             this.currentPage=pageNumber
             this.getAppointmentList(this.currentPage)
         },
+        //For filtering status inserting value into sort variable
         status(event){
             this.sort=event.target.value
         },
+
+        //Conversion of date
         dateConversion(date) {
             return moment(date).format('LL')
 
@@ -153,6 +184,8 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
           console.log(event.target.value)
           console.log(this.date)
         },
+
+        //get appointment list
          async getAppointmentList() {
                
             const response = await axios.get('appointments/search', {

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Patient from '../views/Patient.vue';
-import AccountSettings from '../views/AccountSettings.vue';
+import AccountSettings from '../views/User/AccountSettings.vue';
 import ProfileSettings from '../views/User/ProfileSettings.vue';
 import EmployeeProfile from '../views/Employee/EmployeeProfile.vue';
 import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
@@ -13,6 +13,11 @@ import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
 import AppointmentPortal from "../views/Appointment/AppointmentPortal.vue";
 import EmployeeList from "../views/Employee/EmployeeList.vue";
+import InventoryList from "../views/Inventory/InventoryList.vue";
+import SupplyRoom from "../views/Inventory/SupplyRoom.vue";
+import RequestforSupply from "../views/Inventory/RequestforSupply.vue";
+import Library from "../views/Library.vue";
+import AddnewitemInv from "../views/AddnewitemInv.vue";
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
 // import Createnewappointment from "../views/Createnewappointment.vue";
@@ -49,6 +54,31 @@ const routes = [
     path: '/AppointmentPortal',
     name: 'AppointmentPortal',
     component: AppointmentPortal
+  },
+  {
+    path: '/SupplyRoom',
+    name: 'SupplyRoom',
+    component: SupplyRoom
+  },
+  {
+    path: '/Library',
+    name: 'Library',
+    component: Library
+  },
+  {
+    path: '/AddnewitemInv',
+    name: 'AddnewitemInv',
+    component: AddnewitemInv
+  },
+  {
+    path: '/RequestforSupply',
+    name: 'RequestforSupply',
+    component: RequestforSupply
+  },
+  {
+    path: '/InventoryList',
+    name: 'InventoryList',
+    component: InventoryList
   },
   // {
   //   path: '/AppointmentList',
@@ -111,6 +141,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkActiveClass: "active",
+  linkExactActiveClass: "exact-active",
 });
 
 export default router;

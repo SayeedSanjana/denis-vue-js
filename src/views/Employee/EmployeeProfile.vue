@@ -131,19 +131,17 @@
                         <button class="changebutton1  mr-5">Change</button>
                         <!-- Change -->
                         <!-- Remove -->
-                        <button class="changebutton2 text-regal-ruby">Remove</button>
+                        <button class="px-10 py-2 bg-regal-light-pink text-center border  font-semibold rounded-md text-sm flex text-regal-ruby">Remove</button>
                         <!-- Remove -->
                     </div>
 
                 </div>
             </div>
 
-
             <div class="w-full flex">
                 <form action="" class="w-full">
                     <h3 class="headername my-1 ">Educational Qualification </h3>
                     <div class="w-4/5">
-
 
                         <div class="flex formbox ">
                             <!-- degree -->
@@ -154,13 +152,10 @@
                                     id="gender">
                                     <option>MS(Conservative Dentistry)</option>
                                     <option>PHD</option>
-
                                     <option>FICD</option>
                                 </select>
                             </div>
                             <!-- degree -->
-
-
                         </div>
                         <div class="flex formbox">
                             <!-- degree -->
@@ -171,12 +166,9 @@
                                     id="gender">
                                     <option>Dhaka Medical College</option>
                                     <option>Private Medical College</option>
-
-
                                 </select>
                             </div>
                             <!-- degree -->
-
 
                         </div>
                         <div class="flex formbox">
@@ -197,13 +189,9 @@
                                     <option>1998</option>
                                     <option>1999</option>
                                     <option>2000</option>
-
-
-
                                 </select>
                             </div>
                             <!-- degree -->
-
 
                         </div>
                         <div class="flex formbox">
@@ -215,7 +203,6 @@
                                     id="gender">
                                     <option>Surgeon</option>
                                     <option>Medicine</option>
-
                                 </select>
                             </div>
                             <div class="ml-16 -mt-72">
@@ -225,52 +212,42 @@
                                         <th class="px-10 py-3 border-r border-b border-regal-blue">Institution</th>
                                         <th class="px-10 py-3 border-r border-b border-regal-blue">Year of Graduation</th>
                                         <th class="px-10 py-3 border-b border-regal-blue">Specialization</th>
-
                                     </tr>
                                     <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
                                     </tr>
                                     <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
                                     </tr>
                                     <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
                                     </tr>
                                     <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
                                     </tr>
                                     <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
                                     </tr>
                                 </table>
                             </div>
                             <!-- degree -->
-
-
-
                         </div>
                     </div>
-
 
                     <div class="flex formbox justify-center -ml-24 ">
                         <!-- Save -->
@@ -280,27 +257,75 @@
                         <button class="newbutton2">Cancel</button>
                         <!-- cancel -->
                     </div>
-
                 </form>
                 <!-- form -->
-
             </div>
-
-
-
-
-
         </section>
     </div>
 </template>
 
 <script>
    import Nav from "../../components/Nav.vue";
-    export default {
-        components: {
-            Nav,
-        },
-    }
+   import useValidate from '@vuelidate/core';
+   import {
+       required
+   } from '@vuelidate/validators';
+   export default {
+       components: {
+           Nav,
+       },
+       data() {
+           return {
+               v$: useValidate(),
+               token: localStorage.getItem('token'),
+               formData: {
+                   jobTitle: "",
+                   workHours: "",
+                   jobDescription: "",
+                   bankAccount: "",
+                   salaryInformation: "",
+                   educationQualifications: [{
+                       degree: '',
+                       institution: '',
+                       graduation: '',
+                       specialization: ''
+                   }],
+               }
+           }
+       },
+       validations() {
+           return {
+               formData: {
+                   jobTitle: {
+                       required
+                   },
+                   workHours: {
+                       required
+                   },
+                   jobDescription: {
+                       required
+                   },
+                   salaryInformation: {
+                       required
+                   }
+               },
+               educationQualifications: {
+                   degree: {
+                       required
+                   },
+                   institution: {
+                       required
+                   },
+                   graduation: {
+                       required
+                   },
+                   specialization: {
+                       required
+                   }
+               }
+           }
+       },
+   }
 </script>
 
 <style scoped>

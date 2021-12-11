@@ -40,11 +40,29 @@ module.exports = {
       'regal-brown':'#805C27',
       'regal-yellow-ochre':'#CAA273',
       'regal-skin':'#FFE3BA',
-      'regal-sta-green':'#0F7D56'
-      
+      'regal-sta-green':'#0F7D56',
+      'regal-light-pink':'#FFA5AB',
       
 
-      
+      'regal-lightred':'#FFA5AB',
+      'regal-ruby':'#A73E45',
+      'regal-light-cyan' : '#F4FAF8',
+      'regal-blackgray' : '#384449',
+      'regal-lightishblue' : '#20CDD6',
+      'regal-grayish' : '#5B6D67',
+      'regal-gb3' : '#85E2E7',
+      'regal-gb4' : '#75C3C7',
+      'regal-bluishlight': '#F2FBFC',
+      'regal-lightishgreen': '#D3EDCF',
+      'regal-deepgreen':'#116824',
+      'regal-lightishred': '#FFCDD1',
+      'regal-deepred':'#AE3939',
+      'regal-yellow':'#FFE3BA',
+      'regal-brown':'#805C27',
+      'regal-lightgreen':'#C7EFB9',
+      'regal-deepishgreen':'#0F7D56',
+      'regal-darkishgreen':'#08696D'
+
 
     },
     height: {

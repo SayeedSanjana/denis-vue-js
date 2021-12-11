@@ -1,13 +1,15 @@
 <template>
     <div class="">
-        <nav class="bg-white shadow" style="background:#73C6CA">
+        <nav class="bg-white " style="background:#F4FAF8">
             <div class="container px-6 py-3 mx-auto">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-center">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
-                            <a class="text-xl font-semibold text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
+                            <a class="text-xl font-semibold -ml-44 text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
                                 href="#" style="color:#005072">MT Dental Center</a>
+
                         </div>
+
                         <!-- Mobile menu button -->
                         <div class="flex md:hidden">
                             <button type="button" @click="toggle"
@@ -21,33 +23,41 @@
                             </button>
                         </div>
                     </div>
+
+
                     <div class="items-center md:flex">
                         <div>
                             <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
                                 <router-link to="/Library"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-regal-teal leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Library</router-link>
-                                
                                 <router-link to="/patient"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class="2xl:my-1 text-md font-semibold text-regal-teal leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Patient</router-link>
                                 <!-- appointment -->
                                 <router-link to='/AppointmentPortal'
-                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class=" 2xl:my-1 text-md font-semibold text-regal-teal leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     <span class="">Appointment</span>
                                 </router-link>
                                 <router-link to='/EmployeeList'
-                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    class=" 2xl:my-1 text-md font-semibold text-regal-teal leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     <span class="">Employee</span>
                                 </router-link>
-                                <!-- appointment -->
-                                <router-link to="/patient-list-billing"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Billing</router-link>
 
-                                     <router-link to="/InventoryList"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                <!-- <router-link to='/EmployeeList'
+                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    <span class="">Employee</span>
+                                </router-link> -->
+
+                                <!-- appointment -->
+
+                                <router-link to="/patient-list-billing"
+                                    class="2xl:my-1 text-md font-semibold text-regal-teal leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
+                                    Billing</router-link>
+                                <router-link to="/InventoryList"
+                                    class="2xl:my-1 text-md font-semibold text-regal-teal leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     InventoryList</router-link>
+
                                 <!-- <router-link to="/AccountSettings"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Settings</router-link> -->
@@ -61,8 +71,10 @@
 
                                     <img class=" w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
                                     </button>
-                                    <div class="mr-8">                                 
-                                    <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1 border border-regal-teal border-opacity-10 rounded-md border-t-0 ">
+                                    <div class="mr-8">
+
+                                    
+                                    <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1 ">
                                         <li class="">
                                             <router-link to="/ProfileSettings"
                                                 class=" rounded-t bg-white hover:bg-regal-white py-1 px-9 block whitespace-no-wrap">
@@ -71,7 +83,7 @@
                                         <li class="">
                                             <router-link to="/AccountSettings"
                                                 class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
-                                                AccountSettings</router-link>
+                                                Settings</router-link>
                                         </li>
                                         <li class="">
                                             <router-link to="/" @click="logout"
@@ -82,6 +94,7 @@
                                     </ul>
                                     </div>
                                 </div>
+
                                 <!--                                 
                                 <router-link to="/AccountSettings">
                                 <img class="w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
@@ -89,12 +102,16 @@
                                 <!-- user profile -->
                             </div>
                         </div>
+
                         <!-- Search input on mobile screen -->
                         <div class="mt-3 md:hidden hidden">
                             <div class="relative">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                     <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+                                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
                                     </svg>
                                 </span>
 
@@ -107,19 +124,28 @@
                 </div>
             </div>
         </nav>
+     
     </div>
 </template>
 <script>
+// import AddnewitemInv from "../views/AddnewitemInv.vue";
     export default {
+        
         data() {
             return {
                 isOpen: true,
+
             }
         },
         methods: {
+
             toggle: function () {
                 this.isOpen = !this.isOpen
+
             },
+
+
+
             logout() {
                 localStorage.clear()
             },
