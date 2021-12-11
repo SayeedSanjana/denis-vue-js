@@ -114,6 +114,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             }
         },
         computed:{
+        //filtering the appointment list wrt to status    
         filteredList(){
          if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined" || this.sort==="Delayed"){
             return this.TodayAppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
