@@ -1,6 +1,12 @@
 <template>
     <div>
             <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 py-3">
+                <!-- Button fr patient dashboard -->
+                <button @click="activeTab = 'PatientDashboard'"
+                    :class="activeTab==='PatientDashboard' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Patient Dashboard
+                    </button>
+                <!-- Button for prescription -->
                 <button @click="activeTab = 'PatientPrescription'"
                     :class="activeTab==='PatientPrescription' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5 mt-0.5 sm:mx-6">Prescription</button>
@@ -9,10 +15,7 @@
                     :class="activeTab==='PrescriptionList' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Patient Dashboard
                     </button> -->
-                <button @click="activeTab = 'PatientDashboard'"
-                    :class="activeTab==='PatientDashboard' ? 'border-regal-teal' : 'border-regal-white'"
-                    class="border-b-2 border-transparent  mx-1.5 mt-0.5 sm:mx-6">Patient Dashboard
-                    </button>
+                
             </div>
             <keep-alive>
                 <component :is="activeTab" />
@@ -34,7 +37,7 @@
         },
         data() {
             return {
-                activeTab: 'PatientPrescription'
+                activeTab: 'PatientDashboard'
             }
         }
     }

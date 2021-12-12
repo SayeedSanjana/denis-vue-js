@@ -13,21 +13,21 @@
                     </div>
                 </div>
                 <!--sidebar-->
-
+ 
                 <div class=" lg:w-3/4 w-full ">
                     <!--nav-->           
                 <div class="justify-between w-full xl:container md:flex md:justify-center text-gray-600  bg-regal-white border border-regal-cyan border-opacity-20 border-b-0 py-3">
                     <div class="md:w-1/3 md:text-right">
-                    <button @click="activeTab = 'TodaysAppointmentList'" :class="activeTab==='TodaysAppointmentList' ? 'border-regal-teal' : 'border-regal-white'"
+                    <button @click="activeTab = 'TodaysAppointmentList'" @appointmentList="getAppointment" :Appointment="Appointment" :class="activeTab==='TodaysAppointmentList' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5 mt-0.5">Today's appointment</button>
                     </div>
                     <div class="md:w-1/3 ">
-                    <button @click="activeTab = 'AllAppointmentList'" :class="activeTab==='AllAppointmentList' ? 'border-regal-teal' : 'border-regal-white'"
+                    <button @click="activeTab = 'AllAppointmentList'"  @appointmentList="getAppointmentList" :class="activeTab==='AllAppointmentList' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent  mx-1.5 mt-0.5 ">All appointments</button>
                     </div>
                     <div class="md:w-1/3 md:text-left">
-                    <button @click="activeTab = 'Calendar'" :class="activeTab==='Calendar' ? 'border-regal-teal' : 'border-regal-white'"
-                    class="border-b-2 border-transparent  mx-1.5 mt-0.5">Calendar</button>
+                    <button @click="activeTab = 'Calendar'"  @appointmentList="getAppointmentList" :class="activeTab==='Calendar' ? 'border-regal-teal' : 'border-regal-white'"
+                    class="border-b-2 border-transparent  mx-1.5 mt-0.5">Weekly Schedule</button>
                     </div>
                </div>
             <keep-alive>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import PatientList from "../Appointment/PatientList.vue";
 import Nav from "../../components/Nav.vue";
 import TodaysAppointmentList from "../Appointment/TodaysAppointmentList.vue";
@@ -56,10 +57,30 @@ import AppointmentCard from "../Appointment/AppointmentCard.vue";
         Calendar,
         AppointmentCard
     },  
+    created(){
+      this.getAppointment()
+    },
      data() {
             return {
-                activeTab: 'TodaysAppointmentList'
+                activeTab: 'TodaysAppointmentList',
+                Appointment:[]
             }
+        },
+        methods:{
+            async getAppointment() {  
+            const response = await axios.get('appointments/search', {
+                params: {
+                 page:this.currentPage,
+                 limit:this.perPage,
+                // q: this.text
+                },
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.Appointment = response.data['result'];
+                return this.Appointment
+            },
         }
     }
 </script>

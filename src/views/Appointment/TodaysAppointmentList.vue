@@ -57,7 +57,7 @@
                 <div class="text-regal-teal text-sm text-center ml-6 w-44">0987654321</div>
                 <div class="text-regal-teal text-sm text-center ml-6  w-44">
                 <div class="relative inline-flex">
-                <select class="border border-regal-blue rounded-full text-gray-600 hpx-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                <select  @click="update(i)" class="border border-regal-blue rounded-full text-gray-600 hpx-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                 :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">
                     <option>{{i.status}}</option>
                     <option v-if="i.status!=='Examined'">Examined</option>
@@ -91,6 +91,7 @@
 
 <script>
 import axios from 'axios';
+//import swal from 'sweetalert'
 import moment from 'moment';
 import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
@@ -98,19 +99,26 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             VueTailwindPaginaiton
         },
         created(){
+         this.currentPage=1
+          this.app()
           this.getAppointmentList()
           this.parseJwt(this.token)
+        },
+        props:{
+          Appointment:Array
         },
         data(){
             return{
             sort:'',
             token: localStorage.getItem('token'),
-            total:0,
+            total:5,
             TodayAppointmentList:[],
             AppointmentList:[],
-            // ex:'Scheduled',
-            perPage: 10,
+            perPage:10,
             currentPage: 1,
+            formData:{
+                status:''
+            },
             }
         },
         computed:{
@@ -151,14 +159,51 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         status(event){
             this.sort=event.target.value
         },
-
+        app(){
+          this.$emit("getAppointment")
+        },
+    async update(i) {
+   
+     console.log(i)
+     // console.log(this.formData)
+     // this.v$.$touch()
+      //if (!this.v$.$error) {
+    //    this.formData.phone = this.formData.phone.replace(/\s/g, '')
+    //       if(this.formData.address===""){
+    //       this.formData.address='N/A'
+    //       }
+        //   await axios.patch('appointments/update/'+ id , this.formData, {
+        //       headers: {
+        //         "Authorization": `Bearer ${localStorage.getItem('token') }`
+        //       }
+        //     })
+        //     .then((response) => {
+        //       swal({
+        //         title: "Success",
+        //         text: "Status updated Successfully!",
+        //         icon: "success",
+        //         timer: 1000,
+        //         buttons: false
+        //       })
+            //   .then(function () {
+            //       new Promise(resolve => setTimeout(resolve, 2000));
+            //       window.location = `/patient-details1/${id}`;
+            //    })
+            //   console.log(response);
+            //   this.getAppointmentList()
+            // })
+            // .catch((error) => {
+            //   console.log(error)
+            // })
+      //}
+        },
         // Get Today's appointment list
         async getAppointmentList() {         
             const response = await axios.get('appointments/search', {
                 params: {
                  page:this.currentPage,
                  limit:this.perPage,
-                // q: this.text
+                 q: this.text
                 },
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`

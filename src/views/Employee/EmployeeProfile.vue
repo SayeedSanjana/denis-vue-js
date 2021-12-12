@@ -122,7 +122,7 @@
                 <div class="w-2/5">
                 <div class="ml-56 mt-6">
 
-                    <!-- <img src="@/assets/svgs/employee.svg" alt="" srcset=""> -->
+                    <img src="@/assets/svgs/profilePic.svg" alt="" srcset="">
                 </div>
                 <h3 class="headername text-sm ml-24 my-1 ">Display Picture </h3>
                

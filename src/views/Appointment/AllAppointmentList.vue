@@ -61,13 +61,13 @@
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
                 <div class="text-regal-teal text-sm text-left  w-44">Abdur Rahman </div>
                 <div class="text-regal-teal text-sm text-left w-44">24/Female</div>
-                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
+                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-{{i.patient.substring(0,10)}}</div>
                 <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
                 <div class="text-regal-teal text-sm text-center break-words w-44">{{i.reason}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6 w-44">{{this.dateConversion(i.date.substring(0, 10))}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6  w-44">
                 <div class="relative inline-flex">
-                    <select  class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                    <select @click="update" class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                     :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">    
                         <option>{{i.status}}</option>
                         <option v-if="i.status!=='Delayed'">Delayed</option>
@@ -83,7 +83,7 @@
     </div>
     <!-- List of patient ends here -->
     <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+    <div class="flex px-40 flex-row justify-center" >
         <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
     </div>
    <!-- Pagination ends here -->
@@ -146,14 +146,15 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         }
         },
         created() {
+         this.currentPage=1
          this.getAppointmentList()
         },
        
         data(){
             return{
-                total:0,
+                total:20,
                 AppointmentList:[],
-                perPage: 10,
+                perPage: 5,
                 currentPage: 1,
                 sort:'',
                 date:''
@@ -185,6 +186,31 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
           console.log(this.date)
         },
 
+        //update status
+        // update(id){
+        //  await axios.get('appointments/update/'+id, {
+        //         headers: {
+        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
+        //         }
+        //         }) .then((response) => {
+        //         console.log(response)
+        //         swal({
+        //           title: "Success",
+        //           text: "Status created Successfully!",
+        //           icon: "success",
+        //           timer: 1000,
+        //           buttons: false
+        //         }).then(function () {
+        //           new Promise(resolve => setTimeout(resolve, 2000));
+        //           window.location = `/AppointmentPortal`;
+        //         })
+        //       })
+        //       .catch((error) => {
+        //         console.log(error)
+        //         console.log("Something went wrong. Please try again")
+        //       })           
+        // },
+
         //get appointment list
          async getAppointmentList() {
                
@@ -199,8 +225,9 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
                 }
                 })
                 this.AppointmentList = response.data['result'];
+                //this.total=response.data.total;
                 //this.total=response.data.totalPages;
-                //console.log(this.AppointmentList)
+                console.log(this.AppointmentList)
             },
         }
     }

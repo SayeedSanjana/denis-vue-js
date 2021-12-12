@@ -23,12 +23,12 @@
         <div class="relative ml-4 mt-5">
             <select class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
                 <option class="text-regal-teal" >All</option>
-                <option class="text-regal-teal" value="Examined">Oldest</option>
-                <option class="text-regal-teal" value="Scheduled">Newest</option>
-                <option class="text-regal-teal" value="Cancelled">Cancelled</option>
-                <option class="text-regal-teal" value="Examined" >Examined</option>
-                <option class="text-regal-teal" value="Scheduled">Scheduled</option>
-                <option class="text-regal-teal" value="Cancelled">Cancelled</option>
+                <option class="text-regal-teal" value="Examined">Active</option>
+                <option class="text-regal-teal" value="Scheduled">Inactive</option>
+                <option class="text-regal-teal" value="Cancelled">On Leave</option>
+                <option class="text-regal-teal" value="Examined" >Absent</option>
+                <option class="text-regal-teal" value="Scheduled">Present</option>
+                <!-- <option class="text-regal-teal" value="Cancelled">Cancelled</option> -->
             </select>   
             <div class=" selectsvg">
                 <img src="@/assets/svgs/select.svg">
@@ -54,7 +54,7 @@
             <div class="text-regal-teal text-sm font-semibold text-left ml-12 ">Attendence</div>
         </div>     
         <ul class=" lg:flex-row  2xl:p-2 pt-4 md:w-full bg-regal-white ">
-                <li @click="employeeProfile(index)" class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in 10" :key="index">
+                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in 10" :key="index">
                    <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 gap-7 border-r-8 border-regal-scheduled  ">                
                    <div class="text-regal-teal text-sm text-left lg:ml-2 flex">
                        <div class="2xl:mr-4 mt-4">1.</div>
@@ -62,13 +62,13 @@
                            <img class="rounded-full" alt="A" src="https://randomuser.me/api/portraits/men/62.jpg">
                       </div>
                    </div>
-                   <div class="text-regal-teal text-sm text-left  mt-4 ">Adbur Rahman Kamal </div>
-                   <div class="text-regal-teal text-sm text-left  mt-4 col-span-1 ">sanjanasayeed68@gmail.com</div>
-                   <div class="text-regal-teal text-sm text-left mt-4 ml-20">HR Manager </div>
+                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left  mt-4 ">Adbur Rahman Kamal </div>
+                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left  mt-4 col-span-1 ">sanjanasayeed68@gmail.com</div>
+                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left mt-4 ml-20">HR Manager </div>
                    <!-- <div class="text-regal-teal text-sm text-left  mt-4 ">12,November,2021</div> -->
-                   <div class="text-regal-teal text-sm text-center    mt-4 ml-9">Human Resource </div>
+                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-center    mt-4 ml-9">Human Resource </div>
                    <!-- <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">10:00AM-11:00PM </div> -->
-                   <div class="text-regal-teal text-sm text-center  mt-4 ml-14">09876543212</div>
+                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-center  mt-4 ml-14">09876543212</div>
                    <div class="text-regal-teal text-sm text-center  ml-12 mt-4 ">
                        <div class="relative inline-flex">
                         <select v-model="this.status"  class="border border-regal-blue border-opacity-40 rounded-full  px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"

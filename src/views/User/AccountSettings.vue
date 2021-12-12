@@ -189,7 +189,7 @@
                                 <small class="text-regal-red flex justify-start text-xs">{{this.str}}</small>
                             </div>
                             <!-- old password -->
-                            <div class="flex">
+                            <div class="flex mb-5">
                                 <!--new password -->
                                 <div class="w-1/2 pr-4">
                                     <label for="" class="labeldesign">New Password</label>
@@ -399,6 +399,7 @@
                                 timer: 1000,
                                 buttons: false
                             })
+                            window.location = `/AccountSettings`;
                             console.log(response);
                         })
                         .catch((error) => {
