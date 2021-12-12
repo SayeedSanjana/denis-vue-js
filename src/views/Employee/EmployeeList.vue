@@ -40,36 +40,36 @@
     
     <!-- List of employee starts here -->
     <div class="mx-16 py-4 mt-6">
-        <div class="border border-regal-blue border-opacity-30 rounded-t-xl bg-regal-light-blue py-3 grid grid-cols-10 2xl:p-2">
-            <div class="text-regal-teal text-sm font-semibold text-left ml-5">Sl No</div>
+        <div class="border border-regal-blue border-opacity-30 rounded-t-xl bg-regal-light-blue py-3 grid grid-cols-8 gap-6 2xl:p-2">
+            <div class="text-regal-teal text-sm font-semibold text-left ml-14 ">Sl No</div>
               <!-- <div class="text-regal-teal text-sm font-semibold text-left ml-4"></div> -->
-            <div class="text-regal-teal text-sm font-semibold text-left ml-2 ">Employee name</div>
-            <div class="text-regal-teal text-sm font-semibold  text-left ml-2">Email</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-8">Job Title</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ">Joining Date</div>
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Department</div>
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Work hours</div>
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Contact No</div>
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Status</div>
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-6 mr-3">Attendence</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-7 ">Employee name</div>
+            <div class="text-regal-teal text-sm font-semibold  text-left ml-20">Email</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-24">Job Title</div>
+            <!-- <div class="text-regal-teal text-sm font-semibold text-left ">Joining Date</div> -->
+            <div class="text-regal-teal text-sm font-semibold text-left ml-16">Department</div>
+            <!-- <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Work hours</div> -->
+            <div class="text-regal-teal text-sm font-semibold text-left  ml-20">Contact No</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-20 ">Status</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-12 ">Attendence</div>
         </div>     
-        <ul class=" lg:flex-row 2xl:p-2  pt-4 md:w-full bg-regal-white ">
+        <ul class=" lg:flex-row  2xl:p-2 pt-4 md:w-full bg-regal-white ">
                 <li @click="employeeProfile(index)" class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in 10" :key="index">
-                   <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-10 border-r-8 border-regal-scheduled  ">                
+                   <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 gap-7 border-r-8 border-regal-scheduled  ">                
                    <div class="text-regal-teal text-sm text-left lg:ml-2 flex">
                        <div class="2xl:mr-4 mt-4">1.</div>
                        <div class="flex relative w-12 h-12 bg-orange-500 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
                            <img class="rounded-full" alt="A" src="https://randomuser.me/api/portraits/men/62.jpg">
                       </div>
                    </div>
-                   <div class="text-regal-teal text-sm text-left  mt-4 ">Adbur Rahman Kamal</div>
-                   <div class="text-regal-teal text-sm text-left mr-6 break-words mt-4 ">sanjanasayeed68@gmail.com</div>
-                   <div class="text-regal-teal text-sm text-left ml-8 mt-4 ">HR Manager</div>
-                   <div class="text-regal-teal text-sm text-left  mt-4 ">12,November,2021</div>
-                   <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">Human Resource </div>
-                   <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">10:00AM-11:00PM </div>
-                   <div class="text-regal-teal text-sm text-center ml-10  2xl:ml-0 mt-4 ">09876543212</div>
-                   <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">
+                   <div class="text-regal-teal text-sm text-left  mt-4 ">Adbur Rahman Kamal </div>
+                   <div class="text-regal-teal text-sm text-left  mt-4 col-span-1 ">sanjanasayeed68@gmail.com</div>
+                   <div class="text-regal-teal text-sm text-left mt-4 ml-20">HR Manager </div>
+                   <!-- <div class="text-regal-teal text-sm text-left  mt-4 ">12,November,2021</div> -->
+                   <div class="text-regal-teal text-sm text-center    mt-4 ml-9">Human Resource </div>
+                   <!-- <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">10:00AM-11:00PM </div> -->
+                   <div class="text-regal-teal text-sm text-center  mt-4 ml-14">09876543212</div>
+                   <div class="text-regal-teal text-sm text-center  ml-12 mt-4 ">
                        <div class="relative inline-flex">
                         <select v-model="this.status"  class="border border-regal-blue border-opacity-40 rounded-full  px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                         :class="this.status==='Inactive' ? 'text-regal-dark-red' : 'text-regal-dark-green'">
@@ -79,7 +79,7 @@
                         </select>
                         </div>
                     </div>
-                   <div class="text-regal-teal text-sm text-center ml-10 mt-4  2xl:ml-0 ">
+                   <div class="text-regal-teal text-sm text-center  mt-4  ml-7 ">
                        <div class="relative inline-flex">
                         <select v-model="this.attendance" @change="changeAttendance" class="border border-opacity-30 rounded-full  px-1 2xl:px-3 md:px-0 py-0.5 hover:bg-white focus:outline-none appearance-none text-center"
                         :class="[(this.attendance == 'On Leave' ? ' border border-regal-yellow-ochre bg-regal-skin text-regal-brown' : ''),  (this.attendance === 'Absent' ? 'bg-regal-light-red text-regal-dark-red border border-regal-dark-red' : ''), (this.attendance === 'Present' ? 'bg-regal-light-green text-regal-dark-green border border-regal-dark-green' : '')]">

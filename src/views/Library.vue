@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="flex justify-start ml-48 mt-2">
-                        <p class="-ml-1">Input records</p>
+                        <p class="-ml-1">Latest records</p>
                     </div>
 
                     <div class="ml-48 mr-4">

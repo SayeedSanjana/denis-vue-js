@@ -254,7 +254,7 @@
                         <button class="newbutton1  mr-20">Save</button>
                         <!-- Save -->
                         <!-- cancel -->
-                        <button class="newbutton2">Cancel</button>
+                        <button class="newbutton2" @click="back">Back</button>
                         <!-- cancel -->
                     </div>
                 </form>
@@ -325,6 +325,13 @@
                }
            }
        },
+       methods:{
+           back(){
+              this.$router.push({
+                    name: 'EmployeeList'
+                })
+           }
+       }
    }
 </script>
 
