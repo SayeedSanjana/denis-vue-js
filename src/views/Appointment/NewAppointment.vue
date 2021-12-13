@@ -92,7 +92,7 @@
               <div class="relative">
                       <select  class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-xs"
                         id="gender" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()">
-                          <option v-for="(item,index) in users" :key="index" @click="getUserId(item._id)">{{item.name}}</option>
+                          <option v-for="item in users" :key="item._id" :value="item._id" >{{item.name}}</option>
                       </select>
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -102,13 +102,11 @@
            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.specialist.$error">{{v$.formdata.specialist.$errors[0].$message}}</small>
           </div>
         <!-- Input Specialist Name Ends-->
-
-
         <div>
           <!-- Input date starts here -->
           <div class=" text-xs text-center my-4">
-              <label class="text-xs mt-2 mr-7 text-regal-teal  font-semibold " for="contact">Date :</label>
-              <input class="px-4  py-1.5 mr-2 text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue bg-white" v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" type="date">
+              <label class="text-xs mt-2 mr-7 ml-2  text-regal-teal  font-semibold " for="contact">Date :</label>
+              <input class="px-4  py-1.5 mr-2 ml-8 text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue bg-white" v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" type="date">
               <p class="text-regal-red mt-4 flex justify-center" v-if="v$.formdata.date.$error">{{v$.formdata.date.$errors[0].$message}}</p>
           </div>
           <!-- Input date starts here -->
@@ -218,7 +216,8 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
      return{
       formdata:{
       reason: {required},
-      specialist: {required,nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
+      // specialist: {required,nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
+      specialist: {required},
       date: {required}
       },
       form:{
@@ -242,7 +241,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
       }).join(''));
       const payload = JSON.parse(jsonPayload);
       this.uid = payload.sub
-      console.log(payload.sub);
+      //console.log(payload.sub);
       },
 
       cancel(){
@@ -308,11 +307,12 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
             this.formdata.patient = this.patientId
             //console.log(this.formdata.patient)
             this.formdata.user = this.uid
-            this.formdata.doctor = this.doctorId
+            this.formdata.doctor = this.formdata.specialist
+            console.log(this.formdata.doctor)
             this.formdata.status = 'Scheduled'
             this.formdata.start_time = moment(this.startTime, "h:mm:ss A").format("HH:mm:ss")
             this.formdata.end_time = moment(this.endTime, "h:mm:ss A").format("HH:mm:ss")
-            //console.log(this.formdata) 
+            console.log(this.formdata) 
             await axios.post('appointments/create', this.formdata, {
                 headers: {
                   "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -372,6 +372,7 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
       //Get the id of the doctor that has been selected from the dropdown
       getUserId(id){
         this.doctorId=id
+        console.log(this.doctorId)
       }
 
     }

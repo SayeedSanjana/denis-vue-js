@@ -111,6 +111,7 @@
             console.log(error)
           })
       },
+      
       async updatePosts(id) {
       console.log(this.formData)
       this.v$.$touch()

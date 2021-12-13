@@ -59,21 +59,21 @@
                 <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
                 :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">             
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
-                <div class="text-regal-teal text-sm text-left  w-44">Abdur Rahman </div>
-                <div class="text-regal-teal text-sm text-left w-44">24/Female</div>
-                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-{{i.patient.substring(0,10)}}</div>
+                <div class="text-regal-teal text-sm text-left  w-44">{{i.patient.name}}</div>
+                <div class="text-regal-teal text-sm text-left ml-2 w-44">{{this.getAge(i.patient.dob)}}/{{i.patient.gender}}</div>
+                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-{{i.patient._id.substring(0,10)}}</div>
                 <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
-                <div class="text-regal-teal text-sm text-center break-words w-44">{{i.reason}}</div>
+                <div class="text-regal-teal text-sm text-center whitespace-nowrap overflow-ellipsis overflow-hidden break-words w-44">{{i.reason}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6 w-44">{{this.dateConversion(i.date.substring(0, 10))}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6  w-44">
                 <div class="relative inline-flex">
-                    <select @click="update" class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                    <select @click="update()" class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                     :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">    
                         <option>{{i.status}}</option>
-                        <option v-if="i.status!=='Delayed'">Delayed</option>
-                        <option v-if="i.status!=='Examined'">Examined</option>
-                        <option v-if="i.status!=='Scheduled'">Scheduled</option>
-                        <option v-if="i.status!=='Cancelled'">Cancelled</option>
+                        <option v-if="i.status!=='Delayed'" >Delayed</option>
+                        <option v-if="i.status!=='Examined'" >Examined</option>
+                        <option v-if="i.status!=='Scheduled'" >Scheduled</option>
+                        <option v-if="i.status!=='Cancelled'" >Cancelled</option>
                     </select>
                 </div>
                 </div>
@@ -102,6 +102,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+//import swal from 'sweetalert';
     export default {
         components: {
             VueTailwindPaginaiton
@@ -152,18 +153,28 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
        
         data(){
             return{
-                total:20,
+                total:0,
                 AppointmentList:[],
-                perPage: 5,
+                perPage: 10,
                 currentPage: 1,
                 sort:'',
-                date:''
+                date:'',
+                formData:{
+                    status:''
+                }
             }
         },
         methods:{
         //For filtering data by date converting date to string 
         localizeDate(date) {
         this.date=date.toString();
+       },
+
+       //getting age of patient
+       getAge(age){
+       const ageDifMs = Date.now() - new Date(age.substring(0, 10)).getTime();
+       const ageDate = new Date(ageDifMs);
+       return Math.abs(ageDate.getUTCFullYear() - 1970);
        },
 
        //Pagination
@@ -186,9 +197,13 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
           console.log(this.date)
         },
 
-        //update status
-        // update(id){
-        //  await axios.get('appointments/update/'+id, {
+        getStatus(evt){
+         console.log(evt)
+        },
+
+        async update(){
+            //console.log(evt)
+        //  await axios.get('appointments/update-status/'+id,this.formData.status, {
         //         headers: {
         //             "Authorization": `Bearer ${localStorage.getItem('token') }`
         //         }
@@ -209,11 +224,10 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         //         console.log(error)
         //         console.log("Something went wrong. Please try again")
         //       })           
-        // },
+        },
 
         //get appointment list
-         async getAppointmentList() {
-               
+         async getAppointmentList() {             
             const response = await axios.get('appointments/search', {
                 params: {
                  page:this.currentPage,
@@ -226,8 +240,8 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
                 })
                 this.AppointmentList = response.data['result'];
                 //this.total=response.data.total;
-                //this.total=response.data.totalPages;
-                console.log(this.AppointmentList)
+                this.total=response.data.totalPages;
+                //console.log(this.AppointmentList)
             },
         }
     }

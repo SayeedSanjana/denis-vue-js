@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-regal-white">
+    <div class="bg-regal-white h-screen">
          <header class="sticky top-0 z-50">
             <Nav />
         </header>
@@ -39,39 +39,37 @@
             <!-- sortby -->
     
     <!-- List of employee starts here -->
-    <div class="mx-16 py-4 mt-6">
-        <div class="border border-regal-blue border-opacity-30 rounded-t-xl bg-regal-light-blue py-3 grid grid-cols-8 gap-6 2xl:p-2">
-            <div class="text-regal-teal text-sm font-semibold text-left ml-14 ">Sl No</div>
-              <!-- <div class="text-regal-teal text-sm font-semibold text-left ml-4"></div> -->
-            <div class="text-regal-teal text-sm font-semibold text-left ml-7 ">Employee name</div>
-            <div class="text-regal-teal text-sm font-semibold  text-left ml-20">Email</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-24">Job Title</div>
-            <!-- <div class="text-regal-teal text-sm font-semibold text-left ">Joining Date</div> -->
-            <div class="text-regal-teal text-sm font-semibold text-left ml-16">Department</div>
-            <!-- <div class="text-regal-teal text-sm font-semibold text-left  ml-8">Work hours</div> -->
-            <div class="text-regal-teal text-sm font-semibold text-left  ml-20">Contact No</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-20 ">Status</div>
-            <div class="text-regal-teal text-sm font-semibold text-left ml-12 ">Attendence</div>
+     <div class="mx-3 py-4 mt-6 px-14">
+        <div class="border border-regal-blue border-opacity-30 rounded-t-xl bg-regal-light-blue py-3 grid grid-cols-8 p-4">
+            <div class="text-regal-teal text-sm font-semibold text-left ml-4 ">Sl No</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-6">Employee Name</div>
+            <div class="text-regal-teal text-sm font-semibold  text-left ml-2">Email</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-2">Job Tile</div>
+            <div class="text-regal-teal text-sm font-semibold text-left mr-4">Department</div>
+            <div class="text-regal-teal text-sm font-semibold text-left mr-2 ml-8">Contact</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-16">Status</div>
+            <div class="text-regal-teal text-sm font-semibold text-left ml-12">Attenance</div>
         </div>     
-        <ul class=" lg:flex-row  2xl:p-2 pt-4 md:w-full bg-regal-white ">
-                <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in 10" :key="index">
-                   <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 gap-7 border-r-8 border-regal-scheduled  ">                
-                   <div class="text-regal-teal text-sm text-left lg:ml-2 flex">
-                       <div class="2xl:mr-4 mt-4">1.</div>
-                       <div class="flex relative w-12 h-12 bg-orange-500 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
+        <ul class=" lg:flex-row 2xl:p-4 lg:p-3 pt-4 md:w-full bg-regal-white">
+            <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in this.EmployeeList" :key="i">
+                <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8">   
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left lg:ml-2 w-24 flex">
+                    <div class="mr-4 mt-4">
+                    {{(this.perPage *(this.currentPage-1))+index+1}}.
+                    </div>
+                    <div class="flex relative w-12 h-12 bg-orange-500 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
                            <img class="rounded-full" alt="A" src="https://randomuser.me/api/portraits/men/62.jpg">
-                      </div>
-                   </div>
-                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left  mt-4 ">Adbur Rahman Kamal </div>
-                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left  mt-4 col-span-1 ">sanjanasayeed68@gmail.com</div>
-                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-left mt-4 ml-20">HR Manager </div>
-                   <!-- <div class="text-regal-teal text-sm text-left  mt-4 ">12,November,2021</div> -->
-                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-center    mt-4 ml-9">Human Resource </div>
-                   <!-- <div class="text-regal-teal text-sm text-center ml-8  2xl:ml-0 mt-4 ">10:00AM-11:00PM </div> -->
-                   <div @click="employeeProfile(index)"  class="text-regal-teal text-sm text-center  mt-4 ml-14">09876543212</div>
-                   <div class="text-regal-teal text-sm text-center  ml-12 mt-4 ">
+                    </div>
+                </div>
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left ml-6 w-44 break-words  mt-4">{{i.user.name}}</div>
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-center -ml-10 w-44  mt-4">{{i.user.email}}</div>
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left lg:ml-2 w-44  mt-4">{{i.jobTitle}}</div>
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left  w-44  mt-4">HR Department</div>
+                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-center -ml-4  w-44  mt-4">{{i.user.phone}}</div>
+                <div  class="text-regal-teal text-sm text-center  ml-12  mt-4 ">
+                      <div class=" ml-6 w-44 text-left">
                        <div class="relative inline-flex">
-                        <select v-model="this.status"  class="border border-regal-blue border-opacity-40 rounded-full  px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                        <select v-model="this.status"  class="border border-regal-blue border-opacity-40 rounded-full  px-1 2xl:px-3 md:px-0 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                         :class="this.status==='Inactive' ? 'text-regal-dark-red' : 'text-regal-dark-green'">
                             <option>{{this.status}}</option>
                             <option  v-if="this.status!=='Inactive'">Inactive</option>
@@ -79,7 +77,8 @@
                         </select>
                         </div>
                     </div>
-                   <div class="text-regal-teal text-sm text-center  mt-4  ml-7 ">
+                    </div>
+                <div class="text-regal-teal text-sm text-center ml-6  w-44  mt-4">
                        <div class="relative inline-flex">
                         <select v-model="this.attendance" @change="changeAttendance" class="border border-opacity-30 rounded-full  px-1 2xl:px-3 md:px-0 py-0.5 hover:bg-white focus:outline-none appearance-none text-center"
                         :class="[(this.attendance == 'On Leave' ? ' border border-regal-yellow-ochre bg-regal-skin text-regal-brown' : ''),  (this.attendance === 'Absent' ? 'bg-regal-light-red text-regal-dark-red border border-regal-dark-red' : ''), (this.attendance === 'Present' ? 'bg-regal-light-green text-regal-dark-green border border-regal-dark-green' : '')]">
@@ -89,21 +88,16 @@
                             <option  v-if="this.attendance!=='Present'">Present</option>
                         </select>
                         </div>
-                    </div>
-                  </div>
-                </li>
-            </ul>
+                </div>
+                </div>
+            </li>
+        </ul>
     </div>
     <!-- List of employee ends here -->
     <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center">
-        <div class="px-4 mx-4 mb-10">
-            <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded-tl-full rounded-bl-full rounded-br-full w-28 mt-4 text-sm" type="button">Previous</button>
-        </div>
-        <div class="px-4 mx-4">
-            <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded-tr-full rounded-br-full rounded-bl-full w-28 mt-4 text-sm" type="button">Next </button>
-        </div>
-   </div>
+    <div class="flex px-40 flex-row justify-center" >
+        <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+    </div>
    <!-- Pagination ends here -->
 
 
@@ -111,13 +105,23 @@
 </template>
 
 <script>
+import axios from 'axios'
 import  Nav from "../../components/Nav.vue";
+import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
         components:{
-          Nav
+          Nav,
+          VueTailwindPaginaiton
+        },
+        created(){
+         this.currentPage=1
+         this.getEmployeeList()
         },
         data(){
             return{
+                total:0,
+                perPage: 1,
+                currentPage: 1,
                 attendance:'Present',
                 status:'Active',
                 EmployeeList:[]
@@ -127,38 +131,44 @@ import  Nav from "../../components/Nav.vue";
           changeStatus(evt){
            this.status=evt.target.value
           },
-          employeeProfile(index){
+
+          //row pressed then it will route to employee profile
+          employeeProfile(id){
             this.$router.push({
                     name: 'EmployeeProfile',
                     params: {
-                        id: index
+                        id: id
                     }
                 })
           },
-          changeAttendance(){
 
-          },
-        //    async getEmployeeList() {
+          //Change page number
+          pageChange(pageNumber){
+            this.currentPage=pageNumber
+            this.getAppointmentList(this.currentPage)
+        },
+        
+        //get employee list
+          async getEmployeeList() {
                
-        //     const response = await axios.get('employee-details/search/', {
-        //         params: {
-        //          page:this.currentPage,
-        //          limit:this.perPage,
-        //         // q: this.text
-        //         },
-        //         headers: {
-        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
-        //         }
-        //         })
-        //         this.AppointmentList = response.data['result'];
-        //         //this.total=response.data.totalPages;
-        //         //console.log(this.AppointmentList)
-        //     },
-
+            const response = await axios.get('employee-details/search/', {
+                params: {
+                 page:this.currentPage,
+                 limit:this.perPage,
+                // q: this.text
+                },
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.EmployeeList = response.data['result'];
+                //this.total=response.data.totalPages;
+                this.total=response.data.totalPages;
+                //console.log(this.EmployeeList)
+            },
         }
     }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

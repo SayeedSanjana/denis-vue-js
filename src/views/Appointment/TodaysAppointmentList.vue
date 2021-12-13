@@ -49,11 +49,11 @@
                 <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8"
                 :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">   
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-24">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
-                <div class="text-regal-teal text-sm text-left -ml-8 w-44 break-words">Abdur Rahman Khaleq mohammad Islam </div>
-                <div class="text-regal-teal text-sm text-left -ml-2 w-44">24/Female</div>
+                <div class="text-regal-teal text-sm text-left -ml-8 w-44 break-words">{{i.patient.name}}</div>
+                <div class="text-regal-teal text-sm text-center -ml-10 w-44">/{{i.patient.gender}}</div>
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
                 <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
-                <div class="text-regal-teal text-sm text-center  w-44">{{i.reason}}</div>
+                <div class="text-regal-teal text-sm text-center -ml-4  whitespace-nowrap overflow-ellipsis overflow-hidden break-words w-44">{{i.reason}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6 w-44">0987654321</div>
                 <div class="text-regal-teal text-sm text-center ml-6  w-44">
                 <div class="relative inline-flex">
@@ -73,9 +73,9 @@
     </div>
     <!-- List of patient ends here -->
    <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+    <!-- <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
         <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
-    </div>
+    </div> -->
    <!-- Pagination ends here -->
         </div>
        <div v-else class="h-screen  ">
@@ -93,13 +93,13 @@
 import axios from 'axios';
 //import swal from 'sweetalert'
 import moment from 'moment';
-import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+//import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
-        components: {
-            VueTailwindPaginaiton
-        },
+        // components: {
+        //     VueTailwindPaginaiton
+        // },
         created(){
-         this.currentPage=1
+         //this.currentPage=1
           this.app()
           this.getAppointmentList()
           this.parseJwt(this.token)
@@ -111,10 +111,10 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             return{
             sort:'',
             token: localStorage.getItem('token'),
-            total:5,
+            total:100,
             TodayAppointmentList:[],
             AppointmentList:[],
-            perPage:10,
+            perPage:50,
             currentPage: 1,
             formData:{
                 status:''
@@ -131,7 +131,13 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
             return result
         }
         },
-      
+
+       //get age 
+     ageCount(age){
+       const ageDifMs = Date.now() - new Date(age.substring(0, 10)).getTime();
+       const ageDate = new Date(ageDifMs);
+       return Math.abs(ageDate.getUTCFullYear() - 1970);
+       },
         methods:{
         parseJwt(token) {
             var base64Url = token.split('.')[1];
@@ -154,11 +160,12 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         //Date Conversion
         dateConversion(date) {
             return moment(date).format('LL')
-
         },
+
         status(event){
             this.sort=event.target.value
         },
+
         app(){
           this.$emit("getAppointment")
         },
@@ -212,10 +219,11 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
                 this.AppointmentList = response.data['result'];
                 let today = new Date().toISOString();
                 this.AppointmentList.forEach(i => {
-                    if (i.date.substring(0, 10)===today.substring(0, 10) && i.doctor===this.uid){
+                    if (i.date.substring(0, 10)===today.substring(0, 10) && i.doctor._id===this.uid){
                         this.TodayAppointmentList.push(i) 
                     }
                  });
+                 console.log
             },
         }
     }

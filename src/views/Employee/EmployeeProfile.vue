@@ -265,6 +265,7 @@
 </template>
 
 <script>
+   //import axios from "axios"
    import Nav from "../../components/Nav.vue";
    import useValidate from '@vuelidate/core';
    import {
@@ -330,8 +331,43 @@
               this.$router.push({
                     name: 'EmployeeList'
                 })
-           }
-       }
+           },
+           async updatePosts() {
+            // console.log(this.formData)
+            // this.v$.$touch()
+            // if (!this.v$.$error) {
+            // this.formData.phone = this.formData.phone.replace(/\s/g, '')
+            //     if(this.formData.address===""){
+            //     this.formData.address='N/A'
+            //     }
+            //     await axios.patch('patients/' + id + '/update-patient', this.formData, {
+            //         headers: {
+            //             "Authorization": `Bearer ${localStorage.getItem('token') }`
+            //         }
+            //         })
+            //         .then((response) => {
+            //         swal({
+            //             title: "Success",
+            //             text: "Patient updated Successfully!",
+            //             icon: "success",
+            //             timer: 1000,
+            //             buttons: false
+            //         }).then(function () {
+            //             new Promise(resolve => setTimeout(resolve, 2000));
+            //             window.location = `/patient-details1/${id}`;
+            //         })
+            //         // this.$router.push({
+            //         //   name: 'PatientDetails'
+            //         // });
+            //         console.log(response);
+            //         })
+            //         .catch((error) => {
+            //         console.log(error)
+            //         })
+            // }
+        }
+       },
+
    }
 </script>
 

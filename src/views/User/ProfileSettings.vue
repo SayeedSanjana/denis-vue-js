@@ -226,10 +226,11 @@
         education:[],
         formData: {
          jobTitle: "",
-         workHours: "",
          jobDescription: "",
+         bankAccountNumber:"",
+         daysWorked: "",
          bankAccount: "",
-         salaryInformation: "",
+         salary: 0,
          educationQualifications:[
             {
                 degree:'',
