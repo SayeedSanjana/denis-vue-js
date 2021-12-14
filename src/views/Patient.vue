@@ -11,7 +11,7 @@
                         <form class="bg-white ">
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
                                 <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96 h-8"
-                                    name="q" type="text" placeholder="Search by name or phone number" 
+                                    name="q" type="text" placeholder="Search by name or phone number" v-model="this.text"
                                     @keydown="this.getPatients()" />
                                 <span class="ml-10">
                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +99,7 @@
         data() {
             return {
                 total:0,
+                text:'',
                 // currentPg:1,
                 Patients: [],
                 perPage: 10,

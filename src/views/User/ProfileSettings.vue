@@ -15,7 +15,7 @@
                         <!-- job title -->
                         <div class="w-1/2 pr-10">
                             <label for="" class="labeldesign font-semibold">Job title :</label>
-                            <input type="text" class="inputfield" @blur="v$.formData.jobTitle.$touch()" v-model="formData.jobTitile">
+                            <input type="text" class="inputfield" @blur="v$.formData.jobTitle.$touch()" v-model="formData.jobTitle">
                             <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.jobTitle.$error">{{v$.formData.jobTitle.$errors[0].$message}}</small>
                         </div>
                         <!-- job title -->
@@ -23,8 +23,8 @@
                         <!-- work hours -->
                         <div class="w-1/2 pl-10">
                             <label for="" class="labeldesign font-semibold">Work Hours :</label>
-                            <input type="text" class="inputfield" @blur="v$.formData.workHours.$touch()" v-model="formData.workHours">
-                            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.workHours.$error">{{v$.formData.workHours.$errors[0].$message}}</small>
+                            <input type="text" class="inputfield" @blur="v$.formData.daysWorked.$touch()" v-model="formData.daysWorked">
+                            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.daysWorked.$error">{{v$.formData.daysWorked.$errors[0].$message}}</small>
                         </div>
                         <!-- work hours -->
                     </div>
@@ -43,7 +43,8 @@
                         <!-- job title -->
                         <div class="w-1/2 pr-10">
                             <label for="" class="labeldesign font-semibold">Bank Account </label>
-                            <textarea type="text" class="h-24 inputfield"></textarea>
+                            <textarea type="text" class="h-24 inputfield"  @blur="v$.formData.bankAccountNumber.$touch()" v-model="formData.bankAccountNumber"></textarea>
+                            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.bankAccountNumber.$error">{{v$.formData.bankAccountNumber.$errors[0].$message}}</small>
                         </div>
                         <!-- job title -->
 
@@ -82,14 +83,14 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Degree</label>
-                                <select @blur="v$.educationQualifications.degree.$touch()" v-model="educationQualifications.jobTitile"
+                                <select 
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>MS(Conservative Dentistry)</option>
                                     <option>PHD</option>
                                     <option>FICD</option>
                                 </select>
-                                <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.degree.$error">{{v$.educationQualifications.degree.$errors[0].$message}}</small>
+                                <!-- <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.degree.$error">{{v$.educationQualifications.degree.$errors[0].$message}}</small> -->
                             </div>
                             <!-- degree -->
 
@@ -99,13 +100,13 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Institution</label>
-                                <select  @blur="v$.educationQualifications.institution.$touch()"  v-model="educationQualifications.institution"
+                                <select 
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>Dhaka Medical College</option>
                                     <option>Private Medical College</option>
                                 </select>
-                                <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.institution.$error">{{v$.educationQualifications.institution.$errors[0].$message}}</small>
+                                <!-- <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.institution.$error">{{v$.educationQualifications.institution.$errors[0].$message}}</small> -->
                             </div>
                             <!-- degree -->
                         </div>
@@ -113,7 +114,7 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Year of Graduation</label>
-                                <select  @blur="v$.educationQualifications.graduation.$touch()"  v-model="educationQualifications.graduation"
+                                <select  
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>1990</option>
@@ -128,7 +129,7 @@
                                     <option>1999</option>
                                     <option>2000</option>
                                 </select>
-                                <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.graduation.$error">{{v$.educationQualifications.graduation.$errors[0].$message}}</small>
+                                <!-- <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.graduation.$error">{{v$.educationQualifications.graduation.$errors[0].$message}}</small> -->
                             </div>
                             <!-- degree -->
                         </div>
@@ -136,13 +137,13 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Specialization</label>
-                                <select  @blur="v$.educationQualifications.specialization.$touch()"  v-model="educationQualifications.specialization"
+                                <select 
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>Surgeon</option>
                                     <option>Medicine</option>
                                 </select>
-                                <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.specialization.$error">{{v$.educationQualifications.specialization.$errors[0].$message}}</small>
+                                <!-- <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.specialization.$error">{{v$.educationQualifications.specialization.$errors[0].$message}}</small> -->
                             </div>
                             <div class="ml-16 -mt-72">
                                 <table class=" rounded-t-xl tracking-wide bg-regal-ash ">
@@ -214,22 +215,31 @@
 <script>
     import Nav from "../../components/Nav.vue";
     import useValidate from '@vuelidate/core';
-    import {required} from '@vuelidate/validators';
+    import {required,numeric} from '@vuelidate/validators';
+    import swal from "sweetalert";
+    import axios from "axios";
     export default {
         components: {
             Nav,
         },
+        created(){
+          this.getEmployeeList(),
+          //this.checkEmployeeId(),
+          this.parseJwt(this.token)
+        },
         data() {
         return {
         v$:useValidate(),
+        EmployeeList:[],
+        employeeId:'',
         token: localStorage.getItem('token'),
         education:[],
         formData: {
          jobTitle: "",
          jobDescription: "",
          bankAccountNumber:"",
-         daysWorked: "",
-         bankAccount: "",
+         daysWorked:0,
+         //bankAccount: "",
          salary: 0,
          educationQualifications:[
             {
@@ -240,30 +250,31 @@
             }
          ],
         },
-        educationQualifications:
-             {
-                degree:{required},
-                institution:{required},
-                graduation:{required},
-                specialization:{required}
-             }
+        // educationQualifications:
+        //      {
+        //         degree:{required},
+        //         institution:{required},
+        //         graduation:{required},
+        //         specialization:{required}
+        //      }
       }
     },
     validations(){
      return{
       formData:{
       jobTitle:{required},
-      workHours: {required},
+      daysWorked: {required,numeric},
       jobDescription: {required},
-      salaryInformation:{required}
+      salaryInformation:{required,numeric},
+      bankAccountNumber:"",
       },
-      educationQualifications:
-             {
-                degree:{required},
-                institution:{required},
-                graduation:{required},
-                specialization:{required}
-             }
+    //   educationQualifications:
+    //          {
+    //             degree:{required},
+    //             institution:{required},
+    //             graduation:{required},
+    //             specialization:{required}
+    //          }
       }
     },
     methods:{
@@ -277,12 +288,95 @@
         const payload = JSON.parse(jsonPayload);
         this.uid = payload.sub
     },
+     checkEmployeeId(){
+       this.EmployeeList.forEach(i => {
+            if (i.user._id===this.uid){
+                this.employeeId=i._id 
+             }
+        });
+        console.log(this.employeeId)
+        this.getSpecificEmployee()
+    },
+
+    //get employee list
+          async getEmployeeList() {       
+            const response = await axios.get('employee-details/search/', {
+                params: {
+                 page:this.currentPage,
+                 limit:this.perPage,
+                // q: this.text
+                },
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.EmployeeList = response.data['result'];
+                //this.total=response.data.totalPages;
+                this.total=response.data.totalPages;
+                console.log(this.EmployeeList)
+                this.EmployeeList.forEach(i => {
+                if (i.user._id==this.uid){
+                console.log(i.user._id)
+                this.employeeId=i._id 
+             }
+           });
+           //console.log(this.uid)
+            const response1 = await axios.get('employee-details/search/'+ this.employeeId, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.formData= response1.data.result;
+                console.log(this.formData)
+          
+            },
+
+        //get specific employee
+        async getSpecificEmployee(){
+            this.ch
+            const response = await axios.get('employee-details/search/'+ this.employeeId, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }
+                })
+                this.formData= response.data.result;
+                console.log(this.formData)
+                //this.total=response.data.totalPages;
+                //this.total=response.data.totalPages;
+                //console.log(this.EmployeeList)
+               // this.checkEmployeeId();
+        },    
 
     //For updating Profile
-    updateProfile(){   
+    async updateProfile(){   
         this.v$.$touch(); 
         if (!this.v$.$error) {
             console.log(this.formData)
+             await axios.put('employee-details/update/' + this.employeeId , this.formData, {
+              headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token') }`
+              }
+            })
+            .then((response) => {
+              swal({
+                title: "Success",
+                text: "Profile Settings updated Successfully!",
+                icon: "success",
+                timer: 1000,
+                buttons: false
+              })
+            //   .then(function () {
+            //       new Promise(resolve => setTimeout(resolve, 2000));
+            //       window.location = `/patient-details1/${id}`;
+            //    })
+              // this.$router.push({
+              //   name: 'PatientDetails'
+              // });
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         }
     },
 

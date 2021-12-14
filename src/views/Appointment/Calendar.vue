@@ -433,11 +433,30 @@ import axios from 'axios'
                         this.list6.push(i) 
                     }
                     if (i.date.substring(0,10)===this.dateISO[6].substring(0,10)){
-                        this.list6.push(i) 
+                        this.list7.push(i) 
                     }
-                 });    
+                 });  
+                 this.sort()  ;
+                },
+                sort(){
+                this.list1.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list1.reverse();
+                this.list2.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list2.reverse();
+                this.list3.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list3.reverse();
+                this.list4.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list4.reverse();
+                this.list5.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list5.reverse();
+                this.list6.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list6.reverse();
+                this.list7.sort((a, b) => b.start_time.localeCompare(a.start_time));
+                this.list7.reverse();
+                
                 }
-            },           
+            }, 
+                     
         }
 
 </script>

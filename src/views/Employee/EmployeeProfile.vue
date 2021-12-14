@@ -279,6 +279,7 @@
            return {
                v$: useValidate(),
                token: localStorage.getItem('token'),
+               EmployeeList:[],
                formData: {
                    jobTitle: "",
                    workHours: "",
@@ -332,6 +333,7 @@
                     name: 'EmployeeList'
                 })
            },
+
            async updatePosts() {
             // console.log(this.formData)
             // this.v$.$touch()

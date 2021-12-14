@@ -67,13 +67,13 @@
                 <div class="text-regal-teal text-sm text-center ml-6 w-44">{{this.dateConversion(i.date.substring(0, 10))}}</div>
                 <div class="text-regal-teal text-sm text-center ml-6  w-44">
                 <div class="relative inline-flex">
-                    <select @click="update()" class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
+                    <select @change="selectedOption($event.target.value,i._id)" class="border border-regal-blue rounded-full text-gray-600 px-1 2xl:px-3 md:px-0 py-0.5 bg-white hover:bg-white focus:outline-none appearance-none text-center"
                     :class="[(i.status === 'Scheduled' ? ' text-regal-sta-green' : ''),  (i.status === 'Cancelled'? 'text-regal-dark-red' : ''), (i.status === 'Examined' ? 'text-regal-teal' : ''),(i.status === 'Delayed' ? 'text-regal-brown' : '')]">    
                         <option>{{i.status}}</option>
-                        <option v-if="i.status!=='Delayed'" >Delayed</option>
-                        <option v-if="i.status!=='Examined'" >Examined</option>
-                        <option v-if="i.status!=='Scheduled'" >Scheduled</option>
-                        <option v-if="i.status!=='Cancelled'" >Cancelled</option>
+                        <option  v-if="i.status!=='Delayed'" value="Delayed">Delayed</option>
+                        <option  v-if="i.status!=='Examined'" value="Examined">Examined</option>
+                        <option  v-if="i.status!=='Scheduled'" value="Scheduled">Scheduled</option>
+                        <option  v-if="i.status!=='Cancelled'" value="Cancelled" >Cancelled</option>
                     </select>
                 </div>
                 </div>
@@ -102,7 +102,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
-//import swal from 'sweetalert';
+import swal from 'sweetalert';
     export default {
         components: {
             VueTailwindPaginaiton
@@ -150,7 +150,14 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
          this.currentPage=1
          this.getAppointmentList()
         },
-       
+        // updated()
+        // {
+        // this.currentPage=1
+        // this.getAppointmentList();
+        // }, 
+        // unmounted(){
+        //  this.getAppointmentList();
+        // } ,   
         data(){
             return{
                 total:0,
@@ -169,6 +176,11 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         localizeDate(date) {
         this.date=date.toString();
        },
+        selectedOption(option,id){
+          this.formData.status=option;
+          console.log(this.formData.status);
+          this.update(id)
+       },
 
        //getting age of patient
        getAge(age){
@@ -179,8 +191,8 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
 
        //Pagination
         pageChange(pageNumber){
-            this.currentPage=pageNumber
-            this.getAppointmentList(this.currentPage)
+            this.currentPage=pageNumber;
+            this.getAppointmentList(this.currentPage);
         },
         //For filtering status inserting value into sort variable
         status(event){
@@ -189,42 +201,49 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
 
         //Conversion of date
         dateConversion(date) {
-            return moment(date).format('LL')
+            return moment(date).format('LL');
 
         },
         selectDate(event){
-          console.log(event.target.value)
-          console.log(this.date)
+          console.log(event.target.value);
+          console.log(this.date);
         },
 
         getStatus(evt){
          console.log(evt)
         },
 
-        async update(){
-            //console.log(evt)
-        //  await axios.get('appointments/update-status/'+id,this.formData.status, {
-        //         headers: {
-        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
-        //         }
-        //         }) .then((response) => {
-        //         console.log(response)
-        //         swal({
-        //           title: "Success",
-        //           text: "Status created Successfully!",
-        //           icon: "success",
-        //           timer: 1000,
-        //           buttons: false
-        //         }).then(function () {
-        //           new Promise(resolve => setTimeout(resolve, 2000));
-        //           window.location = `/AppointmentPortal`;
-        //         })
-        //       })
-        //       .catch((error) => {
-        //         console.log(error)
-        //         console.log("Something went wrong. Please try again")
-        //       })           
-        },
+        async update(id){
+            //console.log(id)
+            //this.formData.status=option
+            // console.log(this.formData)
+              await axios.patch('appointments/update-status/'+id, this.formData,{
+              headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token') }`
+              }
+            })
+            .then(() => {
+                this.getAppointmentList();
+              swal({
+                title: "Success",
+                text: "Status updated Successfully!",
+                icon: "success",
+                timer: 1000,
+                buttons: false
+              })
+              .then(function () {
+                  new Promise(resolve => setTimeout(resolve, 2000));
+                  //window.location = `/AppointmentPortal`;
+               })
+
+              //console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            })  
+        //     new Promise(resolve => setTimeout(resolve, 2000));
+        //    window.location = `/AppointmentPortal`;
+         },
 
         //get appointment list
          async getAppointmentList() {             

@@ -6,7 +6,7 @@
         <div class="block relative">
             <form class="bg-regal-light-blue">
                 <div class="mt-5 mb-2 border-2  border-regal-light-blue border-opacity-30 py-1 px-3 flex justify-between rounded-lg">
-                    <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue" name="q" type="text" placeholder="Search" />
+                    <input class="flex-grow outline-none text-regal-teal bg-regal-light-blue" name="q" type="text" placeholder="Search" v-model="this.text" @keydown="this.getAppointmentList()"/>
                     <span class="ml-10">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 hover:text-blue-400 transition duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </span>
@@ -17,7 +17,7 @@
             <!-- sortby -->
         <div class="relative ml-4 mt-5">
             <select @click="status($event)" class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
-                <option class="text-regal-teal" >All</option>
+                <option class="text-regal-teal">All</option>
                 <!-- <option class="text-regal-teal" value="Examined">Oldest</option> -->
                 <!-- <option class="text-regal-teal" value="Scheduled">Newest</option> -->
                 <option class="text-regal-teal" value="Delayed">Delayed</option>
@@ -50,7 +50,7 @@
                 :class="[(i.status === 'Scheduled' ? ' border-regal-scheduled' : ''),  (i.status === 'Cancelled'? 'border-regal-cancelled' : ''), (i.status === 'Examined' ? 'border-regal-examined' : ''),(i.status === 'Delayed' ? 'border-regal-delay' : '')]">   
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-24">{{(this.perPage *(this.currentPage-1))+index+1}}</div>
                 <div class="text-regal-teal text-sm text-left -ml-8 w-44 break-words">{{i.patient.name}}</div>
-                <div class="text-regal-teal text-sm text-center -ml-10 w-44">/{{i.patient.gender}}</div>
+                <div class="text-regal-teal text-sm text-center -ml-10 w-44">{{this.getAge(i.patient.dob)}}/{{i.patient.gender}}</div>
                 <div class="text-regal-teal text-sm text-left lg:ml-2 w-44">P-1234567</div>
                 <div class="text-regal-teal text-sm text-left  w-44">{{i.start_time}}-{{i.end_time}}</div>
                 <div class="text-regal-teal text-sm text-center -ml-4  whitespace-nowrap overflow-ellipsis overflow-hidden break-words w-44">{{i.reason}}</div>
@@ -109,6 +109,7 @@ import moment from 'moment';
         },
         data(){
             return{
+            text:'',
             sort:'',
             token: localStorage.getItem('token'),
             total:100,
@@ -132,12 +133,6 @@ import moment from 'moment';
         }
         },
 
-       //get age 
-     ageCount(age){
-       const ageDifMs = Date.now() - new Date(age.substring(0, 10)).getTime();
-       const ageDate = new Date(ageDifMs);
-       return Math.abs(ageDate.getUTCFullYear() - 1970);
-       },
         methods:{
         parseJwt(token) {
             var base64Url = token.split('.')[1];
@@ -150,6 +145,12 @@ import moment from 'moment';
             this.uid = payload.sub
             //console.log(payload.sub);
         },
+         //get age 
+       getAge(age){
+       const ageDifMs = Date.now() - new Date(age.substring(0, 10)).getTime();
+       const ageDate = new Date(ageDifMs);
+       return Math.abs(ageDate.getUTCFullYear() - 1970);
+       },
 
         //Pagination
         pageChange(pageNumber){
@@ -217,14 +218,18 @@ import moment from 'moment';
                 }
                 })
                 this.AppointmentList = response.data['result'];
+                console.log(this.AppointmentList)
                 let today = new Date().toISOString();
+                //console.log(today.substring(0,10))
+                //console.log(i.date.substring(0, 10))
                 this.AppointmentList.forEach(i => {
+                //console.log(i.date.substring(0, 10))
                     if (i.date.substring(0, 10)===today.substring(0, 10) && i.doctor._id===this.uid){
                         this.TodayAppointmentList.push(i) 
                     }
                  });
-                 console.log
-            },
+                 console.log(this.TodayAppointmentList)
+            },   
         }
     }
 </script>
