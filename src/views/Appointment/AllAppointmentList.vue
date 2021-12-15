@@ -83,7 +83,7 @@
     </div>
     <!-- List of patient ends here -->
     <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center" >
+    <div class="flex px-40 flex-row justify-center" v-if="this.total>this.perPage">
         <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
     </div>
    <!-- Pagination ends here -->

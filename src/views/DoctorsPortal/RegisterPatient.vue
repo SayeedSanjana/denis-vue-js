@@ -50,7 +50,8 @@
                 <div class="flex flex-wrap -mx-3 mb-2">
                   <div class="w-full  px-3">
                     <label class="block text-left text-regal-teal text-xs font-bold mb-2" for="dob">Date Of Birth</label>
-                    <input  @blur="v$.formdata.dob.$touch()" class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
+                    <!-- <Datepicker  @blur="v$.formdata.dob.$touch()" class="appearance-none block w-full  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob"></Datepicker> -->
+                    <Datepicker  @blur="v$.formdata.dob.$touch()" class="" id="date" type="date" placeholder="" v-model="formdata.dob" :enableTimePicker="false"></Datepicker>
                     <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.dob.$error">{{v$.formdata.dob.$errors[0].$message}}</small>
                   </div>
                 </div>
@@ -74,9 +75,11 @@
   import swal from 'sweetalert';
   import useValidate from '@vuelidate/core';
   import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
+  import Datepicker from 'vue3-date-time-picker';
+  import 'vue3-date-time-picker/dist/main.css'
   export default {
     components: {
-
+     Datepicker
     },
     data() {
       return {

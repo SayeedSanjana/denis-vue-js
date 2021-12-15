@@ -31,7 +31,8 @@
                         <!-- job title -->
                         <div class="w-1/2 pr-10">
                             <label for="" class="labeldesign font-semibold">Date of Birth :</label>
-                            <input type="date" class="inputfield">
+                            <Datepicker type="text" class="" :enableTimePicker="false"></Datepicker>
+
                         </div>
                         <!-- job title -->
                         <!-- job title -->
@@ -268,12 +269,15 @@
    //import axios from "axios"
    import Nav from "../../components/Nav.vue";
    import useValidate from '@vuelidate/core';
+   import Datepicker from 'vue3-date-time-picker';
+   import 'vue3-date-time-picker/dist/main.css'
    import {
        required
    } from '@vuelidate/validators';
    export default {
        components: {
            Nav,
+           Datepicker
        },
        data() {
            return {

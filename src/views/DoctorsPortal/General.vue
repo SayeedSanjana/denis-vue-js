@@ -16,7 +16,7 @@
           </div>
           <div class="w-full lg:w-full mt-6 ">
             <label class="flex justify-start text-regal-teal text-sm font-medium mb-2" for="dob"> Date Of Birth :</label>
-            <input  class="appearance-none block w-full text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue " id="dob" type="date" placeholder="1990-09-08" v-model="formData.dob">
+            <Datepicker type="text" class="" v-model="formData.dob" @blur="v$.formData.dob.$touch()" :enableTimePicker="false"></Datepicker>
           </div>
           <div class="w-full lg:w-full  ">
             <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">Gender :</label>
@@ -60,7 +60,12 @@
   import moment from "moment";
   import useValidate from '@vuelidate/core';
   import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
+  import Datepicker from 'vue3-date-time-picker';
+  import 'vue3-date-time-picker/dist/main.css'
   export default {
+     components: {
+      Datepicker
+        },
     created() {
       this.getPosts(this.$route.params.id);
     },

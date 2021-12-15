@@ -1,3 +1,4 @@
+
 <template>
     <!-- header -->
     <header class="headerclass">
@@ -51,8 +52,8 @@
                         <!-- work hours -->
                         <div class="w-1/2 pl-10">
                             <label for="" class="labeldesign font-semibold">Salary Information </label>
-                            <textarea type="text" class="h-24 inputfield" @blur="v$.formData.salaryInformation.$touch()" v-model="formData.salaryInformation"></textarea>
-                            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.salaryInformation.$error">{{v$.formData.salaryInformation.$errors[0].$message}}</small>
+                            <textarea type="text" class="h-24 inputfield" @blur="v$.formData.salary.$touch()" v-model="formData.salary"></textarea>
+                            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.salary.$error">{{v$.formData.salary.$errors[0].$message}}</small>
                         </div>
                         <!-- work hours -->
                     </div>
@@ -226,10 +227,12 @@
           this.getEmployeeList(),
           //this.checkEmployeeId(),
           this.parseJwt(this.token)
+          //this.getSpecificEmployee()
         },
         data() {
         return {
         v$:useValidate(),
+        form:{},
         EmployeeList:[],
         employeeId:'',
         token: localStorage.getItem('token'),
@@ -265,7 +268,7 @@
       jobTitle:{required},
       daysWorked: {required,numeric},
       jobDescription: {required},
-      salaryInformation:{required,numeric},
+      salary:{required,numeric},
       bankAccountNumber:"",
       },
     //   educationQualifications:
@@ -288,15 +291,15 @@
         const payload = JSON.parse(jsonPayload);
         this.uid = payload.sub
     },
-     checkEmployeeId(){
-       this.EmployeeList.forEach(i => {
-            if (i.user._id===this.uid){
-                this.employeeId=i._id 
-             }
-        });
-        console.log(this.employeeId)
-        this.getSpecificEmployee()
-    },
+    //  checkEmployeeId(){
+    //    this.EmployeeList.forEach(i => {
+    //         if (i.user._id===this.uid){
+    //             this.employeeId=i._id 
+    //          }
+    //     });
+    //     console.log(this.employeeId)
+    //     this.getSpecificEmployee()
+    // },
 
     //get employee list
           async getEmployeeList() {       
@@ -326,26 +329,37 @@
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 }
                 })
-                this.formData= response1.data.result;
-                console.log(this.formData)
+                //this.form= response1.data.result;
+                console.log(response1.data.result)
+                //this.form= response.data.result;
+                this.formData.bankAccountNumber=response1.data.result.bankAccountNumber
+                this.formData.salary=response1.data.result.salary
+                this.formData.jobTitle=response1.data.result.jobTitle
+                this.formData.jobDescription=response1.data.result.jobDescription
+                this.formData.daysWorked=response1.data.result.daysWorked
+                //console.log(this.form.jobTitle)
           
             },
 
         //get specific employee
-        async getSpecificEmployee(){
-            this.ch
-            const response = await axios.get('employee-details/search/'+ this.employeeId, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                }
-                })
-                this.formData= response.data.result;
-                console.log(this.formData)
-                //this.total=response.data.totalPages;
-                //this.total=response.data.totalPages;
-                //console.log(this.EmployeeList)
-               // this.checkEmployeeId();
-        },    
+        // async getSpecificEmployee(){
+        //     //this.ch
+        //     const response = await axios.get('employee-details/search/'+ this.employeeId, {
+        //         headers: {
+        //             "Authorization": `Bearer ${localStorage.getItem('token') }`
+        //         }
+        //         })
+        //         this.form= response.data.result;
+        //         this.formData.bankAccountNumber=this.form.bankAccountNumber
+        //         this.formData.salary=this.form.salary
+        //         this.formData.jobTitle=this.form.jobTitle
+        //         this.formData.jobDescription=this.form.jobDescription
+        //         this.formData.daysWorked=this.form.daysWorked
+        //         //this.total=response.data.totalPages;
+        //         //this.total=response.data.totalPages;
+        //         //console.log(this.EmployeeList)
+        //        // this.checkEmployeeId();
+        // },    
 
     //For updating Profile
     async updateProfile(){   
@@ -357,7 +371,7 @@
                 "Authorization": `Bearer ${localStorage.getItem('token') }`
               }
             })
-            .then((response) => {
+            .then(() => {
               swal({
                 title: "Success",
                 text: "Profile Settings updated Successfully!",
@@ -372,7 +386,7 @@
               // this.$router.push({
               //   name: 'PatientDetails'
               // });
-              console.log(response);
+              //console.log(response);
             })
             .catch((error) => {
               console.log(error)

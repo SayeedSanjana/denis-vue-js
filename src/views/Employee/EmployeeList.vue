@@ -95,7 +95,7 @@
     </div>
     <!-- List of employee ends here -->
     <!-- Pagination starts here -->
-    <div class="flex px-40 flex-row justify-center" >
+    <div class="flex px-40 flex-row justify-center" v-if="this.total>this.perPage">
         <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
     </div>
    <!-- Pagination ends here -->
@@ -120,7 +120,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
         data(){
             return{
                 total:0,
-                perPage: 1,
+                perPage: 10,
                 currentPage: 1,
                 attendance:'Present',
                 status:'Active',
@@ -145,7 +145,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
           //Change page number
           pageChange(pageNumber){
             this.currentPage=pageNumber
-            this.getAppointmentList(this.currentPage)
+            this.EmployeeList(this.currentPage)
         },
         
         //get employee list
@@ -164,7 +164,7 @@ import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
                 this.EmployeeList = response.data['result'];
                 //this.total=response.data.totalPages;
                 this.total=response.data.totalPages;
-                //console.log(this.EmployeeList)
+                console.log(this.EmployeeList)
             },
         }
     }

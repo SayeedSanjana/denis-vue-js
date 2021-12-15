@@ -90,14 +90,14 @@
           <div class="w-full lg:w-full ">
             <label class="calabel text-xs" for="contact">Specialist Name</label>
               <div class="relative">
-                      <!-- <select  class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-xs"
+                      <select  class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-xs"
                         id="gender" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()">
                           <option v-for="item in users" :key="item._id" :value="item._id" >{{item.name}}</option>
-                      </select> -->
-                       <input name="q" @keydown="getUser()" type="text" list="category" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">  
+                      </select>
+                       <!-- <input name="q" @keydown="getUser()" type="text" list="category" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">  
                             <datalist id="category">
                             <option v-for="item in users" :key="item._id" :value="item._id" >{{item.name}}</option>
-                            </datalist>                             
+                            </datalist>                              -->
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-//import swal from 'sweetalert';
+import swal from 'sweetalert';
 import axios from "axios";
 import useValidate from '@vuelidate/core';
 import moment from "moment";
@@ -324,16 +324,16 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
               })
               .then((response) => {
                 console.log(response)
-                // swal({
-                //   title: "Success",
-                //   text: "Appointment created Successfully!",
-                //   icon: "success",
-                //   timer: 1000,
-                //   buttons: false
-                // }).then(function () {
-                //   new Promise(resolve => setTimeout(resolve, 2000));
-                //   window.location = `/AppointmentPortal`;
-                // })
+                swal({
+                  title: "Success",
+                  text: "Appointment created Successfully!",
+                  icon: "success",
+                  timer: 1000,
+                  buttons: false
+                }).then(function () {
+                  new Promise(resolve => setTimeout(resolve, 2000));
+                  window.location = `/AppointmentPortal`;
+                })
               })
               .catch((error) => {
                 console.log(error)

@@ -32,14 +32,15 @@
                      <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Date of Birth</label>
-                            <input type="date" class="inputfield" v-model="formData.dob">
+                            <Datepicker type="text" class="" v-model="formData.dob" @blur="v$.formData.dob.$touch()" :enableTimePicker="false"></Datepicker>
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
                         </div>
                     <!-- date of birth ends -->
 
                     <!-- gender starts-->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Gender</label>
-                            <input type="text" class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()">
+                            <input type="text" class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()" >
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
                         </div>
                     <!-- gender ends -->
@@ -164,7 +165,7 @@
                             </div>
                         </div>
                     </div>      
-                    <p class="mt-3 px-40 labeldesign">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
+                    <p class="mt-3 px-40 labeldesign flex justify-end mr-20">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
                 </div>
                 <!-- Visiting Card -->
             </div>
@@ -227,10 +228,13 @@
     import axios from "axios";
     import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
+    import Datepicker from 'vue3-date-time-picker';
+    import 'vue3-date-time-picker/dist/main.css'
     import {required,minLength,sameAs,helpers,maxLength,email,numeric} from '@vuelidate/validators';
     export default {
         components: {
             Nav,
+            Datepicker
         },
         created() {
             this.parseJwt(this.token)
@@ -285,7 +289,8 @@
              address:{required},
              qualifications:'',
              role:{required},
-             BMDC:{required}
+             BMDC:{required},
+             dob:{required}
             },
             confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
      }
@@ -352,7 +357,8 @@
                 this.v$.formData.gender.$touch();
                 this.v$.formData.email.$touch();
                 this.v$.formData.phone.$touch();
-                this.v$.formData.address.$touch();                         
+                this.v$.formData.address.$touch();    
+                this.v$.formData.dob.$touch();                     
                 if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (this.strSame.length<=0)) {
                 await axios.put('users/update/' + this.uid, this.formData, {
                         headers: {
