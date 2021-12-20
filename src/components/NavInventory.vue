@@ -83,7 +83,7 @@
                                         <li class="">
                                             <router-link to="/AccountSettings"
                                                 class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
-                                                Settings</router-link>
+                                                AccountSettings</router-link>
                                         </li>
                                         <li class="">
                                             <router-link to="/" @click="logout"

@@ -90,28 +90,55 @@
           <div class="w-full lg:w-full ">
             <label class="calabel text-xs" for="contact">Specialist Name</label>
               <div class="relative">
-                      <select  class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-xs"
-                        id="gender" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()">
+                    
+
+                      <!-- <select  id="category" name="q" @keydown="this.getUser()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-xs"
+                        v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()">
                           <option v-for="item in users" :key="item._id" :value="item._id" >{{item.name}}</option>
-                      </select>
-                       <!-- <input name="q" @keydown="getUser()" type="text" list="category" v-model="formdata.specialist" @blur="v$.formdata.specialist.$touch()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">  
-                            <datalist id="category">
-                            <option v-for="item in users" :key="item._id" :value="item._id" >{{item.name}}</option>
-                            </datalist>                              -->
-                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      </select> -->
+                       <input name="q" @keydown="this.getUser()" type="text" list="category" v-model="this.formdata.specialist" @blur="v$.formdata.specialist.$touch()" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+                        <datalist id="category">
+                        <option v-for="item in users" :key="item._id" :value="item._id" > {{item.name}} </option>
+                        </datalist>                             
+            
+                 <!-- <input v-model="this.formdata.specialist" list="weekday" class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">  
+            <datalist id="weekday">
+  <option value="Sunday">Sun</option>
+  <option value="Monday">mon</option>
+  
+</datalist>  
+                     
+
+                     
+                {{this.formdata.specialist}}         -->
+
+
+
+                      <!-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                      </div>
+                      </div> -->
                     </div>
            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formdata.specialist.$error">{{v$.formdata.specialist.$errors[0].$message}}</small>
           </div>
         <!-- Input Specialist Name Ends-->
         <div>
           <!-- Input date starts here -->
-          <div class=" text-xs text-center my-4">
-              <label class="text-xs mt-2 mr-7 ml-2  text-regal-teal  font-semibold " for="contact">Date :</label>
-              <input class="px-4  py-1.5 mr-2 ml-8 text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue bg-white" v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" type="date">
-              <p class="text-regal-red mt-4 flex justify-center" v-if="v$.formdata.date.$error">{{v$.formdata.date.$errors[0].$message}}</p>
+          <div class="  text-xs text-center my-4">
+              <div class=" flex  ml-24">
+
+              
+              <div class="mt-4 mr-2">
+
+              <label class="text-xs mt-2 mr-7 ml-2  text-regal-teal  font-semibold" for="contact">Date :</label>
+              </div>
+              <div class="px-4  py-1.5 mr-2 w-52">
+
+              <Datepicker  v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" :enableTimePicker="false"></Datepicker>
+              </div>
+              </div>
+              <!-- <input class="px-4  py-1.5 mr-2 ml-8 text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue bg-white" v-model="formdata.date"  @blur="v$.formdata.date.$touch()" id="contact" type="date"> -->
+              <p class="text-regal-red mt-2 ml-3 flex justify-center" v-if="v$.formdata.date.$error">{{v$.formdata.date.$errors[0].$message}}</p>
           </div>
           <!-- Input date starts here -->
 
@@ -170,7 +197,13 @@ import axios from "axios";
 import useValidate from '@vuelidate/core';
 import moment from "moment";
 import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
+import Datepicker from 'vue3-date-time-picker';
+import 'vue3-date-time-picker/dist/main.css'
+
     export default {
+    components: {
+      Datepicker,
+    },
       created(){
         this.getSpecificPatient(),
         this.getUser(),
@@ -312,10 +345,11 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
             //console.log(this.formdata.patient)
             this.formdata.user = this.uid
             this.formdata.doctor = this.formdata.specialist
-            console.log(this.formdata.doctor)
+            //console.log(this.formdata.doctor)
             this.formdata.status = 'Scheduled'
             this.formdata.start_time = moment(this.startTime, "h:mm:ss A").format("HH:mm:ss")
             this.formdata.end_time = moment(this.endTime, "h:mm:ss A").format("HH:mm:ss")
+            this.formdata.date = this.formdata.date.toISOString().substring(0,10);
             console.log(this.formdata) 
             await axios.post('appointments/create', this.formdata, {
                 headers: {
@@ -356,12 +390,15 @@ import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validator
               console.log(error)
             })
         },
+        getId(id){
+          console.log(id)
+          this.formData.doctor=id
+        },
 
       //Getting the user list for specialist dropdown
       async getUser(){
          await axios.get('users/search' , {
-           params: {
-                       
+           params: {  
                         q:this.formdata.specialist
                     },
                         headers: {

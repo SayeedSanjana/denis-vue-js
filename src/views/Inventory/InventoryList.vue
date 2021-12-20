@@ -25,11 +25,8 @@
         
     </div>
 
-            <div class=" flex justify-start">
-
-            
+            <div class=" flex justify-start">      
             <div class="flex ml-36 w-1/3 bg-regal-light-cyan ">
-
                 <input
                     class="flex-grow outline-none pl-3 border border-r-0 border-regal-ash  text-regal-teal bg-regal-light-cyan py-2"
                     name="q" type="text" placeholder="Search " />
@@ -49,8 +46,6 @@
                  </button>   
                 </div>
             </div>
-
-
             <!-- <input type="search" name="" id="" class="flex justify-start ml-36 border border-regal-blue focus:"> -->
             <table class=" m-5 w-5/6 mx-auto bg-regal-light-cyan ">
                 <tr class="text-center text-md text-regal-teal h-12">

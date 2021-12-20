@@ -48,16 +48,9 @@
       <div v-else class="flex-row w-full h-screen">
         <div class=" flex items-center justify-center  ">
           <div class="w-full  ">
-
             <div class="  my-4 rounded-md text-lg mx-auto ">
-            
-
               <p class="font-bold text-regal-teal text-opacity-50 text-center">No Past Billing Records</p>
-
             </div>
-
-
-
           </div>
         </div>
       </div>
@@ -65,7 +58,7 @@
     </div>
 
     <div v-if="changecomponent">
-      <PastBillView :changecomponent="changecomponent" :billId="billId" />
+      <PastBillView :changecomponent="changecomponent" :billId="billId"  @getBills()="getBills()"/>
 
     </div>
   </div>

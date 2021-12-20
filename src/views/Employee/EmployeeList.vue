@@ -51,9 +51,9 @@
             <div class="text-regal-teal text-sm font-semibold text-left ml-12">Attenance</div>
         </div>     
         <ul class=" lg:flex-row 2xl:p-4 lg:p-3 pt-4 md:w-full bg-regal-white">
-            <li class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in this.EmployeeList" :key="i">
-                <div class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8">   
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left lg:ml-2 w-24 flex">
+            <li  @click="employeeProfile(i._id)" class="border-gray-400 md:flex justify-center items-center lg:flex-row mb-2 shadow-sm mr-6 ml-6 2xl:mr-0 2xl:ml-0 " v-for="(i,index) in this.EmployeeList" :key="i">
+                <div  class="select-none cursor-pointer bg-white rounded-md  justify-between p-4  hover:bg-regal-light-green hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm grid grid-cols-8 border-r-8">   
+                <div class="text-regal-teal text-sm text-left lg:ml-2 w-24 flex">
                     <div class="mr-4 mt-4">
                     {{(this.perPage *(this.currentPage-1))+index+1}}.
                     </div>
@@ -61,11 +61,11 @@
                            <img class="rounded-full" alt="A" src="https://randomuser.me/api/portraits/men/62.jpg">
                     </div>
                 </div>
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left ml-6 w-44 break-words  mt-4">{{i.user.name}}</div>
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-center -ml-10 w-44  mt-4">{{i.user.email}}</div>
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left lg:ml-2 w-44  mt-4">{{i.jobTitle}}</div>
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-left  w-44  mt-4">HR Department</div>
-                <div @click="employeeProfile(i._id)" class="text-regal-teal text-sm text-center -ml-4  w-44  mt-4">{{i.user.phone}}</div>
+                <div  class="text-regal-teal text-sm text-left ml-6 w-44 break-words  mt-4">{{i.user.name}}</div>
+                <div class="text-regal-teal text-sm text-center -ml-10 w-44  mt-4">{{i.user.email}}</div>
+                <div class="text-regal-teal text-sm text-left lg:ml-2 w-44  mt-4">{{i.jobTitle}}</div>
+                <div class="text-regal-teal text-sm text-left  w-44  mt-4">HR Department</div>
+                <div class="text-regal-teal text-sm text-center -ml-4  w-44  mt-4">{{i.user.phone}}</div>
                 <div  class="text-regal-teal text-sm text-center  ml-12  mt-4 ">
                       <div class=" ml-6 w-44 text-left">
                        <div class="relative inline-flex">
