@@ -20,7 +20,8 @@
             <!-- sortby -->
         <div class="relative ml-4 mt-5">
             <select @click="status($event)" class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
-                <option class="text-regal-teal" >All</option>
+                <option class="text-regal-teal hidden">Filter By</option>
+                 <option class="text-regal-teal hidden">All</option>
                 <!-- <option class="text-regal-teal" value="Examined">Oldest</option>
                 <option class="text-regal-teal" value="Scheduled">Newest</option>
                 <option class="text-regal-teal" value="Cancelled">Cancelled</option> -->

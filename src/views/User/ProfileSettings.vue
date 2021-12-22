@@ -79,12 +79,12 @@
             <div class="w-full flex">
                 <div class="w-full">
                     <h3 class="headername my-1 ">Educational Qualification </h3>
-                    <div class="w-4/5">
+                    <form  @submit.prevent class="w-4/5">
                         <div class="flex formbox ">
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Degree</label>
-                                <select 
+                                <select  v-model="educationQualifications.degree"
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>MS(Conservative Dentistry)</option>
@@ -101,7 +101,7 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Institution</label>
-                                <select 
+                                <select  v-model="educationQualifications.institution"
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>Dhaka Medical College</option>
@@ -115,7 +115,7 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Year of Graduation</label>
-                                <select  
+                                <select   v-model="educationQualifications.graduation"
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>1990</option>
@@ -138,7 +138,7 @@
                             <!-- degree -->
                             <div class="w-1/3 pr-3">
                                 <label for="" class="labeldesign font-semibold">Specialization</label>
-                                <select 
+                                <select  v-model="educationQualifications.specialization"
                                     class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal h-10 border-opacity-50 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="gender">
                                     <option>Surgeon</option>
@@ -146,7 +146,7 @@
                                 </select>
                                 <!-- <small class="text-regal-red mb-2 flex justify-start" v-if="v$.educationQualifications.specialization.$error">{{v$.educationQualifications.specialization.$errors[0].$message}}</small> -->
                             </div>
-                            <div class="ml-16 -mt-72">
+                            <div class="ml-16 -mt-72" v-show="this.education.length>=1">
                                 <table class=" rounded-t-xl tracking-wide bg-regal-ash ">
                                     <tr class="text-center text-sm text-regal-teal ">
                                         <th class="px-10 py-3 border-r border-b border-regal-blue">Degree</th>
@@ -155,7 +155,14 @@
                                         <th class="px-10 py-3 border-b border-regal-blue">Specialization</th>
 
                                     </tr>
-                                    <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
+                                    <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan" v-for="item in this.education" :key="item">
+                                        <td class="py-4 px-3 text-xs border border-regal-blue">{{item.degree}}</td>
+                                        <td class="px-3 py-4 text-xs border border-regal-blue">{{item.institution}}</td>
+                                        <td class="px-3 py-4 text-xs border border-regal-blue">{{item.graduation}}</td>
+                                        <td class="px-3 py-4 text-xs border border-regal-blue">{{item.specialization}}</td>
+
+                                    </tr>
+                                    <!-- <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
                                         <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
@@ -182,22 +189,23 @@
                                         <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
                                         <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
 
-                                    </tr>
-                                    <tr class="border border-regal-blue border-opacity-25 bg-white text-regal-cyan">
-                                        <td class="py-4 px-3 text-xs border border-regal-blue">B.Sc In Computer Science Engineering</td>
-                                        <td class="px-3 py-4 text-xs border border-regal-blue">Brac University</td>
-                                        <td class="px-3 py-4 text-xs border border-regal-blue">2021</td>
-                                        <td class="px-3 py-4 text-xs border border-regal-blue">Computer Languages</td>
-
-                                    </tr>
+                                    </tr> -->
                                 </table>
                             </div>
                             <!-- degree -->
                         </div>
+                         <div class="flex formbox ml-36">
+                        <!-- Change -->
+                        <button class="changebutton1 mr-5" @click="addEducation()">Add to list</button>
+                        <!-- Change -->
+                        <!-- Remove -->
+                        <!-- <button class="px-10 py-2 bg-regal-light-pink text-center border  font-semibold rounded-md text-sm flex text-regal-ruby">Remove</button> -->
+                        <!-- Remove -->
                     </div>
+                    </form>
 
 
-                    <div class="flex formbox  ">
+                    <div class="flex justify-center mt-10">
                         <!-- Save -->
                         <button class="newbutton1  mr-5">Save</button>
                         <!-- Save -->
@@ -237,6 +245,13 @@
         employeeId:'',
         token: localStorage.getItem('token'),
         education:[],
+        educationQualifications:
+        {
+            degree:'',
+            institution:'',
+            graduation:'',
+            specialization:''
+        },
         formData: {
          jobTitle: "",
          jobDescription: "",
@@ -291,6 +306,17 @@
         const payload = JSON.parse(jsonPayload);
         this.uid = payload.sub
     },
+           addEducation(){
+            this.education.push(this.educationQualifications)
+            this.educationQualifications=
+           {
+            degree:'',
+            institution:'',
+            graduation:'',
+            specialization:''
+        }
+           },
+
     //  checkEmployeeId(){
     //    this.EmployeeList.forEach(i => {
     //         if (i.user._id===this.uid){
@@ -365,6 +391,7 @@
     async updateProfile(){   
         this.v$.$touch(); 
         if (!this.v$.$error) {
+            this.formData.educationQualifications = [...this.education];
             console.log(this.formData)
              await axios.put('employee-details/update/' + this.employeeId , this.formData, {
               headers: {
@@ -381,7 +408,7 @@
               })
             //   .then(function () {
             //       new Promise(resolve => setTimeout(resolve, 2000));
-            //       window.location = `/patient-details1/${id}`;
+                  window.location = `/ProfileSettings`;
             //    })
               // this.$router.push({
               //   name: 'PatientDetails'

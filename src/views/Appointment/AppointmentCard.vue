@@ -13,7 +13,7 @@
 <div v-if="!this.newPatient && !this.existingPatient">
 
 <!-- Card for Existing Patient starts here -->
-<div class="flex justify-center items-center mt-5 " @click="existPat()">
+<div class="flex justify-center items-center mt-28 " @click="existPat()">
   <div class=" w-72 sm:w-72 h-72 bg-white bg-center border border-regal-blue  border-opacity-50 shadow-lg overflow-hidden cursor-pointer  hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">
     <div class="flex justify-center items-center mt-16 mb-3">
          <img  src="@/assets/svgs/ExistingPatientAppointment.svg">
@@ -24,14 +24,14 @@
 <!-- Card for Existing patient ends here -->
 
 <!-- Card for new Patient starts here -->
-<div class="flex justify-center items-center mt-10" @click="newPat()">
+<!-- <div class="flex justify-center items-center mt-10" @click="newPat()">
   <div class=" w-72 sm:w-72 h-72 bg-white bg-center border border-regal-blue  border-opacity-50 shadow-lg overflow-hidden cursor-pointer  hover:bg-opacity-20 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ">
     <div class="flex justify-center items-center mt-16  mb-3">
          <img  src="@/assets/svgs/NewPatientAppointment.svg">
     </div>
       <p class="text-sm text-regal-teal font-semibold py-3 md:px-8 px-4 rounded text-center">New Patient</p>
   </div>
-</div>
+</div> -->
 <!-- Card for new Patient ends here -->
 </div>
 

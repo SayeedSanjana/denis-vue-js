@@ -24,9 +24,9 @@
                     <div class="items-center md:flex">
                         <div>
                             <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
-                                <router-link to="/Library"
+                                <!-- <router-link to="/Library"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Library</router-link>
+                                    Library</router-link> -->
                                 
                                 <router-link to="/patient"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
@@ -36,18 +36,18 @@
                                     class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     <span class="">Appointment</span>
                                 </router-link>
-                                <router-link to='/EmployeeList'
+                                <!-- <router-link to='/EmployeeList'
                                     class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     <span class="">Employee</span>
-                                </router-link>
+                                </router-link> -->
                                 <!-- appointment -->
                                 <router-link to="/patient-list-billing"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Billing</router-link>
 
-                                     <router-link to="/InventoryList"
+                                     <!-- <router-link to="/InventoryList"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    InventoryList</router-link>
+                                    InventoryList</router-link> -->
                                 <!-- <router-link to="/AccountSettings"
                                     class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
                                     Settings</router-link> -->

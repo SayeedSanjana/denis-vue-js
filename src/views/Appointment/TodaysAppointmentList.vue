@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="this.TodayAppointmentList.length>=1">
-        <div class="flex flex-row mb-1 sm:mb-0 px-4">
+        <div class="flex justify-between mb-1 sm:mb-0 px-4">
      <!-- search starts -->
+     <div class="flex">
         <div class="block relative">
             <form class="bg-regal-light-blue">
                 <div class="mt-5 mb-2 border-2  border-regal-light-blue border-opacity-30 py-1 px-3 flex justify-between rounded-lg">
@@ -17,19 +18,55 @@
             <!-- sortby -->
         <div class="relative ml-4 mt-5">
             <select @click="status($event)" class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
-                <option class="text-regal-teal">All</option>
+                <option class="text-regal-teal hidden">Filter By</option>
                 <!-- <option class="text-regal-teal" value="Examined">Oldest</option> -->
                 <!-- <option class="text-regal-teal" value="Scheduled">Newest</option> -->
                 <option class="text-regal-teal" value="Delayed">Delayed</option>
                 <option class="text-regal-teal" value="Examined" >Examined</option>
                 <option class="text-regal-teal" value="Scheduled">Scheduled</option>
                 <option class="text-regal-teal" value="Cancelled">Cancelled</option>
+                <option class="text-regal-teal">All</option>
+                <!-- <option class="text-regal-teal"></option> -->
             </select> 
             <div class=" selectsvg">
                 <img src="@/assets/svgs/select.svg">
             </div>
         </div>
-        <!-- sortby -->
+     </div>
+
+         <div class="flex mt-5">
+             <div class="mt-1">
+                 <label class="mr-2 text-regal-teal text-sm">Showing Results</label>
+             </div>
+            <div class="relative ">
+            <select id="Pagination" @click="limitPage($event)" class="appearance-none block w-full  text-regal-teal bg-white pl-2 h-9 border border-regal-blue border-opacity-40 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " >
+                <option class="text-regal-teal">All</option>
+                <option class="text-regal-teal" value="1">1</option>
+                <option class="text-regal-teal" value="2" >2</option>
+                <option class="text-regal-teal" value="3">3</option>
+                <option class="text-regal-teal" value="40">40</option>
+                <option class="text-regal-teal" value="50">50</option>
+            </select> 
+            <div class=" selectsvg">
+                <img src="@/assets/svgs/select.svg">
+            </div>
+        </div>
+        </div>
+        <!-- <div class="text-right">
+          <div class="relative ml-4 mt-5 justify-end">
+            <select @click="status($event)" class="appearance-none block w-full  text-regal-teal bg-regal-light-blue hover:bg-regal-white  pl-2 h-9 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none " id="sortby">
+                <option class="text-regal-teal">All</option>
+                <option class="text-regal-teal" value="Delayed">10</option>
+                <option class="text-regal-teal" value="Examined" >15</option>
+                <option class="text-regal-teal" value="Scheduled">20</option>
+                <option class="text-regal-teal" value="Cancelled">40</option>
+                <option class="text-regal-teal" value="Cancelled">50</option>
+            </select> 
+            <div class=" selectsvg">
+                <img src="@/assets/svgs/select.svg">
+            </div>
+        </div>
+        </div> -->
         </div>
 
     <!-- List of patient starts here -->
@@ -63,7 +100,7 @@
                     <option v-if="i.status!=='Examined'">Examined</option>
                     <option v-if="i.status!=='Scheduled'">Scheduled</option>
                     <option v-if="i.status!=='Cancelled'">Cancelled</option>
-                    <option v-if="i.status!=='Delayed'">Delayed</option>
+                    <option  v-if="i.status!=='Delayed'">Delayed</option>
                 </select>
                 </div>
                 </div>
@@ -115,11 +152,12 @@ import moment from 'moment';
             total:100,
             TodayAppointmentList:[],
             AppointmentList:[],
-            perPage:50,
+            perPage:10000,
             currentPage: 1,
             formData:{
                 status:''
             },
+            pageNo:0
             }
         },
         computed:{
@@ -127,7 +165,13 @@ import moment from 'moment';
         filteredList(){
          if(this.sort==="Scheduled" || this.sort==="Cancelled" || this.sort==="Examined" || this.sort==="Delayed"){
             return this.TodayAppointmentList.filter(item => item.status.toLowerCase().indexOf(this.sort.toLowerCase()) > -1);
-        }  
+        } 
+        // if(this.perPage!=100000) {
+
+        // }
+            //let op=document.getElementsByClassName("option")
+            //op.classList.add('hidden')
+            //console.log(op)
             const result = this.TodayAppointmentList;
             return result
         }
@@ -165,6 +209,17 @@ import moment from 'moment';
 
         status(event){
             this.sort=event.target.value
+        },
+        limitPage(event){ 
+            let page=document.getElementById("Pagination")
+            if(page.value!="All"){
+               this.pageNo=parseInt(event.target.textContent)
+               this.getAppointmentList()
+            }
+            console.log(this.perPage)
+          
+            // this.perPage=Page
+            // console.log(this.perPage)
         },
 
         app(){
@@ -218,6 +273,7 @@ import moment from 'moment';
                 }
                 })
                 this.AppointmentList = response.data['result'];
+                this.TodayAppointmentList=[];
                 console.log(this.AppointmentList)
                 let today = new Date().toISOString();
                 //console.log(today.substring(0,10))
@@ -226,8 +282,17 @@ import moment from 'moment';
                 //console.log(i.date.substring(0, 10))
                     if (i.date.substring(0, 10)===today.substring(0, 10) && i.doctor._id===this.uid){
                         this.TodayAppointmentList.push(i) 
+                        //this.temporary=[...TodayAppointmentList]
                     }
                  });
+                 if(this.pageNo>0){
+                        const items = this.TodayAppointmentList.slice(0,this.pageNo)
+                        console.log(items)
+                        this.TodayAppointmentList.splice(0,this.TodayAppointmentList.length)
+                        this.TodayAppointmentList=this.TodayAppointmentList.slice(0,this.pageNo+1) 
+                        this.TodayAppointmentList=[...items]
+                        this.pageNo=0
+                    }
                  console.log(this.TodayAppointmentList)
             },   
         }
