@@ -59,7 +59,7 @@
                 </tr>
             </table>         
             <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
-              <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
+              <VueTailwindPaginaiton id="pagination"  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
             </div>
         </section>
         <div v-if="openModal">
@@ -71,6 +71,7 @@
 <script>
     import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     // import '@ocrv/vue-tailwind-pagination/dist/style.css'
+    //import VueTailwindPaginaiton from "../custom/pagination/vue-tailwind-pagination";
     import axios from "axios";
     import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
@@ -112,6 +113,10 @@
         },
 
         methods: {
+            removePaginationClass(){
+              let com=document.getElementById("pagination");
+              console.log(com)
+            },
             pageChange(pageNumber){
                this.currentPage=pageNumber
                this.getPatients(this.currentPage)
@@ -167,6 +172,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
