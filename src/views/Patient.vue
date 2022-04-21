@@ -57,10 +57,21 @@
                     <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
                     <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
                 </tr>
-            </table>         
-            <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+            </table>  
+
+             <div class="flex px-40 flex-row justify-center">
+                <div class="px-40">
+                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                          :disabled="currentPage === 1" :class="currentPage === 1 ?'cursor-not-allowed' :'cursor-pointer'" @click="changePage(-1)"> Previous</button>
+                </div>
+                <div class="px-40">
+                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                        :disabled="this.end == false " :class="this.end == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
+                </div>
+            </div>       
+            <!-- <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
               <VueTailwindPaginaiton id="pagination"  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
-            </div>
+            </div> -->
         </section>
         <div v-if="openModal">
             <RegisterPatient @closeModal="closeModal" />
@@ -69,7 +80,7 @@
 </template>
 
 <script>
-    import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+    // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     // import '@ocrv/vue-tailwind-pagination/dist/style.css'
     //import VueTailwindPaginaiton from "../custom/pagination/vue-tailwind-pagination";
     import axios from "axios";
@@ -80,7 +91,7 @@
         components: {
             Nav,
             RegisterPatient,
-            VueTailwindPaginaiton
+            // VueTailwindPaginaiton
 
         },
         created() {
@@ -107,28 +118,24 @@
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',
-                //perPg:10
-                //count:0
+                perPg:10,
+                end:null
+                // count:0
             }
         },
 
         methods: {
-            removePaginationClass(){
-              let com=document.getElementById("pagination");
-              console.log(com)
-            },
-            pageChange(pageNumber){
-               this.currentPage=pageNumber
-               this.getPatients(this.currentPage)
-            },
+          
             
              dateConversion(date) {
              return moment(date).format('LL')
 
       },
-            // changePage(num) {
-            //     this.currentPage = this.currentPage + num
-            // },
+            changePage(num) {
+                this.currentPage = this.currentPage + num
+                this.getPatients()
+                // console.log(this.currentPage);
+            },
 
 
             toggle() {
@@ -156,9 +163,12 @@
                         "Authorization": `Bearer ${localStorage.getItem('token') }`
                     }
                 })
-                this.Patients = response.data['result'];
-                this.total=response.data.totalPages;
-                //console.log(this.Patients)
+                this.Patients = response.data['data'];
+                this.end= response.data.nextPage;
+                console.log(this.end);
+                // console.log(response.data["data"]);
+                // this.total=response.data.totalPages;
+                // console.log(this.Patients)
             },
 
             modal() {

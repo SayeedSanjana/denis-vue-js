@@ -110,7 +110,9 @@
         this.formdata.phone = this.formdata.phone.replace(/\s/g, '')
         this.v$.$touch()
         if (!this.v$.$error) {
-          await axios.post('patients/create-patient', this.formdata, {
+          // this.formdata.dob = new Date(this.formdata.dob)
+          // console.log(this.formdata.dob);
+          await axios.post('patients/', this.formdata, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`
               }

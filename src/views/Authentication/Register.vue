@@ -223,6 +223,8 @@
             this.pinObject = response.data['result'];
             this.pinObject.forEach((p) => {
               this.pin = p.pin;
+              console.log("register");
+              console.log(typeof (this.pin));
             });
           })
           .catch((error) => {

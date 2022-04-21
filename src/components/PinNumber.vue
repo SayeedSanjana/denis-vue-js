@@ -21,7 +21,7 @@
             <div class="font-thin pr-24 pb-4 text-lg">Ask admin for the pin code</div>
             <div class="flex justify-between">
               <div class="flex">
-                <input v-model="pinno" @keypress="onChange()"
+                <input v-model="this.pinno" @keypress="onChange()"
                   class=" border mx-2 rounded-lg flex items-center text-center font-thin text-3xl test" maxlength="4"
                   max="4" min="0" inputmode="decimal" type="password">
               </div>
@@ -50,7 +50,7 @@
   import swal from 'sweetalert';
   export default {
     props: {
-      pin: String,
+      pin: Number,
       formData: Object
     },
     data() {
@@ -70,9 +70,11 @@
       },
       async validate() {
         var code = this.pinno
-        console.log(typeof (this.pin))
+        console.log("pinnumber");
+        // console.log(typeof (this.pin))
         code = parseInt(code)
         console.log(typeof (code))
+        
         if (code === this.pin) {
           await axios.post('users/signup', this.formData)
             .then((response) => {
