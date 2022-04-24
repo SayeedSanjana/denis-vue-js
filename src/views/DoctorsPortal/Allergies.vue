@@ -105,25 +105,20 @@
                     this.dup=false
                     this.err=''
                     this.form.allergies.push(this.item)
-                axios.patch('patients/' + id + '/add-allergy', this.form, {
+                axios.put('patients/' + id , this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
                     })
-                    .then((response) => {
-                        this.err='';
-
-                    console.log(response);
-                    this.form={
-                    allergies:[]
-                }
-                    this.$emit("myEvent", this.$route.params.id)
+                   .then((response) => {
+                        console.log(response);
+                        this.$emit("myEvent", this.$route.params.id)
                     })
                     .catch((error) => {
                         this.err="Something went wrong"
                         console.log(error)
+
                     })
-                this.item=''
                 
             }
                     

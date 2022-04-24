@@ -80,7 +80,7 @@
                         }
                     })
                     .then((response) => {
-                        this.formData = response.data.result;
+                        this.formData = response.data.data;
                         const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
                         const ageDate = new Date(ageDifMs);
                         this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);

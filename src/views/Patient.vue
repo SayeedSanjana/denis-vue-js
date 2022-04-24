@@ -165,7 +165,7 @@
                 })
                 this.Patients = response.data['data'];
                 this.end= response.data.nextPage;
-                console.log(this.end);
+                // console.log(this.end);
                 // console.log(response.data["data"]);
                 // this.total=response.data.totalPages;
                 // console.log(this.Patients)

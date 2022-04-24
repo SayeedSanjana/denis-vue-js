@@ -118,7 +118,7 @@
                 this.form.disease.push(this.item);
                
                 console.log(this.form)
-                await axios.patch('patients/' + id + '/add-disease', this.form, {
+                await axios.put('patients/' + id , this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }

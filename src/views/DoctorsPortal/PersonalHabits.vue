@@ -84,7 +84,6 @@ import axios from "axios"
             },
             async addHabit(id) {
                 console.log(id)    
-                console.log(this.form)
                 this.formData.personalHabits.forEach(i => {
                 if (i.toLowerCase() === this.item.toLowerCase()) {
                     this.err="Personal Habits already exist"
@@ -106,10 +105,10 @@ import axios from "axios"
                      this.err = "Have to be atleast 3 characters"
                 }
                 else {
-                this.err=""
-                this.dup=false
+                    this.dup=false
+                    this.err=""
                  this.form.personalHabits.push(this.item);
-                 axios.patch('patients/' + id + '/add-personal-habit', this.form, {
+                 axios.put('patients/' + id , this.form, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
