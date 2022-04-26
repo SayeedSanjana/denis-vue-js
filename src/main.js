@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import store from "./store";
 //import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -10,7 +11,7 @@ import './axios'
 // Vue.prototype.$http = axios
 // axios.defaults.baseURL="http://localhost:3000/api/"
 
-createApp(App).use(router).mount("#app");
+createApp(App).use(store).use(router).mount("#app");
 
 
    

@@ -3,6 +3,7 @@
         <Nav />
     </header>
     <div class="h-screen" style="background-color:#F2FBFC">
+   
         <section class="w-full  px-6 py-4 ">
             <p class="text-lg text-left font-bold m-5 px-36" style="color:#005072">Patient Records</p>
             <div class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
@@ -47,16 +48,19 @@
                     <th class="px-4 py-3">Patient ID</th>
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
+               
+
+                
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                    @click="patientDetails(post._id)" v-for="(post,index) in this.Patients " :key="index">
-                    <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>
-                    <!-- <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td> -->
-                    <td class="px-2 py-3">{{post.name}}</td>
-                    <td class="px-2 py-3">{{post.phone}}</td>
-                    <td class="px-2 py-3">{{post.gender}}</td>
-                    <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
-                    <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
+                 @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients " :key="index"  >
+                    <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
+                    <td class="px-2 py-3">{{patient.name}}</td>
+                    <td class="px-2 py-3">{{patient.phone}}</td>
+                    <td class="px-2 py-3">{{patient.gender}}</td>
+                    <td class="px-2 py-3 ">P-{{patient._id.substring(patient._id.length - 7)}}</td>
+                    <td class="">{{this.dateConversion(patient.createdAt.substring(0, 10))}}</td>
                 </tr>
+             
             </table>  
 
              <div class="flex px-40 flex-row justify-center">
@@ -66,12 +70,10 @@
                 </div>
                 <div class="px-40">
                     <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                        :disabled="this.end == false " :class="this.end == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
+                        :disabled="$store.state.endPage == false " :class="$store.state.endPage == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
                 </div>
             </div>       
-            <!-- <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
-              <VueTailwindPaginaiton id="pagination"  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
-            </div> -->
+          
         </section>
         <div v-if="openModal">
             <RegisterPatient @closeModal="closeModal" />
@@ -80,47 +82,38 @@
 </template>
 
 <script>
-    // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
-    // import '@ocrv/vue-tailwind-pagination/dist/style.css'
-    //import VueTailwindPaginaiton from "../custom/pagination/vue-tailwind-pagination";
-    import axios from "axios";
+   
     import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
     import moment from "moment"
     export default {
+
         components: {
             Nav,
             RegisterPatient,
-            // VueTailwindPaginaiton
+          
 
         },
         created() {
+            this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
             this.currentPage=1
-            this.getPatients()
+         
         },
 
-        // computed: {
-        //     filteredList() {
-        //         const star = (this.currentPage - 1) * this.perPage
-        //         const end = this.currentPage * this.perPage
-        //         const result = this.Patients.slice(star, end)
-        //         return result
-        //     }
-        // },
 
         data() {
             return {
                 total:0,
                 text:'',
-                // currentPg:1,
+         
                 Patients: [],
                 perPage: 10,
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',
                 perPg:10,
-                end:null
-                // count:0
+            
+
             }
         },
 
@@ -133,8 +126,8 @@
       },
             changePage(num) {
                 this.currentPage = this.currentPage + num
-                this.getPatients()
-                // console.log(this.currentPage);
+                this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
+
             },
 
 
@@ -151,25 +144,6 @@
                 })
             },
 
-            async getPatients() {
-               
-                const response = await axios.get('patients', {
-                    params: {
-                        page:this.currentPage,
-                        limit:this.perPage,
-                        q: this.text
-                    },
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    }
-                })
-                this.Patients = response.data['data'];
-                this.end= response.data.nextPage;
-                // console.log(this.end);
-                // console.log(response.data["data"]);
-                // this.total=response.data.totalPages;
-                // console.log(this.Patients)
-            },
 
             modal() {
                 this.openModal = true

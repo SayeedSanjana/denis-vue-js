@@ -14,7 +14,7 @@
 
             </div>
             <keep-alive>
-                <component :is="activeTab" />
+                <component :pat="pat" :is="activeTab" />
             </keep-alive>
 
 
@@ -26,7 +26,9 @@
     import General from "../views/DoctorsPortal/General.vue";
     import TreatmentNote from "../views/DoctorsPortal/TreatmentNote.vue";
     export default {
-        props: ['id'],
+        props: {id: String,
+            pat: Object
+        },
         components: {
             General,
             TreatmentNote

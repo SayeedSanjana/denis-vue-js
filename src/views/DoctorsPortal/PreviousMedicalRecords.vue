@@ -85,8 +85,17 @@
             PersonalHabits,
             Disease
         },
+        props: {
+            pat: Object
+        },
         created() {
-            this.getPosts(this.$route.params.id)
+           
+            // this.getPosts(this.$route.params.id)
+        },
+        watch:{
+            pat: function(val){
+                this.getPat(val)
+            }
         },
         data() {
             return {
@@ -104,6 +113,13 @@
             }
         },
         methods: {
+            getPat(i){
+                this.formData.name = i.name,
+                this.formData.gender= i.gender,
+                this.formData.dob = i.dob
+
+
+            },
             async getPosts(id) {
                 await axios.get('patients/' + id, {
                         headers: {

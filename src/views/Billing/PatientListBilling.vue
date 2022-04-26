@@ -38,37 +38,41 @@
             <table class=" rounded-t-xl m-5 xl:w-5/6 w-full mx-auto bg-regal-blue " >
                 <tr class="text-center text-md text-regal-teal h-16" >
                     <th class="px-4 py-3">SL no</th>
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">Contact</th>
                     <th class="px-4 py-3">Patient ID</th>
+                    <th class="px-4 py-3">Total Cost</th>
+                    <th class="px-4 py-3">Balance</th>
+                    <th class="px-4 py-3">Is Paid?</th>
+
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
-                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(post._id)" 
-                    v-for="(post,index) in this.Patients " :key="index">
+                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan" @click="patientDetails(bill._id)" 
+                    v-for="(bill,index) in $store.state.bills " :key="index">
                     <td class=" py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>
-                    <td class="px-2 py-3">{{post.name}}</td>
-                    <td class="px-2 py-3">{{post.phone}}</td>
-                    <td class="px-2 py-3 ">P-{{post._id.substring(post._id.length - 7)}}</td>
+                    <td class="px-2 py-3 ">P-{{bill.patient.substring(bill.patient.length - 7)}}</td>
+                    <td class="px-2 py-3">{{bill.total}} TK</td>
+                    <td class="px-2 py-3">{{bill.balance}} TK</td>
+                    <td class="px-2 py-3">{{bill.isPaid}} </td>
 
-                    <td class="">{{this.dateConversion(post.createdAt.substring(0, 10))}}</td>
+
+                    <td class="">{{this.dateConversion(bill.createdAt.substring(0, 10))}}</td>
                     
                 </tr>
             </table>
 
-             <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
+             <!-- <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
                 <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
             </div>
-            
-            <!-- <div class="flex px-40 flex-row justify-center">
-                <div class="px-40"> 
-                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                    :disabled="currentPage === 1" @click="changePage(-1)"> Previous</button>
+             -->
+   <div class="flex px-40 flex-row justify-center">
+                <div class="px-40">
+                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                          :disabled="currentPage === 1" :class="currentPage === 1 ?'cursor-not-allowed' :'cursor-pointer'" @click="changePage(-1)"> Previous</button>
                 </div>
                 <div class="px-40">
-                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                    :disabled="filteredList.length<prePage || filteredList.length==0" @click="changePage(1)">Next </button>
-                    </div>
-            </div> -->
+                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
+                        :disabled="$store.state.endPage == false " :class="$store.state.endPage == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
+                </div>
+            </div>     
         </section>
         
     </div>
@@ -84,18 +88,19 @@
 
 <script>
     import Nav from "../../components/Nav.vue";
-    import axios from 'axios';
+    // import axios from 'axios';
     import moment from "moment";
-    import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+    // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
 
         created() {
+            this.$store.dispatch('fetchBills', this.currentPage, this.perPage, this.text);
             this.currentPage=1
-            this.getPatients();
+            // this.getPatients();
         },
         components: {
             Nav,
-             VueTailwindPaginaiton
+            //  VueTailwindPaginaiton
         },
 
 
@@ -135,6 +140,8 @@
             changePage(num) {
 
                 this.currentPage = this.currentPage + num
+                this.$store.dispatch('fetchBills', this.currentPage, this.perPage, this.text);
+
             },
 
             toggle() {
@@ -148,30 +155,30 @@
                     }
                 })
             },
-            async getPatients() {
-                await axios.get('patients', {
-                            params: {
-                                page:this.currentPage,
-                                limit:this.perPage,
-                                q: this.text
-                            },
+            // async getPatients() {
+            //     await axios.get('patients', {
+            //                 params: {
+            //                     page:this.currentPage,
+            //                     limit:this.perPage,
+            //                     q: this.text
+            //                 },
 
-                            headers: {
-                                "Authorization": `Bearer ${localStorage.getItem('token') }`
-                            }
-                        }
-                    )
-                    .then((response) => {
-                        //console.log(response.data['result']);
-                        this.total=response.data.totalPages;
-                        this.Patients = response.data['result'];
-                        console.log(this.Patients)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                        this.errorMsg = 'Error retrieving data'
-                    })
-            },
+            //                 headers: {
+            //                     "Authorization": `Bearer ${localStorage.getItem('token') }`
+            //                 }
+            //             }
+            //         )
+            //         .then((response) => {
+            //             //console.log(response.data['result']);
+            //             this.total=response.data.totalPages;
+            //             this.Patients = response.data['result'];
+            //             console.log(this.Patients)
+            //         })
+            //         .catch((error) => {
+            //             console.log(error)
+            //             this.errorMsg = 'Error retrieving data'
+            //         })
+            // },
         }
     }
 </script>

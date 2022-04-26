@@ -4,14 +4,13 @@
 
             <Nav />
         </header>
-
+         
             <div class="lg:flex bg-white   ">
                 <!--main-->
                 <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
                     <!--sidebar-->
-
                     <div >
-                        <PreviousMedicalRecords />
+                        <PreviousMedicalRecords :pat="$store.state.patient.data"/>
                     </div>
                 </div>
                 <!--sidebar-->
@@ -25,7 +24,7 @@
                         </div>
                         <div class="xl:w-2/5 xl:pt-0 border border-regal-cyan border-opacity-20">
 
-                            <PastPresGeneralNav :id="$route.params.id"></PastPresGeneralNav>
+                            <PastPresGeneralNav :id="$route.params.id" :pat="$store.state.patient.data"></PastPresGeneralNav>
                         </div>
                     </div>
                 </div>
@@ -49,7 +48,9 @@
             PreviousMedicalRecords
         },
         created() {
-            this.getPatient(this.$route.params.id)
+             this.$store.dispatch('fetchPatient', this.$route.params.id);
+            //  this.$store.dispatch('updatePatient', this.$route.params.id);
+           // this.getPatient(this.$route.params.id)
         },
         data() {
             return {
