@@ -1,96 +1,107 @@
 <template>
     <div>
-            <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
-               <div class="m-0.5 text-regal-teal font-medium">
-                  Patient Information
-               </div>
+        <div
+            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
+            <div class="m-0.5 text-regal-teal font-medium">
+                Patient Information
             </div>
+        </div>
 
 
-            <div class="flex flex-col justify-between flex-1 pb-4">
-                <nav>
-                  <div class="bg-regal-white">
-                    <div class="flex items-center   px-8 py-2 text-gray-700 ">
-                        <div class="text-regal-teal text-sm font-bold w-24 text-left">
-                            Date 
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium mr-2">
-                            :
-                        </div>
-                        <div class="text-regal-teal text-sm font-bold">
-                        {{this.datenow}}
-                        </div>
+        <div class="flex flex-col justify-between flex-1 pb-4">
+
+            <div class="bg-regal-white border-b">
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <label class=" text-regal-teal text-sm font-bold  text-left">
+                        Patient Name
+                    </label>
+                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
+                        : {{this.formData.name}}
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <label class="text-regal-teal text-sm font-bold text-left">
+                        Gender
+                    </label>
+
+                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
+                        : {{this.formData.gender}}
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <div class="text-regal-teal text-sm font-bold  text-left">
+                        Age
                     </div>
-                    <div class="flex items-center    px-8 py-2 text-gray-700 ">
-                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
-                            Patient Name 
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium mr-2">
-                            :
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium">
-                           {{this.formData.name}}
-                        </div>
-                    </div>
-                    <div class="flex items-center  px-8 py-2 text-gray-700 ">
-                         <div class="text-regal-teal text-sm font-bold w-24 text-left">
-                            Gender 
-                        </div>
-                         <div class="text-regal-teal text-sm font-medium mr-2">
-                            :
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium">
-                          {{this.formData.gender}}
-                        </div>
-                    </div>
-                    <div class="flex items-center px-8 py-2 text-gray-700 ">
-                       <div class="text-regal-teal text-sm font-bold w-24 text-left">
-                            Age 
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium mr-2">
-                            :
-                        </div>
-                        <div class="text-regal-teal text-sm font-medium">
-                           {{this.formData.dob}} years
-                        </div>
+
+                    <div class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
+                        : {{this.formData.dob}} years
                     </div>
                 </div>
-                    <div class=" border-t border-gray-300 ">
-                        <!--allergy-->
-                        <Allergies :formData="formData" @myEvent="getPosts" />
-                    </div>
-
-                    <div class="  ">
-                        <!--habit-->
-                        <Disease :formData="formData" @myEvent="getPosts" />
-                    </div>
-                    <div class="  ">
-                        <!--habit-->
-                        <PersonalHabits :formData="formData" @myEvent="getPosts" />
-                    </div>
-                </nav>
+                <div class="grid grid-cols-1 place-items-end px-6 py-2">
+                    <Button :text="button.edit.text" />
+                </div>
             </div>
+
+             <div
+            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300  border border-regal-cyan border-opacity-20 py-3">
+            <div class="m-0.5 text-regal-teal font-medium">
+                Medical History
+            </div>
+        </div>
+
+            <div class="grid grid-cols-4 gap-1 mt-4 ">
+                
+                <div class="grid col-span-2 place-items-center">
+                    <Input />
+                </div>
+                <div class="grid place-items-center">
+                    <select name="" id=""
+                        class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal border-opacity-50 rounded py-1 px-3  leading-tight focus:outline-none focus:bg-white">
+                        <option value="">Allergies</option>
+                        <option value="">Diseases</option>
+                        <option value="">Personal Habits</option>
+                    </select>
+                </div>
+                <div>
+                    <Button :text="button.add.text" />
+                </div>
+            </div>
+
+            <div>
+                <History :label="formData.label.allergies" :items="formData.allergies " />
+
+                <History :label="formData.label.diseases" :items="formData.diseases" />
+
+                <History :label="formData.label.personalHabits" :items="formData.personalHabits" />
+
+            </div>
+
+        </div>
     </div>
 </template>
 
 <script>
     import axios from "axios";
-    import Allergies from "../DoctorsPortal/Allergies.vue";
-    import PersonalHabits from "../DoctorsPortal/PersonalHabits.vue";
-    import Disease from "../DoctorsPortal/Disease.vue";
+   
     import moment from "moment";
+    import Button from "../../components/reusable/ButtonComponent.vue";
+    import Input from "../../components/reusable/InputFieldComponent.vue";
+    import History from "../../components/MedicalHistory.vue";
+   
     export default {
         components: {
-            Allergies,
-            PersonalHabits,
-            Disease
+         
+            Input,
+            Button,
+            History
         },
         props: {
             pat: Object
         },
         created() {
            
-            // this.getPosts(this.$route.params.id)
+      
         },
         watch:{
             pat: function(val){
@@ -107,16 +118,49 @@
                     name: "",
                     gender: "",
                     dob: "",
+                    label:{
+                        allergies:"Allergies",
+                        diseases:"Diseases",
+                        personalHabits:"Personal Habits"
+                    },
                     allergies: [],
-                    personalHabits: []
-                }
+                    diseases:[],
+                    personalHabits: [], 
+
+                },
+
+                button:{
+                    edit: {
+                        text: "Edit",  
+                    },
+                    add:{
+                        text: "Add",
+                    }
+
+                },
+                // history:{
+                //     allergies:{
+                //         label: "Allergies",   
+                //     },
+                //     diseases:{
+                //         label: "Diseases",
+                       
+                //     },
+                //     personalHabits:{
+                //         label: "Personal Habits",
+                      
+                //     }
+                // }
             }
         },
         methods: {
             getPat(i){
                 this.formData.name = i.name,
                 this.formData.gender= i.gender,
-                this.formData.dob = i.dob
+                this.formData.dob = i.dob,
+                this.formData.allergies = i.allergies,
+                this.formData.diseases = i.diseases,
+                this.formData.personalHabits = i.personalHabits
 
 
             },

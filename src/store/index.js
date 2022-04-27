@@ -8,7 +8,7 @@ export default createStore({
         totalBill: 0,
         endPage: null,
         patient: {},
-        bills:[]
+        bills:[],
 	},
 	mutations: {
 		setPatients(state, patients) {
@@ -18,13 +18,14 @@ export default createStore({
 		},
         getPatient(state, patient) {
             state.patient = patient.data
-            // console.log(state.patient.data);
+         
         },
         setBills(state, bills) {
             state.bills = bills.data['data']
             state.totalBill = bills.data.total
             state.endPage = bills.data.nextPage
         },
+      
 
         // editPatient(state, patient) {
         //     state.patient = patient.data
@@ -66,6 +67,8 @@ export default createStore({
             .then((result) => commit('setBills', result)
             )
         },
+
+       
 
         // updatePatient({commit}, patientId) {
         //     axios.put(`http://localhost:3000/api/patients/${patientId}`, )
