@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-1 place-items-end px-6 py-2">
-                    <Button :text="button.edit.text" />
+                    <Button :text="button.edit.text" @click="modal"/>
                 </div>
             </div>
 
@@ -78,6 +78,9 @@
             </div>
 
         </div>
+        <div v-if="openModal">
+            <GeneralInfo @closeModal="closeModal" />
+        </div>
     </div>
 </template>
 
@@ -88,13 +91,15 @@
     import Button from "../../components/reusable/ButtonComponent.vue";
     import Input from "../../components/reusable/InputFieldComponent.vue";
     import History from "../../components/MedicalHistory.vue";
+    import GeneralInfo from "../../components/GeneralInfoModal.vue";
    
     export default {
         components: {
          
             Input,
             Button,
-            History
+            History,
+            GeneralInfo
         },
         props: {
             pat: Object
@@ -114,6 +119,7 @@
                 token: localStorage.getItem('token'),
                 dob: "",
                 date: "",
+                openModal: false,
                 formData: {
                     name: "",
                     gender: "",
@@ -164,6 +170,15 @@
 
 
             },
+            modal() {
+                this.openModal = true
+            },
+
+            closeModal() {
+                this.openModal = false
+            },
+
+
             async getPosts(id) {
                 await axios.get('patients/' + id, {
                         headers: {
