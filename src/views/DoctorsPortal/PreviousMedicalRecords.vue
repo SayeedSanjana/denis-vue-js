@@ -8,9 +8,9 @@
         </div>
 
 
-        <div class="flex flex-col justify-between flex-1 pb-4">
+        <div class="flex flex-col justify-between flex-1 pb-4 ">
 
-            <div class="bg-regal-white border-b">
+            <div class="bg-regal-white border-b ">
                 <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
                     <label class=" text-regal-teal text-sm font-bold  text-left">
                         Patient Name
@@ -38,8 +38,36 @@
                         : {{this.formData.dob}} years
                     </div>
                 </div>
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <label class="text-regal-teal text-sm font-bold text-left">
+                        Phone
+                    </label>
+
+                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
+                        : {{this.formData.phone}}
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <label class="text-regal-teal text-sm font-bold text-left">
+                        Occupation
+                    </label>
+
+                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
+                        : {{this.formData.occupation}}
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
+                    <label class="text-regal-teal text-sm font-bold text-left">
+                        Address
+                    </label>
+
+                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium truncate">
+                        : {{this.formData.address}}
+                    </p>
+                </div>
+               
                 <div class="grid grid-cols-1 place-items-end px-6 py-2">
-                    <Button :text="button.edit.text" @click="modal"/>
+                    <Button :text="button.edit.text" @click="modal" />
                 </div>
             </div>
 
@@ -79,13 +107,13 @@
 
         </div>
         <div v-if="openModal">
-            <GeneralInfo @closeModal="closeModal" />
+            <GeneralInfo @closeModal="closeModal" :pat="pat"/>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from "axios";
+    // import axios from "axios";
    
     import moment from "moment";
     import Button from "../../components/reusable/ButtonComponent.vue";
@@ -124,6 +152,7 @@
                     name: "",
                     gender: "",
                     dob: "",
+                    phone:"",
                     label:{
                         allergies:"Allergies",
                         diseases:"Diseases",
@@ -161,13 +190,22 @@
         },
         methods: {
             getPat(i){
-                this.formData.name = i.name,
-                this.formData.gender= i.gender,
-                this.formData.dob = i.dob,
-                this.formData.allergies = i.allergies,
-                this.formData.diseases = i.diseases,
-                this.formData.personalHabits = i.personalHabits
+                // this.formData.name = i.name,
+                // this.formData.gender= i.gender,
+                // this.formData.phone = i.phone,
+                // this.formData.dob = i.dob,
 
+                // this.formData.allergies = i.allergies,
+                // this.formData.diseases = i.diseases,
+                // this.formData.personalHabits = i.personalHabits
+                Object.assign(this.formData, i);
+
+                //get age in year plus month
+                const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
+                        const ageDate = new Date(ageDifMs);
+                        this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+                 
 
             },
             modal() {
@@ -179,23 +217,23 @@
             },
 
 
-            async getPosts(id) {
-                await axios.get('patients/' + id, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token') }`
-                        }
-                    })
-                    .then((response) => {
-                        this.formData = response.data.data;
-                        const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        const ageDate = new Date(ageDifMs);
-                        this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        //console.log(this.formData.dob)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            },
+            // async getPosts(id) {
+            //     await axios.get('patients/' + id, {
+            //             headers: {
+            //                 "Authorization": `Bearer ${localStorage.getItem('token') }`
+            //             }
+            //         })
+            //         .then((response) => {
+            //             this.formData = response.data.data;
+            //             const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
+            //             const ageDate = new Date(ageDifMs);
+            //             this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+            //             //console.log(this.formData.dob)
+            //         })
+            //         .catch((error) => {
+            //             console.log(error)
+            //         })
+            // },
         }
     }
 </script>

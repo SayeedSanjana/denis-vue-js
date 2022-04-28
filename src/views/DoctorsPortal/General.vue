@@ -3,7 +3,6 @@
     <section class="max-w-4xl md:p-6 p-3 mx-auto bg-white  dark:bg-gray-800 ">
 
       <div class="flex items-center justify-center p-6 mx-3 my-4  ">
-
         <!-- form starts -->
         <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-full max-w-lg ">
           <div class="w-full lg:w-full ">

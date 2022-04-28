@@ -1,11 +1,11 @@
 <template>
     <div>
         <section class="w-full max-w-2xl px-6 py-4 mx-auto bg-white ">
-            <form @submit.prevent="createTreatment" class="w-full max-w-lg">
+            <form  class="w-full max-w-lg">
 
                 <!--tooth svg-->
-                <div class="ml-4"  :class="this.disable==true? 'pointer-events-none' : 'pointer-events-auto'">
-                    <svg class=""  width="471" height="471" viewBox="0 0 471 471" fill="none" xmlns="http://www.w3.org/2000/svg" :class="this.formData.isAll===true ? 'cursor-not-allowed' : 'cursor-default'" >
+                <div class="ml-4">
+                    <svg class=""  width="471" height="471" viewBox="0 0 471 471" fill="none" xmlns="http://www.w3.org/2000/svg"  >
                         <line x1="236.25" x2="236.25" y2="471" stroke="#C4C4C4" stroke-opacity="0.47" stroke-width="1.5" />
                         <line x1="471" y1="236.25" x2="-6.55671e-08" y2="236.25" stroke="#C4C4C4" stroke-opacity="0.47" stroke-width="1.5" />
                         <path d="M405.038 166.718C404.777 163.363 403.77 160.059 402.055 156.929C401.742 156.21 401.236 155.542 400.563 154.962C397.252 152.231 390.838 152.773 389.839 152.836C386.453 153.123 386.647 153.899 380.89 154.718C379.026 154.994 379.115 154.898 375.163 155.419C371.702 155.876 369.928 156.11 367.705 156.546C364.126 157.258 362.351 157.609 360.993 158.47C359.2 159.797 358.086 161.515 357.831 163.349C356.758 169.067 358.01 181.088 363.797 185.478C365.802 186.889 368.343 187.85 371.106 188.242C376.536 189.126 382.218 188.784 387.363 187.264C403.77 186.966 415.21 183.012 406.947 171.522C405.276 169.726 405.515 169.545 405.038 166.718Z" fill="white"/>
@@ -178,11 +178,11 @@
 
                         <div class="w-full mx-2" hidden>
                             <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Patient Name</label>
-                            <input v-model="formData.patientName" readonly class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md " type="text">
+                            <input  readonly class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md " type="text">
                         </div>
                         <div class="w-full mx-2 mt-4 md:mt-0" hidden>
                             <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">Date</label>
-                            <input v-model="formData.date" readonly class="block w-full px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md ">
+                            <input  readonly class="block w-full px-4 py-2 text-gray-700 bg-white border border-regal-teal border-opacity-50 rounded-md ">
                         </div>
                     </div>
                     <!-- {{this.isAll()}}
@@ -197,7 +197,7 @@
                     <div class="mt-6">
                         <label class="block mb-2  font-medium text-regal-teal text-left">Teeth Number <span class="text-xs text-gray-400 font-medium">(Should include only numbers i.e '12,13...')</span></label>
                         <div class="relative ">
-                            <input readonly v-model="teeth" @keypress="isNumber($event)" :disabled="disabled == 1" @keydown="this.isAll()" class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal rounded-md  focus:border-regal-blue  focus:outline-none ">
+                            <input readonly  @keypress="isNumber($event)" :disabled="disabled == 1" @keydown="this.isAll()" class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-regal-teal rounded-md  focus:border-regal-blue  focus:outline-none ">
                         </div>
                     </div>
 
@@ -209,11 +209,11 @@
 
                     <div class="w-full mt-6">
                         <label class="block mb-2  font-medium  text-regal-teal text-left">Treatment Note</label>
-                        <textarea v-model="formData.treatmentDone" @keypress="onChange()" class="block w-full  h-40  px-4 py-2 mt-1 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none "> </textarea>
+                        <textarea  @keypress="onChange()" class="block w-full  h-40  px-4 py-2 mt-1 text-regal-teal bg-white  border border-regal-teal border-opacity-50 rounded-md  focus:border-regal-blue  focus:outline-none "> </textarea>
                     </div>
 
                     <!-- error message -->
-                    <small class="text-red-500 mb-4 text-center">{{this.str}}</small>
+                    <small class="text-red-500 mb-4 text-center"></small>
                     <!-- error message -->
 
                     <!-- Button for submitting starts -->
@@ -246,9 +246,9 @@
             TreatmentTimeline
         },
         created() {
-            this.getSpecificPatient()
-            this.getspecificTreatmentList()
-            this.parseJwt(this.token)
+            // this.getSpecificPatient()
+            // this.getspecificTreatmentList()
+            // this.parseJwt(this.token)
         },
         data() {
             return {

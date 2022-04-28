@@ -4,9 +4,9 @@
         <!-- <div class="bg-white shadow dark:bg-gray-800 min-h-screen "> -->
             <div class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
 
-                <button @click="activeTab = 'General'" :class="activeTab==='General' ? 'border-regal-teal' : 'border-regal-white'"
+                <!-- <button @click="activeTab = 'General'" :class="activeTab==='General' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent mx-1.5  sm:mx-6">General
-                </button>
+                </button> -->
                  <button @click="activeTab = 'TreatmentNote'" :class="activeTab==='TreatmentNote' ? 'border-regal-teal' : 'border-regal-white'"
                     class="border-b-2 border-transparent  mx-1.5  sm:mx-6">Treatment
                     Note</button>
@@ -14,7 +14,7 @@
 
             </div>
             <keep-alive>
-                <component :pat="pat" :is="activeTab" />
+                <component :is="activeTab" />
             </keep-alive>
 
 
@@ -35,7 +35,7 @@
         },
         data() {
             return {
-                activeTab: 'General'
+                activeTab: 'TreatmentNote'
             }
         },
     }

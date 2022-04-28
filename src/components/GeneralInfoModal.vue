@@ -1,105 +1,92 @@
 <template>
-    <div>
-        <div 
-            class="fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
 
-            <!-- backgorund where the modal is open -->
-            <div class="absolute h-screen w-screen bg-black opacity-80 inset-0 z-0"></div>
-            <!-- backgorund where the modal is open -->
-            <div class="relative  w-full ">
+              <Modal  :textColor="modal.textColor" :title="modal.title">
+                <section class=" p-3 bg-white  dark:bg-gray-800 px-12 ">
 
-                <div class="flex flex-col 2xl:mx-96 xl:mx-32 h-yyxl bg-gray-50 ">
+                  <div class="flex items-center justify-center   ">
 
-                    <div class="flex justify-between bg-gray-200">
-                        <p class="mt-1 ml-4 text-gray-500 font-normal">Update General Info</p>
-                        <button class="text-gray-600 font-extrabold text-2xl mb-1 mr-4"
-                            @click="closeModal()">&#215;</button>
-                    </div>
-
-                    <div  class="  my-2">
-                        <div class=" m-4 bg-gray-50 ">
-
-                            <div class=" border border-regal-blue border-opacity-30 m-4 ">
-
-                                <h1 class="bg-regal-blue bg-opacity-25 text-regal-teal font-semibold  py-2">General Information</h1>
-
-                                <!--main content-->
-                                 <section class=" p-3 bg-white  dark:bg-gray-800 ">
-
-      <div class="flex items-center justify-center   ">
-
-        <!-- form starts -->
-        <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-1/2  ">
-          <div class="w-full lg:w-full ">
-            <label class="flex  text-regal-teal text-sm font-medium mb-2 justify-start " for="duuid">Full Name :</label>
-           
-           
-            <input v-model="this.formData.name" @blur="v$.formData.name.$touch()" class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue" id="name" type="text" placeholder="Name" >
-            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
-          </div>
-          <div class="w-full lg:w-full ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nid">NID :</label>
-            <input @blur="v$.formData.nid.$touch()"  class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue" id="nid" type="text" placeholder="Enter NID" v-model="this.formData.nid">
-            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.nid.$error">{{v$.formData.nid.$errors[0].$message}}</small>
-
-          </div>
-          <div class="w-full lg:w-full mt-6 ">
-            <label class="flex justify-start text-regal-teal text-sm font-medium mb-2" for="dob"> Date Of Birth :</label>
-            <Datepicker type="text" class="" v-model="formData.dob" @blur="v$.formData.dob.$touch()" :enableTimePicker="false"></Datepicker>
-          </div>
-          <div class="w-full lg:w-full  ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">Gender :</label>
-            <input readonly class="appearance-none block w-full text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue" id="gender" type="text" placeholder="Gender" v-model="this.formData.gender">
-            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
-          </div>
-          <div class="w-full lg:w-full mt-6 ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="religion">Occupation :</label>
-            <input class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue" id="religion" type="text" placeholder="" v-model="this.formData.occupation">
-          </div>
-          <div class="w-full lg:w-full ">
-            <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="contact">Phone :</label>
-            <input  @blur="v$.formData.phone.$touch()" class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue" id="contact" type="text" placeholder="" v-model="this.formData.phone">
-            <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
-          </div>
-          <!-- </div> -->
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full lg:w-full px-3">
-              <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nationality">Address :</label>
-              <textarea class="appearance-none block w-full h-36 bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue" id="nationality" type="text" placeholder="" v-model="this.formData.address"></textarea>
-               <small class="text-regal-red mb-2 flex justify-start" v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
-            </div>
-          </div>
-        
-        <!-- Button for submitting form starts here -->
-          <div class="mt-8 py-3 px-3 flex justify-end">
-            <button class="buttonsubmit">
-              Update Profile
-            </button>
-          </div>
-          <!-- Button for submitting form ends here -->
-        </form>
-        <!-- form ends -->
-      </div>
-    </section>
+                   
+                    <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-96">
+                      <div class="w-full lg:w-full ">
+                        <label class="flex  text-regal-teal text-sm font-medium mb-2 justify-start " for="duuid">Full
+                          Name :</label>
 
 
+                        <input v-model="this.formData.name" @blur="v$.formData.name.$touch()"
+                          class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
+                          id="name" type="text" placeholder="Name">
+                        <small class="text-regal-red mb-2 flex justify-start"
+                          v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
+                      </div>
+                      <div class="w-full lg:w-full ">
+                        <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="nid">NID
+                          :</label>
+                        <input @blur="v$.formData.nid.$touch()"
+                          class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-regal-blue"
+                          id="nid" type="text" placeholder="Enter NID" v-model="this.formData.nid">
+                        <small class="text-regal-red mb-2 flex justify-start"
+                          v-if="v$.formData.nid.$error">{{v$.formData.nid.$errors[0].$message}}</small>
 
-                            </div>
-
+                      </div>
+                      <div class="w-full lg:w-full mt-6 ">
+                        <label class="flex justify-start text-regal-teal text-sm font-medium mb-2" for="dob"> Date Of
+                          Birth :</label>
+                        <Datepicker type="text" class="" v-model="formData.dob" @blur="v$.formData.dob.$touch()"
+                          :enableTimePicker="false"></Datepicker>
+                      </div>
+                      <div class="w-full lg:w-full  ">
+                        <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="gender">Gender
+                          :</label>
+                        <input readonly
+                          class="appearance-none block w-full text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-regal-blue"
+                          id="gender" type="text" placeholder="Gender" v-model="this.formData.gender">
+                        <small class="text-regal-red mb-2 flex justify-start"
+                          v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
+                      </div>
+                      <div class="w-full lg:w-full mt-6 ">
+                        <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2"
+                          for="religion">Occupation :</label>
+                        <input
+                          class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                          id="religion" type="text" placeholder="" v-model="this.formData.occupation">
+                      </div>
+                      <div class="w-full lg:w-full ">
+                        <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2" for="contact">Phone
+                          :</label>
+                        <input @blur="v$.formData.phone.$touch()"
+                          class="appearance-none block w-full bg-white text-regal-teal border  border-regal-teal border-opacity-50 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                          id="contact" type="text" placeholder="" v-model="this.formData.phone">
+                        <small class="text-regal-red mb-2 flex justify-start"
+                          v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
+                      </div>
+                    
+                      <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full lg:w-full px-3">
+                          <label class="flex justify-start  text-regal-teal text-sm font-medium mb-2"
+                            for="nationality">Address :</label>
+                          <textarea
+                            class="appearance-none block w-full h-36 bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-regal-blue"
+                            id="nationality" type="text" placeholder="" v-model="this.formData.address"></textarea>
+                          <small class="text-regal-red mb-2 flex justify-start"
+                            v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
                         </div>
-                        <!-- </div>
-            </div> -->
-                    </div>
-                     
-                </div>
+                      </div>
 
-
-            </div>
-        </div>
-      
-       
-
-    </div>
+                    
+                      <div class="mt-8 py-3 px-3 flex justify-end">
+                        <button class="buttonsubmit">
+                          Update Profile
+                        </button>
+                      </div>
+                  
+                    </form>
+                 
+                  </div>
+                </section>
+              </Modal>
+              
+              
+              
 </template>
 
 <script>
@@ -116,9 +103,11 @@
   } from '@vuelidate/validators';
   import Datepicker from 'vue3-date-time-picker';
   import 'vue3-date-time-picker/dist/main.css'
+  import Modal from "../components/reusable/Modal.vue";
   export default {
     components: {
-      Datepicker
+      Datepicker,
+      Modal
     },
     props: {
       pat: Object
@@ -126,15 +115,11 @@
 
     created() {
 
-
-
-      //  this.getPatient(this.$route.params.id);
+      this.getPat(this.pat)
     },
-    watch: {
-      pat: function (new_value) {
-        this.getPat(new_value)
 
-      }
+    watch: {
+    
     },
 
 
@@ -150,7 +135,13 @@
           gender: "",
           occupation: "",
           address: "",
+        },
+        modal:{
+          title:"General Information",
+          textColor:"text-regal-teal"
+
         }
+
       }
     },
     validations() {
@@ -187,6 +178,10 @@
 
     },
     methods: {
+      
+            closeModal() {
+                this.$emit("closeModal")
+            },
       getPat(i) {
         //  console.log(i);
         this.formData.name = i.name,
