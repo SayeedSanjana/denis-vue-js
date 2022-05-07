@@ -6,13 +6,13 @@
                 type: String,
                 default: 'bg-regal-teal'
             },
-            textColor:{
-                type: String,
-                default: 'text-white'
-            },
+            // textColor:{
+            //     type: String,
+            //     default: 'text-white'
+            // },
             text:{
                 type: String,
-                default: 'button'
+                default: 'text-white'
             },
             padding:{
                 type: String,
@@ -34,15 +34,21 @@
                 type: String,
                 default: 'button'
             },
+            textStyle:{
+                type: Object,
+                default: ()=>({'tracking-normal': true}),
+            }
 
         }
     }
 </script>
 
 <template>
-    <div>
-        <button :class="[color, textColor, padding, fontSize, fontWeight, borderRadius, type]">{{text}}</button>
-    </div>
+   
+    <button :type="type" :class="[text, textStyle ,color, fontSize, fontWeight, borderRadius, type]">
+        <slot>Button</slot>
+    </button>
+   
 </template>
 
 <style scoped>

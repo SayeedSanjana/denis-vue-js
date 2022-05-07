@@ -1,7 +1,7 @@
-.button{
+/* .button{
     @apply bg-indigo-500 text-center hover:bg-transparent p-2 m-2 border border-indigo-500 text-white font-semibold hover:text-indigo-500 rounded text-sm;
     
-}
+} */
 
 .headerclass{
     @apply sticky top-0 z-50;
@@ -62,9 +62,9 @@
     @apply text-center  text-regal-teal h-14;
 }
 
-.trbody{
+/* .trbody{
     @apply border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan;
-}
+} */
 
 .searchdivclass{
     @apply mt-5 mb-2 border-2 border-regal-blue border-opacity-50 py-1 px-3 flex justify-between  rounded-md;
@@ -74,9 +74,9 @@
     @apply bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4;
 }
 
-.selectclass{
+/* .selectclass{
     @apply appearance-none block w-full  text-regal-teal border-2 border-regal-blue bg-white hover:bg-regal-white pl-2 h-11 border-opacity-50 rounded py-2 px-20 mb-3 leading-tight focus:outline-none focus:bg-white;
-}
+} */
 
 .selectsvg{
     @apply  mb-3 mr-1 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2;

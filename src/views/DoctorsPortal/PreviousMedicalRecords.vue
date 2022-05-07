@@ -1,133 +1,104 @@
 <template>
     <div>
-        <div
-            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 py-3">
-            <div class="m-0.5 text-regal-teal font-medium">
-                Patient Information
+        <!-- <div
+            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 p-4">
+            <div class="text-regal-teal font-semibold">
+                Patient
             </div>
-        </div>
+        </div> -->
 
-
-        <div class="flex flex-col justify-between flex-1 pb-4 ">
-
-            <div class="bg-regal-white border-b ">
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <label class=" text-regal-teal text-sm font-bold  text-left">
-                        Patient Name
-                    </label>
-                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
-                        : {{this.formData.name}}
-                    </p>
+         
+            <!-- Profile infomation START  -->
+            <div class="border-b-2 bg-gray-50 hover:overflow-hidden hover:shadow-md">
+                <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
+                    Patient
                 </div>
+                <hr class="border-b mb-1"/>
 
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <label class="text-regal-teal text-sm font-bold text-left">
-                        Gender
-                    </label>
-
-                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
-                        : {{this.formData.gender}}
-                    </p>
-                </div>
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <div class="text-regal-teal text-sm font-bold  text-left">
-                        Age
+                <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
+                    <div class=" text-regal-teal text-sm font-semibold text-left">
+                        {{val}}
                     </div>
-
-                    <div class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
-                        : {{this.formData.dob}} years
+                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
+                        : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
                     </div>
                 </div>
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <label class="text-regal-teal text-sm font-bold text-left">
-                        Phone
-                    </label>
-
-                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
-                        : {{this.formData.phone}}
-                    </p>
-                </div>
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <label class="text-regal-teal text-sm font-bold text-left">
-                        Occupation
-                    </label>
-
-                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium">
-                        : {{this.formData.occupation}}
-                    </p>
-                </div>
-                <div class="grid grid-cols-3 px-8 py-2 text-gray-700 ">
-                    <label class="text-regal-teal text-sm font-bold text-left">
-                        Address
-                    </label>
-
-                    <p class="grid col-span-2 place-items-start text-regal-teal text-sm font-medium truncate">
-                        : {{this.formData.address}}
-                    </p>
-                </div>
-               
-                <div class="grid grid-cols-1 place-items-end px-6 py-2">
-                    <Button :text="button.edit.text" @click="modal" />
-                </div>
-            </div>
-
-             <div
-            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300  border border-regal-cyan border-opacity-20 py-3">
-            <div class="m-0.5 text-regal-teal font-medium">
-                Medical History
-            </div>
-        </div>
-
-            <div class="grid grid-cols-4 gap-1 mt-4 ">
                 
-                <div class="grid col-span-2 place-items-center">
-                    <Input />
-                </div>
-                <div class="grid place-items-center">
-                    <select name="" id=""
-                        class="appearance-none block w-full bg-white  text-regal-teal border border-regal-teal border-opacity-50 rounded py-1 px-3  leading-tight focus:outline-none focus:bg-white">
-                        <option value="">Allergies</option>
-                        <option value="">Diseases</option>
-                        <option value="">Personal Habits</option>
-                    </select>
-                </div>
-                <div>
-                    <Button :text="button.add.text" />
+               
+                <div class="flex flex-row-reverse px-6 py-3">
+                    <button name="edit" class="btn" @click="openModal($event)"> Edit</button>
                 </div>
             </div>
+            <!--  Profile infomation END -->
 
-            <div>
-                <History :label="formData.label.allergies" :items="formData.allergies " />
+            <div class="mt-2 border-b-2 bg-gray-50 hover:overflow-hidden hover:shadow-md">
 
-                <History :label="formData.label.diseases" :items="formData.diseases" />
+                <div class="border-r-4 border-red-400 bg-red-50 text-regal-teal text-xl font-semibold p-3">
+                    Medical History
+                </div>
+                <hr class="border-b mb-1">
 
-                <History :label="formData.label.personalHabits" :items="formData.personalHabits" />
+                <button name="addHst" @click="openModal($event)" class="btn-underline">
+                    Add History
+                </button>
+                <!-- <div class="grid grid-cols-4 gap-1 mt-4 "> -->
+                    
+                    <!-- <div class="grid col-span-2 place-items-center">
+                        <Input />
+                    </div> -->
+                    <!-- <div class="grid place-items-center">
+                        <select name="" id=""
+                            class="appearance-none block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-1 px-3 leading-tight focus:outline-none focus:bg-white">
+                            <option value="">Allergies</option>
+                            <option value="">Diseases</option>
+                            <option value="">Personal Habits</option>
+                        </select>
+                    </div> -->
+                    <!-- <div> -->
+                        <!-- <Button>Add</Button> -->
+                        <!-- <button class="btn btn-hover">Add</button> -->
+                    <!-- </div> -->
+                <!-- </div> -->
 
+                <History :items="patientInfo.allergies">
+                    Allergies
+                </History>
+
+                <History :items="patientInfo.diseases">
+                    Diseases
+                </History>
+
+                <History :items="patientInfo.personalHabits">
+                    Personal Habits
+                </History>
             </div>
 
-        </div>
-        <div v-if="openModal">
-            <GeneralInfo @closeModal="closeModal" :pat="pat"/>
-        </div>
+        <!-- <div v-if="isEditPatientActive"> -->
+        <!-- <div v-if="isAddHistorytive"> -->
+            <GeneralInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
+            <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal"/>
+        <!-- </div> -->
     </div>
 </template>
 
 <script>
     // import axios from "axios";
    
-    import moment from "moment";
-    import Button from "../../components/reusable/ButtonComponent.vue";
-    import Input from "../../components/reusable/InputFieldComponent.vue";
+    // import moment from "moment";
+    // import Button from "../../components/reusable/ButtonComponent.vue";
+    // import Input from "../../components/reusable/InputFieldComponent.vue";
     import History from "../../components/MedicalHistory.vue";
     import GeneralInfo from "../../components/GeneralInfoModal.vue";
+    import AddMedicalHistory from "./_AddMedicalHistory.vue"
    
     export default {
         components: {
          
-            Input,
-            Button,
+            // Input,
+            // Button,
             History,
-            GeneralInfo
+            GeneralInfo,
+            AddMedicalHistory
         },
         props: {
             pat: Object
@@ -143,100 +114,81 @@
         },
         data() {
             return {
-                datenow: moment().subtract(10, 'days').calendar(),
+                // datenow: moment().subtract(10, 'days').calendar(),
                 token: localStorage.getItem('token'),
-                dob: "",
-                date: "",
-                openModal: false,
-                formData: {
+                // dob: "",
+                // date: "",
+                style:{
+                    btn: 'btn'
+                },
+                isEditPatientActive: false,
+                isAddHistoryActive: false,
+                patientInfo: {
                     name: "",
                     gender: "",
                     dob: "",
                     phone:"",
-                    label:{
-                        allergies:"Allergies",
-                        diseases:"Diseases",
-                        personalHabits:"Personal Habits"
-                    },
+                    nid: "",
                     allergies: [],
                     diseases:[],
                     personalHabits: [], 
 
                 },
-
-                button:{
-                    edit: {
-                        text: "Edit",  
-                    },
-                    add:{
-                        text: "Add",
-                    }
-
+                patientInfoCardLabels:{
+                    name: "Name",
+                    gender: "Gender",
+                    dob: "Age",
+                    phone:"Phone",
+                    nid: "NID",
                 },
-                // history:{
-                //     allergies:{
-                //         label: "Allergies",   
-                //     },
-                //     diseases:{
-                //         label: "Diseases",
-                       
-                //     },
-                //     personalHabits:{
-                //         label: "Personal Habits",
-                      
-                //     }
-                // }
+
             }
         },
         methods: {
             getPat(i){
-                // this.formData.name = i.name,
-                // this.formData.gender= i.gender,
-                // this.formData.phone = i.phone,
-                // this.formData.dob = i.dob,
+                // this.patientInfo.name = i.name,
+                // this.patientInfo.gender= i.gender,
+                // this.patientInfo.phone = i.phone,
+                // this.patientInfo.dob = i.dob,
 
-                // this.formData.allergies = i.allergies,
-                // this.formData.diseases = i.diseases,
-                // this.formData.personalHabits = i.personalHabits
-                Object.assign(this.formData, i);
-
-                //get age in year plus month
-                const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        const ageDate = new Date(ageDifMs);
-                        this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-                 
+                // this.patientInfo.allergies = i.allergies,
+                // this.patientInfo.diseases = i.diseases,
+                // this.patientInfo.personalHabits = i.personalHabits
+                Object.assign(this.patientInfo, i);                
 
             },
-            modal() {
-                this.openModal = true
+            calculateAge(birthYear){
+                let ageDifMs = Date.now() - new Date(birthYear).getTime();
+                const ageDate = new Date(ageDifMs);
+                return Math.abs(ageDate.getUTCFullYear() - 1970) + ' y';
+            },
+            openModal(e) {
+                if(e.target.name === 'edit')
+                    this.isEditPatientActive = true;
+                else if(e.target.name === 'addHst')
+                    this.isAddHistoryActive = true;
             },
 
             closeModal() {
-                this.openModal = false
+                this.isEditPatientActive = false;
+                this.isAddHistoryActive = false;
             },
-
-
-            // async getPosts(id) {
-            //     await axios.get('patients/' + id, {
-            //             headers: {
-            //                 "Authorization": `Bearer ${localStorage.getItem('token') }`
-            //             }
-            //         })
-            //         .then((response) => {
-            //             this.formData = response.data.data;
-            //             const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-            //             const ageDate = new Date(ageDifMs);
-            //             this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-            //             //console.log(this.formData.dob)
-            //         })
-            //         .catch((error) => {
-            //             console.log(error)
-            //         })
-            // },
         }
     }
 </script>
 
 <style scoped>
+.btn{
+    @apply py-1 px-4 bg-regal-teal text-white font-bold rounded border border-regal-teal;
+}
+.btn:hover{
+    @apply underline text-regal-teal bg-transparent;
+}
+
+.btn-underline{
+    @apply py-2 px-4 text-regal-teal text-lg underline tracking-wider;
+}
+.btn-underline:hover{
+    @apply text-regal-cyan-teal;
+}
 </style>
