@@ -19,6 +19,12 @@
 -   Prescription post request not done. 🟥
 -   TreatmentNote post,put,get request . 🟥
 -   TreatmentNote design done . ✅
+-   Authentication design done , post request, get request not done . 🟥 
+-   Billing get request done . ✅
+-   Billing post , put and patch request not done . 🟥 
+-    post , put and patch request not done . 🟥 
+
+
 
 ## Prescription Module
 
