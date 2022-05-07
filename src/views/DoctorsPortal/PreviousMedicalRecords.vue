@@ -9,7 +9,7 @@
 
          
             <!-- Profile infomation START  -->
-            <div class="border-b-2 bg-gray-50 hover:overflow-hidden hover:shadow-md">
+            <div class="border-b-2 bg-gray-50 hover:overflow-hidden ">
                 <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
                     Patient
                 </div>
@@ -31,7 +31,7 @@
             </div>
             <!--  Profile infomation END -->
 
-            <div class="mt-2 border-b-2 bg-gray-50 hover:overflow-hidden hover:shadow-md">
+            <div class=" border-b-2 bg-gray-50 hover:overflow-hidden ">
 
                 <div class="border-r-4 border-red-400 bg-red-50 text-regal-teal text-xl font-semibold p-3">
                     Medical History
@@ -87,6 +87,7 @@
     // import moment from "moment";
     // import Button from "../../components/reusable/ButtonComponent.vue";
     // import Input from "../../components/reusable/InputFieldComponent.vue";
+   
     import History from "../../components/MedicalHistory.vue";
     import GeneralInfo from "../../components/GeneralInfoModal.vue";
     import AddMedicalHistory from "./_AddMedicalHistory.vue"
@@ -116,6 +117,7 @@
             return {
                 // datenow: moment().subtract(10, 'days').calendar(),
                 token: localStorage.getItem('token'),
+               
                 // dob: "",
                 // date: "",
                 style:{
@@ -144,6 +146,7 @@
 
             }
         },
+        
         methods: {
             getPat(i){
                 // this.patientInfo.name = i.name,
