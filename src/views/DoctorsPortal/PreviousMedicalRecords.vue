@@ -64,7 +64,7 @@
                     Allergies
                 </History>
 
-                <History :items="patientInfo.diseases">
+                <History :items="patientInfo.disease">
                     Diseases
                 </History>
 
@@ -76,7 +76,8 @@
         <!-- <div v-if="isEditPatientActive"> -->
         <!-- <div v-if="isAddHistorytive"> -->
             <GeneralInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
-            <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal"/>
+            <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal" @onUpdate="(val) => patientInfo = val"/>
+           
         <!-- </div> -->
     </div>
 </template>
@@ -111,10 +112,15 @@
         watch:{
             pat: function(val){
                 this.getPat(val)
+            },
+            patientInfoUpdate(val){
+                //  reassign updated info to patientInfo
+                Object.assign(this.patientInfo, val);
             }
         },
         data() {
             return {
+                some:'fall back content',
                 // datenow: moment().subtract(10, 'days').calendar(),
                 token: localStorage.getItem('token'),
                
@@ -132,7 +138,7 @@
                     phone:"",
                     nid: "",
                     allergies: [],
-                    diseases:[],
+                    disease:[],
                     personalHabits: [], 
 
                 },
@@ -149,16 +155,7 @@
         
         methods: {
             getPat(i){
-                // this.patientInfo.name = i.name,
-                // this.patientInfo.gender= i.gender,
-                // this.patientInfo.phone = i.phone,
-                // this.patientInfo.dob = i.dob,
-
-                // this.patientInfo.allergies = i.allergies,
-                // this.patientInfo.diseases = i.diseases,
-                // this.patientInfo.personalHabits = i.personalHabits
-                Object.assign(this.patientInfo, i);                
-
+                Object.assign(this.patientInfo, i);
             },
             calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
@@ -176,6 +173,10 @@
                 this.isEditPatientActive = false;
                 this.isAddHistoryActive = false;
             },
+
+            // patientInfoUpdate(val){
+            //     Object.assign(this.patientInfo, val);
+            // }
         }
     }
 </script>
