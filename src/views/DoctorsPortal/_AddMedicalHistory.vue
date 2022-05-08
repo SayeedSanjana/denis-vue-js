@@ -1,7 +1,7 @@
 <script>
 import useValidate from '@vuelidate/core';
 import Modal from "../../components/reusable/Modal.vue";
-import {required,minLength,maxLength,helpers,} from '@vuelidate/validators';
+import {required,minLength,maxLength, helpers} from '@vuelidate/validators';
 
 export default {
     components: {
@@ -37,52 +37,63 @@ export default {
         };
     },
      validations() {
-            const duplicate =(value)=>value==(this.allergies.indexOf(value) !== -1 && this.formData.allergies.indexOf(value)!==-1) ===true;
+            // const duplicate =(value)=>value==(this.allergies.indexOf(value) !== -1 && this.formData.allergies.indexOf(value)!==-1) ===true;
+            // const duplicate = '';
+            // helpers.withMessage("Duplicate Entry", duplicate)
+
              return {
                  history:{
                     required,
                     minLength: minLength(3),
                     maxLength: maxLength(20),
-                    duplicate:helpers.withMessage("ffgtft",duplicate),
+                    duplicate: (value)=>{
+                        
+                        console.log(this.picked, value);
+                        switch(this.picked){
+                            case 'allergies':
+                                if(this.isDuplicate(value, this.allergies))
+                                    helpers.withMessage(`${value} Already Exists In Database`);
+
+                                else if(this.isDuplicate(value, this.formData.allergies)) 
+                                    helpers.withMessage(`${value} Already Added To The Allergy List`);
+
+                                break;
+                            case 'diseases':
+                                if(this.isDuplicate(value, this.diseases))
+                                    helpers.withMessage(`${value} Disease Exists In Database`);
+
+                                else if(this.isDuplicate(value, this.formData.diseases)) 
+                                    helpers.withMessage(`${value} Already Added To The Disease List`);
+                                break;
+                            case 'personalHabits':
+                                if(this.isDuplicate(value, this.personalHabits))
+                                    helpers.withMessage(`${value} Already Exists In Database`);
+
+                                else if(this.isDuplicate(value, this.formData.personalHabits)) 
+                                    helpers.withMessage(`${value} Already Added To The Personal Habit List`);
+                                break;
+                            default:
+                                break;
+                        }
+                    },
                  },
-                 formData: {
-                    
-                     allergies: {
-                         
-                        //  duplicate:helpers.withMessage("ffgtft",duplicate),
-                         
-                         
-                     },
-
-                     personalHabits: {
-                         required,
-                         minLength: minLength(3),
-                         maxLength: maxLength(255)
-                     },
-
-                     diseases: {
-                         required,
-                         minLength: minLength(3),
-                         maxLength: maxLength(255)
-                     },
-                 }
              }
          },
     methods: {
         isDuplicate(item, arr) {
             
-            return arr.indexOf(item) !== -1;
+            return arr.indexOf(item) !== -1 ? true : false;
 
         },
         addHistory(){
             switch (this.picked) {
                 
                 case "allergies":
-                    this.v$.$touch()
+                    this.v$.$touch();
                     if (!this.v$.history.$error) {
-                        if(!this.isDuplicate(this.history, this.formData.allergies) && !this.isDuplicate(this.history, this.allergies)){
-                            this.formData.allergies.push(this.history.toLowerCase());
-                        }
+                        // if(!this.isDuplicate(this.history, this.formData.allergies) && !this.isDuplicate(this.history, this.allergies)){
+                            this.formData.allergies.push(this.history);
+                        // }
                     }
                     // else if(this.isDuplicate(this.history, this.formData.allergies)){
                     //     this.formData.allergies.push(this.history.toLowerCase());
@@ -124,7 +135,6 @@ export default {
 
         <template v-slot:body>
             <div class="mx-10">
-                <!-- <p v-if="v$.formData.$error" class="block text-regal-red text-xs">{{v$.formData.$errors[0].$message || "Not Working!!"}}</p> -->
                 <p v-if="v$.history.$error" class="error-banner">
                     {{v$.history.$errors[0].$message}}
                 </p>
