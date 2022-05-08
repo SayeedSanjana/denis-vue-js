@@ -1,7 +1,8 @@
 <script>
+import axios from 'axios';
 import useValidate from '@vuelidate/core';
 import Modal from "../../components/reusable/Modal.vue";
-import {required,minLength,maxLength,helpers,} from '@vuelidate/validators';
+import {minLength,maxLength,helpers } from '@vuelidate/validators';
 
 export default {
     components: {
@@ -15,19 +16,20 @@ export default {
     },
     data() {
         return {
-             v$:useValidate(),
             ...Object.assign(
                 {
                     allergies: [],
-                    diseases: [],
+                    disease: [],
                     personalHabits: [],
                 },
                 this.patient
             ),
-            formData: {
-                allergies: [],
-                diseases: [],
-                personalHabits: [],
+            category: {
+                add: {
+                    allergies: [],
+                    disease: [],
+                    personalHabits: [],
+                }
             },
             picked: "allergies",
             history:"",    
@@ -36,80 +38,79 @@ export default {
                 
         };
     },
+    setup(){ 
+        return {
+            v$:useValidate()
+        }
+    },
      validations() {
-            const duplicate =(value)=>value==(this.allergies.indexOf(value) !== -1 && this.formData.allergies.indexOf(value)!==-1) ===true;
              return {
                  history:{
-                    required,
                     minLength: minLength(3),
                     maxLength: maxLength(20),
-                    duplicate:helpers.withMessage("ffgtft",duplicate),
-                 },
-                 formData: {
-                    
-                     allergies: {
-                         
-                        //  duplicate:helpers.withMessage("ffgtft",duplicate),
-                         
-                         
-                     },
+                    duplicate: helpers.withMessage('Duplicate value',(value)=>{
+                        switch (this.picked) {
+                            case "allergies":
 
-                     personalHabits: {
-                         required,
-                         minLength: minLength(3),
-                         maxLength: maxLength(255)
-                     },
+                                return !this.isDuplicate(value, this.category.add.allergies)
+                            case "disease":
 
-                     diseases: {
-                         required,
-                         minLength: minLength(3),
-                         maxLength: maxLength(255)
-                     },
+                                return !this.isDuplicate(value, this.category.add.disease);
+                            case "personalHabits":
+
+                                return !this.isDuplicate(value, this.category.add.personalHabits);
+                        
+                            default:
+                                break;
+                    }
+                })
+                  
                  }
              }
          },
     methods: {
         isDuplicate(item, arr) {
-            
-            return arr.indexOf(item) !== -1;
+            // console.log(arr.includes(item));
+            return arr.includes(item);
 
         },
-        addHistory(){
-            switch (this.picked) {
+        async saveMedicalHistory(){
+
+            try {
+                const response = await axios.put('/patients/' + this.$route.params.id, {category:this.category} )
+                // console.log(response.data.data);
+                this.$emit('onUpdate', response.data.data);
+                this.$emit('close');
                 
-                case "allergies":
-                    this.v$.$touch()
-                    if (!this.v$.history.$error) {
-                        if(!this.isDuplicate(this.history, this.formData.allergies) && !this.isDuplicate(this.history, this.allergies)){
-                            this.formData.allergies.push(this.history.toLowerCase());
-                        }
-                    }
-                    // else if(this.isDuplicate(this.history, this.formData.allergies)){
-                    //     this.formData.allergies.push(this.history.toLowerCase());
-                    // }
-                    // this.formData.allergies = [...new Set(this.formData.allergies)];
+            } catch (error) {
+                console.log(error);
                 
-                    break;
-
-                case "diseases":
-                    if(this.isDuplicate(this.history, this.diseases)){
-                        this.formData.diseases.push(this.history.toLowerCase())
-                    }
-                    this.formData.diseases = [... new Set(this.formData.diseases)]
-
-                    break;
-
-                case "personalHabits":
-                    if(this.isDuplicate(this.history, this.personalHabits)){
-                        this.formData.personalHabits.push(this.history.toLowerCase())
-                    }
-                    this.formData.personalHabits = [... new Set(this.formData.personalHabits)]
-   
-                    break;
-
-                default: this.message = "";
-                    break;
             }
+        },
+        addHistory(){
+            if (!this.v$.history.$error && this.history.length>0) {
+                switch (this.picked) {
+                    
+                    case "allergies":
+                        
+                        this.category.add.allergies.push(this.history.toLowerCase());
+                        break;
+
+                    case "disease":
+                            this.category.add.disease.push(this.history.toLowerCase())
+
+                        break;
+
+                    case "personalHabits":
+                            this.category.add.personalHabits.push(this.history.toLowerCase())
+    
+                        break;
+
+                    default:
+                        break;
+                }
+                this.history="";
+            }     
         },
 
     }
@@ -124,17 +125,20 @@ export default {
 
         <template v-slot:body>
             <div class="mx-10">
-                <!-- <p v-if="v$.formData.$error" class="block text-regal-red text-xs">{{v$.formData.$errors[0].$message || "Not Working!!"}}</p> -->
-                <p v-if="v$.history.$error" class="error-banner">
-                    {{v$.history.$errors[0].$message}}
-                </p>
+                <!-- {{this.$route.params.id}} -->
+                <ul v-show="v$.$error" class="error-banner">
+
+                    <li v-for="error of v$.$errors" :key="error.$uid">
+                        {{error.$message}}
+                    </li>
+                </ul>
                 
                 <form @submit.prevent="" id="selectors" class="flex justify-between items-center">
                     <div class="relative"> 
-                        <input type="text" class="py-2 w-80 pl-5 pr-20 rounded-lg z-0 border border-regal-teal border-opacity-50 focus:border-regal-blue focus:shadow focus:outline-none" placeholder="Add History..." v-model="history" @blur="v$.history.$touch()"  >
+                        <input type="text" class="py-2 w-80 pl-5 pr-20 rounded-lg z-0 border border-regal-teal border-opacity-50 focus:border-regal-blue focus:shadow focus:outline-none" placeholder="Add History..." v-model="v$.history.$model">
                         <div class="absolute top-0 right-0">
                             
-                            <button class="btn add" @click="addHistory">+</button>
+                            <button class="btn add" @click="addHistory" >+</button>
                             
                         </div>
                     </div>
@@ -163,14 +167,14 @@ export default {
                                 type="radio"
                                 name="option"
                                 id="option2"
-                                value="diseases"
+                                value="disease"
                                 v-model="picked"
                                 
                             />
                             <label
                                 class="text-gray-800"
                                 for="option2"
-                                > Diseases </label
+                                > disease </label
                             >
                         </div>
                         <div class="pr-4">
@@ -190,7 +194,7 @@ export default {
                         </div>
                     </div>
 
-                    <button class="btn">save</button>
+                    <button class="btn" @click="saveMedicalHistory">save</button>
                   
                 </form>
                  
@@ -200,7 +204,7 @@ export default {
                            
                             <ul class="mx-auto px-4 py-1">
 
-                                <li v-for="(data,index) in formData.allergies" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="(data,index) in category.add.allergies" :key="data" class="flex justify-between py-1"> 
 
                                     <p>{{data}}</p>
                                     <button :value="index">X</button>
@@ -209,10 +213,10 @@ export default {
                             </ul>
                         </article>
                         <article class="w-full border-l-2 border-regal-teal">
-                            <summary class="font-bold py-2 px-3 block text-green-800 underline"> Diseases</summary>
+                            <summary class="font-bold py-2 px-3 block text-green-800 underline"> disease</summary>
                             
                             <ul class="mx-auto px-4">
-                                <li v-for="data in formData.diseases" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="data in category.add.disease" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
                                     <button>X</button>
                                 </li>
@@ -223,7 +227,7 @@ export default {
                             <summary class="font-bold py-2 px-3 block text-yellow-600 underline"> Personal Habits</summary>
                             
                             <ul class="mx-auto px-4">
-                                <li v-for="data in formData.personalHabits" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="data in category.add.personalHabits" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
                                     <button >X</button>
                                 </li>
