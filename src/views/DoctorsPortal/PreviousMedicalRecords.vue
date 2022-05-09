@@ -39,7 +39,7 @@
                 <hr class="border-b mb-1">
 
                 <button name="addHst" @click="openModal($event)" class="btn-underline">
-                    Add History
+                    Add History 
                 </button>
                 <!-- <div class="grid grid-cols-4 gap-1 mt-4 "> -->
                     
@@ -60,7 +60,7 @@
                     <!-- </div> -->
                 <!-- </div> -->
 
-                <History :items="patientInfo.allergies">
+                <History :items="patientInfo.allergies" >
                     Allergies
                 </History>
 
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    // import axios from "axios";
+    import axios from "axios";
    
     // import moment from "moment";
     // import Button from "../../components/reusable/ButtonComponent.vue";
@@ -106,7 +106,7 @@
             pat: Object
         },
         created() {
-           
+        //    this.removeMedicalHistory(this.$route.params.id);
       
         },
         watch:{
@@ -120,7 +120,7 @@
         },
         data() {
             return {
-                some:'fall back content',
+                // some:'fall back content',
                 // datenow: moment().subtract(10, 'days').calendar(),
                 token: localStorage.getItem('token'),
                
@@ -149,6 +149,13 @@
                     phone:"Phone",
                     nid: "NID",
                 },
+                category:{
+                    remove:{
+                        allergies:[],
+                        disease:[],
+                        personalHabits:[]
+                    }
+                }
 
             }
         },
@@ -173,6 +180,18 @@
                 this.isEditPatientActive = false;
                 this.isAddHistoryActive = false;
             },
+
+            async removeMedicalHistory(){
+                try {
+                    const response = await axios.put('/patients/' + this.$route.params.id, { category: this.category
+                    })
+                    console.log(response.data.data);
+
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            }
 
             // patientInfoUpdate(val){
             //     Object.assign(this.patientInfo, val);

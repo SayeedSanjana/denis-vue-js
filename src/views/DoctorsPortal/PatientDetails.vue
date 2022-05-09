@@ -55,8 +55,8 @@
         data() {
             return {
                 token: localStorage.getItem('token'),
-                show: false,
-                showHabits: false,
+                // show: false,
+                // showHabits: false,
                 date: "",
                 formData: {
                     name: "",
@@ -68,12 +68,12 @@
             }
         },
         methods: {
-            showAllergy() {
-                this.show = !this.show;
-            },
-            showBadHabits() {
-                this.showHabits = !this.showHabits
-            },
+            // showAllergy() {
+            //     this.show = !this.show;
+            // },
+            // showBadHabits() {
+            //     this.showHabits = !this.showHabits
+            // },
             async getPatient(id) {
                 await axios.get('patients/' + id, {
                         headers: {
