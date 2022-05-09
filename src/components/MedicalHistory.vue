@@ -1,13 +1,17 @@
 
 <script>
-    export default {
+// import axios from 'axios';
+    export default {    
         props: {
             items:{
                 type:Array,
                 default: () => [],   
             },
+            
 
         },
+      
+
         
              
 
@@ -23,7 +27,7 @@
             <span v-for="item in items" :key="item" class="mx-1 my-1 text-xs inline-flex items-center font-bold px-3 py-1 bg-white border text-regal-teal rounded-md ">
                 <label>{{item}}</label>
                 <span class="pl-5">
-                    <button  class="py-1">
+                    <button  class="py-1" >
                         <img src="@/assets/svgs/cross.svg" alt="delete">
                     </button>
                 </span>

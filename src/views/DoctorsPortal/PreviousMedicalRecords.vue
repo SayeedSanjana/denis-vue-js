@@ -149,13 +149,14 @@
                     phone:"Phone",
                     nid: "NID",
                 },
-                category:{
-                    remove:{
+                history:{
                         allergies:[],
                         disease:[],
                         personalHabits:[]
-                    }
-                }
+                },
+                label:"remove"
+          
+
 
             }
         },
@@ -180,18 +181,33 @@
                 this.isEditPatientActive = false;
                 this.isAddHistoryActive = false;
             },
+              async removeMedicalHistory() {
+                  try {
+                      const response = await axios.put('/patients/' + this.$route.params.id, {
+                          history: this.history,
+                          label: this.label
+                      })
+                      console.log(response.data.data);
+                  } catch (error) {
+                      console.log(error);
+                  }
 
-            async removeMedicalHistory(){
-                try {
-                    const response = await axios.put('/patients/' + this.$route.params.id, { category: this.category
-                    })
-                    console.log(response.data.data);
-
-                } catch (error) {
-                    console.log(error);
-                    
-                }
-            }
+              },
+                  removeHistory(item) {
+                      switch (this.picked) {
+                          case "allergies":
+                              this.history.allergies.splice(this.history.allergies.indexOf(item), 1);
+                              break;
+                          case "disease":
+                              this.history.disease.splice(this.history.disease.indexOf(item), 1);
+                              break;
+                          case "personalHabits":
+                              this.history.personalHabits.splice(this.history.personalHabits.indexOf(item), 1);
+                              break;
+                          default:
+                              break;
+                      }
+                  }
 
             // patientInfoUpdate(val){
             //     Object.assign(this.patientInfo, val);
