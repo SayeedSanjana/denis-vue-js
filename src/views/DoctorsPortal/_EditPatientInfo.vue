@@ -10,9 +10,9 @@
 			<section class="bg-white dark:bg-gray-800 px-5">
 
 				<!-- <div class="flex items-center justify-center"> -->
-
-					<!-- <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-96"> -->
-					<form @submit.prevent="updatePatientInfo(this.$route.params.id)">
+                    <!-- <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-96"> -->
+                        <form @submit.prevent="updatePatientInfo(this.$route.params.id)">
+                        {{formData}}
 						<!-- Name -->
 						<div class="form-group">
 							<label class="form-label" for="duuid">
@@ -47,7 +47,7 @@
 							</label>
 							<!-- <Datepicker type="text" class="form-input" v-model="formData.dob" @blur="v$.formData.dob.$touch()"
 							:enableTimePicker="false"></Datepicker> -->
-							<input type="date" class="form-input" :value="new Date(formData.dob).toISOString().slice(0, 10)">
+							<!-- <input type="date" class="form-input" :value="new Date(formData.dob).toISOString().slice(0, 10)"> -->
 						</div>
 
 						<!-- Gender -->
@@ -118,7 +118,7 @@
 
 <script>
 import axios from "axios";
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 // import moment from "moment";
 import useValidate from '@vuelidate/core';
 import {
@@ -130,7 +130,7 @@ import {
   } from '@vuelidate/validators';
 //   import Datepicker from 'vue3-date-time-picker';
   import 'vue3-date-time-picker/dist/main.css'
-  import Modal from "../components/reusable/Modal.vue";
+  import Modal from "../../components/reusable/Modal.vue";
 export default {
 
     components: {
@@ -139,11 +139,22 @@ export default {
     },
     props: {
 		// pat: Object,
-		patient: Object,
+		patient: {
+            type: Object,
+            default: () => ({}),
+        },
     },
 
     created() {
+        this.formData = Object.assign({
+                    name: "",
+                    gender: "",
+                    dob: "",
+                    phone:"",
+                    nid: "",
+                    address:"",
 
+        }, this.patient)
 		// this.getPat(this.pat)
     },
 
@@ -153,13 +164,23 @@ export default {
 
 
     data() {
-      return {
-        v$: useValidate(),
-        token: localStorage.getItem('token'),
+        
+        return {
+
+        // v$: useValidate(),
+        // token: localStorage.getItem('token'),
         formData: {
-			...this.patient,
-        },
+			...this.patient
+        }
+    
+       
+       
       }
+    },
+    setup() {
+        return {
+            v$: useValidate(),
+        }
     },
     validations() {
 		const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
@@ -230,52 +251,51 @@ export default {
 		// },
 
 		async updatePatientInfo(id) {
+            console.log(this.formData);
 
 			this.v$.$touch();
+        
+			// if (this.v$.$error) throw new Error(this.v$.$error);
+			// this.formData.phone = this.formData.phone.replace(/\s/g, '')
 
-			if (this.v$.$error) throw new Error(this.v$.$error);
-			this.formData.phone = this.formData.phone.replace(/\s/g, '')
+			// if (this.formData.address === "") {
+			// 	this.formData.address = 'N/A';
 
-			if (this.formData.address === "") {
-				this.formData.address = 'N/A';
-
-			}
+			// }
 			// ! biirthdate is not changing when we update the patient info
 			// !birthdate needs to be fixed
 			
-			if (this.formData.occupation === "") {
-				this.formData.occupation = 'N/A';
+			// if (this.formData.occupation === "") {
+			// 	this.formData.occupation = 'N/A';
 
-			}
+			// }
 			try {
-			const response = await axios.put(`patients/${id}`, this.formData, {
-				headers: {
-				"Authorization": `Bearer ${localStorage.getItem('token') }`
-				}
-			});
-			if (response.data.status === 'success') {
-				// console.log(response);
-				swal({
-					title: "Success",
-					text: "Patient updated Successfully!",
-					icon: "success",
-					timer: 1000,
-					buttons: false
-				}).then(() => {
-				new Promise(resolve => setTimeout(resolve, 2000));
-				window.location = `/patient-details1/${id}`;
-				})
-			}
+			const response = await axios.put('/patients/' + id, this.formData );
+            Object.assign(this.patient, this.formData);
+            this.$emit("closeModal");
+            console.log(response.data.data);
+         
+			// if (response.data.status === 'success') {
+			// 	// console.log(response);
+			// 	swal({
+			// 		title: "Success",
+			// 		text: "Patient updated Successfully!",
+			// 		icon: "success",
+			// 		timer: 1000,
+			// 		buttons: false
+			// 	})
+			// }
 
 			} catch (error) {
+                console.log(error);
 
 
-				swal({
-					title: "error",
-					text: error.message,
-					icon: "error",
-					buttons: true
-				})
+				// swal({
+				// 	title: "error",
+				// 	text: error.message,
+				// 	icon: "error",
+				// 	buttons: true
+				// })
 			}
 		}
     },
@@ -284,6 +304,7 @@ export default {
 
 
 <style scoped>
+
   .buttonsubmit {
 	@apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold rounded-md text-sm flex;
   }
