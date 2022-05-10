@@ -13,6 +13,7 @@
                 <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
                     Patient
                 </div>
+                {{this.patientInfo}}
                 <hr class="border-b mb-1"/>
 
                 <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
@@ -39,43 +40,26 @@
                 <hr class="border-b mb-1">
 
                 <button name="addHst" @click="openModal($event)" class="btn-underline">
-                    Add History
+                    Add History 
                 </button>
-                <!-- <div class="grid grid-cols-4 gap-1 mt-4 "> -->
-                    
-                    <!-- <div class="grid col-span-2 place-items-center">
-                        <Input />
-                    </div> -->
-                    <!-- <div class="grid place-items-center">
-                        <select name="" id=""
-                            class="appearance-none block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded py-1 px-3 leading-tight focus:outline-none focus:bg-white">
-                            <option value="">Allergies</option>
-                            <option value="">Diseases</option>
-                            <option value="">Personal Habits</option>
-                        </select>
-                    </div> -->
-                    <!-- <div> -->
-                        <!-- <Button>Add</Button> -->
-                        <!-- <button class="btn btn-hover">Add</button> -->
-                    <!-- </div> -->
-                <!-- </div> -->
+               
 
-                <History :items="patientInfo.allergies">
+                <History :items="patientInfo.allergies" :title="'allergies'" @removeHistory="removeSingleMedicalHistory"  >
                     Allergies
                 </History>
 
-                <History :items="patientInfo.disease">
+                <History :items="patientInfo.disease" :title="'disease'" @removeHistory="removeSingleMedicalHistory">
                     Diseases
                 </History>
 
-                <History :items="patientInfo.personalHabits">
+                <History :items="patientInfo.personalHabits" :title="'personalHabits'" @removeHistory="removeSingleMedicalHistory" >
                     Personal Habits
                 </History>
             </div>
 
         <!-- <div v-if="isEditPatientActive"> -->
         <!-- <div v-if="isAddHistorytive"> -->
-            <GeneralInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
+            <EditPatientInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
             <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal" @onUpdate="(val) => patientInfo = val"/>
            
         <!-- </div> -->
@@ -83,52 +67,37 @@
 </template>
 
 <script>
-    // import axios from "axios";
-   
-    // import moment from "moment";
-    // import Button from "../../components/reusable/ButtonComponent.vue";
-    // import Input from "../../components/reusable/InputFieldComponent.vue";
+    import axios from "axios";
+    import swal from "sweetalert";
+ 
    
     import History from "../../components/MedicalHistory.vue";
-    import GeneralInfo from "../../components/GeneralInfoModal.vue";
+    import EditPatientInfo from "./_EditPatientInfo.vue";
     import AddMedicalHistory from "./_AddMedicalHistory.vue"
    
     export default {
         components: {
          
-            // Input,
-            // Button,
             History,
-            GeneralInfo,
+            EditPatientInfo,
             AddMedicalHistory
         },
         props: {
-            pat: Object
+            patient: Object,
         },
-        created() {
-           
       
-        },
         watch:{
-            pat: function(val){
-                this.getPat(val)
+            patient: function(val){
+                console.log(this.getPat(val));
             },
-            patientInfoUpdate(val){
-                //  reassign updated info to patientInfo
-                Object.assign(this.patientInfo, val);
-            }
+            // patientInfoUpdate(val){
+            //     Object.assign(this.patientInfo, val);
+            // }
         },
         data() {
             return {
-                some:'fall back content',
-                // datenow: moment().subtract(10, 'days').calendar(),
+        
                 token: localStorage.getItem('token'),
-               
-                // dob: "",
-                // date: "",
-                style:{
-                    btn: 'btn'
-                },
                 isEditPatientActive: false,
                 isAddHistoryActive: false,
                 patientInfo: {
@@ -137,6 +106,7 @@
                     dob: "",
                     phone:"",
                     nid: "",
+                    address:"",
                     allergies: [],
                     disease:[],
                     personalHabits: [], 
@@ -148,14 +118,28 @@
                     dob: "Age",
                     phone:"Phone",
                     nid: "NID",
+                    address:"Address"
                 },
+                history:{
+                    allergies:[],
+                    disease:[],
+                    personalHabits:[]
+                },
+                label:"remove"
+          
+
 
             }
         },
         
         methods: {
             getPat(i){
+                // console.log('before',this.patientInfo);
+                console.log(i);
+                console.log(this.patientInfo);
                 Object.assign(this.patientInfo, i);
+                console.log(this.patientInfo);
+                // console.log('after',this.patientInfo);
             },
             calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
@@ -173,10 +157,80 @@
                 this.isEditPatientActive = false;
                 this.isAddHistoryActive = false;
             },
+            
+            async removeSingleMedicalHistory(item, title) {
+                //   this.removeItem(item,title)
+                  
+                //   console.log(item, title);
 
-            // patientInfoUpdate(val){
-            //     Object.assign(this.patientInfo, val);
-            // }
+                
+                  this.history[title].push(item);
+                
+                  try {
+                    const isConfirmed = await swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        buttons: true,
+                         dangerMode: true,
+                    });
+                    // console.log(isConfirmed); 
+                    if (isConfirmed) {
+                        swal(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        const response = await axios.put('/patients/' + this.$route.params.id, {
+                            history: this.history,
+                            label: this.label
+                            
+                        });
+                        Object.assign(this.patientInfo, response.data.data);
+                        swal({
+                            title: "Removed ",
+                            text: "Saved!",
+                            icon: "success",
+                            timer: 1000,
+                            buttons: false
+                        });  
+                    }
+
+                    
+                  } catch (error) {
+                       swal({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error",
+                    // timer: 1000,
+                    buttons: true,
+                })
+                  }
+
+              },
+            //   removeItem(item, title){
+            //         switch (title) {
+            //           case  "allergies":
+            //               this.history.allergies.push(item);
+            //             //   console.log(this.history.allergies);
+            //               break;
+            //             case "disease":
+            //                 this.history.disease.push(item);
+            //                 // console.log(this.history.disease);
+            //                 break;
+            //             case "personalHabits":
+            //                 this.history.personalHabits.push(item);
+            //                 // console.log(this.history.personalHabits);
+            //                 break;
+            //           default:
+            //               break;
+            //       }
+
+            //   }
+              
+              
+                 
+
         }
     }
 </script>

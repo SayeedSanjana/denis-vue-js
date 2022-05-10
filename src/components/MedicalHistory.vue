@@ -1,13 +1,31 @@
 
 <script>
-    export default {
+// import axios from 'axios';
+    export default {    
         props: {
+            title: {
+                type: String,
+                default: '',
+            },
             items:{
                 type:Array,
                 default: () => [],   
             },
+            removeHistory:{
+                type:Function,
+            },
+        
+            
 
-        },        
+        },
+        methods: {
+            removeSingleMedicalHistory(item){
+                this.$emit( "removeHistory",item, this.title);
+                // console.log(item);
+               
+    }
+        }
+        
     }
 </script>
 
@@ -17,10 +35,10 @@
             <slot>History</slot>
         </label>
         <div v-if="items.length > 0"  class="flex flex-wrap mx-4 my-4">
-            <span v-for="item in items" :key="item" class="mx-1 my-1 text-xs inline-flex items-center font-bold px-3 py-1 bg-white border text-regal-teal rounded-md ">
+            <span v-for="item in items" :key="item" class="mx-1 my-1 text-xs inline-flex items-center font-bold px-3 py-1 bg-white border text-regal-teal rounded-full ">
                 <label>{{item}}</label>
                 <span class="pl-5">
-                    <button  class="py-1">
+                    <button  class="py-1" @click="removeSingleMedicalHistory(item)">
                         <img src="@/assets/svgs/cross.svg" alt="delete">
                     </button>
                 </span>

@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+ import swal from 'sweetalert';
 import useValidate from '@vuelidate/core';
 import Modal from "../../components/reusable/Modal.vue";
 import {minLength,maxLength,helpers } from '@vuelidate/validators';
@@ -7,6 +8,7 @@ import {minLength,maxLength,helpers } from '@vuelidate/validators';
 export default {
     components: {
         Modal,
+
     },
 
     props: {
@@ -24,15 +26,14 @@ export default {
                 },
                 this.patient
             ),
-            category: {
-                add: {
+            history: {
                     allergies: [],
                     disease: [],
-                    personalHabits: [],
-                }
+                    personalHabits: [],   
             },
+            label:"add",
             picked: "allergies",
-            history:"",    
+            inputHistory:"",    
             message:"",
                     
                 
@@ -44,74 +45,111 @@ export default {
         }
     },
      validations() {
-             return {
-                 history:{
+            return {
+                inputHistory:{
                     minLength: minLength(3),
                     maxLength: maxLength(20),
                     duplicate: helpers.withMessage('Duplicate value',(value)=>{
                         switch (this.picked) {
                             case "allergies":
 
-                                return !this.isDuplicate(value, this.category.add.allergies)
+                                return !this.isDuplicate(value, this.history.allergies)
                             case "disease":
 
-                                return !this.isDuplicate(value, this.category.add.disease);
+                                return !this.isDuplicate(value, this.history.disease);
                             case "personalHabits":
 
-                                return !this.isDuplicate(value, this.category.add.personalHabits);
+                                return !this.isDuplicate(value, this.history.personalHabits);
                         
                             default:
                                 break;
-                    }
-                })
+                        }
+                    })
                   
-                 }
-             }
-         },
-    methods: {
-        isDuplicate(item, arr) {
-            // console.log(arr.includes(item));
-            return arr.includes(item);
-
-        },
-        async saveMedicalHistory(){
-
-            try {
-                const response = await axios.put('/patients/' + this.$route.params.id, {category:this.category} )
-                // console.log(response.data.data);
-                this.$emit('onUpdate', response.data.data);
-                this.$emit('close');
-                
-            } catch (error) {
-                console.log(error);
-                
+                }
             }
         },
+    computed:{
+        isEnabled(){
+           if(this.history.allergies.length>0 || this.history.disease.length>0 || this.history.personalHabits.length>0){
+                
+                return true;
+            }
+            return false;
+        }
+    },
+    methods: {
+        isDuplicate(item, arr) {
+            return arr.includes(item);
+        },
+        async saveMedicalHistory(){
+            try {
+                const response = await axios.put('/patients/' + this.$route.params.id, {history:this.history , label : this.label} )
+                this.$emit('onUpdate', response.data.data);
+                this.$emit('close');
+                 swal({
+                    title: "Success",
+                    text: "Saved!",
+                    icon: "success",
+                    timer: 1000,
+                    buttons: false
+                });
+            } 
+           
+            catch (error) {
+                // console.log(error);
+                swal({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error",
+                    // timer: 1000,
+                    buttons: true,
+                })
+                
+            }
+            
+        },
         addHistory(){
-            if (!this.v$.history.$error && this.history.length>0) {
+            if (!this.v$.inputHistory.$error && this.inputHistory.length>0) {
                 switch (this.picked) {
                     
                     case "allergies":
                         
-                        this.category.add.allergies.push(this.history.toLowerCase());
+                        this.history.allergies.push(this.inputHistory.toLowerCase());
                         break;
 
                     case "disease":
-                            this.category.add.disease.push(this.history.toLowerCase())
+                            this.history.disease.push(this.inputHistory.toLowerCase())
 
                         break;
 
                     case "personalHabits":
-                            this.category.add.personalHabits.push(this.history.toLowerCase())
+                            this.history.personalHabits.push(this.inputHistory.toLowerCase())
     
                         break;
 
                     default:
                         break;
                 }
-                this.history="";
+                this.inputHistory="";
             }     
         },
+        removeHistory(item){
+            switch (this.picked) {
+                case "allergies":
+                    this.history.allergies.splice(this.history.allergies.indexOf(item), 1);
+                    break;
+                case "disease":
+                    this.history.disease.splice(this.history.disease.indexOf(item), 1);
+                    break;
+                case "personalHabits":
+                    this.history.personalHabits.splice(this.history.personalHabits.indexOf(item), 1);
+                    break;
+                default:
+                    break;}
+        }
+
+        
 
     }
 };
@@ -135,10 +173,10 @@ export default {
                 
                 <form @submit.prevent="" id="selectors" class="flex justify-between items-center">
                     <div class="relative"> 
-                        <input type="text" class="py-2 w-80 pl-5 pr-20 rounded-lg z-0 border border-regal-teal border-opacity-50 focus:border-regal-blue focus:shadow focus:outline-none" placeholder="Add History..." v-model="v$.history.$model">
+                        <input type="text" class="py-2 w-80 pl-5 pr-20 rounded-lg z-0 border border-regal-teal border-opacity-50 focus:border-regal-blue focus:shadow focus:outline-none" placeholder="Add History..." v-model="v$.inputHistory.$model">
                         <div class="absolute top-0 right-0">
                             
-                            <button class="btn add" @click="addHistory" >+</button>
+                            <button class="btn add" @click="addHistory">+</button>
                             
                         </div>
                     </div>
@@ -193,8 +231,7 @@ export default {
                             >
                         </div>
                     </div>
-
-                    <button class="btn" @click="saveMedicalHistory">save</button>
+                    <button :class="{'btn': isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)" @click="saveMedicalHistory" >save</button>
                   
                 </form>
                  
@@ -204,10 +241,10 @@ export default {
                            
                             <ul class="mx-auto px-4 py-1">
 
-                                <li v-for="(data,index) in category.add.allergies" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="(data,index) in history.allergies" :key="data" class="flex justify-between py-1"> 
 
                                     <p>{{data}}</p>
-                                    <button :value="index">X</button>
+                                    <button :value="index" @click="removeHistory">X</button>
                                 </li>
 
                             </ul>
@@ -216,9 +253,9 @@ export default {
                             <summary class="font-bold py-2 px-3 block text-green-800 underline"> disease</summary>
                             
                             <ul class="mx-auto px-4">
-                                <li v-for="data in category.add.disease" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="(data,index) in history.disease" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
-                                    <button>X</button>
+                                    <button :value="index" @click="removeHistory">X</button>
                                 </li>
 
                             </ul>
@@ -227,9 +264,9 @@ export default {
                             <summary class="font-bold py-2 px-3 block text-yellow-600 underline"> Personal Habits</summary>
                             
                             <ul class="mx-auto px-4">
-                                <li v-for="data in category.add.personalHabits" :key="data" class="flex justify-between py-1"> 
+                                <li v-for="(data,index) in history.personalHabits" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
-                                    <button >X</button>
+                                    <button :value="index" @click="removeHistory">X</button>
                                 </li>
 
                             </ul>
@@ -255,4 +292,8 @@ export default {
 .error-banner{
     @apply block py-2 px-4 border-l-4 mb-4 bg-red-100 border-red-400 font-semibold text-lg text-red-800 text-left;
 }
+.btn-disabled{
+    @apply py-2 px-4 bg-regal-teal text-white font-bold rounded border cursor-not-allowed bg-opacity-50 ;
+}
+
 </style>

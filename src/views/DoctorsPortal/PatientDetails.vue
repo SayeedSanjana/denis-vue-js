@@ -2,15 +2,16 @@
     <div>
         <header class="sticky top-0 z-50">
 
-            <Nav />
+           <Nav />
         </header>
          
             <div class="lg:flex bg-white   ">
                 <!--main-->
                 <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
                     <!--sidebar-->
+                    
                     <div >
-                        <PreviousMedicalRecords :pat="$store.state.patient.data"/>
+                        <PreviousMedicalRecords :patient="$store.state.patient.data"/>
                     </div>
                 </div>
                 <!--sidebar-->
@@ -39,7 +40,7 @@
     import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
     import Nav from "../../components/Nav.vue";
     import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
-    import axios from "axios";
+    // import axios from "axios";
     export default {
         components: {
             Nav,
@@ -55,42 +56,44 @@
         data() {
             return {
                 token: localStorage.getItem('token'),
-                show: false,
-                showHabits: false,
-                date: "",
+                // show: false,
+                // showHabits: false,
+                // date: "",
                 formData: {
                     name: "",
                     gender: "",
                     dob: "",
+                    address:"",
                     allergies: [],
-                    badHabits: []
+                    disease:[],
+                    personalHabits: []
                 }
             }
         },
         methods: {
-            showAllergy() {
-                this.show = !this.show;
-            },
-            showBadHabits() {
-                this.showHabits = !this.showHabits
-            },
-            async getPatient(id) {
-                await axios.get('patients/' + id, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token') }`
-                        }
-                    })
-                    .then((response) => {
-                        this.formData = response.data.data;
-                        const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
-                        const ageDate = new Date(ageDifMs);
-                        this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        //console.log(this.formData.dob)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            },
+            // showAllergy() {
+            //     this.show = !this.show;
+            // },
+            // showBadHabits() {
+            //     this.showHabits = !this.showHabits
+            // },
+            // async getPatient(id) {
+            //      axios.get('patients/' + id, {
+            //             headers: {
+            //                 "Authorization": `Bearer ${localStorage.getItem('token') }`
+            //             }
+            //         })
+            //         .then((response) => {
+            //             this.formData = response.data.data;
+            //             const ageDifMs = Date.now() - new Date(this.formData.dob.substring(0, 10)).getTime();
+            //             const ageDate = new Date(ageDifMs);
+            //             this.formData.dob = Math.abs(ageDate.getUTCFullYear() - 1970);
+            //             //console.log(this.formData.dob)
+            //         })
+            //         .catch((error) => {
+            //             console.log(error)
+            //         })
+            // },
         }
     }
 </script>
