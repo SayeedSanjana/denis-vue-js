@@ -107,6 +107,7 @@
                     phone:"",
                     nid: "",
                     address:"",
+                    occupation:"",
                     allergies: [],
                     disease:[],
                     personalHabits: [], 
@@ -118,6 +119,7 @@
                     dob: "Age",
                     phone:"Phone",
                     nid: "NID",
+                    occupation:"Occupation",
                     address:"Address"
                 },
                 history:{

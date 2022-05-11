@@ -1,7 +1,13 @@
 
 <script>
 // import axios from 'axios';
-    export default {    
+    export default { 
+        data(){
+            return{
+                active: -1
+            }
+        },
+
         props: {
             title: {
                 type: String,
@@ -23,6 +29,10 @@
                 this.$emit( "removeHistory",item, this.title);
                 // console.log(item);
                
+    },
+    showButton(index){
+        this.active= index
+
     }
         }
         
@@ -34,12 +44,13 @@
         <label for="" class="block text-left px-5  text-regal-teal font-bold">
             <slot>History</slot>
         </label>
-        <div v-if="items.length > 0"  class="flex flex-wrap mx-4 my-4">
-            <span v-for="item in items" :key="item" class="mx-1 my-1 text-xs inline-flex items-center font-bold px-3 py-1 bg-white border text-regal-teal rounded-full ">
-                <label>{{item}}</label>
-                <span class="pl-5">
-                    <button  class="py-1" @click="removeSingleMedicalHistory(item)">
-                        <img src="@/assets/svgs/cross.svg" alt="delete">
+        <div v-if="items.length > 0"  class="flex flex-wrap mx-4 my-4 " >
+            <span v-for="(item,index) in items" :key="item" @mouseover="showButton(index)" @mouseleave="showButton(-1)" class="mx-1 my-4 text-xs inline-flex items-center font-bold px-3 py-2 bg-white border text-regal-teal rounded-full ">
+                
+                <label  >{{item}}</label>
+                <span class="pl-2" v-show="active ==index">
+                    <button  class="flex justify-center" @click="removeSingleMedicalHistory(item)">
+                        <img src="@/assets/svgs/cross.svg" class="w-4 h-4" alt="delete">
                     </button>
                 </span>
             </span>

@@ -18,7 +18,7 @@ export default {
     },
     data() {
         return {
-            ...Object.assign(
+            ...this.objectMap(
                 {
                     allergies: [],
                     disease: [],

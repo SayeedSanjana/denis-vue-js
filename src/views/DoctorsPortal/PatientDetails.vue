@@ -53,23 +53,23 @@
             //  this.$store.dispatch('updatePatient', this.$route.params.id);
            // this.getPatient(this.$route.params.id)
         },
-        data() {
-            return {
-                token: localStorage.getItem('token'),
+        // data() {
+        //     return {
+        //         token: localStorage.getItem('token'),
                 // show: false,
                 // showHabits: false,
                 // date: "",
-                formData: {
-                    name: "",
-                    gender: "",
-                    dob: "",
-                    address:"",
-                    allergies: [],
-                    disease:[],
-                    personalHabits: []
-                }
-            }
-        },
+                // formData: {
+                //     name: "",
+                //     gender: "",
+                //     dob: "",
+                //     address:"",
+                //     allergies: [],
+                //     disease:[],
+                //     personalHabits: []
+                // }
+        //     }
+        // },
         methods: {
             // showAllergy() {
             //     this.show = !this.show;
