@@ -6,13 +6,10 @@
 		</template>
 		
 		<template v-slot:body>
-		<!-- <section class="p-3 bg-white dark:bg-gray-800 px-12"> -->
 			<section class="bg-white dark:bg-gray-800 px-5">
 
-				<!-- <div class="flex items-center justify-center"> -->
-                    <!-- <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-96"> -->
                         <form @submit.prevent="updatePatientInfo(this.$route.params.id)">
-                        {{formData}}
+                        <!-- {{formData}} -->
 						<!-- Name -->
 						<div class="form-group">
 							<label class="form-label" for="duuid">
@@ -45,9 +42,8 @@
 							<label class="form-label" for="dob">
 								Date Of Birth :
 							</label>
-							<!-- <Datepicker type="text" class="form-input" v-model="formData.dob" @blur="v$.formData.dob.$touch()"
-							:enableTimePicker="false"></Datepicker> -->
-							<!-- <input type="date" class="form-input" :value="new Date(formData.dob).toISOString().slice(0, 10)"> -->
+						
+							<input type="date" class="form-input" :value="new Date(formData.dob).toISOString().slice(0, 10)">
 						</div>
 
 						<!-- Gender -->
@@ -119,7 +115,7 @@
 <script>
 import axios from "axios";
 // import swal from 'sweetalert';
-// import moment from "moment";
+
 import useValidate from '@vuelidate/core';
 import {
     required,
@@ -128,13 +124,11 @@ import {
     numeric,
     helpers
   } from '@vuelidate/validators';
-//   import Datepicker from 'vue3-date-time-picker';
-  import 'vue3-date-time-picker/dist/main.css'
+
   import Modal from "../../components/reusable/Modal.vue";
 export default {
 
     components: {
-    //   Datepicker,
       Modal
     },
     props: {
@@ -167,7 +161,6 @@ export default {
         
         return {
 
-        // v$: useValidate(),
         // token: localStorage.getItem('token'),
         formData: {
 			...this.patient

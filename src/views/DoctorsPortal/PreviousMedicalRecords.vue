@@ -13,7 +13,7 @@
                 <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
                     Patient
                 </div>
-                {{this.patientInfo}}
+                <!-- {{this.patientInfo}} -->
                 <hr class="border-b mb-1"/>
 
                 <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
