@@ -12,15 +12,17 @@
 				<!-- <div class="flex items-center justify-center"> -->
                     <!-- <form @submit.prevent="updatePatientInfo(this.$route.params.id)" class="w-96"> -->
                         <form @submit.prevent="updatePatientInfo(this.$route.params.id)">
-                        {{formData}}
+							
 						<!-- Name -->
 						<div class="form-group">
-							<label class="form-label" for="duuid">
+							<label class="form-label" for="name">
 								Full Name
 							</label>
-							<input v-model="formData.name" @blur="v$.formData.name.$touch()"
+							<input v-model="formData.name" 
+								@blur="v$.formData.name.$touch()"
 								class="form-input"
-								id="name" type="text" placeholder="Name">
+								id="name" type="text" 
+								placeholder="@example John Doe">
 							<small v-if="v$.formData.name.$error" class="form-error-text">
 								{{v$.formData.name.$errors[0].$message}}
 							</small>
@@ -29,11 +31,14 @@
 
 						<!-- NID -->
 						<div class="form-group">
-							<label class="form-label" for="nid">NID
-								:</label>
-							<input @blur="v$.formData.nid.$touch()"
+							<label class="form-label" for="nid">
+								NID:
+							</label>
+							<input v-model="this.formData.nid"
+								@blur="v$.formData.nid.$touch()"
 								class="form-input"
-								id="nid" type="text" placeholder="Enter NID" v-model="this.formData.nid">
+								id="nid" type="text" 
+								placeholder="@example 19710XXXX">
 							<small v-if="v$.formData.nid.$error" class="form-error-text">
 								{{v$.formData.nid.$errors[0].$message}}
 							</small>
@@ -47,7 +52,12 @@
 							</label>
 							<!-- <Datepicker type="text" class="form-input" v-model="formData.dob" @blur="v$.formData.dob.$touch()"
 							:enableTimePicker="false"></Datepicker> -->
-							<!-- <input type="date" class="form-input" :value="new Date(formData.dob).toISOString().slice(0, 10)"> -->
+							<input 
+							type="date"
+							class="form-input"
+							v-model="dob"
+							>
+							<!-- :value="new Date(formData.dob).toISOString().slice(0, 10)" -->
 						</div>
 
 						<!-- Gender -->
@@ -70,7 +80,9 @@
 							</label>
 							<input
 								class="form-input"
-								id="occupation" type="text" placeholder="" v-model="formData.occupation">
+								id="occupation" 
+								type="text" 
+								placeholder="@example Doctor" v-model="formData.occupation">
 						</div>
 
 						<!-- Phone -->
@@ -95,7 +107,9 @@
 							
 							<textarea
 							class="form-input"
-							id="address" type="text" placeholder="" v-model="formData.address"></textarea>
+							id="address" type="text" 
+							placeholder="@example 243/1 West Bank Road#2" 
+							v-model="formData.address"></textarea>
 							
 							<small v-if="v$.formData.address.$error" class="form-error-text">
 								{{v$.formData.address.$errors[0].$message}}
@@ -145,43 +159,40 @@ export default {
         },
     },
 
-    created() {
-        this.formData = Object.assign({
-                    name: "",
-                    gender: "",
-                    dob: "",
-                    phone:"",
-                    nid: "",
-                    address:"",
-
-        }, this.patient)
-		// this.getPat(this.pat)
-    },
-
-    watch: {
-    
-    },
-
-
     data() {
         
         return {
+			// v$: useValidate(),
+			// token: localStorage.getItem('token'),
+			formData: {
+				// ...this.patient
+				...this.objectMap({
+					name: "",
+					phone:"",
+					gender: "",
+					dob: "",
+					nid: "",
+					address:"",
 
-        // v$: useValidate(),
-        // token: localStorage.getItem('token'),
-        formData: {
-			...this.patient
-        }
-    
-       
-       
-      }
+				}, this.patient)
+			}
+		}
     },
     setup() {
         return {
             v$: useValidate(),
         }
     },
+	computed: {
+		dob: {
+			get() {
+				return new Date(this.formData.dob).toISOString().slice(0, 10);
+			},
+			set(newValue) {
+				this.formData.dob = newValue;
+			},
+		}
+	},
     validations() {
 		const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
 		return {
@@ -220,36 +231,6 @@ export default {
 		close() {
 			this.$emit("closeModal");
 		},
-		// getPat(i) {
-     
-		// 	// this.formData.name = i.name,
-		// 	// this.formData.phone = i.phone,
-		// 	// this.formData.dob = i.dob,
-		// 	// this.formData.nid = i.nid,
-		// 	// this.formData.gender = i.gender,
-		// 	// this.formData.occupation = i.occupation,
-		// 	// this.formData.address = i.address
-		// 	Object.assign(this.formData, i);
-		// },
-
-		// async getPatient(id) {
-		// 	// const format2 = 'LL';
-		// 	try {
-		// 		const response = await axios.get('patients/' + id, {
-		// 			headers: {
-		// 			"Authorization": `Bearer ${localStorage.getItem('token') }`
-		// 			}
-		// 		});
-		// 		// this.formData = response.data.data;
-		// 		// this.formData.dob = new Date(this.formData.dob);
-		// 		// this.formData.dob = new Date(this.formData.dob).toLocaleDateString();
-		// 		// this.formData.dob = moment(this.formData.dob).format(format2);
-		// 		Object.assign(this.formData, response.data.data);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// },
-
 		async updatePatientInfo(id) {
             console.log(this.formData);
 
