@@ -45,7 +45,7 @@
 						</label>
 							<input  
 								class="form-input"
-								id="phone" type="text" placeholder="" v-model.trim="v$.formdata.phone.$model">
+								id="phone" type="text" placeholder="@example +880 162 7XX XXXX" v-model.trim="v$.formdata.phone.$model">
 						
 						</div>
 
@@ -68,8 +68,10 @@
 							<div class="relative">
 								<select 
 									class="form-input"
-									id="gender" v-model.trim="v$.formdata.gender.$model">
-									<option value="none" >none</option>
+									id="gender" 
+									v-model.trim="v$.formdata.gender.$model"
+									>
+									<option>none</option>
 									<option value="male">Male</option>
 									<option value="female">Female</option>
 									<option value="others">Others</option>
@@ -104,16 +106,23 @@
 							</div>
 						</label>
 						<input
-							class="form-input"
-						id="date" type="date" placeholder="Input date of birth" v-model.trim="v$.formdata.dob.$model">
+						class="form-input"
+						id="date" type="text" 
+						placeholder="Month - Day - Year"
+						onfocus="(this.type='date')"
+						onblur="(this.type='text')"
+						v-model.trim="v$.formdata.dob.$model" 
+						>
 			
 						</div>
 
 						<!-- Create button -->
 					
-					<div class=" flex justify-between mt-8 py-3 px-3">
-						<button
-							class="buttonsubmit">Create Patient</button>
+					<div class="py-4">
+						
+						<button type="submit" class="buttonsubmit w-full">
+							Create Patient
+						</button>
 					</div>
 				</form>
 			</section>
@@ -125,22 +134,23 @@
 
 </template>
 <script>
-  import axios from 'axios';
-  import swal from 'sweetalert';
-  import Modal from "../../components/reusable/Modal.vue"
-  import useValidate from '@vuelidate/core';
-  import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
+import axios from 'axios';
+import swal from 'sweetalert';
+import Modal from "../../components/reusable/Modal.vue"
+import useValidate from '@vuelidate/core';
+import {required,minLength,maxLength,numeric,helpers} from '@vuelidate/validators';
 
-  export default {
-components: {
-	Modal
-},
+export default {	  
+	
+	components: {
+		Modal
+	},
     data() {
       return {
         // token: localStorage.getItem('token'),
         formdata: {
           name: '',
-          gender: '',
+          gender: 'none',
           phone: '',
           dob: ''
         }
@@ -151,10 +161,6 @@ components: {
             v$: useValidate(),
         }
     },
-	mounted(){
-		// this.v$.$touch();
-		// console.log(this.v$.$touch());
-	},
 	
     validations(){
      const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
@@ -183,13 +189,13 @@ components: {
     },
     methods: {
       async createPatient() {
-        // this.formdata.phone = this.formdata.phone.replace(/\s/g, '');
-		// console.log(this.v$.$touch);
+        this.formdata.phone = this.formdata.phone.replace(/\s/g, '');
 		
-        if (!this.v$.$error) {
+		
 			try {
+				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
 				const response = await axios.post('patients/', this.formdata);
-				console.log(response.data.data);
+				
 				if(response.data.status === 'success'){
 					this.$emit('register', response.data.data);
 					this.$emit('close');
@@ -201,8 +207,8 @@ components: {
 						buttons: false
 					});
 
-
 				}
+				
 			} catch (error) {
 				swal({
 					title: "error",
@@ -210,19 +216,19 @@ components: {
 					icon: "error",
 					buttons: false
 				});
-			}
-			
+			}		
         }
-      },
-    
     }
   }
 </script>
 
 <style scoped>
  .buttonsubmit {
-	@apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold rounded-md text-sm flex;
+	@apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold rounded-md tracking-wider text-base;
   }
+.buttonsubmit:hover{
+	@apply bg-regal-cyan cursor-pointer;
+}
 
   .form-group {
 	@apply w-full lg:w-full;
@@ -236,7 +242,7 @@ components: {
   }
 
   .form-input {
-	@apply appearance-none py-3 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue
+	@apply appearance-none block py-3 px-4 mb-3 w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue
   }
   .form-input-error {
 	@apply appearance-none py-3 px-4 mb-3 block w-full bg-white text-red-500 border border-red-300 border-opacity-50 rounded leading-tight focus:outline-none focus:border-red-500
