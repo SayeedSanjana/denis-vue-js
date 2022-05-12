@@ -14,12 +14,11 @@
 						<div class="form-group">
 							<label class="form-label" for="name">
 								Full Name
-								<div v-show="v$.$error">
+						<div v-show="v$.formdata.name.$error">
 							<div v-for="error of v$.formdata.name.$errors" :key="error.$uid">
 								<small class="form-error-text">
 									{{error.$message}}
 								</small>
-									
 							</div>
 						</div>
 
@@ -27,25 +26,26 @@
 
 							<input 
 								class="form-input" 
-								id="name" type="text" placeholder="" v-model="formdata.name">
+								id="name" type="text" placeholder="@example John Doe" v-model.trim="v$.formdata.name.$model">
 						</div>
 
 						<!-- phone -->
 				
 						<div class="form-group">
-							<label class="form-label" for="phone">Phone 
-							<div v-show="v$.$error">
-							<div v-for="error of v$.formdata.phone.$errors" :key="error.$uid">
-								<small class="form-error-text">
-									{{error.$message}}
-								</small>
-									
+							<label class="form-label" for="phone">
+								Phone 
+							<div v-show="v$.formdata.phone.$error">
+								<div v-for="error of v$.formdata.phone.$errors" :key="error.$uid">
+									<small class="form-error-text">
+										{{error.$message}}
+									</small>
+										
+								</div>
 							</div>
-						</div>
 						</label>
 							<input  
 								class="form-input"
-								id="phone" type="text" placeholder="" v-model="formdata.phone">
+								id="phone" type="text" placeholder="" v-model.trim="v$.formdata.phone.$model">
 						
 						</div>
 
@@ -56,8 +56,8 @@
 						<div class="form-group">
 							<label class="form-label" for="gender">
 								Gender
-								<div v-show="v$.$error">
-							<div v-for="error of v$.formdata.gender.$errors" :key="error.$uid">
+							<div v-show="v$.formdata.gender.$error">
+								<div v-for="error of v$.formdata.gender.$errors" :key="error.$uid">
 								<small class="form-error-text">
 									{{error.$message}}
 								</small>
@@ -68,10 +68,11 @@
 							<div class="relative">
 								<select 
 									class="form-input"
-									id="gender" v-model="formdata.gender">
-									<option>Male</option>
-									<option>Female</option>
-									<option>Others</option>
+									id="gender" v-model.trim="v$.formdata.gender.$model">
+									<option value="none" >none</option>
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+									<option value="others">Others</option>
 								</select>
 								<div
 									class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -92,18 +93,19 @@
 				
 						<div class="form-group">
 							<label class="form-label" for="dob">Date Of Birth
-								<div v-show="v$.$error">
-							<div v-for="error of v$.formdata.dob.$errors" :key="error.$uid">
-								<small class="form-error-text">
-									{{error.$message}}
-								</small>
-									
+							
+							<div v-show="v$.formdata.dob.$error">
+								<div v-for="error of v$.formdata.dob.$errors" :key="error.$uid">
+									<small class="form-error-text">
+										{{error.$message}}
+									</small>
+										
+								</div>
 							</div>
-						</div>
 						</label>
 						<input
 							class="form-input"
-						id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
+						id="date" type="date" placeholder="Input date of birth" v-model.trim="v$.formdata.dob.$model">
 			
 						</div>
 
@@ -146,11 +148,11 @@ components: {
     },
 	setup() {
         return {
-            v$: useValidate({$autoDirty: true}),
+            v$: useValidate(),
         }
     },
 	mounted(){
-		this.v$.$touch();
+		// this.v$.$touch();
 		// console.log(this.v$.$touch());
 	},
 	
