@@ -26,7 +26,7 @@
 						</label>
 
 							<input 
-								class="form-input"
+								class="form-input" 
 								id="name" type="text" placeholder="" v-model="formdata.name">
 						</div>
 
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						</label>
-							<input @blur="v$.formdata.phone.$touch()" 
+							<input  
 								class="form-input"
 								id="phone" type="text" placeholder="" v-model="formdata.phone">
 						
@@ -66,7 +66,7 @@
 						</div>
 						</label>
 							<div class="relative">
-								<select @blur="v$.formdata.gender.$touch()"
+								<select 
 									class="form-input"
 									id="gender" v-model="formdata.gender">
 									<option>Male</option>
@@ -101,10 +101,10 @@
 							</div>
 						</div>
 						</label>
-							<input
-							@blur="v$.formdata.dob.$touch()" class="form-input"
-							id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
-				
+						<input
+							class="form-input"
+						id="date" type="date" placeholder="Input date of birth" v-model="formdata.dob">
+			
 						</div>
 
 						<!-- Create button -->
@@ -146,11 +146,11 @@ components: {
     },
 	setup() {
         return {
-            v$: useValidate(),
+            v$: useValidate({$autoDirty: true}),
         }
     },
 	mounted(){
-		// this.v$.$touch();
+		this.v$.$touch();
 		// console.log(this.v$.$touch());
 	},
 	
@@ -160,24 +160,20 @@ components: {
 		formdata:{
 			name: {
 				required,
-				$autoDirty: true,
 				minLength: minLength(3),
 				nospecial: helpers.withMessage("Should not include special characters like '@#.,'", nospecial)
 			},
 			gender: {
 				required,
-				$autoDirty: true
 			},
 			phone: {
 				required,
 				numeric,
 				minLength: minLength(11),
 				maxLength: maxLength(14),
-				$autoDirty: true
 			},
 			dob: {
 				required,
-				$autoDirty: true
 			},
 		}
 
