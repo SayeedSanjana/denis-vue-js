@@ -270,9 +270,9 @@ export default {
 		}
     },
     methods: {
-		close() {
-			this.$emit("closeModal");
-		},
+		// close() {
+		// 	this.$emit("closeModal");
+		// },
 		async updatePatientInfo(id) {
             // console.log(this.formData);
 

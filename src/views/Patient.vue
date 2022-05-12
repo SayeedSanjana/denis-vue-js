@@ -13,7 +13,7 @@
                             <div class="mt-5 mb-2 border-2 py-1 px-3 flex justify-between  rounded-md">
                                 <input class="flex-grow outline-none text-regal-teal focus:text-gray-600 w-96 h-8"
                                     name="q" type="text" placeholder="Search by name or phone number" v-model="this.text"
-                                    @keydown="this.getPatients()" />
+                                    />
                                 <span class="ml-10">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-5 w-5 mt-1 text-gray-400 hover:text-blue-400 transition duration-100 cursor-pointer"
@@ -49,10 +49,8 @@
                     <th class="px-4 py-3">Reg Date</th>
                 </tr>
                
-
-                
                 <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                 @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients " :key="index"  >
+                 @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients" :key="index"  >
                     <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
                     <td class="px-2 py-3">{{patient.name}}</td>
                     <td class="px-2 py-3">{{patient.phone}}</td>
@@ -76,7 +74,7 @@
           
         </section>
         <div v-if="openModal">
-            <RegisterPatient @closeModal="closeModal" />
+            <RegisterPatient @close="closeModal" @register="register" />
         </div>
     </div>
 </template>
@@ -95,8 +93,11 @@
 
         },
         created() {
+           
             this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
+            this.pat
             this.currentPage=1
+             
          
         },
 
@@ -106,12 +107,15 @@
                 total:0,
                 text:'',
          
-                Patients: [],
+                // patients: [],
                 perPage: 10,
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',
                 perPg:10,
+
+                // sdfsd = this.$store.state.patients,
+                
             
 
             }
@@ -120,10 +124,10 @@
         methods: {
           
             
-             dateConversion(date) {
-             return moment(date).format('LL')
+            dateConversion(date) {
+                return moment(date).format('LL')
 
-      },
+            },
             changePage(num) {
                 this.currentPage = this.currentPage + num
                 this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
@@ -151,6 +155,9 @@
 
             closeModal() {
                 this.openModal = false
+            },
+            register(patient){
+                this.$store.state.patients.push(patient)
             }
         }
     }

@@ -35,18 +35,25 @@ export default createStore({
 
 },
 	actions: {
-		fetchPatients({commit} , currentPage, perPage , text) {
-			axios.get('http://localhost:3000/api/patients', {
-                params: {
-                                page:currentPage,
-                                limit:perPage,
-                                q:text
-                            },
+		async fetchPatients({commit} , currentPage, perPage , text) {
+			try {
+                const data = await axios.get('http://localhost:3000/api/patients', {
+                    params: {
+                                    page:currentPage,
+                                    limit:perPage,
+                                    q:text
+                                },
+    
+                },);
+                return commit('setPatients', data);
+                
+            } catch (error) {
+                console.log(error);    
+            }
 
-            }, )
-				.then((result) => commit('setPatients', result) 
+				// .then((result) => commit('setPatients', result) 
             
-                )
+                // )
 		},
 
         fetchPatient ({commit}, patientId) {
