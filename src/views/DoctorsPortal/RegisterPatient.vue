@@ -25,7 +25,7 @@
 
 						</label>
 
-							<input @blur="v$.formdata.name.$touch()"
+							<input 
 								class="form-input"
 								id="name" type="text" placeholder="" v-model="formdata.name">
 						</div>
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						</label>
-							<input @blur="v$.formdata.phone.$touch()"
+							<input @blur="v$.formdata.phone.$touch()" 
 								class="form-input"
 								id="phone" type="text" placeholder="" v-model="formdata.phone">
 						
@@ -150,7 +150,8 @@ components: {
         }
     },
 	mounted(){
-		this.v$.$touch();
+		// this.v$.$touch();
+		// console.log(this.v$.$touch());
 	},
 	
     validations(){
@@ -159,19 +160,25 @@ components: {
 		formdata:{
 			name: {
 				required,
+				$autoDirty: true,
 				minLength: minLength(3),
 				nospecial: helpers.withMessage("Should not include special characters like '@#.,'", nospecial)
 			},
 			gender: {
-				required
+				required,
+				$autoDirty: true
 			},
 			phone: {
 				required,
 				numeric,
 				minLength: minLength(11),
-				maxLength: maxLength(14)
+				maxLength: maxLength(14),
+				$autoDirty: true
 			},
-			dob: {required},
+			dob: {
+				required,
+				$autoDirty: true
+			},
 		}
 
      }
@@ -179,7 +186,7 @@ components: {
     methods: {
       async createPatient() {
         // this.formdata.phone = this.formdata.phone.replace(/\s/g, '');
-		// this.v$.$touch();
+		// console.log(this.v$.$touch);
 		
         if (!this.v$.$error) {
 			try {
