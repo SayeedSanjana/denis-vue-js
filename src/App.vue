@@ -1,11 +1,31 @@
 <template>
- <div>     
-    <main>
-		<router-view/>     
-    </main>
+ <div id="app">     
+    <!-- <main> -->
+      <!-- <Nav /> -->
+      <component :is="layout">
+
+        <router-view/>     
+      </component>
+    <!-- </main> -->
 </div>
  
 </template>
+
+<script>
+const defaultLayout = 'default'
+// import Nav from "./components/Nav.vue"
+export default {
+
+  components: {
+    // Nav
+  },
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || defaultLayout ) + '-layout'
+    }
+  }
+}
+</script>
 
 <style>
 #app {

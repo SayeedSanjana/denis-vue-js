@@ -103,15 +103,17 @@ const routes = [
   {
     path: '/',
     name: 'Login',
+    meta: { layout: 'blank'},
     component: Login
   },
   {
     path: '/register-patient',
     name: 'RegisterPatient',
+    meta: { layout: 'blank'},
     component: RegisterPatient
   },
   {
-    path: '/patient-details1/:id',
+    path: '/patient-details/:id',
     name: 'PatientDetails',
     component: PatientDetails
   },

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <header>
+        <!-- <header>
 
            <Nav/>
-        </header>
+        </header> -->
          
             <div class="lg:flex bg-white   ">
                 <!--main-->
@@ -38,12 +38,12 @@
 <script>
     import TreatmentPrescriptionNav from "../../components/TreatmentPrescriptionNav.vue"
     import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
-    import Nav from "../../components/Nav.vue";
+    // import Nav from "../../components/Nav.vue";
     import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
     // import axios from "axios";
     export default {
         components: {
-            Nav,
+            // Nav,
             TreatmentPrescriptionNav,
             PastPresGeneralNav,
             PreviousMedicalRecords

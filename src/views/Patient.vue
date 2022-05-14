@@ -1,8 +1,8 @@
 <template>
     <div>
-        <header>
+        <!-- <header>
             <Nav/>
-        </header>
+        </header> -->
    
         <div class="w-full px-6 py-4">
             <p class="text-lg text-left font-bold m-5 px-36 text-regal-teal">Patient Records</p>
@@ -52,7 +52,7 @@
                     </tr>
                 
                     <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                    @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients" :key="index"  >
+                    @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients.slice(0, perPage)" :key="index"  >
                         <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
                         <td class="px-2 py-3">{{patient.name}}</td>
                         <td class="px-2 py-3">{{patient.phone}}</td>
@@ -78,20 +78,20 @@
           
         </div>
         <div v-if="openModal">
-            <RegisterPatient @close="closeModal" @register="register" />
+            <RegisterPatient @close="closeModal"  />
         </div>
     </div>
 </template>
 
 <script>
    
-    import Nav from "../components/Nav.vue"
+    // import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
     import moment from "moment"
     export default {
 
         components: {
-            Nav,
+            // Nav,
             RegisterPatient,
           
 
@@ -99,7 +99,7 @@
         created() {
            
             this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
-            this.pat
+            // this.pat
             this.currentPage=1
              
          
@@ -116,7 +116,6 @@
                 currentPage: 1,
                 openModal: false,
                 dateCon:'',
-                perPg:10,
 
                 // sdfsd = this.$store.state.patients,
                 
@@ -160,9 +159,10 @@
             closeModal() {
                 this.openModal = false
             },
-            register(patient){
-                this.$store.state.patients.push(patient)
-            }
+            // register(patient){
+            //     this.$store.state.patients.push(patient)
+            // }
+          
         }
     }
 </script>

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <header class="sticky top-0 z-50">
+        <!-- <header class="sticky top-0 z-50">
 
             <Nav />
-        </header>
+        </header> -->
 
         <div class="flex bg-regal-white">
             <div class="w-2/3">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-    import Nav from "../../components/Nav.vue";
+    // import Nav from "../../components/Nav.vue";
     // import axios from 'axios';
     import moment from "moment";
     // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
@@ -99,7 +99,7 @@
             // this.getPatients();
         },
         components: {
-            Nav,
+            // Nav,
             //  VueTailwindPaginaiton
         },
 

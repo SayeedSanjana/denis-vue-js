@@ -25,6 +25,13 @@ export default createStore({
             state.totalBill = bills.data.total
             state.endPage = bills.data.nextPage
         },
+        registerPatient(state, patients) {
+            console.log("Hi");
+           
+            state.patients.unshift(patients)
+            state.totalPatient = state.totalPatient + 1
+            state.endPage = state.endPage + 1
+        },
       
 
         // editPatient(state, patient) {

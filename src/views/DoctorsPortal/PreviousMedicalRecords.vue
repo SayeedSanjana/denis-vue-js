@@ -75,23 +75,28 @@
             AddMedicalHistory
         },
         props: {
-            patient: Object,
+            patient: {
+                type:Object
+            },
         },
       
         watch:{
             patient: function(val){
-                console.log(this.getPat(val));
+                this.getPat(val);
             },
-            // patientInfoUpdate(val){
-            //     Object.assign(this.patientInfo, val);
-            // }
+           
         },
+
+        // mounted(){
+        //     this.getPat(this.patient); 
+        // },
         data() {
             return {
         
                 token: localStorage.getItem('token'),
                 isEditPatientActive: false,
                 isAddHistoryActive: false,
+               
                 patientInfo: {
                     name: "",
                     gender: "",
@@ -128,12 +133,9 @@
         
         methods: {
             getPat(i){
-                // console.log('before',this.patientInfo);
-                console.log(i);
-                console.log(this.patientInfo);
+               
                 Object.assign(this.patientInfo, i);
-                console.log(this.patientInfo);
-                // console.log('after',this.patientInfo);
+              
             },
             calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();

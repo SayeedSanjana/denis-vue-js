@@ -60,16 +60,18 @@ export default {
                 const ageDate = new Date(ageDifMs);
                 return Math.abs(ageDate.getUTCFullYear() - 1970);
 		},
+		
 		async createPatient() {
 			
 			this.formData.phone = this.formData.phone.replace(/\s/g, '');
-		
+
 			try {
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
 				const response = await axios.post('patients/', this.formData);
 				
 				if(response.data.status === 'success'){
-					this.$emit('register', response.data.data);
+					this.$store.commit("registerPatient", response.data.data)
+					// this.$emit('register', response.data.data);
 					this.$emit('close');
 					swal({
 						title: "Success",
@@ -211,7 +213,7 @@ export default {
 					
 					<div class="py-4">
 						
-						<button type="submit" class="buttonsubmit w-full">
+						<button type="submit" class="buttonsubmit w-full" >
 							Create Patient
 						</button>
 					</div>

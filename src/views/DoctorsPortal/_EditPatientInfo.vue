@@ -296,9 +296,9 @@ export default {
 			try {
 			if (this.v$.$error) throw new Error({message:'Invalid Input'}) 
 			const response = await axios.put('/patients/' + id, this.formData );
-            Object.assign(this.patient, this.formData);
+            Object.assign(this.patient, response.data.data);
             this.$emit("close");
-            console.log(response.data.data);
+            // console.log(response.data.data);
 			swal({
 				title: "Success",
 				text: "Saved!",

@@ -59,7 +59,7 @@
                             <div class="dropdown inline-block relative pl-4">
                                 <button class="">
 
-                                <img class=" w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
+                                <img class=" w-7 h-7" src="@/assets/svgs/icon.svg" >
                                 </button>
                                 <div class="mr-8">                                 
                                 <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1 border border-regal-teal border-opacity-10 rounded-md border-t-0 ">

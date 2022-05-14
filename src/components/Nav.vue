@@ -12,7 +12,7 @@
         
             <ul class="flex items-center">
                 <li class="px-2">
-                    <router-link to="/patient"
+                    <router-link :to="{ name:'Patient'}"
                         class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
                         Patient</router-link>
 
@@ -34,10 +34,10 @@
 
                 </li>
                 <!-- user profile -->
-                <li class="relative text-left font-semibold">
+                <li class="relative text-left font-semibold"  >
+                    
                     
                     <img class="px-3" @mouseover="toggle" src="@/assets/svgs/icon.svg" alt="user-image">
-                    
 
                     <!--
                         Dropdown menu, show/hide based on menu state.
@@ -49,13 +49,13 @@
                         From: "transform opacity-100 scale-100"
                         To: "transform opacity-0 scale-95"
                     -->
-                    <div v-show="isOpen" class="dropdown"  tabindex="-1" @mouseleave="toggle">
+                    <div v-show="isOpen" @mouseleave="toggle" class="dropdown"  tabindex="-1">
                         <div class="dropdown-list-group" >
                             <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
-                                    ProfileSettings
+                                    Profile Settings
                             </router-link>
                             <router-link to="/AccountSettings" class="dropdown-items" tabindex="-1">
-                                AccountSettings
+                                Account Settings
                             </router-link>
                             <router-link to="/" @click="logout" class="dropdown-items" tabindex="-1">
                                 Logout
