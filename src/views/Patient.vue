@@ -41,7 +41,7 @@
             </section>
 
             <section>
-                <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue ">
+                <!-- <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue ">
                     <tr class="text-center text-md text-regal-teal h-16">
                         <th class="px-4 py-3">SL no</th>
                         <th class="px-4 py-3">Name</th>
@@ -61,8 +61,12 @@
                         <td class="">{{this.dateConversion(patient.createdAt.substring(0, 10))}}</td>
                     </tr>
                 
-                </table>  
-
+                </table>   -->
+                <form id="search">
+                    Search <input name="query" v-model="searchQuery">
+                </form>
+                <Grid :data="this.$store.state.patients"  :columns="gridColumns" :filter-key="searchQuery" />
+                
             </section>
 
              <section class="flex px-40 flex-row justify-center">
@@ -84,34 +88,60 @@
 </template>
 
 <script>
-   
+   import Grid from '../components/Grid.vue'
     // import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
     import moment from "moment"
     export default {
 
         components: {
+            Grid,
             // Nav,
             RegisterPatient,
           
 
         },
+
+    
         created() {
            
             this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
-            // this.pat
+        //     // this.pat
             this.currentPage=1
              
-         
+        //  this.getPatients()
+            //  this.patients = this.$store.state.patients
         },
+        // watch:{
+        //     patients(){
+        //         this.currentPage=1
+        //         this.patients = this.$store.state.patients
+                
+        //     }
+        // },
+        // mounted() {
+        //  this.patients = this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
+        //     this.patients = this.objectMap({
+        //         name:'',
+        //         phone:'',
+        //         gender:'',
+        //         _id:'',
+        //         createdAt:''            
+        //         }, this.patients)             
+         
+        // },
 
 
         data() {
             return {
+                searchQuery: '',
+                // gridColumns: ['Name', 'Contact', 'Gender', 'PatientId', 'RegDate'],
+                 gridColumns: {name:'Name',contact: 'Contact', gender: 'Gender',_id: 'PatientId',createdAt: 'RegDate'},
+                
                 total:0,
                 text:'',
          
-                // patients: [],
+                patients: [],
                 perPage: 10,
                 currentPage: 1,
                 openModal: false,
@@ -125,6 +155,13 @@
         },
 
         methods: {
+            getPatients(){
+                this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
+                this.currentPage=1
+                this.patients = this.$store.state.patients
+
+            },
+            
           
             
             dateConversion(date) {
