@@ -1,8 +1,8 @@
 <template>
     <div>
-        <header class="sticky top-0 z-50">
+        <header>
 
-           <Nav />
+           <Nav/>
         </header>
          
             <div class="lg:flex bg-white   ">

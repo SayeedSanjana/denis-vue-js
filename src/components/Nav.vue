@@ -1,123 +1,83 @@
 <template>
-    <div class="">
-        <nav class="bg-white shadow" style="background:#73C6CA">
-            <div class="container px-6 py-3 mx-auto">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <a class="text-xl font-semibold text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
-                                href="#" style="color:#005072">MT Dental Center</a>
-                        </div>
-                        <!-- Mobile menu button -->
-                        <div class="flex md:hidden">
-                            <button type="button" @click="toggle"
-                                class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
-                                aria-label="toggle menu">
-                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-                                    <path fill-rule="evenodd"
-                                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
-                                    </path>
-                                </svg>
-                            </button>
+    
+    <nav class="bg-white shadow sticky z-40" style="background:#73C6CA">
+        
+        <div class="flex justify-between container py-3 mx-auto items-center">
+            
+            <a class="text-xl font-semibold lg:text-2xl text-regal-teal"
+                
+                href="#">
+                MT Dental Center
+            </a>
+        
+            <ul class="flex items-center">
+                <li class="px-2">
+                    <router-link to="/patient"
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        Patient</router-link>
+
+                </li>
+                <li class="px-2">
+                    <!-- appointment -->
+                    <router-link to='/AppointmentPortal'
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        <span class="">Appointment</span>
+                    </router-link>
+
+                </li>
+                
+                <li class="px-2">
+                    <!-- Billing -->
+                    <router-link to="/patient-list-billing"
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        Billing</router-link>
+
+                </li>
+                <!-- user profile -->
+                <li class="relative text-left font-semibold">
+                    
+                    <img class="px-3" @mouseover="toggle" src="@/assets/svgs/icon.svg" alt="user-image">
+                    
+
+                    <!--
+                        Dropdown menu, show/hide based on menu state.
+
+                        Entering: "transition ease-out duration-100"
+                        From: "transform opacity-0 scale-95"
+                        To: "transform opacity-100 scale-100"
+                        Leaving: "transition ease-in duration-75"
+                        From: "transform opacity-100 scale-100"
+                        To: "transform opacity-0 scale-95"
+                    -->
+                    <div v-show="isOpen" class="dropdown"  tabindex="-1" @mouseleave="toggle">
+                        <div class="dropdown-list-group" >
+                            <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
+                                    ProfileSettings
+                            </router-link>
+                            <router-link to="/AccountSettings" class="dropdown-items" tabindex="-1">
+                                AccountSettings
+                            </router-link>
+                            <router-link to="/" @click="logout" class="dropdown-items" tabindex="-1">
+                                Logout
+                            </router-link>
                         </div>
                     </div>
-                    <div class="items-center md:flex">
-                        <div>
-                            <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
-                                <!-- <router-link to="/Library"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Library</router-link> -->
-                                
-                                <router-link to="/patient"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Patient</router-link>
-                                <!-- appointment -->
-                                <router-link to='/AppointmentPortal'
-                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    <span class="">Appointment</span>
-                                </router-link>
-                                <!-- <router-link to='/EmployeeList'
-                                    class=" 2xl:my-1 text-md font-semibold text-white leading-5 md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    <span class="">Employee</span>
-                                </router-link> -->
-                                <!-- appointment -->
-                                <router-link to="/patient-list-billing"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Billing</router-link>
-
-                                     <!-- <router-link to="/InventoryList"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    InventoryList</router-link> -->
-                                <!-- <router-link to="/AccountSettings"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Settings</router-link> -->
-                                <!-- <router-link to="/" @click="logout"
-                                    class="2xl:my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Logout
-                                </router-link> -->
-                                <!-- user profile -->
-                                <div class="dropdown inline-block relative pl-4">
-                                    <button class="">
-
-                                    <img class=" w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
-                                    </button>
-                                    <div class="mr-8">                                 
-                                    <ul class="dropdown-menu absolute hidden text-regal-teal font-medium pt-1 border border-regal-teal border-opacity-10 rounded-md border-t-0 ">
-                                        <li class="">
-                                            <router-link to="/ProfileSettings"
-                                                class=" rounded-t bg-white hover:bg-regal-white py-1 px-9 block whitespace-no-wrap">
-                                                ProfileSettings</router-link>
-                                        </li>
-                                        <li class="">
-                                            <router-link to="/AccountSettings"
-                                                class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
-                                                AccountSettings</router-link>
-                                        </li>
-                                        <li class="">
-                                            <router-link to="/" @click="logout"
-                                                class="bg-white hover:bg-regal-white py-2 px-9 block whitespace-no-wrap">
-                                                Logout
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                </div>
-                                <!--                                 
-                                <router-link to="/AccountSettings">
-                                <img class="w-7 h-7" src="@/assets/svgs/icon.svg" alt="" srcset="">
-                                </router-link> -->
-                                <!-- user profile -->
-                            </div>
-                        </div>
-                        <!-- Search input on mobile screen -->
-                        <div class="mt-3 md:hidden hidden">
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </span>
-
-                                <input type="text"
-                                    class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                                    placeholder="Search">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+                </li>
+            </ul> 
+        </div>
+        
+    </nav>
+    
 </template>
 <script>
     export default {
         data() {
             return {
-                isOpen: true,
+                isOpen: false,
             }
         },
         methods: {
-            toggle: function () {
+            toggle() {
                 this.isOpen = !this.isOpen
             },
             logout() {
@@ -128,7 +88,20 @@
 </script>
 
 <style scoped>
-    .dropdown:hover .dropdown-menu {
-        display: block;
+    .dropdown {
+        @apply absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-regal-cyan-teal ring-opacity-20 focus:outline-none;
     }
+    
+    .dropdown-list-group {
+        @apply py-1 text-regal-teal text-opacity-60;
+    }
+    .dropdown-items{
+        @apply block px-4 py-2 text-sm;
+    }
+    .dropdown-items:hover{
+        @apply bg-gray-200 text-regal-teal;
+    }
+    /* .dropdown:hover .dropdown-menu {
+        display: block;
+    } */
 </style>

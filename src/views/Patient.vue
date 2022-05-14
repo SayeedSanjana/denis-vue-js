@@ -1,12 +1,12 @@
 <template>
-    <header class="sticky top-0 z-50">
-        <Nav />
-    </header>
-    <div class="h-screen" style="background-color:#F2FBFC">
+    <div>
+        <header>
+            <Nav/>
+        </header>
    
-        <section class="w-full  px-6 py-4 ">
-            <p class="text-lg text-left font-bold m-5 px-36" style="color:#005072">Patient Records</p>
-            <div class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
+        <div class="w-full px-6 py-4">
+            <p class="text-lg text-left font-bold m-5 px-36 text-regal-teal">Patient Records</p>
+            <section class="m-5 w-5/6 mx-auto flex sm:flex-row flex-col justify-between ">
                 <div class="flex flex-row mb-1 sm:mb-0">
                     <div class="block relative">
                         <form class="bg-white ">
@@ -30,7 +30,7 @@
                     <button class="flex items-center text-center m-2 p-1 border rounded text-white font-semibold "
                         style="background-color:#73C6CA" @click="modal">
                         <span class=" mt-1 ml-2 mr-2"> Register New Patient</span>
-                        <span class="mr-2"><svg class="w-3 h-4 fill-current text-white  " height="426.66667pt"
+                        <span class="mr-2"><svg class="w-3 h-4 fill-current text-white" height="426.66667pt"
                                 viewBox="0 0 426.66667 426.66667" width="426.66667pt"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -38,30 +38,34 @@
                             </svg></span>
                     </button>
                 </div>
-            </div>
-            <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue ">
-                <tr class="text-center text-md text-regal-teal h-16">
-                    <th class="px-4 py-3">SL no</th>
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">Contact</th>
-                    <th class="px-4 py-3">Gender</th>
-                    <th class="px-4 py-3">Patient ID</th>
-                    <th class="px-4 py-3">Reg Date</th>
-                </tr>
-               
-                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                 @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients" :key="index"  >
-                    <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
-                    <td class="px-2 py-3">{{patient.name}}</td>
-                    <td class="px-2 py-3">{{patient.phone}}</td>
-                    <td class="px-2 py-3">{{patient.gender}}</td>
-                    <td class="px-2 py-3 ">P-{{patient._id.substring(patient._id.length - 7)}}</td>
-                    <td class="">{{this.dateConversion(patient.createdAt.substring(0, 10))}}</td>
-                </tr>
-             
-            </table>  
+            </section>
 
-             <div class="flex px-40 flex-row justify-center">
+            <section>
+                <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue ">
+                    <tr class="text-center text-md text-regal-teal h-16">
+                        <th class="px-4 py-3">SL no</th>
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">Contact</th>
+                        <th class="px-4 py-3">Gender</th>
+                        <th class="px-4 py-3">Patient ID</th>
+                        <th class="px-4 py-3">Reg Date</th>
+                    </tr>
+                
+                    <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
+                    @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients" :key="index"  >
+                        <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
+                        <td class="px-2 py-3">{{patient.name}}</td>
+                        <td class="px-2 py-3">{{patient.phone}}</td>
+                        <td class="px-2 py-3">{{patient.gender}}</td>
+                        <td class="px-2 py-3 ">P-{{patient._id.substring(patient._id.length - 7)}}</td>
+                        <td class="">{{this.dateConversion(patient.createdAt.substring(0, 10))}}</td>
+                    </tr>
+                
+                </table>  
+
+            </section>
+
+             <section class="flex px-40 flex-row justify-center">
                 <div class="px-40">
                     <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                           :disabled="currentPage === 1" :class="currentPage === 1 ?'cursor-not-allowed' :'cursor-pointer'" @click="changePage(-1)"> Previous</button>
@@ -70,9 +74,9 @@
                     <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                         :disabled="$store.state.endPage == false " :class="$store.state.endPage == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
                 </div>
-            </div>       
+            </section>       
           
-        </section>
+        </div>
         <div v-if="openModal">
             <RegisterPatient @close="closeModal" @register="register" />
         </div>

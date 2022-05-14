@@ -47,7 +47,7 @@
          
             </div> -->
         <!-- </div> -->
-          </div> 
+        </div> 
         <div v-else>
             <div v-if="PresList">
               <PrescriptionList  @dashboard="dashboard"/>

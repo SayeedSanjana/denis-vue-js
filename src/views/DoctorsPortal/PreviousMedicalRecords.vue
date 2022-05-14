@@ -1,68 +1,60 @@
 <template>
-    <div>
-        <!-- <div
-            class="container md:flex md:items-center md:justify-center mx-auto text-gray-600 capitalize dark:text-gray-300 bg-regal-white border border-regal-cyan border-opacity-20 p-4">
-            <div class="text-regal-teal font-semibold">
+    <div>         
+        <!-- Profile infomation START  -->
+        <div class="border-b-2 bg-gray-50 hover:overflow-hidden ">
+            <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
                 Patient
             </div>
-        </div> -->
+            <!-- {{this.patientInfo}} -->
+            <hr class="border-b mb-1"/>
 
-         
-            <!-- Profile infomation START  -->
-            <div class="border-b-2 bg-gray-50 hover:overflow-hidden ">
-                <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
-                    Patient
+            <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
+                <div class=" text-regal-teal text-sm font-semibold text-left">
+                    {{val}}
                 </div>
-                <!-- {{this.patientInfo}} -->
-                <hr class="border-b mb-1"/>
-
-                <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
-                    <div class=" text-regal-teal text-sm font-semibold text-left">
-                        {{val}}
-                    </div>
-                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
-                        : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
-                    </div>
-                </div>
-                
-               
-                <div class="flex flex-row-reverse px-6 py-3">
-                    <button name="edit" class="btn" @click="openModal($event)"> Edit</button>
+                <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
+                    : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
                 </div>
             </div>
-            <!--  Profile infomation END -->
-
-            <div class=" border-b-2 bg-gray-50 hover:overflow-hidden ">
-
-                <div class="border-r-4 border-red-400 bg-red-50 text-regal-teal text-xl font-semibold p-3">
-                    Medical History
-                </div>
-                <hr class="border-b mb-1">
-
-                <button name="addHst" @click="openModal($event)" class="btn-underline">
-                    Add History 
-                </button>
-               
-
-                <History :items="patientInfo.allergies" :title="'allergies'" @removeHistory="removeSingleMedicalHistory"  >
-                    Allergies
-                </History>
-
-                <History :items="patientInfo.disease" :title="'disease'" @removeHistory="removeSingleMedicalHistory">
-                    Diseases
-                </History>
-
-                <History :items="patientInfo.personalHabits" :title="'personalHabits'" @removeHistory="removeSingleMedicalHistory" >
-                    Personal Habits
-                </History>
+            
+            
+            <div class="flex flex-row-reverse px-6 py-3">
+                <button name="edit" class="btn" @click="openModal($event)"> Edit</button>
             </div>
+        </div>
+        <!--  Profile infomation END -->
 
-        <!-- <div v-if="isEditPatientActive"> -->
-        <!-- <div v-if="isAddHistorytive"> -->
-            <EditPatientInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
-            <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal" @onUpdate="(val) => patientInfo = val"/>
-           
-        <!-- </div> -->
+        <div class=" border-b-2 bg-gray-50 hover:overflow-hidden ">
+
+            <div class="border-r-4 border-red-400 bg-red-50 text-regal-teal text-xl font-semibold p-3">
+                Medical History
+            </div>
+            <hr class="border-b mb-1">
+
+            <button name="addHst" @click="openModal($event)" class="btn-underline">
+                Add History 
+            </button>
+            
+
+            <History :items="patientInfo.allergies" :title="'allergies'" @removeHistory="removeSingleMedicalHistory"  >
+                Allergies
+            </History>
+
+            <History :items="patientInfo.disease" :title="'disease'" @removeHistory="removeSingleMedicalHistory">
+                Diseases
+            </History>
+
+            <History :items="patientInfo.personalHabits" :title="'personalHabits'" @removeHistory="removeSingleMedicalHistory" >
+                Personal Habits
+            </History>
+        </div>
+
+        <!-- Edit Patient -->
+        <EditPatientInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal"/>
+        
+        <!-- Add Medical History -->
+        <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal" @onUpdate="(val) => patientInfo = val"/>
+        
     </div>
 </template>
 
