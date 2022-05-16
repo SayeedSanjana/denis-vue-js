@@ -46,36 +46,22 @@
         </section>
 
         <section class="mt-10">
-            <!-- <table class=" rounded-t-xl m-5 w-5/6 mx-auto bg-regal-blue ">
-                <tr class="text-center text-md text-regal-teal h-16">
-                    <th class="px-4 py-3">SL no</th>
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">Contact</th>
-                    <th class="px-4 py-3">Gender</th>
-                    <th class="px-4 py-3">Patient ID</th>
-                    <th class="px-4 py-3">Reg Date</th>
-                </tr>
-            
-                <tr class="border border-regal-blue border-opacity-25 bg-white  hover:bg-regal-white hover:opacity-80 text-regal-cyan"
-                @click="patientDetails(patient._id)" v-for="(patient,index) in $store.state.patients.slice(0, perPage)" :key="index"  >
-                    <td class="py-3 ">{{(this.perPage *(this.currentPage-1))+index+1}}</td>   
-                    <td class="px-2 py-3">{{patient.name}}</td>
-                    <td class="px-2 py-3">{{patient.phone}}</td>
-                    <td class="px-2 py-3">{{patient.gender}}</td>
-                    <td class="px-2 py-3 ">P-{{patient._id.substring(patient._id.length - 7)}}</td>
-                    <td class="">{{this.dateConversion(patient.createdAt.substring(0, 10))}}</td>
-                </tr>
-            
-            </table>   -->
-            <!-- <form id="search">
-                <label for="" class="font-bold px-2">Search</label>
-                <input name="query" class="border-b" v-model="searchQuery">
-            </form> -->
-            <Grid :data="this.$store.state.patients"  :columns="gridColumns" :filter-key="searchQuery" />
+          
+            <Grid   :method="patientDetails" :data="patients"  :columns="gridColumns" :filter-key="searchQuery" />
             
         </section>
 
-        <section class="flex px-40 flex-row justify-center">
+        <!-- Pagination -->
+        <div class="flex justify-center my-5">
+            <!-- {{this.getTotalData}} -->
+          <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage"
+              @pagechanged="onPageChange" />
+        </div>
+        <!-- {{this.totalData}} -->
+        <!-- Pagination -->
+
+
+        <!-- <section class="flex px-40 flex-row justify-center">
             <div class="px-40">
                 <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
                     :disabled="currentPage === 1" 
@@ -83,7 +69,6 @@
                     @click="changePage(-1)">
                     Previous
                 </button>
-                        <!-- :class="currentPage === 1 ?'cursor-not-allowed' :'cursor-pointer'" @click="changePage(-1)"> Previous</button> -->
             </div>
             <div class="px-40">
                 <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
@@ -92,9 +77,8 @@
                     @click="changePage(1)">
                     Next 
                 </button>
-                    <!-- :class="$store.state.endPage == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button> -->
             </div>
-        </section>       
+        </section>        -->
         
     
         
@@ -104,6 +88,7 @@
 </template>
 
 <script>
+import Pagination from '../components/Pagination.vue'
    import Grid from '../components/Grid.vue'
     // import Nav from "../components/Nav.vue"
     import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
@@ -114,39 +99,86 @@
             Grid,
             // Nav,
             RegisterPatient,
+            Pagination
           
 
         },
         created() {
            
-            this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
-            // this.currentPage=1;
+            this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage,this.totalData, this.text);
+      
              
         },
-        
+      watch: {
+        '$store.state.patients': function() {
+            this.patients.push(...this.$store.state.patients)
+            this.patients.forEach(patient => {
+                // patient._id ='P-'+ patient._id.substring(patient._id.length - 7);
+                patient.dob = this.calculateAge(patient.dob);
+                patient.createdAt = moment(patient.createdAt).format("DD-MM-YYYY");
+            });
+
+                },
+            '$store.state.totalPatient': function() {
+
+                this.totalData = this.$store.state.totalPatient;
+
+            // console.log(this.totalData)
+            },
+            // '$store.state.endPage': function() {
+            //     this.endPage = this.$store.state.endPage;
+            // },
+    },
+    computed: {
+        getTotalData() {
+            return this.$store.state.totalPatient;
+        },
+    },
+  
         data() {
             return {
                 searchQuery: '',
-                // gridColumns: ['Name', 'Contact', 'Gender', 'PatientId', 'RegDate'],
                 gridColumns: {
                     _id: 'patient ID',
                     name: 'name',
+                    dob:'age',
                     phone: 'contact',
                     gender: 'sex',
                     createdAt: 'registration date'
                 },
                 
-                total:0,
+                totalData:0,
                 text:'',
                 perPage: 10,
                 currentPage: 1,
-                openModal: false,                
+                openModal: false,  
+                patients:[],
+                // totalPages: 0,
+                // endPage: false,
+
             
 
             }
         },
 
         methods: {
+            onPageChange(page) {
+                this.currentPage = page;
+                this.patients = [];
+                this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage,this.totalData, this.text);
+                // console.log(this.currentPage);
+            },
+           
+
+            
+            
+
+           
+             calculateAge(birthYear){
+                let ageDifMs = Date.now() - new Date(birthYear).getTime();
+                const ageDate = new Date(ageDifMs);
+                return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
+            },
                         
             dateConversion(date) {
                 return moment(date).format('LL')

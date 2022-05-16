@@ -61,7 +61,9 @@
             },
             capitalize(str) {
                 return str.charAt(0).toUpperCase() + str.slice(1)
-            }
+            },
+
+
 
         }
     }
@@ -70,18 +72,18 @@
 
 
 <template>
-    <table  v-if="filteredData.length">
-        <thead>
+    <table  v-if="filteredData.length" class=" w-full mx-auto  bg-opacity-80 text-sm">
+        <thead >
             <tr>
                 <th v-for="key in Object.values(columns)" :key="key" @click="sortBy(key)" :class="{ active: sortKey == key }">
                     {{ capitalize(key) }}
-                    <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+                    <span :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
                     </span>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="entry in filteredData" :key="entry._id">
+            <tr @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
                 <!-- {{entry}} -->
                 <td v-for="key in Object.keys(columns)" :key="key._id">
                     <!-- {{key}} -->
@@ -96,54 +98,48 @@
 
 <style scoped>
 table {
-  border: 2px solid #42b983;
-  border-radius: 3px;
-  background-color: #fff;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 350px;
+}
+table tr th,
+table tr td {
+  border-right: 1px solid #73C6CA;
+  border-bottom: 1px solid #73C6CA;
+  
+  text-align: center;
+  padding: 10px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    text-align: center;
+    border-left: 1px solid #bbb;
+}
+table tr th {
+  background: #73C6CA;
+  border-top: 1px solid #73C6CA;
+  text-align: center;
+}
+table tr td {
+  background: #fff;
+}
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
 }
 
-th {
-  background-color: #42b983;
-  color: rgba(255, 255, 255, 0.66);
-  cursor: pointer;
-  user-select: none;
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 6px;
 }
 
-td {
-  background-color: #f9f9f9;
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
 }
 
-th,
-td {
-  min-width: 120px;
-  padding: 10px 20px;
-}
-
-th.active {
-  color: #fff;
-}
-
-th.active .arrow {
-  opacity: 1;
-}
-
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  opacity: 0.66;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
 }
 </style>

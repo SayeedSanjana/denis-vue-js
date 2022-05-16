@@ -42,12 +42,14 @@ export default createStore({
 
 },
 	actions: {
-		async fetchPatients({commit} , currentPage, perPage , text) {
+		async fetchPatients({commit} , currentPage, perPage ,totalData, text) {
 			try {
+                // console.log(currentPage);
                 const data = await axios.get('http://localhost:3000/api/patients', {
                     params: {
                                     page:currentPage,
                                     limit:perPage,
+                                    total:totalData,
                                     q:text
                                 },
     
@@ -69,11 +71,12 @@ export default createStore({
                 )
         },
 
-        fetchBills ({commit} , currentPage, perPage , text) {
+        fetchBills ({commit} , totalData, currentPage, perPage , text) {
             axios.get(`http://localhost:3000/api/billings`, {
                 params: {
                     page:currentPage,
                     limit:perPage,
+                    total:totalData,
                     q:text
                 },
 

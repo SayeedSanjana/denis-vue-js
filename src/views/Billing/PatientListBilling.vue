@@ -1,9 +1,6 @@
 <template>
     <div>
-        <!-- <header class="sticky top-0 z-50">
-
-            <Nav />
-        </header> -->
+      
 
         <div class="flex bg-regal-white">
             <div class="w-2/3">
@@ -35,7 +32,7 @@
                 </div>
                
             </div>
-            <table class=" rounded-t-xl m-5 xl:w-5/6 w-full mx-auto bg-regal-blue " >
+            <!-- <table class=" rounded-t-xl m-5 xl:w-5/6 w-full mx-auto bg-regal-blue " >
                 <tr class="text-center text-md text-regal-teal h-16" >
                     <th class="px-4 py-3">SL no</th>
                     <th class="px-4 py-3">Patient ID</th>
@@ -57,26 +54,28 @@
                     <td class="">{{this.dateConversion(bill.createdAt.substring(0, 10))}}</td>
                     
                 </tr>
-            </table>
+            </table> -->
+            <div class="mx-24">
+                <Grid :method="patientDetails" :data="bills" :columns="gridColumns" :filter-key="searchQuery"/>
+                
+            </div>
+
 
              <!-- <div class="flex px-40 flex-row justify-center bg-regal-white" v-if="this.total>this.perPage">
                 <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
             </div>
              -->
-   <div class="flex px-40 flex-row justify-center">
-                <div class="px-40">
-                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                          :disabled="currentPage === 1" :class="currentPage === 1 ?'cursor-not-allowed' :'cursor-pointer'" @click="changePage(-1)"> Previous</button>
-                </div>
-                <div class="px-40">
-                    <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                        :disabled="$store.state.endPage == false " :class="$store.state.endPage == false ?'cursor-not-allowed' :'cursor-pointer' "  @click="changePage(1)">Next </button>
-                </div>
-            </div>     
+
+             <div class="flex justify-center">
+                 <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
+             </div>
+        
+
+
         </section>
         
     </div>
-            </div><!--main 2/3-->
+            </div>
             
             <div class="hidden xl:block xl:w-1/3 mr-16">
              <img src="@/assets/svgs/billing.svg" alt="" class="w-full h-full flex justify-end ">
@@ -87,62 +86,87 @@
 </template>
 
 <script>
-    // import Nav from "../../components/Nav.vue";
-    // import axios from 'axios';
+
+    import Pagination from '../../components/Pagination.vue'
+    import Grid from '../../components/Grid.vue'
     import moment from "moment";
-    // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
     export default {
 
         created() {
-            this.$store.dispatch('fetchBills', this.currentPage, this.perPage, this.text);
-            this.currentPage=1
-            // this.getPatients();
+            this.$store.dispatch('fetchBills', this.currentPage,this.totalData, this.perPage, this.text);
+            // this.currentPage=1
         },
         components: {
-            // Nav,
-            //  VueTailwindPaginaiton
+            Grid,
+            Pagination
+        },
+        watch:{
+            '$store.state.bills':function(){
+               this.bills.push(...this.$store.state.bills)
+               this.bills.forEach(bill=>{
+                bill.createdAt=moment(bill.createdAt).format('DD-MM-YYYY');
+                bill.isPaid= bill.isPaid == true ? "Paid" : "Unpaid";
+                bill.patient= "P-"+bill.patient.substring(bill.patient.length - 7);
+
+
+               })
+
+
+            },
+
+            '$store.state.totalBill':function(){
+                this.totalData = this.$store.state.totalBill
+            },
+        },
+        computed:{
+            getTotalData(){
+                return this.$store.state.totalBill
+            },
         },
 
 
-        // computed: {
-        //     filteredList() {
-
-        //         const star = (this.currentPage - 1) * this.prePage
-        //         const end = this.currentPage * this.prePage
-        //         const result = this.Patients.slice(star, end)
-        //         return result
-        //     }
-        // },
 
         data() {
             return {
-                total:0,
+                totalData:0,
                 token: localStorage.getItem('token'),
                 open: false,
                 Patients: [],
                 perPage: 10,
                 currentPage: 1,
                 dateCon:"",
-                text:''
+                text:'',
+                bills:[],
+                gridColumns:{
+                     _id: 'bill ID',
+                     patient: 'Patient ID',
+                    total: 'Total Cost',
+                    isPaid:'Payment Status',
+                    balance: 'balance',  
+                    createdAt: 'Reg Date',  
+                },
+                searchQuery: '',
 
             }
         },
         methods: {
-            pageChange(pageNumber){
+            onPageChange(pageNumber){
                this.currentPage=pageNumber
-               this.getPatients(this.currentPage)
+               this.bills=[];
+                this.$store.dispatch('fetchBills', this.currentPage,this.totalData, this.perPage, this.text);
+               
             },
             
              dateConversion(date) {
              return moment(date).format('LL')
 
             },
-            changePage(num) {
+            // changePage(num) {
 
-                this.currentPage = this.currentPage + num
-                this.$store.dispatch('fetchBills', this.currentPage, this.perPage, this.text);
+            //     this.currentPage = this.currentPage + num
+            //     this.$store.dispatch('fetchBills', this.currentPage, this.perPage, this.text);
 
-            },
+            // },
 
             toggle() {
                 this.open = !this.open
@@ -155,30 +179,6 @@
                     }
                 })
             },
-            // async getPatients() {
-            //     await axios.get('patients', {
-            //                 params: {
-            //                     page:this.currentPage,
-            //                     limit:this.perPage,
-            //                     q: this.text
-            //                 },
-
-            //                 headers: {
-            //                     "Authorization": `Bearer ${localStorage.getItem('token') }`
-            //                 }
-            //             }
-            //         )
-            //         .then((response) => {
-            //             //console.log(response.data['result']);
-            //             this.total=response.data.totalPages;
-            //             this.Patients = response.data['result'];
-            //             console.log(this.Patients)
-            //         })
-            //         .catch((error) => {
-            //             console.log(error)
-            //             this.errorMsg = 'Error retrieving data'
-            //         })
-            // },
         }
     }
 </script>
