@@ -1,6 +1,6 @@
 <template>
     
-    <nav class="bg-white shadow sticky z-40" style="background:#73C6CA">
+    <nav class=" shadow sticky z-40 bg-gradient-to-l from-regal-cyan-teal to-regal-teethblue">
         
         <div class="flex justify-between container py-3 mx-auto items-center">
             
