@@ -8,7 +8,7 @@
                     <label class="mx-5">Patient</label>
     
                     <button name="edit" @click="openModal($event)" class=""> 
-                        <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6" >                
+                        <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 " >                
                     </button> 
                 </div>
             </div>
@@ -248,16 +248,10 @@
 
 <style scoped>
 .btn{
-    @apply py-1 px-4 bg-regal-teal text-white font-bold rounded border border-regal-teal;
+    @apply transition ease-in-out delay-150  ;
 }
 .btn:hover{
-    @apply underline text-regal-teal bg-transparent;
+    @apply  translate-y-1 scale-110;
 }
 
-.btn-underline{
-    @apply py-2 px-4 text-regal-teal text-lg underline tracking-wider;
-}
-.btn-underline:hover{
-    @apply text-regal-cyan-teal;
-}
 </style>
