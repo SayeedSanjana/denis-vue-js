@@ -1,24 +1,19 @@
 <template>
     <div>
-        <!-- <header>
-
-           <Nav/>
-        </header> -->
+     
          
-            <div class="lg:flex bg-white   ">
+            <div class="lg:flex">
                 <!--main-->
-                <div class=" mx-auto  bg-white w-full rounded-sm   lg:w-1/4 min-h-screen border border-regal-cyan border-opacity-20 ">
+                <div class=" mx-auto w-full rounded-sm   lg:w-1/5 ">
                     <!--sidebar-->
+                    <PreviousMedicalRecords :patient="$store.state.patient.data"/>
                     
-                    <div >
-                        <PreviousMedicalRecords :patient="$store.state.patient.data"/>
-                    </div>
                 </div>
                 <!--sidebar-->
 
-                <div class=" lg:w-3/4  ">
+                <div class=" lg:w-4/5  ">
                     <!--nav-->
-                    <div class="xl:flex justify-between min-h-screen ">
+                    <!-- <div class="xl:flex justify-between min-h-screen ">
                         <div class="xl:w-3/5  md:mb-4  ">
 
                             <TreatmentPrescriptionNav :id="$route.params.id"> </TreatmentPrescriptionNav>
@@ -27,7 +22,7 @@
 
                             <PastPresGeneralNav :id="$route.params.id" :pat="$store.state.patient.data"></PastPresGeneralNav>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!--nav-->
             </div>
@@ -36,16 +31,16 @@
 </template>
 
 <script>
-    import TreatmentPrescriptionNav from "../../components/TreatmentPrescriptionNav.vue"
-    import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
+    // import TreatmentPrescriptionNav from "../../components/TreatmentPrescriptionNav.vue"
+    // import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
     // import Nav from "../../components/Nav.vue";
     import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
     // import axios from "axios";
     export default {
         components: {
             // Nav,
-            TreatmentPrescriptionNav,
-            PastPresGeneralNav,
+            // TreatmentPrescriptionNav,
+            // PastPresGeneralNav,
             PreviousMedicalRecords
         },
         created() {

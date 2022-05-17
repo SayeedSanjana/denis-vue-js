@@ -212,7 +212,7 @@ export default {
                             <label
                                 class="text-gray-800"
                                 for="option2"
-                                > disease </label
+                                > Diseases </label
                             >
                         </div>
                         <div class="pr-4">
@@ -250,7 +250,7 @@ export default {
                             </ul>
                         </article>
                         <article class="w-full border-l-2 border-regal-teal">
-                            <summary class="font-bold py-2 px-3 block text-green-800 underline"> disease</summary>
+                            <summary class="font-bold py-2 px-3 block text-green-800 underline"> Disease</summary>
                             
                             <ul class="mx-auto px-4">
                                 <li v-for="(data,index) in history.disease" :key="data" class="flex justify-between py-1"> 

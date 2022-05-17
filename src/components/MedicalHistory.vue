@@ -41,13 +41,13 @@
 
 <template>
     <div class="py-5">
-        <label for="" class="block text-left px-5  text-regal-teal font-bold">
+        <label for="" class="block text-left px-5  text-regal-teal text-sm font-semibold ">
             <slot>History</slot>
         </label>
         <div v-if="items.length > 0"  class="flex flex-wrap mx-4 my-4 " >
             <span v-for="(item,index) in items" :key="item" @mouseover="showButton(index)" @mouseleave="showButton(-1)" class="mx-1 my-4 text-xs inline-flex items-center font-bold px-3 py-2 bg-white border text-regal-teal rounded-full ">
                 
-                <label  >{{item}}</label>
+                <label  class="">{{item}}</label>
                 <span class="pl-2" v-show="active ==index">
                     <button  class="flex justify-center" @click="removeSingleMedicalHistory(item)">
                         <img src="@/assets/svgs/cross.svg" class="w-4 h-4" alt="delete">

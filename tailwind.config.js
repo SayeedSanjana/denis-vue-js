@@ -78,7 +78,7 @@ module.exports = {
         },
     },
     variants: {
-        backgroundColor: ["checked","hover", "focus", "group-hover", "first", "last", "odd", "even"],
+        backgroundColor: ["checked", "focus", "group-hover", "first", "last", "odd", "even"],
         margin: ['responsive', 'hover', 'first'],
         borderWidth: ['responsive', 'hover', 'first'],
         // borderColor: ['responsive', 'hover', 'first'],

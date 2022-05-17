@@ -1,52 +1,67 @@
 <template>
-    <div>         
+    <div class=" ml-2">         
         <!-- Profile infomation START  -->
-        <div class="border-b-2 bg-gray-50 hover:overflow-hidden ">
-            <div class="border-r-4 border-green-600 bg-green-50 text-regal-teal text-xl font-semibold p-3">
-                Patient
+        <div class=" bg-white w-full hover:overflow-hidden  mt-1">
+            <div class=" border rounded-t-md">
+
+                <div class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
+                    <label class="mx-5">Patient</label>
+    
+                    <button name="edit" @click="openModal($event)" class=""> 
+                        <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6" >                
+                    </button> 
+                </div>
             </div>
             <!-- {{this.patientInfo}} -->
-            <hr class="border-b mb-1"/>
+            <!-- <hr class="border-b mb-1"/> -->
+            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
 
-            <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2">
-                <div class=" text-regal-teal text-sm font-semibold text-left">
-                    {{val}}
+                <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2.5 ">
+                    <div class=" text-regal-teal text-sm font-semibold text-left">
+                        {{val}}
+                    </div>
+                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
+                        : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
+                    </div>
                 </div>
-                <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
-                    : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
-                </div>
+                
             </div>
             
-            
-            <div class="flex flex-row-reverse px-6 py-3">
-                <button name="edit" class="btn" @click="openModal($event)"> Edit</button>
-            </div>
         </div>
         <!--  Profile infomation END -->
 
-        <div class=" border-b-2 bg-gray-50 hover:overflow-hidden ">
+        <div class="bg-white w-full hover:overflow-hidden mt-1">
+            <div class=" border rounded-t-md">
 
-            <div class="border-r-4 border-red-400 bg-red-50 text-regal-teal text-xl font-semibold p-3">
-                Medical History
+                <div class=" bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
+                    <label class="mx-5">Medical History</label>
+                   
+                    <button name="addHst" @click="openModal($event)">
+                        <img src="@/assets/svgs/plus.svg" class="pointer-events-none">                
+                    </button>
+                </div>
+               
             </div>
-            <hr class="border-b mb-1">
 
-            <button name="addHst" @click="openModal($event)" class="btn-underline">
-                Add History 
-            </button>
-            
+            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
 
-            <History :items="patientInfo.allergies" :title="'allergies'" @removeHistory="removeSingleMedicalHistory"  >
-                Allergies
-            </History>
+                <div class="ml-4 ">
+    
+                    <History :items="patientInfo.allergies" :title="'allergies'" @removeHistory="removeSingleMedicalHistory"  >
+                        Allergies
+                    </History>
+        
+                    <History :items="patientInfo.disease" :title="'disease'" @removeHistory="removeSingleMedicalHistory">
+                        Diseases
+                    </History>
+        
+                    <History :items="patientInfo.personalHabits" :title="'personalHabits'" @removeHistory="removeSingleMedicalHistory" >
+                        Personal Habits
+                    </History>
+                </div>
+            </div>
 
-            <History :items="patientInfo.disease" :title="'disease'" @removeHistory="removeSingleMedicalHistory">
-                Diseases
-            </History>
 
-            <History :items="patientInfo.personalHabits" :title="'personalHabits'" @removeHistory="removeSingleMedicalHistory" >
-                Personal Habits
-            </History>
         </div>
 
         <!-- Edit Patient -->
