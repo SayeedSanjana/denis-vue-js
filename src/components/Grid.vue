@@ -74,7 +74,7 @@
 <template>
     <table  v-if="filteredData.length" class=" w-full mx-auto  bg-opacity-80 text-sm ">
         <thead class="bg-regal-teal text-white">
-            <tr class=" appearance-none">
+            <tr class=" appearance-none ">
                 <th class="p-3 appearance-none first:rounded-tl-md last:rounded-tr-md " v-for="key in Object.values(columns)" :key="key" @click="sortBy(key)" :class="{ active: sortKey == key }">
                     {{ capitalize(key) }}
                     <span :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
@@ -83,7 +83,7 @@
             </tr>
         </thead>
         <tbody class="divide-y ">
-            <tr class="odd:bg-gray-50 even:bg-white "  @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
+            <tr class="odd:bg-gray-50 even:bg-white cursor-pointer "  @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
                 <td  class="p-3" v-for="key in Object.keys(columns)" :key="key._id">
                     {{entry[key]}}
                 </td>
