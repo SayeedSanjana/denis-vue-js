@@ -127,7 +127,7 @@ export default {
         type="button" 
         @click="onClickPage(page.name)"
         :disabled="page.isDisabled"
-        :class="{ active: isPageActive(page.name) , disabled: page.isDisabled}"
+        :class="{ active: isPageActive(page.name) }"
         :aria-label="`Go to page number ${page.name}`"
         
       >

@@ -8,13 +8,10 @@
             <!-- <div class="flex flex-row mb-1 sm:mb-0"> -->
                 <!-- <div class="block relative"> -->
                     <form id="search" class="w-1/2 flex">
-                        <!-- <div class="border-2  px-3 flex bg-white rounded-md items-center  w-1/2">
-                            <input class="flex-grow outline-none text-regal-teal"
-                                name="q" type="text" placeholder="Search by name or phone number" v-model="this.text"
-                                /> -->
+                      
                         <div class="border-2  px-3 flex bg-white rounded-md items-center  w-1/2">
                             <input class="flex-grow outline-none text-regal-teal"
-                                name="q" type="text" placeholder="Search by name or phone number" v-model="searchQuery"
+                                name="q" type="text" placeholder="Search ..." v-model="searchQuery"
                                 />
                             <span class="mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +208,7 @@ import Pagination from '../components/Pagination.vue'
 
 <style scoped>
 .register-btn{
-    @apply bg-regal-cyan-teal text-center px-4 py-3 border rounded-md text-white font-semibold  
+    @apply bg-regal-cyan-teal text-center px-4 py-2 border rounded-md text-white font-semibold  
 }
 .register-btn:hover{
     @apply bg-regal-teethblue

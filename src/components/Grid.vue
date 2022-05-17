@@ -82,10 +82,10 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="hoverbody">
             <tr @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
                 <!-- {{entry}} -->
-                <td v-for="key in Object.keys(columns)" :key="key._id">
+                <td  v-for="key in Object.keys(columns)" :key="key._id">
                     <!-- {{key}} -->
                     {{entry[key]}}
                 </td>
@@ -115,11 +115,16 @@ table tr td:first-child {
     text-align: center;
     border-left: 1px solid #bbb;
 }
+
 table tr th {
   background: #73C6CA;
   border-top: 1px solid #73C6CA;
   text-align: center;
 }
+.hoverbody tr:hover td{
+    background: #c5f3f3;
+}
+
 table tr td {
   background: #fff;
 }
