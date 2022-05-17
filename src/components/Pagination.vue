@@ -97,7 +97,7 @@ export default {
     <li 
       
     >
-      <button class=" bg-gray-100 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
+      <button class=" bg-regal-cyan-blue text-gray-800 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
         type="button" 
         @click="onClickFirstPage"
         :disabled="isInFirstPage"
@@ -111,7 +111,7 @@ export default {
     <li
      
     >
-      <button   class=" bg-gray-100 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
+      <button   class=" bg-regal-cyan-blue text-gray-800 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
         type="button" 
         @click="onClickPreviousPage"
         :disabled="isInFirstPage"
@@ -123,7 +123,7 @@ export default {
     </li>
 
     <li v-for="page in pages" :key="page" >
-      <button  class=" bg-gray-100 bg-opacity-80 font-semibold text-xs mx-0.5 py-1 px-3 rounded-full"
+      <button  class=" bg-regal-cyan-blue text-gray-800 bg-opacity-80 font-semibold text-xs mx-0.5 py-1 px-3 rounded-full"
         type="button" 
         @click="onClickPage(page.name)"
         :disabled="page.isDisabled"
@@ -136,7 +136,7 @@ export default {
     </li>
 
     <li  >
-      <button class=" bg-gray-100 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
+      <button class=" text-gray-800 bg-regal-cyan-blue bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
         type="button" 
         @click="onClickNextPage"
         :disabled="isInLastPage"
@@ -148,7 +148,7 @@ export default {
     </li>
 
     <li  >
-      <button class=" bg-gray-100 bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
+      <button class=" text-gray-800 bg-regal-cyan-blue bg-opacity-80 mx-1 font-semibold text-xs py-1 px-3 rounded-md"
         type="button" 
         @click="onClickLastPage"
         :disabled="isInLastPage"
@@ -168,7 +168,7 @@ export default {
   @apply  bg-regal-teal bg-opacity-80 rounded-full text-white
 }
 .disabled {
-  @apply opacity-60 cursor-not-allowed
+  @apply opacity-80 cursor-not-allowed
 }
 
 </style>

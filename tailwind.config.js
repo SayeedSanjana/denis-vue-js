@@ -78,8 +78,26 @@ module.exports = {
         },
     },
     variants: {
-        backgroundColor: ["checked"],
+        backgroundColor: ["checked","hover", "focus", "group-hover", "first", "last", "odd", "even"],
+        margin: ['responsive', 'hover', 'first'],
+        borderWidth: ['responsive', 'hover', 'first'],
+        // borderColor: ['responsive', 'hover', 'first'],
+        borderRadius: ['first', 'last'],
+       
+        // textColor: ["responsive", "hover", "focus", "group-hover"],
+        // textDecoration: ["responsive", "hover", "focus", "group-hover"],
+        // boxShadow: ["responsive", "hover", "focus", "group-hover"],
+        // opacity: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundPosition: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundSize: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundRepeat: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundAttachment: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundImage: ["responsive", "hover", "focus", "group-hover"],
+        // backgroundOpacity: ["responsive", "hover", "focus", "group-hover"],
+        // background: ["responsive", "hover", "focus", "group-hover"],
+        //  border: ["responsive", "hover", "focus", "group-hover", "first"],
         extend: {},
     },
+
     plugins: [],
 };
