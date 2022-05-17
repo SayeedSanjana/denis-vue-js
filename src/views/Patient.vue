@@ -110,7 +110,7 @@ import Pagination from '../components/Pagination.vue'
         '$store.state.patients': function() {
             this.patients.push(...this.$store.state.patients)
             this.patients.forEach(patient => {
-                patient.address= "2/3 lalmatia, Dhaka 1212";
+                
                 // patient._id ='P-'+ patient._id.substring(patient._id.length - 7);
                 patient.dob = this.calculateAge(patient.dob);
                 patient.createdAt = moment(patient.createdAt).format("DD-MM-YYYY");
@@ -138,11 +138,12 @@ import Pagination from '../components/Pagination.vue'
                 searchQuery: '',
                 gridColumns: {
                     _id: 'patient ID',
-                    name: 'name',
+                    name : 'name',
                     dob:'age',
                     phone: 'contact',
+                    // nid:'nid',
                     gender: 'sex',
-                    address:'address',
+                    // address:'address',
                     createdAt: 'registration date'
                 },
                 
