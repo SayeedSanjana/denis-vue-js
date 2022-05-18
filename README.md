@@ -32,7 +32,7 @@ _AddMedicalHistory.vue
 _EditPatientInfo.vue
 PreviousMedicalRecords.vue
 PatientDetails.vue
-
+RegisterPatient.vue
 
 Patient.vue
 
@@ -47,7 +47,32 @@ ButtonComponent.vue
 InputFieldComponent.vue
 Modal.vue
 
+4.components
+
 MedicalHistory.vue
+Nav.vue
+Grid.vue
+Pagination.vue
+
+5.layouts
+
+Blank.vue
+Default.vue
+
+6.router
+
+index.js
+
+
+
+7.main.js
+
+8.resource.js
+
+9.tailwind.config.js
+
+
+
 
 
 
