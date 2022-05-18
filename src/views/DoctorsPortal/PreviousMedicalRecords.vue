@@ -1,7 +1,7 @@
 <template>
     <div class=" ml-2">         
         <!-- Profile infomation START  -->
-        <div class=" bg-white w-full hover:overflow-hidden  mt-1">
+        <div class=" bg-white w-full hover:overflow-hidden  mt-3">
             <div class=" border rounded-t-md">
 
                 <div class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3 ">

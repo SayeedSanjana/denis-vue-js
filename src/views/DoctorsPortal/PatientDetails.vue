@@ -12,6 +12,10 @@
                 <!--sidebar-->
 
                 <div class=" lg:w-4/5  ">
+
+                   
+                    <CreatePrescription />
+                    
                     <!--nav-->
                     <!-- <div class="xl:flex justify-between min-h-screen ">
                         <div class="xl:w-3/5  md:mb-4  ">
@@ -34,6 +38,7 @@
     // import TreatmentPrescriptionNav from "../../components/TreatmentPrescriptionNav.vue"
     // import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
     // import Nav from "../../components/Nav.vue";
+    import CreatePrescription from "../Prescription/CreatePrescription.vue"
     import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
     // import axios from "axios";
     export default {
@@ -41,7 +46,8 @@
             // Nav,
             // TreatmentPrescriptionNav,
             // PastPresGeneralNav,
-            PreviousMedicalRecords
+            PreviousMedicalRecords,
+            CreatePrescription
         },
         created() {
              this.$store.dispatch('fetchPatient', this.$route.params.id);
