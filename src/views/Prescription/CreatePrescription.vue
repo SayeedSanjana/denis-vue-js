@@ -1,24 +1,91 @@
 <script>
+import { Editor, EditorContent, mergeAttributes } from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
+// import FloatingMenu from '@tiptap/extension-floating-menu'
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import Heading from '@tiptap/extension-heading'
+import BulletList from '@tiptap/extension-bullet-list'
+import Underline from '@tiptap/extension-underline'
+
+// import Bold from '@tiptap/extension-bold'
     export default {
+        components:{
+             EditorContent,
+        },
         data(){
             return{
             cc:'',
             showInput:false,
             editField : false,
             heightAuto: false,
-            maxlength:255
+            maxlength:255,
+            editor: null,
+
 
         }
         
     },
-     
-    mounted(){
-        
-        this.$nextTick(() => {
-        this.$el.setAttribute("style", "height",
-       `${this.$el.scrollHeight}px`);
-    });
+      mounted() {
+          const classes = {
+                1: 'text-xl',
+                2: 'text-base',
+                3: 'text-sm',
+                
+            }
+          this.editor = new Editor({
+              extensions: [
+                  StarterKit,
+                  Document,
+                  Paragraph,
+                  Underline,
+                  Text,
+                  BulletList.configure({
+                      HTMLAttributes: {
+                          class: ' ml-4 list-disc ',
+                      },
+                  }),
+
+                //   FloatingMenu.configure({
+                //       element: document.querySelector('.menu'),
+                //   }),
+                 
+                  
+                  
+                  Heading.configure({
+                      levels: [1, 2, 3],
+                  }).extend({
+                      renderHTML({node, HTMLAttributes}){
+                          const hasLevel = this.options.levels.includes(node.attrs.level);
+                          const level = hasLevel ? node.attrs.level: this.options.levels[0];
+                          return [
+                              `h${level}`,
+                              mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+                                  class: `${classes[level]}`
+                              }),
+                              0,
+                          ]
+                      }
+                  }),
+                  
+
+                  
+              ],
+          })
+      },
+
+  beforeUnmount() {
+    this.editor.destroy()
   },
+     
+//     mounted(){
+        
+//         this.$nextTick(() => {
+//         this.$el.setAttribute("style", "height",
+//        `${this.$el.scrollHeight}px`);
+//     });
+//   },
     
     computed:{
         // showField(){
@@ -39,6 +106,7 @@
             this.showInput = true;
             this.editField = true;
         },
+        
         blurField(){
             
             this.showInput = false;
@@ -46,7 +114,15 @@
         },
         change(){
             console.log(this.$refs.cc);
-        }
+        },
+        // handleClick(e) {
+        //     if (e.target instanceof HTMLElement && !this.$el.contains(e.target)) {
+        //         this.$emit("hide");
+        //         this.blurField(); //fires only on click outside
+        //     }
+        //     console.log(e.target instanceof HTMLElement && !this.$el.contains(e.target));
+
+        // }
         
     }
 }
@@ -92,22 +168,48 @@
         <section class="bg-blue-100">
                       <!-- @keypress="this.editInput(this.cc)" v-focus -->
                 <article class="flex w-full justify-between">
-                    <div class="w-2/5 p-2 bg-gray-100">
+                    <div class="w-2/5 p-2 bg-white">
 
                         <label class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
                                                 
                         <div class="">
                             <p
                             
-                            class="text-left w-full px-4 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50  whitespace-pre-line break-all h-auto" 
-                            v-show="!showInput" 
-                            @click="focusField">
-                                
-                            <!-- @click="focusField('cc')"> -->
-                                {{ cc ||'..............'}}
+                            class="text-left w-full px-2 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md  whitespace-pre-line break-all h-auto" 
+                            v-show="!showInput"
                             
-                            </p>
-                            <textarea :maxlength="this.maxlength"
+                            v-html="cc ||'..............'" 
+                            @click="focusField"></p>
+
+                            <section v-show="showInput" 
+                             class="text-left w-full px-6 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md h-auto">
+                                <div  :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "  @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 1 }) }">
+                                        H1
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 2 }) }">
+                                        H2
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 3 }) }">
+                                        H3
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleBold().run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('bold') }">
+                                        Bold
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleItalic().run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('italic') }">
+                                        Italic
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('underline') }">
+                                        Underline
+                                    </button>
+                                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 " @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('bulletList') }">
+                                        BulletList
+                                    </button>
+
+                                </div>
+                             <editor-content :editor="editor"  v-model="cc"/>
+                            </section>
+                            <!-- <textarea :maxlength="this.maxlength"
                             @input="autoResize"
                             ref="cc"
                             class="w-full px-4 py-2 text-regal-teal bg-white border 
@@ -118,9 +220,9 @@
                             v-show="showInput" 
                             id="cc" type="text" 
                             @focus="focusField" 
-                            @blur="blurField"></textarea>
-                            <span  v-show="showInput" class="flex justify-end text-gray-500 text-sm">{{this.cc.length}}/{{this.maxlength}}</span>
-                            <button @click="change">submit</button>
+                            @blur="blurField"></textarea> -->
+                            <!-- <span  v-show="showInput" class="flex justify-end text-gray-500 text-sm">{{this.cc.length}}/{{this.maxlength}}</span> -->
+                            <!-- <button @click="blurField" >submit</button> -->
                             
                         </div>
 
@@ -138,6 +240,10 @@
     </div>
 </template>
 
-<style scoped>
+<style>
+.ProseMirror:focus {
+    outline: none;
+  }
+  
 
 </style>
