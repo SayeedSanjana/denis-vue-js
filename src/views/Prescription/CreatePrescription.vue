@@ -17,6 +17,7 @@ import Underline from '@tiptap/extension-underline'
         data(){
             return{
             cc:'',
+            content: '',
             showInput:false,
             editField : false,
             heightAuto: false,
@@ -28,12 +29,15 @@ import Underline from '@tiptap/extension-underline'
         
     },
       mounted() {
+               
+          
           const classes = {
-                1: 'text-xl',
+              1: 'text-xl',
                 2: 'text-base',
                 3: 'text-sm',
                 
             }
+          
           this.editor = new Editor({
               extensions: [
                   StarterKit,
@@ -46,12 +50,6 @@ import Underline from '@tiptap/extension-underline'
                           class: ' ml-4 list-disc ',
                       },
                   }),
-
-                //   FloatingMenu.configure({
-                //       element: document.querySelector('.menu'),
-                //   }),
-                 
-                  
                   
                   Heading.configure({
                       levels: [1, 2, 3],
@@ -68,11 +66,16 @@ import Underline from '@tiptap/extension-underline'
                           ]
                       }
                   }),
-                  
-
-                  
               ],
+              content: '',
+              onUpdate: ({editor}) =>{
+                  const html = editor.getHTML();
+                  console.log(html);
+                    this.content = html;
+              }
           })
+
+        //   this.$el.addEventListener('click', this.handleClick)
       },
 
   beforeUnmount() {
@@ -86,13 +89,7 @@ import Underline from '@tiptap/extension-underline'
 //        `${this.$el.scrollHeight}px`);
 //     });
 //   },
-    
-    computed:{
-        // showField(){
-        //     // return (this.cc == '' || this.editField == cc)
-        //     return this.cc.length>0
-        // }
-    },
+
     methods:{
         autoResize(event) {
       event.target.style.height = "auto";
@@ -115,21 +112,14 @@ import Underline from '@tiptap/extension-underline'
         change(){
             console.log(this.$refs.cc);
         },
-        // handleClick(e) {
-        //     if (e.target instanceof HTMLElement && !this.$el.contains(e.target)) {
-        //         this.$emit("hide");
-        //         this.blurField(); //fires only on click outside
-        //     }
-        //     console.log(e.target instanceof HTMLElement && !this.$el.contains(e.target));
-
-        // }
+    
         
     }
 }
 </script>
 
 <template>
-    <div class="mx-3 mt-3 bg-white "> 
+    <div class="mx-3 mt-3 bg-white" > 
         <div class="rounded-t-md w-full hover:overflow-hidden">
             <label for="" class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
             <section class="flex justify-between p-8">
@@ -172,18 +162,19 @@ import Underline from '@tiptap/extension-underline'
 
                         <label class="block mb-2text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
                                                 
-                        <div class="">
+                        <div class="" >
                             <p
                             
                             class="text-left w-full px-2 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md  whitespace-pre-line break-all h-auto" 
                             v-show="!showInput"
                             
-                            v-html="cc ||'..............'" 
-                            @click="focusField"></p>
+                            v-html="content ||'..............'" 
+                            @click="focusField" ></p>
+                        
 
-                            <section v-show="showInput" 
+                            <section v-show="showInput"  
                              class="text-left w-full px-6 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md h-auto">
-                                <div  :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
+                                     <div  :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
                                     <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "  @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 1 }) }">
                                         H1
                                     </button>
@@ -207,7 +198,26 @@ import Underline from '@tiptap/extension-underline'
                                     </button>
 
                                 </div>
-                             <editor-content :editor="editor"  v-model="cc"/>
+                                
+                                <editor-content :editor="editor"  v-model="content"/>
+                            
+                                <div class="flex flex-row-reverse">
+
+                                    <button class="py-0.5 px-3 bg-regal-teal rounded text-white" @click="blurField" >
+                                        Done
+                                    </button>
+                                </div>
+
+                               
+
+                               
+
+                               
+
+                                
+                               
+                            
+
                             </section>
                             <!-- <textarea :maxlength="this.maxlength"
                             @input="autoResize"
@@ -230,7 +240,7 @@ import Underline from '@tiptap/extension-underline'
 
                     <!-- Rx -->
                     <div class="w-3/5 p-2">
-                        <p class="w-full block bg-gray-300">Cheif Complaint</p>
+                        <p class="w-full block bg-gray-300">Chief Complaint</p>
                     </div>
 
                 </article>
