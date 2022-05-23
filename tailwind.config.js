@@ -78,7 +78,7 @@ module.exports = {
         },
     },
     variants: {
-        backgroundColor: ["checked", "focus", "group-hover", "first", "last", "odd", "even"],
+        backgroundColor: ["checked", "focus", "group-hover", "first", "last", "odd", "even" ,"hover"],
         margin: ['responsive', 'hover', 'first'],
         borderWidth: ['responsive', 'hover', 'first'],
         // borderColor: ['responsive', 'hover', 'first'],
@@ -95,7 +95,7 @@ module.exports = {
         // backgroundImage: ["responsive", "hover", "focus", "group-hover"],
         // backgroundOpacity: ["responsive", "hover", "focus", "group-hover"],
         // background: ["responsive", "hover", "focus", "group-hover"],
-        //  border: ["responsive", "hover", "focus", "group-hover", "first"],
+         border: ["first", "last"],
         extend: {},
     },
 

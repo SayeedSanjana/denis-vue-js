@@ -137,13 +137,13 @@ export default {
         removeHistory(item){
             switch (this.picked) {
                 case "allergies":
-                    this.history.allergies.splice(this.history.allergies.indexOf(item), 1);
+                    this.history.allergies.splice(item, 1);
                     break;
                 case "disease":
-                    this.history.disease.splice(this.history.disease.indexOf(item), 1);
+                    this.history.disease.splice(item, 1);
                     break;
                 case "personalHabits":
-                    this.history.personalHabits.splice(this.history.personalHabits.indexOf(item), 1);
+                    this.history.personalHabits.splice(item, 1);
                     break;
                 default:
                     break;}
@@ -244,7 +244,7 @@ export default {
                                 <li v-for="(data,index) in history.allergies" :key="data" class="flex justify-between py-1"> 
 
                                     <p>{{data}}</p>
-                                    <button :value="index" @click="removeHistory">X</button>
+                                    <button  @click="removeHistory(index)">X</button>
                                 </li>
 
                             </ul>
@@ -255,7 +255,7 @@ export default {
                             <ul class="mx-auto px-4">
                                 <li v-for="(data,index) in history.disease" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
-                                    <button :value="index" @click="removeHistory">X</button>
+                                    <button  @click="removeHistory(index)">X</button>
                                 </li>
 
                             </ul>
@@ -266,7 +266,7 @@ export default {
                             <ul class="mx-auto px-4">
                                 <li v-for="(data,index) in history.personalHabits" :key="data" class="flex justify-between py-1"> 
                                     <p>{{data}}</p>
-                                    <button :value="index" @click="removeHistory">X</button>
+                                    <button @click="removeHistory(index)">X</button>
                                 </li>
 
                             </ul>
