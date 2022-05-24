@@ -45,7 +45,7 @@
 
 <template>
    
-    <button :type="type" :class="[text, textStyle ,color, fontSize, fontWeight, borderRadius, type]">
+    <button :type="type" :class="[text, textStyle, padding ,color, fontSize, fontWeight, borderRadius, type]">
         <slot>Button</slot>
     </button>
    

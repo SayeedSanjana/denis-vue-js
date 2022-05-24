@@ -95,7 +95,7 @@ module.exports = {
         // backgroundImage: ["responsive", "hover", "focus", "group-hover"],
         // backgroundOpacity: ["responsive", "hover", "focus", "group-hover"],
         // background: ["responsive", "hover", "focus", "group-hover"],
-         border: ["first", "last"],
+        border: ["first", "last"],
         extend: {},
     },
 

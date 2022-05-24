@@ -1,24 +1,54 @@
 <script>
 import Editor from "../../components/Editor.vue"
+// import Grid from "../../components/Grid.vue"
 
     export default {
         components:{
-            Editor
+            Editor,
+            // Grid,
+       
      
         },
         data(){
             return{
-            cc:'',
-            oe:["Jack","John","Jill","Joe","Jane","Doe","Chen"],
-            oelist:[], 
-            text:'', 
-            investigation:'',
+            cc: '',
+            oe: [],
+            oelist:["Jack","John","Jill","Joe","Jane","Doe","Chen"], 
+            oetext:'',
+            invtext:'', 
+            investigationlist:["hello","world", "good","bad"],
+            investigation:[],
             advice:'', 
+            treatmentPlan:'',
             heightAuto: false,
             maxlength:255,
             editor: null,
             recentlyUsed:[],
+            recentlyUsed2:[],
             showSearch:false,
+            showSearchIn:false,
+            gridColumns: {
+                    catagory: 'Category',
+                    name : 'Name',
+                    dosage:'Dosage',
+                    frequency: 'Frequency',
+                    duration: 'Duration',
+                    relationWithMeals: 'Relation with Meals'
+                },
+            medication:{
+                catagory: '',
+                name : '',
+                dosage:'',
+                frequency: '',
+                duration: '',
+                relationWithMeals: ''
+            },
+            medicine:[],
+            
+            
+
+            
+
             
 
 
@@ -26,60 +56,117 @@ import Editor from "../../components/Editor.vue"
         
     },
       mounted() {
-          this.getAllOE()
+          this.getAllOE();
+            // this.getAllInvestigation();
                
       },
+      watch:{
+            oetext(val){
+                if(val.length>0){
+                    this.showSearch=true;
+                    this.search(val);
+              
+                }
+                else{
+                    this.showSearch=false;
+                    
+                    
+                }
+ 
+            },
+            invtext(val){
+                if(val.length>0){
+                    this.showSearchIn=true;
+                    this.searchIn(val);    
+                  
+                }
+                else{
+                    this.showSearchIn=false;                 
+                    
+                }
+           
+        },
+      },
+      
 
 
     methods:{
         selectedItem(oe){
-            this.text =oe;
+            this.oetext =oe;
+        },
+        selectedItem2(investigation){
+            this.invtext =investigation;
         },
         getAllOE(){
-            this.oelist= [...this.oe]
+            this.oe= [...this.oelist]
         },
        search(term){		
-           
+           this.oe = [...this.oelist];
+    
 			if (term.length>0) {
-				this.oelist = this.oelist.filter((i) => {
+				this.oe = this.oe.filter((i) => {
 					return  i.toLowerCase().includes(term.toLowerCase())
 				})	
-
 			} 
-            else{
-                this.oelist = [...this.oe];
-            }
-            // console.log(term);
+            
+
 		},
         addOE(){
-            if(this.text.length>0){
-                this.recentlyUsed.push(this.text)
-                this.text=''
+            if(this.oetext.length>0){
+                this.recentlyUsed.push(this.oetext)
+                this.oetext=''
+            }
+        },
+        searchIn(term){
+            this.investigation = [...this.investigationlist];
+            if (term.length>0) {
+                this.investigation = this.investigation.filter((i) => {
+                    return  i.toLowerCase().includes(term.toLowerCase())
+                })	
+    
+            } 
+            
+        
+         
+        },
+
+        addInvestigation(){
+            if(this.invtext.length>0){
+                this.recentlyUsed2.push(this.invtext)
+                this.invtext=''
             }
         },
         removeOE(index){
             this.recentlyUsed.splice(index,1);  
 
         },
-        showSearchOE(){
+        removeInvestigation(index){
+            this.recentlyUsed2.splice(index,1);  
 
-            if(this.text.length> -1){
-
-                this.showSearch = true
-            }
         },
-
-
+        addMedication(i){
+              if(this.medication.catagory.length>0 || this.medication.name.length>0 || this.medication.dosage.length>0 || this.medication.frequency.length>0 || this.medication.duration.length>0 || this.medication.relationWithMeals.length>0){
+                this.medicine.push(i);
+                this.medication={
+                    catagory: '',
+                    name : '',
+                    dosage:'',
+                    frequency: '',
+                    duration: '',
+                    relationWithMeals: ''
+                } }      
+        },
+        removeMedication(index){
+            this.medicine.splice(index,1);  
+        },
+        
+       
 
     //     autoResize(event) {
     //   event.target.style.height = "auto";
     //   event.target.style.height = `${event.target.scrollHeight}px`;
     // },
        
-       
-        // change(){
-        //     console.log(this.$refs.cc);
-        // },
     
         
     }
@@ -123,33 +210,33 @@ import Editor from "../../components/Editor.vue"
             </section>
         </div>
 
-        <section class="bg-blue-100">
-            <article class="flex w-full justify-between">
-                <div class="w-2/5 p-2 bg-white">
+        <section class="">
+            <article class="flex justify-between mx-12">
+                <div class="w-2/5 p-3">
                     <label
-                        class="block my-2 text-md font-medium text-regal-teal capitalize dark:text-white text-left">C/C</label>
-                    <Editor v-model="cc" />
+                        class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
+                    <Editor v-model="cc" class="py-1"/>
 
                     <label
-                        class="block my-2  text-md font-medium text-regal-teal capitalize dark:text-white text-left">O/E</label>
+                        class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On Examination</label>
                         <!-- Searchable select -->
-                        <div class="w-full ">
+                        <div class="w-full py-1">
                            
                            <div class="flex" >
-                               <input placeholder="input here....." @keypress="showSearchOE()" @keydown="this.search(this.text) " type="text" class="w-4/5 rounded-t-md border  px-3 py-1 focus:outline-none" v-model="this.text">
+                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="oetext">
                                <div class="w-1/5 ">
                                    <button class="mt-1" @click="addOE()">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
                                    </button>
                                </div>
                            </div>
-                            <ul class=" w-4/5  section h-36 " v-show="showSearch" >
-                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in oelist" :key="items" @click="selectedItem(items)">
+                            <ul class=" w-4/5  section  " v-show="showSearch" >
+                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in oe" :key="items" @click="selectedItem(items)">
                                    {{items}} 
                                 </li>
                             </ul>
                             <div class="my-4" >
-                                <label for="" class="flex text left ml-2">On Examination</label>
+                                <label for="" class=" flex text-left ml-2">On Examination</label>
                                     <hr class="w-1/3 ">
                                 <div v-if="recentlyUsed.length > 0" class="my-1 border rounded-t-md">
 
@@ -176,20 +263,121 @@ import Editor from "../../components/Editor.vue"
                        
                        <!-- Searchable select -->
                         
-                    <!-- <Editor v-model="oe" /> -->
                     <label
-                        class="block my-2 text-md font-medium text-regal-teal capitalize dark:text-white text-left">Investigation</label>
-                    <Editor v-model="investigation" />
-                    <label
-                        class="block my-2 text-md font-medium text-regal-teal capitalize dark:text-white text-left">Advice</label>
-                    <Editor v-model="advice" />
+                        class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
+                     <div class="w-full ">
+                           
+                           <div class="flex" >
+                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invtext">
+                               <div class="w-1/5 ">
+                                   <button class="mt-1" @click="addInvestigation()">
+                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
+                                   </button>
+                               </div>
+                           </div>
+                            <ul class=" w-4/5  section " v-show="showSearchIn" >
+                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in investigation" :key="items" @click="selectedItem2(items)">
+                                   {{items}} 
+                                </li>
+                            </ul>
+                            <div class="my-4" >
+                                <label for="" class=" flex text-left ml-2">Investigation</label>
+                                    <hr class="w-1/3 ">
+                                <div v-if="recentlyUsed2.length > 0" class="my-1 border rounded-t-md">
+
+                                    <div class="border-b flex justify-between text-left  py-1 pl-2 " v-for="(item,index) in recentlyUsed2" :key="item">
+                                       <p>
+                                        {{item}}
+                                       </p> 
+                                       <button  @click="removeInvestigation(index)">X</button>
+                                    </div>
+
+                                </div>
+                                <div v-else>
+                                    <p class="border flex text-left  my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
+
+
+
+
                 </div>
                
             
 
                 <!-- Rx -->
-                <div class="w-3/5 p-2">
-                    <p class="w-full block bg-gray-300">Chief Complaint</p>
+                <div class="w-3/5 p-3 border-l border-regal-teal mx-auto ">
+                    <div>  
+                        <label
+                            class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
+                            
+                        <div class=" text-left mx-auto grid grid-cols-3">
+                            <!-- <label for="" class="text-sm px-3 py-0.5  grid col-span-1">Category</label> -->
+                            <input type="text" v-model="medication.catagory" placeholder="category .." class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
+                            <input type="text" v-model="medication.name" placeholder="name ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Dosage</label> -->
+                            <input type="text" v-model="medication.dosage" placeholder="dosage ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Frequency</label> -->
+                            <input type="text" v-model="medication.frequency" placeholder="frequency ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Duration</label> -->
+                            <input type="text" v-model="medication.duration" placeholder="duration ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
+                            <input type="text" v-model="medication.relationWithMeals" placeholder="relation with meal ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <div class="flex justify-end col-span-3">
+
+                                <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication(this.medication)">Add</button>
+                            </div>
+                        </div>
+                        
+                       
+
+                    </div>
+                    <section class="my-4 mx-2">
+                        <table v-if="medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
+                            <thead class="bg-regal-teal text-white">
+                            <tr class="">
+                                <th v-for="item in gridColumns" :key="item" class="p-3 appearance-none first:rounded-tl-md  ">
+                                    {{item}}
+                                </th>
+                                <th class="last:rounded-tr-md">
+                                    
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y ">
+                                <tr v-for="(data,index) in this.medicine" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
+                               
+                                    <td class="p-3" v-for="items in data" :key="items">
+                                       <p>
+
+                                           {{items}}
+                                       </p>
+                                  
+                                    </td>
+                                    <td>
+                                          <button  @click="removeMedication(index)">X</button>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                         <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
+                        <!-- <Grid   :columns="gridColumns" :data="this.medicine"/> -->
+                    </section>
+                    
+                    <label
+                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
+                    <Editor v-model="advice" class="m-2" />
+                    <label
+                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
+                    <Editor v-model="treatmentPlan" class="m-2" />
                 </div>
 
             </article>
@@ -226,4 +414,8 @@ import Editor from "../../components/Editor.vue"
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
 }
 
+
+.row:hover{
+    @apply bg-gray-200 font-semibold text-regal-teal;
+}
 </style>
