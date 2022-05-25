@@ -90,7 +90,7 @@
             </tr>
         </tbody>
     </table>
-    <p v-else>No matches found.</p>
+    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No matches found.</p>
    
 </template>
 

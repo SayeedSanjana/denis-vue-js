@@ -16,8 +16,20 @@ import Editor from "../../components/Editor.vue"
             oelist:["Jack","John","Jill","Joe","Jane","Doe","Chen"], 
             oetext:'',
             invtext:'', 
-            investigationlist:["hello","world", "good","bad"],
-            investigation:[],
+            invlocation:'',
+            investigationlist:[{
+                inv_name:'Xray',
+                location:"22"
+            },
+            {
+                inv_name:'Extraction',
+                location:"22"
+
+            }],
+            investigation:[{
+                inv_name: '',
+                location: '',
+            }],
             advice:'', 
             treatmentPlan:'',
             heightAuto: false,
@@ -27,6 +39,7 @@ import Editor from "../../components/Editor.vue"
             recentlyUsed2:[],
             showSearch:false,
             showSearchIn:false,
+            showSearchInvLocation:false,
             gridColumns: {
                     catagory: 'Category',
                     name : 'Name',
@@ -34,6 +47,10 @@ import Editor from "../../components/Editor.vue"
                     frequency: 'Frequency',
                     duration: 'Duration',
                     relationWithMeals: 'Relation with Meals'
+                },
+                invColumns:{
+                    inv_name: 'Investigation Name',
+                    location: 'Location'
                 },
             medication:{
                 catagory: '',
@@ -74,18 +91,7 @@ import Editor from "../../components/Editor.vue"
                 }
  
             },
-            invtext(val){
-                if(val.length>0){
-                    this.showSearchIn=true;
-                    this.searchIn(val);    
-                  
-                }
-                else{
-                    this.showSearchIn=false;                 
-                    
-                }
-           
-        },
+       
       },
       
 
@@ -95,7 +101,8 @@ import Editor from "../../components/Editor.vue"
             this.oetext =oe;
         },
         selectedItem2(investigation){
-            this.invtext =investigation;
+            this.invtext =investigation.inv_name;
+            this.invlocation =investigation.location;
         },
         getAllOE(){
             this.oe= [...this.oelist]
@@ -117,23 +124,22 @@ import Editor from "../../components/Editor.vue"
                 this.oetext=''
             }
         },
-        searchIn(term){
-            this.investigation = [...this.investigationlist];
-            if (term.length>0) {
-                this.investigation = this.investigation.filter((i) => {
-                    return  i.toLowerCase().includes(term.toLowerCase())
-                })	
-    
-            } 
-            
         
-         
-        },
+        
 
         addInvestigation(){
-            if(this.invtext.length>0){
-                this.recentlyUsed2.push(this.invtext)
-                this.invtext=''
+            if(this.invtext.length>0 || this.invlocation.length>0){
+                this.recentlyUsed2.push(
+                    {
+                        inv_name: this.invtext,
+                        location: this.invlocation
+                    }
+                
+                )
+
+                this.invtext='',
+                this.invlocation=''
+                console.log(this.recentlyUsed2);
             }
         },
         removeOE(index){
@@ -160,12 +166,6 @@ import Editor from "../../components/Editor.vue"
             this.medicine.splice(index,1);  
         },
         
-       
-
-    //     autoResize(event) {
-    //   event.target.style.height = "auto";
-    //   event.target.style.height = `${event.target.scrollHeight}px`;
-    // },
        
     
         
@@ -211,6 +211,7 @@ import Editor from "../../components/Editor.vue"
         </div>
 
         <section class="">
+            <!-- <form action="" > -->
             <article class="flex justify-between mx-12">
                 <div class="w-2/5 p-3">
                     <label
@@ -219,7 +220,7 @@ import Editor from "../../components/Editor.vue"
 
                     <label
                         class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On Examination</label>
-                        <!-- Searchable select -->
+                        <!-- Searchable select on OE-->
                         <div class="w-full py-1">
                            
                            <div class="flex" >
@@ -255,44 +256,57 @@ import Editor from "../../components/Editor.vue"
 
                             
                         </div>
-
-
-              
                        
-                       
-                       
-                       <!-- Searchable select -->
+                       <!-- Searchable select on Investigation -->
                         
                     <label
                         class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
                      <div class="w-full ">
                            
                            <div class="flex" >
-                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invtext">
+                               <input placeholder="investigation name here....." type="text" class="w-4/5 mr-2 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invtext">
+                               <input placeholder="investigation location....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invlocation">
                                <div class="w-1/5 ">
                                    <button class="mt-1" @click="addInvestigation()">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
                                    </button>
                                </div>
                            </div>
-                            <ul class=" w-4/5  section " v-show="showSearchIn" >
-                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in investigation" :key="items" @click="selectedItem2(items)">
-                                   {{items}} 
-                                </li>
-                            </ul>
+                           
                             <div class="my-4" >
                                 <label for="" class=" flex text-left ml-2">Investigation</label>
                                     <hr class="w-1/3 ">
-                                <div v-if="recentlyUsed2.length > 0" class="my-1 border rounded-t-md">
+                                <table v-if="recentlyUsed2.length > 0" class="w-full mx-auto  bg-opacity-80 text-sm">
+                                 <thead class="bg-regal-teal text-white">
+                                     <tr class="">
+                                         <th v-for="item in invColumns" :key="item"
+                                             class="p-2 appearance-none first:rounded-tl-md  text-left">
+                                             {{item}}
+                                         </th>
+                                         <th class="last:rounded-tr-md">
 
-                                    <div class="border-b flex justify-between text-left  py-1 pl-2 " v-for="(item,index) in recentlyUsed2" :key="item">
-                                       <p>
-                                        {{item}}
-                                       </p> 
-                                       <button  @click="removeInvestigation(index)">X</button>
-                                    </div>
+                                         </th>
 
-                                </div>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+
+                                     <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in recentlyUsed2" :key="item">
+                                        <td class="text-left p-2" v-for="data in item" :key="data">
+ 
+                                        <p>
+                                         {{data}}
+                                        </p> 
+                                        </td>
+                                        <td class="text-left">
+
+                                            <button  @click="removeInvestigation(index)">X</button>
+                                        </td>
+                                     </tr>
+                                 </tbody>
+
+
+                                </table>
                                 <div v-else>
                                     <p class="border flex text-left  my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
                                 </div>
@@ -373,14 +387,21 @@ import Editor from "../../components/Editor.vue"
                     </section>
                     
                     <label
-                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor v-model="advice" class="m-2" />
-                    <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
                     <Editor v-model="treatmentPlan" class="m-2" />
+
+                    <label
+                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
+                    <Editor v-model="advice" class="m-2" />
+            <div class="flex justify-end mr-2 my-2">
+                <button class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
+
+            </div>
                 </div>
 
             </article>
+        
+            <!-- </form> -->
 
         </section>
 
