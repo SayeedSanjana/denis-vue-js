@@ -402,21 +402,74 @@ import Editor from "../../components/Editor.vue"
                             
                         <div class=" text-left mx-auto grid grid-cols-3">
                             <!-- <label for="" class="text-sm px-3 py-0.5  grid col-span-1">Category</label> -->
-                            <input type="text" v-model="this.medication.catagory" placeholder="category .." class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                            
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label for="name" class="bg-white text-gray-400 px-1">Category</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="this.medication.catagory" 
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
-                            <input type="text" v-model="this.medication.name" placeholder="name ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                            
+                             <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Name</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="this.medication.name"
+                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
 
                             <!-- <label for="" class="text-sm px-3 py-0.5">Dosage</label> -->
-                            <input type="text" v-model="this.medication.dosage" placeholder="dosage ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Dosage</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="this.medication.dosage"
+                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Frequency</label> -->
-                            <input type="text" v-model="this.medication.frequency" placeholder="frequency ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Frequency</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="this.medication.frequency"
+                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Duration</label> -->
-                            <input type="text" v-model="this.medication.duration" placeholder="duration ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Duration</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="this.medication.duration"
+                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
-                            <input type="text" v-model="this.medication.relationWithMeals" placeholder="relation with meal ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
-                            <div class="flex justify-end col-span-3">
+                             <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Relation with Meal</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="this.medication.relationWithMeals"
+                                     
+                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
+                           <div class="flex justify-end col-span-3">
 
                                 <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication(this.medication)">Add</button>
                             </div>
