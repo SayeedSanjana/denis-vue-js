@@ -167,7 +167,7 @@ import Editor from "../../components/Editor.vue"
 
 		},
         searchMedicationName(){
-            console.log("jkjkjk")
+            // console.log("jkjkjk")
             this.medicine = [...this.pastMedicationList]
             if (this.medication.name.length>0) {
                 this.medicine = this.medicine.filter((i) => {
