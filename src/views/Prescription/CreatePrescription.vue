@@ -16,6 +16,7 @@ import Editor from "../../components/Editor.vue"
             oelist:["Jack","John","Jill","Joe","Jane","Doe","Chen"], 
             oetext:'',
             invtext:'', 
+         
             invlocation:'',
             investigationlist:[{
                 inv_name:'Xray',
@@ -26,6 +27,34 @@ import Editor from "../../components/Editor.vue"
                 location:"22"
 
             }],
+            pastMedicationList:[{
+                catagory: 'tablet',
+                name : 'napa',
+                dosage:'1.5 mg',
+                frequency: '2',
+                duration: '2 days',
+                relationWithMeals: 'after meal'
+
+            },
+            {
+                catagory: 'tablet',
+                name : 'napa extra',
+                dosage:'50 mg',
+                frequency: '2',
+                duration: '3 days',
+                relationWithMeals: 'before meal'
+
+            },
+            {
+                catagory: 'tablet',
+                name : 'tenocab',
+                dosage:'50 mg',
+                frequency: '2',
+                duration: '3 days',
+                relationWithMeals: 'before meal'
+
+            }
+            ],
             investigation:[{
                 inv_name: '',
                 location: '',
@@ -35,11 +64,14 @@ import Editor from "../../components/Editor.vue"
             heightAuto: false,
             maxlength:255,
             editor: null,
+            medtext:'',
             recentlyUsed:[],
+            recentlyUsedMedication:[],
             recentlyUsed2:[],
             showSearch:false,
             showSearchIn:false,
             showSearchInvLocation:false,
+            showSearchMed:false,
             gridColumns: {
                     catagory: 'Category',
                     name : 'Name',
@@ -52,6 +84,7 @@ import Editor from "../../components/Editor.vue"
                     inv_name: 'Investigation Name',
                     location: 'Location'
                 },
+               
             medication:{
                 catagory: '',
                 name : '',
@@ -91,6 +124,21 @@ import Editor from "../../components/Editor.vue"
                 }
  
             },
+            'medication.name'(val){
+                if(val.length> 0){
+                    
+                    this.showSearchMed=true;
+                    this.searchMedicationName(val);
+
+                }
+                else{
+                    this.showSearchMed=false;
+                    
+                    
+                }
+               
+
+            }
        
       },
       
@@ -118,6 +166,17 @@ import Editor from "../../components/Editor.vue"
             
 
 		},
+        searchMedicationName(){
+            console.log("jkjkjk")
+            this.medicine = [...this.pastMedicationList]
+            if (this.medication.name.length>0) {
+                this.medicine = this.medicine.filter((i) => {
+                    return  i.name.toLowerCase().includes(this.medication.name.toLowerCase())
+                })	
+                
+            }
+
+        },
         addOE(){
             if(this.oetext.length>0){
                 this.recentlyUsed.push(this.oetext)
@@ -152,7 +211,7 @@ import Editor from "../../components/Editor.vue"
         },
         addMedication(i){
               if(this.medication.catagory.length>0 || this.medication.name.length>0 || this.medication.dosage.length>0 || this.medication.frequency.length>0 || this.medication.duration.length>0 || this.medication.relationWithMeals.length>0){
-                this.medicine.push(i);
+                this.recentlyUsedMedication.push(i);
                 this.medication={
                     catagory: '',
                     name : '',
@@ -162,9 +221,21 @@ import Editor from "../../components/Editor.vue"
                     relationWithMeals: ''
                 } }      
         },
+
         removeMedication(index){
-            this.medicine.splice(index,1);  
+            this.recentlyUsedMedication.splice(index,1);  
         },
+
+
+        insertMedication(i){
+            this.medication.catagory = i.catagory
+            this.medication.name = i.name
+            this.medication.dosage = i.dosage
+            this.medication.frequency = i.frequency
+            this.medication.duration = i.duration
+            this.medication.relationWithMeals = i.relationWithMeals
+
+        }
         
        
     
@@ -331,18 +402,20 @@ import Editor from "../../components/Editor.vue"
                             
                         <div class=" text-left mx-auto grid grid-cols-3">
                             <!-- <label for="" class="text-sm px-3 py-0.5  grid col-span-1">Category</label> -->
-                            <input type="text" v-model="medication.catagory" placeholder="category .." class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            <input type="text" v-model="this.medication.catagory" placeholder="category .." class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
                             
                             <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
-                            <input type="text" v-model="medication.name" placeholder="name ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <input type="text" v-model="this.medication.name" placeholder="name ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            
+
                             <!-- <label for="" class="text-sm px-3 py-0.5">Dosage</label> -->
-                            <input type="text" v-model="medication.dosage" placeholder="dosage ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <input type="text" v-model="this.medication.dosage" placeholder="dosage ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                             <!-- <label for="" class="text-sm px-3 py-0.5">Frequency</label> -->
-                            <input type="text" v-model="medication.frequency" placeholder="frequency ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <input type="text" v-model="this.medication.frequency" placeholder="frequency ..." class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                             <!-- <label for="" class="text-sm px-3 py-0.5">Duration</label> -->
-                            <input type="text" v-model="medication.duration" placeholder="duration ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <input type="text" v-model="this.medication.duration" placeholder="duration ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                             <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
-                            <input type="text" v-model="medication.relationWithMeals" placeholder="relation with meal ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            <input type="text" v-model="this.medication.relationWithMeals" placeholder="relation with meal ..." class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                             <div class="flex justify-end col-span-3">
 
                                 <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication(this.medication)">Add</button>
@@ -353,7 +426,7 @@ import Editor from "../../components/Editor.vue"
 
                     </div>
                     <section class="my-4 mx-2">
-                        <table v-if="medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
+                        <table v-if="recentlyUsedMedication.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
                             <thead class="bg-regal-teal text-white">
                             <tr class="">
                                 <th v-for="item in gridColumns" :key="item" class="p-3 appearance-none first:rounded-tl-md  ">
@@ -366,7 +439,7 @@ import Editor from "../../components/Editor.vue"
                             </tr>
                             </thead>
                             <tbody class="divide-y ">
-                                <tr v-for="(data,index) in this.medicine" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
+                                <tr v-for="(data,index) in recentlyUsedMedication" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
                                
                                     <td class="p-3" v-for="items in data" :key="items">
                                        <p>
@@ -384,6 +457,41 @@ import Editor from "../../components/Editor.vue"
                         </table>
                          <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
                         <!-- <Grid   :columns="gridColumns" :data="this.medicine"/> -->
+
+                        <div class="my-5" v-show="showSearchMed">
+                            <label class="flex content-start py-1 text-regal-teal font-semibold ">Past Medicine</label>
+
+                           
+                            <table class="w-full mx-auto  bg-opacity-80 text-sm">
+                                <thead class="bg-regal-light-blue text-regal-teal">
+                                    <tr class="">
+                                        <th v-for="item in gridColumns" :key="item"
+                                            class="p-2 appearance-none first:rounded-tl-md  text-left">
+                                            {{item}}
+                                        </th>
+                                        <th class="last:rounded-tr-md">
+
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in medicine" :key="index">
+                                        <td class="text-left p-2" v-for="data in item" :key="data">
+ 
+                                        <p>
+                                         {{data}}
+                                        </p> 
+                                        </td>
+                                        <td class="text-left">
+
+                                            <button  @click="insertMedication(item)" class="bg-gray-50 border">Insert</button>
+                                        </td>
+                                     </tr>
+                                 </tbody>
+                            </table>
+                        </div>
                     </section>
                     
                     <label
