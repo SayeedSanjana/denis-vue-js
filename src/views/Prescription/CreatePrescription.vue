@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 import Editor from "../../components/Editor.vue"
 // import Grid from "../../components/Grid.vue"
 
@@ -11,134 +12,90 @@ import Editor from "../../components/Editor.vue"
         },
         data(){
             return{
-            cc: '',
-            oe: [],
-            oelist:["Jack","John","Jill","Joe","Jane","Doe","Chen"], 
-            oetext:'',
-            invtext:'', 
-         
-            invlocation:'',
-            investigationlist:[{
-                inv_name:'Xray',
-                location:"22"
+                invtext:'', 
+                invlocation:'',
+                investigationlist:[{
+                    inv_name:'Xray',
+                    location:"22"
+                },
+                {
+                    inv_name:'Extraction',
+                    location:"22"
+
+                }],
+
+                medicineList:[],
+                oelist:[], 
+                oetext:'',
+            
+            form: {
+                cc: '',
+                oe: [],
+                medicine:[],
+                advice:'', 
+                treatmentPlan:'',
+                investigation:[
+                    // {
+                    //     inv_name: '',
+                    //     location: '',
+                    // }
+                ],
             },
-            {
-                inv_name:'Extraction',
-                location:"22"
 
-            }],
-            pastMedicationList:[{
-                catagory: 'tablet',
-                name : 'napa',
-                dosage:'1.5 mg',
-                frequency: '2',
-                duration: '2 days',
-                relationWithMeals: 'after meal'
-
-            },
-            {
-                catagory: 'tablet',
-                name : 'napa extra',
-                dosage:'50 mg',
-                frequency: '2',
-                duration: '3 days',
-                relationWithMeals: 'before meal'
-
-            },
-            {
-                catagory: 'tablet',
-                name : 'tenocab',
-                dosage:'50 mg',
-                frequency: '2',
-                duration: '3 days',
-                relationWithMeals: 'before meal'
-
-            }
-            ],
-            investigation:[{
-                inv_name: '',
-                location: '',
-            }],
-            advice:'', 
-            treatmentPlan:'',
             heightAuto: false,
             maxlength:255,
             editor: null,
             medtext:'',
             recentlyUsed:[],
-            recentlyUsedMedication:[],
+            // medicine:[],
             recentlyUsed2:[],
             showSearch:false,
             showSearchIn:false,
             showSearchInvLocation:false,
             showSearchMed:false,
             gridColumns: {
-                    catagory: 'Category',
                     name : 'Name',
+                    category: 'Category',
+                    generic: 'Generic',
                     dosage:'Dosage',
                     frequency: 'Frequency',
                     duration: 'Duration',
                     relationWithMeals: 'Relation with Meals'
                 },
+            medicineColumn:{
+                name: 'Name',
+                category: 'Category',
+                generic: 'Generic',
+                dosage: 'Dosage',
+
+            },
                 invColumns:{
                     inv_name: 'Investigation Name',
                     location: 'Location'
                 },
                
             medication:{
-                catagory: '',
                 name : '',
+                category: '',
+                generic: '',
                 dosage:'',
                 frequency: '',
                 duration: '',
                 relationWithMeals: ''
             },
-            medicine:[],
             
-            
-
-            
-
-            
-
-
         }
         
     },
-      mounted() {
-          this.getAllOE();
-            // this.getAllInvestigation();
-               
-      },
+   
       watch:{
-            oetext(val){
-                if(val.length>0){
-                    this.showSearch=true;
-                    this.search(val);
-              
-                }
-                else{
-                    this.showSearch=false;
-                    
-                    
-                }
- 
-            },
-            'medication.name'(val){
-                if(val.length> 0){
-                    
-                    this.showSearchMed=true;
-                    this.searchMedicationName(val);
+            
+           async 'medication.name'(val) {
 
-                }
-                else{
-                    this.showSearchMed=false;
-                    
-                    
-                }
-               
+               this.searchMed(val);
+           
 
-            }
+           }
        
       },
       
@@ -146,44 +103,106 @@ import Editor from "../../components/Editor.vue"
 
     methods:{
         selectedItem(oe){
-            this.oetext =oe;
-        },
-        selectedItem2(investigation){
-            this.invtext =investigation.inv_name;
-            this.invlocation =investigation.location;
-        },
-        getAllOE(){
-            this.oe= [...this.oelist]
-        },
-       search(term){		
-           this.oe = [...this.oelist];
-    
-			if (term.length>0) {
-				this.oe = this.oe.filter((i) => {
-					return  i.toLowerCase().includes(term.toLowerCase())
-				})	
-			} 
+            this.oetext = oe;
+            this.showSearch = false;
+            this.oelist = [];
+            
             
 
-		},
-        searchMedicationName(){
-            // console.log("jkjkjk")
-            this.medicine = [...this.pastMedicationList]
-            if (this.medication.name.length>0) {
-                this.medicine = this.medicine.filter((i) => {
-                    return  i.name.toLowerCase().includes(this.medication.name.toLowerCase())
-                })	
-                
-            }
-
-        },
-        addOE(){
-            if(this.oetext.length>0){
-                this.recentlyUsed.push(this.oetext)
-                this.oetext=''
-            }
+            },
+        selectedItem2(){
+            this.invtext =this.form.investigation.inv_name;
+            this.invlocation =this.form.investigation.location;
         },
         
+    
+        addOE(){
+            
+                const oe= this.oetext;
+                this.form.oe.push(oe)
+                this.oetext=''
+          
+        },
+        
+        searchOE(e){
+              try {
+                  
+                    setTimeout(async () => {
+                        // console.log(e.target.value)
+                        if (e.target.value.length > 0) {
+                            this.showSearch = true;
+                            const response = await axios.get('http://localhost:8000/api/treatment-note', {
+                                params: {
+                                    q: e.target.value,
+                                    limit: 5
+                                }
+                            });
+                            // console.log(response.data.data);
+                            let arr = [];
+                            for (let i = 0; i < response.data.data.length; i++) {
+                                let element = response.data.data[i];
+                                element = this.objectMap({
+                                    name: ''
+                                }, element);
+                                arr.push(element);
+
+
+                            }
+                            this.oelist = [...arr];
+
+                        } 
+                        
+                    }, 1200);
+
+                    if (e.target.value.length == 0) {
+                        this.showSearch = false;
+                        this.oelist = [];
+                    }                        
+                } catch (error) {
+                    console.log(error);
+                }
+        },
+
+        searchMed(e){
+                try {
+
+                   setTimeout(async () => {
+
+                       if (e.target.value.length > 0) {
+                           this.showSearchMed = true;
+                           const response = await axios.get('http://localhost:8000/api/medicine', {
+                               params: {
+                                   q: e.target.value,
+                                   limit: 20
+                               }
+                           });
+                           console.log(response.data.data);
+                           let arr = [];
+                           for (let i = 0; i < response.data.data.length; i++) {
+                               let element = response.data.data[i];
+                               element = this.objectMap({
+                                   name: '',
+                                   category: '',
+                                   generic: '',
+                                   dosage: '',
+                               }, element);
+
+                               arr.push(element);
+                            }
+                               
+                               this.medicineList = [...arr];
+                       } else {
+                           this.showSearchMed = false;
+                           this.medicineList = [];
+                       }
+                   }, 200)
+               } catch (error) {
+                   console.log(error);
+
+               }
+
+
+        },
         
 
         addInvestigation(){
@@ -201,40 +220,35 @@ import Editor from "../../components/Editor.vue"
                 console.log(this.recentlyUsed2);
             }
         },
+
         removeOE(index){
-            this.recentlyUsed.splice(index,1);  
+            this.form.oe.splice(index,1);  
 
         },
         removeInvestigation(index){
             this.recentlyUsed2.splice(index,1);  
 
         },
-        addMedication(i){
-              if(this.medication.catagory.length>0 || this.medication.name.length>0 || this.medication.dosage.length>0 || this.medication.frequency.length>0 || this.medication.duration.length>0 || this.medication.relationWithMeals.length>0){
-                this.recentlyUsedMedication.push(i);
-                this.medication={
-                    catagory: '',
-                    name : '',
-                    dosage:'',
-                    frequency: '',
-                    duration: '',
-                    relationWithMeals: ''
-                } }      
+        addMedication(){
+              if(this.medication.category.length>0 ||this.medication.generic.length >0 || this.medication.name.length>0 || this.medication.dosage.length>0 || this.medication.frequency.length>0 || this.medication.duration.length>0 || this.medication.relationWithMeals.length>0){
+                
+                const medobj = Object.assign({}, this.medication);
+                this.form.medicine.push(medobj);
+                for(const b in this.medication){
+                    this.medication[b]='';
+                }
+                  
+        }
         },
 
         removeMedication(index){
-            this.recentlyUsedMedication.splice(index,1);  
+            this.form.medicine.splice(index,1);  
         },
 
 
         insertMedication(i){
-            this.medication.catagory = i.catagory
-            this.medication.name = i.name
-            this.medication.dosage = i.dosage
-            this.medication.frequency = i.frequency
-            this.medication.duration = i.duration
-            this.medication.relationWithMeals = i.relationWithMeals
-
+           Object.assign(this.medication, i);
+           this.medicineList='';
         }
         
        
@@ -282,12 +296,12 @@ import Editor from "../../components/Editor.vue"
         </div>
 
         <section class="">
-            <!-- <form action="" > -->
+            <form action="" @submit.prevent="">
             <article class="flex justify-between mx-12">
                 <div class="w-2/5 p-3">
                     <label
                         class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
-                    <Editor v-model="cc" class="py-1"/>
+                    <Editor v-model="form.cc" class="py-1"/>
 
                     <label
                         class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On Examination</label>
@@ -295,24 +309,25 @@ import Editor from "../../components/Editor.vue"
                         <div class="w-full py-1">
                            
                            <div class="flex" >
-                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="oetext">
+                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" @keypress="searchOE" v-model="oetext">
                                <div class="w-1/5 ">
-                                   <button class="mt-1" @click="addOE()">
+                                   <button class="mt-1" @click="addOE">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
                                    </button>
                                </div>
                            </div>
-                            <ul class=" w-4/5  section  " v-show="showSearch" >
-                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in oe" :key="items" @click="selectedItem(items)">
-                                   {{items}} 
+                            <ul class=" w-4/5 bg-blue-50  section  " v-show="showSearch" >
+                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in oelist" :key="items" @click="selectedItem(items.name)">
+
+                                   {{items.name}} 
                                 </li>
                             </ul>
                             <div class="my-4" >
                                 <label for="" class=" flex text-left ml-2">On Examination</label>
                                     <hr class="w-1/3 ">
-                                <div v-if="recentlyUsed.length > 0" class="my-1 border rounded-t-md">
+                                <div v-if="form.oe.length > 0" class="my-1 border rounded-t-md">
 
-                                    <div class="border-b flex justify-between text-left  py-1 pl-2 " v-for="(item,index) in recentlyUsed" :key="item">
+                                    <div class="border-b flex justify-between text-left  py-1 pl-2 " v-for="(item,index) in form.oe" :key="item">
                                        <p>
                                         {{item}}
                                        </p> 
@@ -395,12 +410,23 @@ import Editor from "../../components/Editor.vue"
             
 
                 <!-- Rx -->
+                
                 <div class="w-3/5 p-3 border-l border-regal-teal mx-auto ">
                     <div>  
                         <label
                             class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
                             
                         <div class=" text-left mx-auto grid grid-cols-3">
+                                <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Name</label>
+                                     </p>
+                                 </div>
+                                 <input type="text" v-model="medication.name" @keypress="searchMed"
+                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                             </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5  grid col-span-1">Category</label> -->
                             <div class=" transition-all duration-500 relative rounded p-1">
 
@@ -409,20 +435,22 @@ import Editor from "../../components/Editor.vue"
                                         <label for="name" class="bg-white text-gray-400 px-1">Category</label>
                                     </p>
                                 </div>
-                                <input type="text" v-model="this.medication.catagory" 
+                                <input type="text" v-model="medication.category" 
                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
                             </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
-                             <div class=" transition-all duration-500 relative rounded p-1">
+                            <div class=" transition-all duration-500 relative rounded p-1">
 
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Name</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="this.medication.name"
-                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label for="name" class="bg-white text-gray-400 px-1">Generic Name</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.generic" 
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
+                            <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
+                         
 
                             <!-- <label for="" class="text-sm px-3 py-0.5">Dosage</label> -->
                              <div class=" transition-all duration-500 relative rounded p-1">
@@ -432,7 +460,7 @@ import Editor from "../../components/Editor.vue"
                                          <label for="name" class="bg-white text-gray-400 px-1">Dosage</label>
                                      </p>
                                  </div>
-                                 <input type="text" v-model="this.medication.dosage"
+                                 <input type="text" v-model="medication.dosage"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Frequency</label> -->
@@ -443,7 +471,7 @@ import Editor from "../../components/Editor.vue"
                                          <label for="name" class="bg-white text-gray-400 px-1">Frequency</label>
                                      </p>
                                  </div>
-                                 <input type="text" v-model="this.medication.frequency"
+                                 <input type="text" v-model="medication.frequency"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Duration</label> -->
@@ -454,7 +482,7 @@ import Editor from "../../components/Editor.vue"
                                          <label for="name" class="bg-white text-gray-400 px-1">Duration</label>
                                      </p>
                                  </div>
-                                 <input type="text" v-model="this.medication.duration"
+                                 <input type="text" v-model="medication.duration"
                                      class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
@@ -465,13 +493,13 @@ import Editor from "../../components/Editor.vue"
                                          <label for="name" class="bg-white text-gray-400 px-1">Relation with Meal</label>
                                      </p>
                                  </div>
-                                 <input type="text" v-model="this.medication.relationWithMeals"
+                                 <input type="text" v-model="medication.relationWithMeals"
                                      
                                      class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                            <div class="flex justify-end col-span-3">
 
-                                <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication(this.medication)">Add</button>
+                                <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication">Add</button>
                             </div>
                         </div>
                         
@@ -479,7 +507,7 @@ import Editor from "../../components/Editor.vue"
 
                     </div>
                     <section class="my-4 mx-2">
-                        <table v-if="recentlyUsedMedication.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
+                        <table v-if="form.medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
                             <thead class="bg-regal-teal text-white">
                             <tr class="">
                                 <th v-for="item in gridColumns" :key="item" class="p-3 appearance-none first:rounded-tl-md  ">
@@ -492,7 +520,7 @@ import Editor from "../../components/Editor.vue"
                             </tr>
                             </thead>
                             <tbody class="divide-y ">
-                                <tr v-for="(data,index) in recentlyUsedMedication" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
+                                <tr v-for="(data,index) in form.medicine" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
                                
                                     <td class="p-3" v-for="items in data" :key="items">
                                        <p>
@@ -502,7 +530,9 @@ import Editor from "../../components/Editor.vue"
                                   
                                     </td>
                                     <td>
-                                          <button  @click="removeMedication(index)">X</button>
+                                          <button  @click="removeMedication(index)">
+                                          <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none mr-2">
+                                          </button>
                                     </td>
                                     
                                 </tr>
@@ -512,13 +542,13 @@ import Editor from "../../components/Editor.vue"
                         <!-- <Grid   :columns="gridColumns" :data="this.medicine"/> -->
 
                         <div class="my-5" v-show="showSearchMed">
-                            <label class="flex content-start py-1 text-regal-teal font-semibold ">Past Medicine</label>
+                            <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine List</label>
 
                            
                             <table class="w-full mx-auto  bg-opacity-80 text-sm">
                                 <thead class="bg-regal-light-blue text-regal-teal">
                                     <tr class="">
-                                        <th v-for="item in gridColumns" :key="item"
+                                        <th v-for="item in medicineColumn" :key="item"
                                             class="p-2 appearance-none first:rounded-tl-md  text-left">
                                             {{item}}
                                         </th>
@@ -530,7 +560,7 @@ import Editor from "../../components/Editor.vue"
                                 </thead>
                                 <tbody>
 
-                                    <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in medicine" :key="index">
+                                    <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in medicineList" :key="index">
                                         <td class="text-left p-2" v-for="data in item" :key="data">
  
                                         <p>
@@ -549,11 +579,11 @@ import Editor from "../../components/Editor.vue"
                     
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
-                    <Editor v-model="treatmentPlan" class="m-2" />
+                    <Editor v-model="form.treatmentPlan" class="m-2" />
 
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor v-model="advice" class="m-2" />
+                    <Editor v-model="form.advice" class="m-2" />
             <div class="flex justify-end mr-2 my-2">
                 <button class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
 
@@ -562,7 +592,7 @@ import Editor from "../../components/Editor.vue"
 
             </article>
         
-            <!-- </form> -->
+            </form>
 
         </section>
 
