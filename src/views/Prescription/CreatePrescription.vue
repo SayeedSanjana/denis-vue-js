@@ -1,7 +1,10 @@
 <script>
 import axios from "axios";
 import Editor from "../../components/Editor.vue"
+import swal from "sweetalert";
 // import Grid from "../../components/Grid.vue"
+
+
 
     export default {
         components:{
@@ -46,8 +49,6 @@ import Editor from "../../components/Editor.vue"
             maxlength:255,
             editor: null,
             medtext:'',
-            recentlyUsed:[],
-            // medicine:[],
             recentlyUsed2:[],
             showSearch:false,
             showSearchIn:false,
@@ -87,18 +88,32 @@ import Editor from "../../components/Editor.vue"
         }
         
     },
+    
    
-      watch:{
+    watch:{
             
-           async 'medication.name'(val) {
+        oetext() {
 
-               this.searchMed(val);
+            if (this.oetext.length > 2) {
+                this.showSearch = true;
+
+            } else {
+                this.showSearch = false;
+                this.oelist = [];
+
+            }
+        },
+
+        "medication.name"(val){
+            if (val.length > 2) {
+                    this.showSearchMed = true;
+            } else {
+                    this.showSearchMed = false;
+                    this.medicineList = [];
+            }
+        },
            
-
-           }
-       
       },
-      
 
 
     methods:{
@@ -117,27 +132,29 @@ import Editor from "../../components/Editor.vue"
         
     
         addOE(){
-            
-                const oe= this.oetext;
-                this.form.oe.push(oe)
-                this.oetext=''
+                if(this.oetext.length > 0){
+                    const oe= this.oetext;
+                    this.form.oe.push(oe)
+                    this.oetext=''
+                }
           
         },
+       
         
         searchOE(e){
               try {
                   
-                    setTimeout(async () => {
-                        // console.log(e.target.value)
+                    if(this.timeout) clearTimeout(this.timeout);
+
+                    this.timeout = setTimeout(async () => {
                         if (e.target.value.length > 0) {
-                            this.showSearch = true;
                             const response = await axios.get('http://localhost:8000/api/treatment-note', {
                                 params: {
                                     q: e.target.value,
                                     limit: 5
                                 }
                             });
-                            // console.log(response.data.data);
+                          
                             let arr = [];
                             for (let i = 0; i < response.data.data.length; i++) {
                                 let element = response.data.data[i];
@@ -145,61 +162,64 @@ import Editor from "../../components/Editor.vue"
                                     name: ''
                                 }, element);
                                 arr.push(element);
-
-
                             }
                             this.oelist = [...arr];
-
                         } 
+                    }, 1000);
                         
-                    }, 1200);
+                   
 
-                    if (e.target.value.length == 0) {
-                        this.showSearch = false;
-                        this.oelist = [];
-                    }                        
+                       
                 } catch (error) {
-                    console.log(error);
+                    swal({
+					title: "error",
+					text: error.message,
+					icon: "error",
+					button: true
+				});
                 }
         },
+   
+        searchMed(e) {
+            try {
 
-        searchMed(e){
-                try {
+                if (this.timeout) clearTimeout(this.timeout);
+                this.timeout = setTimeout(async () => {
 
-                   setTimeout(async () => {
-
-                       if (e.target.value.length > 0) {
-                           this.showSearchMed = true;
-                           const response = await axios.get('http://localhost:8000/api/medicine', {
-                               params: {
-                                   q: e.target.value,
-                                   limit: 20
-                               }
-                           });
-                           console.log(response.data.data);
-                           let arr = [];
-                           for (let i = 0; i < response.data.data.length; i++) {
-                               let element = response.data.data[i];
-                               element = this.objectMap({
-                                   name: '',
-                                   category: '',
-                                   generic: '',
-                                   dosage: '',
-                               }, element);
-
-                               arr.push(element);
+                    if (e.target.value.length > 0) {
+                        
+                        const response = await axios.get('http://localhost:8000/api/medicine', {
+                            params: {
+                                q: e.target.value,
+                                limit: 20
                             }
-                               
-                               this.medicineList = [...arr];
-                       } else {
-                           this.showSearchMed = false;
-                           this.medicineList = [];
-                       }
-                   }, 200)
-               } catch (error) {
-                   console.log(error);
+                        });
+                        let arr = [];
+                        for (let i = 0; i < response.data.data.length; i++) {
+                            let element = response.data.data[i];
+                            element = this.objectMap({
+                                name: '',
+                                category: '',
+                                generic: '',
+                                dosage: '',
+                            }, element);
 
-               }
+                            arr.push(element);
+                        }
+
+                        this.medicineList = [...arr];
+                    } 
+                }, 1000)
+
+            } catch (error) {
+                swal({
+                    title: "error",
+                    text: error.message,
+                    icon: "error",
+                    button: true
+                });
+
+            }
 
 
         },
@@ -300,8 +320,9 @@ import Editor from "../../components/Editor.vue"
             <article class="flex justify-between mx-12">
                 <div class="w-2/5 p-3">
                     <label
-                        class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
+                        class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
                     <Editor v-model="form.cc" class="py-1"/>
+
 
                     <label
                         class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On Examination</label>
@@ -309,34 +330,36 @@ import Editor from "../../components/Editor.vue"
                         <div class="w-full py-1">
                            
                            <div class="flex" >
-                               <input placeholder="input here....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" @keypress="searchOE" v-model="oetext">
-                               <div class="w-1/5 ">
-                                   <button class="mt-1" @click="addOE">
-                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
+                               <input placeholder="Write here......" type="text" class="w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext">
+                               <div class="w-1/12 ">
+                                   <button class="mt-4" @click="addOE">
+                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                    </button>
                                </div>
                            </div>
-                            <ul class=" w-4/5 bg-blue-50  section  " v-show="showSearch" >
-                                <li class="border-b border-r border-l hover:bg-gray-200 text-left pl-2" v-for="items in oelist" :key="items" @click="selectedItem(items.name)">
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearch" >
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in oelist" :key="items" @click="selectedItem(items.name)">
 
                                    {{items.name}} 
                                 </li>
                             </ul>
-                            <div class="my-4" >
-                                <label for="" class=" flex text-left ml-2">On Examination</label>
+                            <div class="my-4 " > 
+                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">On Examination</label>
                                     <hr class="w-1/3 ">
-                                <div v-if="form.oe.length > 0" class="my-1 border rounded-t-md">
+                                <div v-if="form.oe.length > 0" class="my-1">
 
-                                    <div class="border-b flex justify-between text-left  py-1 pl-2 " v-for="(item,index) in form.oe" :key="item">
-                                       <p>
+                                    <ul class="list-disc flex justify-between text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
+                                       <li class="w-11/12">
                                         {{item}}
-                                       </p> 
-                                       <button  @click="removeOE(index)">X</button>
-                                    </div>
+                                       </li> 
+                                       <button  @click="removeOE(index)" class="pl-3 w-1/12">
+                                       <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                       </button>
+                                    </ul>
 
                                 </div>
                                 <div v-else>
-                                    <p class="border flex text-left  my-1 py-1 pl-2 rounded-t-md">No Examination Added</p>
+                                    <p class=" flex text-left  my-1 py-1 pl-2 rounded-t-md">No Examination Added</p>
                                 </div>
                             </div>
 
@@ -349,12 +372,30 @@ import Editor from "../../components/Editor.vue"
                         class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
                      <div class="w-full ">
                            
-                           <div class="flex" >
-                               <input placeholder="investigation name here....." type="text" class="w-4/5 mr-2 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invtext">
-                               <input placeholder="investigation location....." type="text" class="w-4/5 rounded-t-md border border-regal-teal border-opacity-50 px-3 py-1 focus:outline-none" v-model="invlocation">
-                               <div class="w-1/5 ">
-                                   <button class="mt-1" @click="addInvestigation()">
-                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-5 w-5 ">
+                           <div class="flex " >
+                                <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Investigation Name</label>
+                                     </p>
+                                 </div>
+                               <input type="text" class=" mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="invtext">
+                                </div>
+
+                                 <div class=" transition-all duration-500 relative rounded p-1">
+
+                                 <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                     <p>
+                                         <label for="name" class="bg-white text-gray-400 px-1">Investigation Location</label>
+                                     </p>
+                                 </div>
+                               <input  type="text" class="  border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="invlocation">
+                                 </div>
+
+                               <div class="ml-10 ">
+                                   <button class="mt-4" @click="addInvestigation()">
+                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                    </button>
                                </div>
                            </div>

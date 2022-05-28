@@ -82,7 +82,7 @@ module.exports = {
         margin: ['responsive', 'hover', 'first'],
         borderWidth: ['responsive', 'hover', 'first'],
         // borderColor: ['responsive', 'hover', 'first'],
-        borderRadius: ['first', 'last'],
+        borderRadius: ['first', 'last' ,'hover'],
        
         // textColor: ["responsive", "hover", "focus", "group-hover"],
         // textDecoration: ["responsive", "hover", "focus", "group-hover"],
