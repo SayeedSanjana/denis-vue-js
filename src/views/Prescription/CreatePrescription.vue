@@ -452,7 +452,7 @@ import swal from "sweetalert";
 
                 <!-- Rx -->
                 
-                <div class="w-3/5 p-3 border-l border-regal-teal mx-auto ">
+                <div class="w-3/5 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
                     <div>  
                         <label
                             class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
