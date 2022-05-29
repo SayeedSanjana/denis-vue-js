@@ -15,18 +15,12 @@ import swal from "sweetalert";
         },
         data(){
             return{
-                invtext:'', 
-                invlocation:'',
-                investigationlist:[{
-                    inv_name:'Xray',
-                    location:"22"
+                 
+                invlist:[],
+                inv:{
+                    inv_name:'',
+                    location:'',
                 },
-                {
-                    inv_name:'Extraction',
-                    location:"22"
-
-                }],
-
                 medicineList:[],
                 oelist:[], 
                 oetext:'',
@@ -37,12 +31,7 @@ import swal from "sweetalert";
                 medicine:[],
                 advice:'', 
                 treatmentPlan:'',
-                investigation:[
-                    // {
-                    //     inv_name: '',
-                    //     location: '',
-                    // }
-                ],
+                investigation:[],
             },
 
             heightAuto: false,
@@ -51,7 +40,7 @@ import swal from "sweetalert";
             medtext:'',
             recentlyUsed2:[],
             showSearch:false,
-            showSearchIn:false,
+            showSearchInv:false,
             showSearchInvLocation:false,
             showSearchMed:false,
             gridColumns: {
@@ -104,6 +93,15 @@ import swal from "sweetalert";
             }
         },
 
+        'inv.inv_name'(val) {
+            if (val.length > 2) {
+                this.showSearchInv = true;
+            } else {
+                this.showSearchInv = false;
+                this.invlist = [];
+            }
+        },
+
         "medication.name"(val){
             if (val.length > 2) {
                     this.showSearchMed = true;
@@ -125,9 +123,11 @@ import swal from "sweetalert";
             
 
             },
-        selectedItem2(){
-            this.invtext =this.form.investigation.inv_name;
-            this.invlocation =this.form.investigation.location;
+        selectedItemInv(inv){
+            this.inv.inv_name = inv;
+            this.showSearchInv = false;
+            this.invlist = [];
+            
         },
         
     
@@ -138,6 +138,47 @@ import swal from "sweetalert";
                     this.oetext=''
                 }
           
+        },
+
+        searchInvName(e){
+            try {
+                  if(this.timeout) clearTimeout(this.timeout);
+
+                    this.timeout = setTimeout(async () => {
+                        if (e.target.value.length > 0) {
+                            const response = await axios.get('http://localhost:8000/api/treatment-note', {
+                                params: {
+                                    q: e.target.value,
+                                    limit: 5
+                                }
+                            });
+                            console.log(response.data);
+                          
+                            let arr = [];
+                            for (let i = 0; i < response.data.data.length; i++) {
+                                let element = response.data.data[i];
+                                element = this.objectMap({
+                                    name: ''
+                                }, element);
+                                arr.push(element);
+                            }
+                            this.invlist = [...arr];
+                        } 
+                    }, 1000);
+                        
+                   
+
+                
+            } catch (error) {
+                 swal({
+					title: "error",
+					text: error.message,
+					icon: "error",
+					button: true
+				});
+                
+            }
+
         },
        
         
@@ -226,19 +267,14 @@ import swal from "sweetalert";
         
 
         addInvestigation(){
-            if(this.invtext.length>0 || this.invlocation.length>0){
-                this.recentlyUsed2.push(
-                    {
-                        inv_name: this.invtext,
-                        location: this.invlocation
-                    }
-                
-                )
-
-                this.invtext='',
-                this.invlocation=''
-                console.log(this.recentlyUsed2);
+            if(this.inv.inv_name.length > 0 || this.inv.location.length > 0){
+                const invobj= Object.assign({}, this.inv);
+                this.form.investigation.push(invobj)
+                for(const key in this.inv){
+                    this.inv[key]='';
+                }
             }
+            
         },
 
         removeOE(index){
@@ -246,7 +282,7 @@ import swal from "sweetalert";
 
         },
         removeInvestigation(index){
-            this.recentlyUsed2.splice(index,1);  
+            this.form.investigation.splice(index,1);  
 
         },
         addMedication(){
@@ -330,7 +366,7 @@ import swal from "sweetalert";
                         <div class="w-full py-1">
                            
                            <div class="flex" >
-                               <input placeholder="Write here......" type="text" class="w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext">
+                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext"></textarea>
                                <div class="w-1/12 ">
                                    <button class="mt-4" @click="addOE">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
@@ -380,7 +416,7 @@ import swal from "sweetalert";
                                          <label for="name" class="bg-white text-gray-400 px-1">Investigation Name</label>
                                      </p>
                                  </div>
-                               <input type="text" class=" mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="invtext">
+                               <input type="text" class=" mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" @keypress="searchInvName" v-model="inv.inv_name">
                                 </div>
 
                                  <div class=" transition-all duration-500 relative rounded p-1">
@@ -390,52 +426,39 @@ import swal from "sweetalert";
                                          <label for="name" class="bg-white text-gray-400 px-1">Investigation Location</label>
                                      </p>
                                  </div>
-                               <input  type="text" class="  border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="invlocation">
+                               <input  type="text" class="  border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="inv.location">
                                  </div>
 
                                <div class="ml-10 ">
-                                   <button class="mt-4" @click="addInvestigation()">
+                                   <button class="mt-4" @click="addInvestigation">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                    </button>
                                </div>
                            </div>
                            
-                            <div class="my-4" >
-                                <label for="" class=" flex text-left ml-2">Investigation</label>
+                           <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchInv" >
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
+
+                                   {{items.name}} 
+                                </li>
+                            </ul>
+                            <div class="my-4 " > 
+                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Investigation</label>
                                     <hr class="w-1/3 ">
-                                <table v-if="recentlyUsed2.length > 0" class="w-full mx-auto  bg-opacity-80 text-sm">
-                                 <thead class="bg-regal-teal text-white">
-                                     <tr class="">
-                                         <th v-for="item in invColumns" :key="item"
-                                             class="p-2 appearance-none first:rounded-tl-md  text-left">
-                                             {{item}}
-                                         </th>
-                                         <th class="last:rounded-tr-md">
+                                <div v-if="form.investigation.length > 0" class="my-1">
 
-                                         </th>
+                                    <ul class=" flex justify-between text-left  py-1 ml-6 " v-for="(item,index) in form.investigation" :key="item">
+                                       <li class="w-11/12" v-for="items in item " :key="items">
+                                        {{items}}
+                                       </li> 
+                                       <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
+                                       <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                       </button>
+                                    </ul>
 
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-
-                                     <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in recentlyUsed2" :key="item">
-                                        <td class="text-left p-2" v-for="data in item" :key="data">
- 
-                                        <p>
-                                         {{data}}
-                                        </p> 
-                                        </td>
-                                        <td class="text-left">
-
-                                            <button  @click="removeInvestigation(index)">X</button>
-                                        </td>
-                                     </tr>
-                                 </tbody>
-
-
-                                </table>
+                                </div>
                                 <div v-else>
-                                    <p class="border flex text-left  my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
+                                    <p class=" flex text-left  my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
                                 </div>
                             </div>
 
