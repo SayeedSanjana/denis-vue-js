@@ -268,7 +268,8 @@ import swal from "sweetalert";
 
         addInvestigation(){
             if(this.inv.inv_name.length > 0 || this.inv.location.length > 0){
-                const invobj= Object.assign({}, this.inv);
+                // const invobj= Object.assign({}, this.inv);
+                const invobj= {...this.inv};
                 this.form.investigation.push(invobj)
                 for(const key in this.inv){
                     this.inv[key]='';
@@ -354,7 +355,7 @@ import swal from "sweetalert";
         <section class="">
             <form action="" @submit.prevent="">
             <article class="flex justify-between mx-12">
-                <div class="w-2/5 p-3">
+                <div class="w-1/2 p-3">
                     <label
                         class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
                     <Editor v-model="form.cc" class="py-1"/>
@@ -384,18 +385,21 @@ import swal from "sweetalert";
                                     <hr class="w-1/3 ">
                                 <div v-if="form.oe.length > 0" class="my-1">
 
-                                    <ul class="list-disc flex justify-between text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
-                                       <li class="w-11/12">
-                                        {{item}}
+                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
+                                       <li class=" text-regal-teal italic list-disc">
+                                           <div class="flex justify-between">
+                                               {{item}}
+                                              <button  @click="removeOE(index)" class="pl-3 w-1/12">
+                                              <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                              </button>
+                                           </div>
+
                                        </li> 
-                                       <button  @click="removeOE(index)" class="pl-3 w-1/12">
-                                       <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                       </button>
                                     </ul>
 
                                 </div>
                                 <div v-else>
-                                    <p class=" flex text-left  my-1 py-1 pl-2 rounded-t-md">No Examination Added</p>
+                                    <p class=" flex text-left  my-1 py-1 pl-2 text-gray-400 rounded-t-md">No Examination Added</p>
                                 </div>
                             </div>
 
@@ -408,52 +412,85 @@ import swal from "sweetalert";
                         class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
                      <div class="w-full ">
                            
-                           <div class="flex " >
-                                <div class=" transition-all duration-500 relative rounded p-1">
+                           <div class=" " >
+                                <div class=" relative rounded p-1">
 
                                  <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                      <p>
                                          <label for="name" class="bg-white text-gray-400 px-1">Investigation Name</label>
                                      </p>
                                  </div>
-                               <input type="text" class=" mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" @keypress="searchInvName" v-model="inv.inv_name">
+                               <textarea type="text" class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" @keypress="searchInvName" v-model="inv.inv_name"></textarea>
+                                </div>
+                                 <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
+                                     v-show="showSearchInv">
+                                     <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
+                                         v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
+
+                                         {{items.name}}
+                                     </li>
+                                 </ul>
+
+
+                                <div class="flex justify-between w-full">
+
+                                    <div class="relative rounded p-1 flex w-3/4 ">
+   
+                                        <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                            <p>
+                                                <label for="name" class="bg-white text-gray-400 px-1">Location</label>
+                                            </p>
+                                        </div>
+                                        <input type="text"
+                                            class="w-full border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                            v-model="inv.location">
+                                    </div>
+   
+                                  <div class="mr-2 ">
+                                      <button class="mt-4" @click="addInvestigation">
+                                          <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
+                                      </button>
+                                  </div>
                                 </div>
 
-                                 <div class=" transition-all duration-500 relative rounded p-1">
 
-                                 <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                     <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Investigation Location</label>
-                                     </p>
-                                 </div>
-                               <input  type="text" class="  border rounded-md px-3 py-2 my-2 focus:outline-none" v-model="inv.location">
-                                 </div>
-
-                               <div class="ml-10 ">
-                                   <button class="mt-4" @click="addInvestigation">
-                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                   </button>
-                               </div>
                            </div>
                            
-                           <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchInv" >
+                           <!-- <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchInv" >
                                 <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
 
                                    {{items.name}} 
                                 </li>
-                            </ul>
+                            </ul> -->
                             <div class="my-4 " > 
                                 <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Investigation</label>
                                     <hr class="w-1/3 ">
                                 <div v-if="form.investigation.length > 0" class="my-1">
 
-                                    <ul class=" flex justify-between text-left  py-1 ml-6 " v-for="(item,index) in form.investigation" :key="item">
-                                       <li class="w-11/12" v-for="items in item " :key="items">
-                                        {{items}}
+                                    <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation" :key="item">
+                                       <li class=" list-disc ">
+                                           
+                                           <div class="flex justify-between" >
+                                               <p class=" text-regal-teal">
+   
+                                                   {{item.location}} - <span class="italic"> {{item.inv_name}}</span>  
+                                               </p>
+   
+                                               <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
+                                                   <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                               </button>
+
+                                           </div>
+                                            
                                        </li> 
-                                       <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
+                                       <!-- <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
                                        <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                       </button>
+                                       </button> -->
+                                        <!-- <p>({{item.location}}) {{item.inv_name}}</p> -->
+                                        <!-- <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
+                                            <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                       </button> -->
+                                    
                                     </ul>
 
                                 </div>
@@ -475,7 +512,7 @@ import swal from "sweetalert";
 
                 <!-- Rx -->
                 
-                <div class="w-3/5 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
+                <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
                     <div>  
                         <label
                             class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
@@ -485,7 +522,7 @@ import swal from "sweetalert";
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                      <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Name</label>
+                                         <label  class="bg-white text-gray-400 px-1">Name</label>
                                      </p>
                                  </div>
                                  <input type="text" v-model="medication.name" @keypress="searchMed"
@@ -496,32 +533,33 @@ import swal from "sweetalert";
 
                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                     <p>
-                                        <label for="name" class="bg-white text-gray-400 px-1">Category</label>
+                                        <label  class="bg-white text-gray-400 px-1 focus:outline-none focus-within:border-regal-teal">Category</label>
                                     </p>
                                 </div>
                                 <input type="text" v-model="medication.category" 
                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
                             </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
+               
+
+                           
+
                             <div class=" transition-all duration-500 relative rounded p-1">
 
                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                    <p>
-                                        <label for="name" class="bg-white text-gray-400 px-1">Generic Name</label>
-                                    </p>
+                                 
+                                        <label  class="bg-white text-gray-400 px-1">Generic Name</label>
+                                 
                                 </div>
                                 <input type="text" v-model="medication.generic" 
                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                            </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Name</label> -->
+                            </div> 
                          
 
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Dosage</label> -->
                              <div class=" transition-all duration-500 relative rounded p-1">
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                      <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Dosage</label>
+                                         <label  class="bg-white text-gray-400 px-1">Dosage</label>
                                      </p>
                                  </div>
                                  <input type="text" v-model="medication.dosage"
@@ -532,7 +570,7 @@ import swal from "sweetalert";
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                      <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Frequency</label>
+                                         <label  class="bg-white text-gray-400 px-1">Frequency</label>
                                      </p>
                                  </div>
                                  <input type="text" v-model="medication.frequency"
@@ -543,18 +581,19 @@ import swal from "sweetalert";
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                      <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Duration</label>
+                                         <label  class="bg-white text-gray-400 px-1">Duration</label>
                                      </p>
                                  </div>
                                  <input type="text" v-model="medication.duration"
                                      class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                             <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
+                            
                              <div class=" transition-all duration-500 relative rounded p-1">
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
                                      <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Relation with Meal</label>
+                                         <label  class="bg-white text-gray-400 px-1">Relation with Meal</label>
                                      </p>
                                  </div>
                                  <input type="text" v-model="medication.relationWithMeals"
@@ -571,7 +610,7 @@ import swal from "sweetalert";
 
                     </div>
                     <section class="my-4 mx-2">
-                        <table v-if="form.medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
+                        <!-- <table v-if="form.medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
                             <thead class="bg-regal-teal text-white">
                             <tr class="">
                                 <th v-for="item in gridColumns" :key="item" class="p-3 appearance-none first:rounded-tl-md  ">
@@ -587,11 +626,9 @@ import swal from "sweetalert";
                                 <tr v-for="(data,index) in form.medicine" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
                                
                                     <td class="p-3" v-for="items in data" :key="items">
-                                       <p>
-
+                                       
                                            {{items}}
-                                       </p>
-                                  
+                                     
                                     </td>
                                     <td>
                                           <button  @click="removeMedication(index)">
@@ -601,7 +638,40 @@ import swal from "sweetalert";
                                     
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
+                        <hr class="mb-3" />
+                        <ul v-if="form.medicine.length > 0" class="mx-6">
+                            <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
+
+                                <div class="flex justify-between">
+                                    <div class="text-regal-teal text-opacity-80">
+                                        <div class="flex">
+                                            <p class="font-semibold ">{{data.category}} <span> {{data.name}}- </span>
+                                            </p>
+
+                                            <p class=" font-semibold">{{data.dosage}} {{data.generic}}</p>
+
+                                        </div>
+                                      
+                                            <p class="font-semibold text-left  ">
+                                                <span class="pr-4"> {{data.frequency}} </span>  
+                                                <span class="pr-4">{{data.duration}}</span> 
+                                                <span class="pr-4">{{data.relationWithMeals}}</span>
+                                            </p>  
+                                       
+                                    </div>
+                                    <div class="">
+                                        <button @click="removeMedication(index)">
+                                            <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none mr-2">
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+
+
+
                          <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
                         <!-- <Grid   :columns="gridColumns" :data="this.medicine"/> -->
 
@@ -665,6 +735,8 @@ import swal from "sweetalert";
 </template>
 
 <style>
+
+
 .ProseMirror:focus {
     outline: none;
   }

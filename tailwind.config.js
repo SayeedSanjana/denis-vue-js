@@ -3,6 +3,7 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
+           
             colors: {
                 "regal-blue": "#73C6CA",
                 "regal-cyan": "#036792",
@@ -81,7 +82,7 @@ module.exports = {
         backgroundColor: ["checked", "focus", "group-hover", "first", "last", "odd", "even" ,"hover"],
         margin: ['responsive', 'hover', 'first'],
         borderWidth: ['responsive', 'hover', 'first'],
-        // borderColor: ['responsive', 'hover', 'first'],
+        borderColor: ['responsive', 'hover', 'first', 'focus', 'focus-within'],
         borderRadius: ['first', 'last' ,'hover'],
        
         // textColor: ["responsive", "hover", "focus", "group-hover"],
