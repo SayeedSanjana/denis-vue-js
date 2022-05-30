@@ -126,37 +126,37 @@ export default {
                 class="text-left w-full px-6 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md h-auto">
 
                 <div :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 1 }) }">
                         H1
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 2 }) }">
                         H2
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 3 }) }">
                         H3
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleBold().run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('bold') }">
                         <b>B</b>
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleItalic().run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('italic') }">
                         <i>I</i>
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleUnderline().run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('underline') }">
                        <u>U</u>
                     </button>
-                    <button class=" border border-gray-500 text-sm px-2 py-0.5 pb-1.5 rounded-md mx-1 "
+                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 pb-1.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleBulletList().run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('bulletList') }">
                        <div>
@@ -174,7 +174,7 @@ export default {
 
                 <div class="flex flex-row-reverse">
                     
-                    <button class="py-0.5 px-3 bg-regal-teal rounded text-white" @click="blurField">
+                    <button type="button" class="py-0.5 px-3 bg-regal-teal rounded text-white" @click="blurField">
                         Done
                     </button>
                 </div>

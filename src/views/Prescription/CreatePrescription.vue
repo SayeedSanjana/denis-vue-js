@@ -2,6 +2,7 @@
 import axios from "axios";
 import Editor from "../../components/Editor.vue"
 import swal from "sweetalert";
+import MeiliSearch from "meilisearch";
 // import Grid from "../../components/Grid.vue"
 
 
@@ -14,56 +15,42 @@ import swal from "sweetalert";
      
         },
         data(){
-            return{
-                 
+            return{      
+                meiliSearch:null,
+
                 invlist:[],
                 inv:{
                     inv_name:'',
                     location:'',
                 },
+
                 medicineList:[],
                 oelist:[], 
                 oetext:'',
-            
+                tptext:'',
+                tplist:[],
+
             form: {
+                user: "612f04bb97984b481776ac26",
+                patient: "612f02d697984b481776ac21",
                 cc: '',
                 oe: [],
                 medicine:[],
                 advice:'', 
-                treatmentPlan:'',
+                treatmentPlan:[],
                 investigation:[],
             },
-
-            heightAuto: false,
-            maxlength:255,
             editor: null,
-            medtext:'',
-            recentlyUsed2:[],
             showSearch:false,
             showSearchInv:false,
-            showSearchInvLocation:false,
-            showSearchMed:false,
-            gridColumns: {
-                    name : 'Name',
-                    category: 'Category',
-                    generic: 'Generic',
-                    dosage:'Dosage',
-                    frequency: 'Frequency',
-                    duration: 'Duration',
-                    relationWithMeals: 'Relation with Meals'
-                },
+            showSearchtp:false,
+            showSearchMed:false,      
             medicineColumn:{
                 name: 'Name',
                 category: 'Category',
                 generic: 'Generic',
                 dosage: 'Dosage',
-
-            },
-                invColumns:{
-                    inv_name: 'Investigation Name',
-                    location: 'Location'
-                },
-               
+            },   
             medication:{
                 name : '',
                 category: '',
@@ -72,18 +59,25 @@ import swal from "sweetalert";
                 frequency: '',
                 duration: '',
                 relationWithMeals: ''
-            },
-            
+            },         
         }
         
     },
     
    
     watch:{
+
+        tptext(val){
+            if(val.length>0){
+                this.showSearchtp=true;
+            }else{
+                this.showSearchtp=false;
+            }
+        },
             
         oetext() {
 
-            if (this.oetext.length > 2) {
+            if (this.oetext.length > 0) {
                 this.showSearch = true;
 
             } else {
@@ -94,7 +88,7 @@ import swal from "sweetalert";
         },
 
         'inv.inv_name'(val) {
-            if (val.length > 2) {
+            if (val.length > 0) {
                 this.showSearchInv = true;
             } else {
                 this.showSearchInv = false;
@@ -103,7 +97,7 @@ import swal from "sweetalert";
         },
 
         "medication.name"(val){
-            if (val.length > 2) {
+            if (val.length > 0) {
                     this.showSearchMed = true;
             } else {
                     this.showSearchMed = false;
@@ -113,8 +107,29 @@ import swal from "sweetalert";
            
       },
 
+      mounted(){
+           this.meiliSearch = new MeiliSearch({
+        host: 'http://localhost:7700',
+        apiKey: 'IAmBadass',
+    });
+
+      },
+
 
     methods:{
+         search(keyword) {
+        this.client.index(this.index).search(keyword).then(res => {
+        this.data = res.hits;
+        });
+    },
+
+
+        selectedItemTp(item){
+            this.tptext=item;
+            this.showSearchtp=false;
+            this.tplist=[];
+        },
+
         selectedItem(oe){
             this.oetext = oe;
             this.showSearch = false;
@@ -123,14 +138,25 @@ import swal from "sweetalert";
             
 
             },
+
         selectedItemInv(inv){
             this.inv.inv_name = inv;
             this.showSearchInv = false;
             this.invlist = [];
             
         },
+
+        addtp(){
+            if(this.tptext.length>0){
+                const tp = this.tptext;
+                this.form.treatmentPlan.push(tp);
+                this.tptext='';
+            
+
+            }
+
+        },
         
-    
         addOE(){
                 if(this.oetext.length > 0){
                     const oe= this.oetext;
@@ -146,17 +172,12 @@ import swal from "sweetalert";
 
                     this.timeout = setTimeout(async () => {
                         if (e.target.value.length > 0) {
-                            const response = await axios.get('http://localhost:8000/api/treatment-note', {
-                                params: {
-                                    q: e.target.value,
-                                    limit: 5
-                                }
-                            });
-                            console.log(response.data);
+
+                            const response = await   this.meiliSearch.index("treatmentNote").search(e.target.value);
                           
                             let arr = [];
-                            for (let i = 0; i < response.data.data.length; i++) {
-                                let element = response.data.data[i];
+                            for (let i = 0; i < response.hits.length; i++) {
+                                let element = response.hits[i];
                                 element = this.objectMap({
                                     name: ''
                                 }, element);
@@ -164,9 +185,7 @@ import swal from "sweetalert";
                             }
                             this.invlist = [...arr];
                         } 
-                    }, 1000);
-                        
-                   
+                    }, 600);
 
                 
             } catch (error) {
@@ -180,8 +199,39 @@ import swal from "sweetalert";
             }
 
         },
-       
-        
+
+        searchtp(e){
+            try {
+                  if(this.timeout) clearTimeout(this.timeout);
+                    this.timeout = setTimeout(async () => {
+                        if (e.target.value.length > 0) {
+
+                                 const response = await   this.meiliSearch.index("treatmentNote").search(e.target.value);
+                          
+                          
+                            let arr = [];
+                            for (let i = 0; i < response.hits.length; i++) {
+                                let element = response.hits[i];
+                                element = this.objectMap({
+                                    name: ''
+                                }, element);
+                                arr.push(element);
+                            }
+                            this.tplist = [...arr];
+                        } 
+                    }, 1000);
+                
+            } catch (error) {
+                   swal({
+					title: "error",
+					text: error.message,
+					icon: "error",
+					button: true
+				});
+                }
+
+        },
+           
         searchOE(e){
               try {
                   
@@ -189,18 +239,15 @@ import swal from "sweetalert";
 
                     this.timeout = setTimeout(async () => {
                         if (e.target.value.length > 0) {
-                            const response = await axios.get('http://localhost:8000/api/treatment-note', {
-                                params: {
-                                    q: e.target.value,
-                                    limit: 5
-                                }
-                            });
-                          
+
+                                const response = await   this.meiliSearch.index("dental_diagnosis").search(e.target.value);
+
+                           
                             let arr = [];
-                            for (let i = 0; i < response.data.data.length; i++) {
-                                let element = response.data.data[i];
+                            for (let i = 0; i < response.hits.length; i++) {
+                                let element = response.hits[i];
                                 element = this.objectMap({
-                                    name: ''
+                                    diagnosis: ''
                                 }, element);
                                 arr.push(element);
                             }
@@ -228,16 +275,14 @@ import swal from "sweetalert";
                 this.timeout = setTimeout(async () => {
 
                     if (e.target.value.length > 0) {
+
                         
-                        const response = await axios.get('http://localhost:8000/api/medicine', {
-                            params: {
-                                q: e.target.value,
-                                limit: 20
-                            }
-                        });
+                         const response = await   this.meiliSearch.index("medicine").search(e.target.value)
+                        
+                            
                         let arr = [];
-                        for (let i = 0; i < response.data.data.length; i++) {
-                            let element = response.data.data[i];
+                        for (let i = 0; i < response.hits.length; i++) {
+                            let element = response.hits[i];
                             element = this.objectMap({
                                 name: '',
                                 category: '',
@@ -278,14 +323,20 @@ import swal from "sweetalert";
             
         },
 
+        removeTp(index){
+            this.form.treatmentPlan.splice(index,1);
+        },
+
         removeOE(index){
             this.form.oe.splice(index,1);  
 
         },
+
         removeInvestigation(index){
             this.form.investigation.splice(index,1);  
 
         },
+
         addMedication(){
               if(this.medication.category.length>0 ||this.medication.generic.length >0 || this.medication.name.length>0 || this.medication.dosage.length>0 || this.medication.frequency.length>0 || this.medication.duration.length>0 || this.medication.relationWithMeals.length>0){
                 
@@ -306,10 +357,38 @@ import swal from "sweetalert";
         insertMedication(i){
            Object.assign(this.medication, i);
            this.medicineList='';
+        },
+
+        async createPrescription(){
+            try {
+                const response = await axios.post('prescriptions', this.form);
+
+                console.log(response);
+                if(response.data.status === 'success'){
+                    
+                    swal({
+                        title: "Success",
+                        text: "Prescription created successfully",
+                        icon: "success",
+                        timer: 1000,
+                        button: false
+                    });
+                    
+
+                }
+                
+            } catch (error) {
+                swal({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error",
+                    button: true
+                });
+                
+            }
         }
         
        
-    
         
     }
 }
@@ -319,41 +398,86 @@ import swal from "sweetalert";
     <div class="mx-3 mt-3 bg-white" > 
         <div class="rounded-t-md w-full hover:overflow-hidden">
             <label for="" class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
-            <section class="flex justify-between p-8">
-                <ul>
-                    <li class="font-semibold text-sm text-left">
-                        Dr. Muhammad Abdul Hussein
-                    </li>
-                    <hr>
-                    
-                    <li class="text-xs text-left">
-                        BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br/>
-                       PhD (USA), FICD (USA)DIrector (Dental Education) <br/>
-                       Directorat General of medical Education
-                    </li>
-                    <li class="text-xs text-left">
-                        <span class="text-xs font-semibold">BMDC No: </span>
-                        <span class="text-sm">12345</span>
-                    </li>
-                    <li class="text-xs text-left">
-                        <span class="text-xs font-semibold">Contact: </span>
-                        <span class="">01236521458</span>
-                    </li>
-                    <li class=" text-xs text-left">
-                        <span class="text-xs font-semibold">Email: </span>
-                        <span class="">dr.xyz@mail.com</span>
-                    </li>
-                   
-                </ul>
-                <summary>
-                    <p class="font-semibold text-sm">XYZ Hospital</p>
-                    <p></p>
-                </summary>
+            <section class="grid grid-cols-3 gap-10 justify-items-center py-8">
+
+                
+                    <div>
+
+                        <ul>
+                            <li class="font-semibold  text-left">
+                                Dr. Muhammad Abdul Hussein
+                            </li>
+                          
+   
+                            <li class="text-xs text-left">
+                                BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
+                                PhD (USA), FICD (USA)DIrector (Dental Education) <br />
+                                Directorat General of medical Education
+                            </li>
+                            <li class="text-xs text-left">
+                                <span class="text-xs font-semibold">BMDC No: </span>
+                                <span class="text-sm">12345</span>
+                            </li>
+                            <li class="text-xs text-left">
+                                <span class="text-xs font-semibold">Contact: </span>
+                                <span class="">01236521458</span>
+                            </li>
+                            <li class=" text-xs text-left">
+                                <span class="text-xs font-semibold">Email: </span>
+                                <span class="">dr.xyz@mail.com</span>
+                            </li>
+   
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul>
+                            <li class="font-semibold  text-left">
+                                XYZ Hospital
+                            </li>
+                            
+   
+                            <li class="text-xs text-left">
+                              <span class="font-semibold"> Address:</span>  1234 Internet Street<br />
+                              <span class="font-semibold"> Contact:</span>  01236521458 <br />
+                               
+                            </li>
+                            <li class="text-xs text-left">
+                                <span class="text-xs font-semibold">Visiting Days :  </span>
+                                <span class="text-sm">Monday – Friday (9 AM- 6 PM)</span>
+                            </li>
+                            <li class="text-xs text-left">
+                                <span class="text-xs font-semibold">Report Checking  Hours : </span>
+                                <span class=""> 4 PM- 6 PM</span>
+                            </li>
+                           
+   
+                        </ul>
+
+                    </div>
+
+                    <div>
+
+                        <img src="@/assets/svgs/tooth_logo.svg" alt="" srcset="" class=" w-40 h-40">
+                    </div>
+
+
+
+
+
+
+         
+                
+
+                
+
+            
+                
             </section>
         </div>
 
         <section class="">
-            <form action="" @submit.prevent="">
+            <form @submit.prevent="createPrescription">
             <article class="flex justify-between mx-12">
                 <div class="w-1/2 p-3">
                     <label
@@ -369,15 +493,15 @@ import swal from "sweetalert";
                            <div class="flex" >
                                <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext"></textarea>
                                <div class="w-1/12 ">
-                                   <button class="mt-4" @click="addOE">
+                                   <button type="button" class="mt-4" @click="addOE">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                    </button>
                                </div>
                            </div>
                             <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearch" >
-                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in oelist" :key="items" @click="selectedItem(items.name)">
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
 
-                                   {{items.name}} 
+                                   {{items.diagnosis}} 
                                 </li>
                             </ul>
                             <div class="my-4 " > 
@@ -389,7 +513,7 @@ import swal from "sweetalert";
                                        <li class=" text-regal-teal italic list-disc">
                                            <div class="flex justify-between">
                                                {{item}}
-                                              <button  @click="removeOE(index)" class="pl-3 w-1/12">
+                                              <button type="button"  @click="removeOE(index)" class="pl-3 w-1/12">
                                               <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
                                               </button>
                                            </div>
@@ -447,7 +571,7 @@ import swal from "sweetalert";
                                     </div>
    
                                   <div class="mr-2 ">
-                                      <button class="mt-4" @click="addInvestigation">
+                                      <button type="button" class="mt-4" @click="addInvestigation">
                                           <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                       </button>
                                   </div>
@@ -456,12 +580,7 @@ import swal from "sweetalert";
 
                            </div>
                            
-                           <!-- <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchInv" >
-                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
-
-                                   {{items.name}} 
-                                </li>
-                            </ul> -->
+                          
                             <div class="my-4 " > 
                                 <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Investigation</label>
                                     <hr class="w-1/3 ">
@@ -476,26 +595,20 @@ import swal from "sweetalert";
                                                    {{item.location}} - <span class="italic"> {{item.inv_name}}</span>  
                                                </p>
    
-                                               <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
+                                               <button type="button"  @click="removeInvestigation(index)" class="pl-3 w-1/12">
                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
                                                </button>
 
                                            </div>
                                             
                                        </li> 
-                                       <!-- <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
-                                       <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                       </button> -->
-                                        <!-- <p>({{item.location}}) {{item.inv_name}}</p> -->
-                                        <!-- <button  @click="removeInvestigation(index)" class="pl-3 w-1/12">
-                                            <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                       </button> -->
+                                     
                                     
                                     </ul>
 
                                 </div>
                                 <div v-else>
-                                    <p class=" flex text-left  my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
+                                    <p class=" flex text-left text-gray-400 my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
                                 </div>
                             </div>
 
@@ -528,7 +641,6 @@ import swal from "sweetalert";
                                  <input type="text" v-model="medication.name" @keypress="searchMed"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5  grid col-span-1">Category</label> -->
                             <div class=" transition-all duration-500 relative rounded p-1">
 
                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
@@ -565,7 +677,6 @@ import swal from "sweetalert";
                                  <input type="text" v-model="medication.dosage"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Frequency</label> -->
                              <div class=" transition-all duration-500 relative rounded p-1">
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
@@ -576,7 +687,6 @@ import swal from "sweetalert";
                                  <input type="text" v-model="medication.frequency"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Duration</label> -->
                              <div class=" transition-all duration-500 relative rounded p-1">
 
                                  <div class=" absolute tracking-wider px-4 uppercase text-xs">
@@ -587,7 +697,6 @@ import swal from "sweetalert";
                                  <input type="text" v-model="medication.duration"
                                      class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
-                            <!-- <label for="" class="text-sm px-3 py-0.5">Relation with Meals</label> -->
                             
                              <div class=" transition-all duration-500 relative rounded p-1">
 
@@ -602,7 +711,7 @@ import swal from "sweetalert";
                              </div>
                            <div class="flex justify-end col-span-3">
 
-                                <button class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication">Add</button>
+                                <button type="button" class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication">Add</button>
                             </div>
                         </div>
                         
@@ -610,35 +719,7 @@ import swal from "sweetalert";
 
                     </div>
                     <section class="my-4 mx-2">
-                        <!-- <table v-if="form.medicine.length >0" class="w-full mx-auto  bg-opacity-80 text-sm">
-                            <thead class="bg-regal-teal text-white">
-                            <tr class="">
-                                <th v-for="item in gridColumns" :key="item" class="p-3 appearance-none first:rounded-tl-md  ">
-                                    {{item}}
-                                </th>
-                                <th class="last:rounded-tr-md">
-                                    
-                                </th>
-
-                            </tr>
-                            </thead>
-                            <tbody class="divide-y ">
-                                <tr v-for="(data,index) in form.medicine" :key="data" class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " >
-                               
-                                    <td class="p-3" v-for="items in data" :key="items">
-                                       
-                                           {{items}}
-                                     
-                                    </td>
-                                    <td>
-                                          <button  @click="removeMedication(index)">
-                                          <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none mr-2">
-                                          </button>
-                                    </td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table> -->
+                        
                         <hr class="mb-3" />
                         <ul v-if="form.medicine.length > 0" class="mx-6">
                             <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
@@ -649,11 +730,11 @@ import swal from "sweetalert";
                                             <p class="font-semibold ">{{data.category}} <span> {{data.name}}- </span>
                                             </p>
 
-                                            <p class=" font-semibold">{{data.dosage}} {{data.generic}}</p>
+                                            <p class=" font-semibold"><span class="italic">{{data.dosage}}</span> {{data.generic}}</p>
 
                                         </div>
                                       
-                                            <p class="font-semibold text-left  ">
+                                            <p class=" text-left  ">
                                                 <span class="pr-4"> {{data.frequency}} </span>  
                                                 <span class="pr-4">{{data.duration}}</span> 
                                                 <span class="pr-4">{{data.relationWithMeals}}</span>
@@ -661,7 +742,7 @@ import swal from "sweetalert";
                                        
                                     </div>
                                     <div class="">
-                                        <button @click="removeMedication(index)">
+                                        <button type="button" @click="removeMedication(index)">
                                             <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none mr-2">
                                         </button>
                                     </div>
@@ -673,7 +754,6 @@ import swal from "sweetalert";
 
 
                          <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
-                        <!-- <Grid   :columns="gridColumns" :data="this.medicine"/> -->
 
                         <div class="my-5" v-show="showSearchMed">
                             <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine List</label>
@@ -703,7 +783,7 @@ import swal from "sweetalert";
                                         </td>
                                         <td class="text-left">
 
-                                            <button  @click="insertMedication(item)" class="bg-gray-50 border">Insert</button>
+                                            <button type="button" @click="insertMedication(item)" class="bg-gray-50 border">Insert</button>
                                         </td>
                                      </tr>
                                  </tbody>
@@ -713,13 +793,56 @@ import swal from "sweetalert";
                     
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
-                    <Editor v-model="form.treatmentPlan" class="m-2" />
+                    <!-- treatment plan -->
+
+                     <div class="w-full py-1">
+                           
+                           <div class="flex" >
+                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchtp" v-model="tptext"></textarea>
+                               <div class="w-1/12 ">
+                                   <button type="button" class="mt-4" @click="addtp">
+                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
+                                   </button>
+                               </div>
+                           </div>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchtp" >
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
+
+                                   {{items.name}} 
+                                </li>
+                            </ul>
+                            <div class="my-4 " > 
+                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Treatment Plan</label>
+                                    <hr class="w-1/3 ">
+                                <div v-if="form.treatmentPlan.length > 0" class="my-1">
+
+                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan" :key="item">
+                                       <li class=" text-regal-teal italic list-disc">
+                                           <div class="flex justify-between">
+                                               {{item}}
+                                              <button type="button" @click="removeTp(index)" class="pl-3 w-1/12">
+                                              <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
+                                              </button>
+                                           </div>
+
+                                       </li> 
+                                    </ul>
+
+                                </div>
+                                <div v-else>
+                                    <p class=" flex text-left  my-1 py-1 pl-2 text-gray-400 rounded-t-md">No Treatment Plan Added</p>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
 
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
                     <Editor v-model="form.advice" class="m-2" />
             <div class="flex justify-end mr-2 my-2">
-                <button class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
+                <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
 
             </div>
                 </div>
