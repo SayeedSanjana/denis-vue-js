@@ -146,6 +146,8 @@ import {required} from '@vuelidate/validators';
 
       mounted(){
 
+          
+
            this.meiliSearch = new MeiliSearch({
         host: 'http://localhost:7700',
         apiKey: 'IAmBadass',
@@ -400,9 +402,13 @@ import {required} from '@vuelidate/validators';
         async createPrescription(){
             try {
                
+               
                 this.v$.$touch();
+
               
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
+              
+               
                 const response = await axios.post('prescriptions', this.form);
                 // console.log(this.v$.$error);
 
@@ -421,12 +427,13 @@ import {required} from '@vuelidate/validators';
                 }
                 
             } catch (error) {
-                swal({
-                    title: "Error",
-                    text: error.message,
-                    icon: "error",
-                    button: true
-                });
+                console.log(error);
+                // swal({
+                //     title: "Error",
+                //     text: error.message,
+                //     icon: "error",
+                //     button: true
+                // });
                 
             }
         }
@@ -923,7 +930,7 @@ import {required} from '@vuelidate/validators';
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
                     <Editor v-model="form.advice" class="m-2 mr-14" />
             <div class="flex justify-start ml-2 my-2">
-                <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
+                <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">save</button>
 
             </div>
                 </div>

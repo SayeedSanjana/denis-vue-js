@@ -18,6 +18,7 @@ import Blank from './layouts/Blank.vue';
 const app = createApp(App);
 app.use(store);
 app.use(router);
+
 app.component("default-layout", Default);
 app.component("blank-layout", Blank);
 app.mixin(vueResource);
