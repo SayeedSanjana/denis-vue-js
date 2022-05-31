@@ -9,7 +9,9 @@ export default createStore({
         endPage: null,
         patient: {},
         bills:[],
+        
 	},
+
 	mutations: {
 		setPatients(state, patients) {
 			state.patients = patients.data['data']
@@ -32,7 +34,9 @@ export default createStore({
             state.totalPatient = state.totalPatient + 1
             state.endPage = state.endPage + 1
         },
-      
+       
+        
+       
 
         // editPatient(state, patient) {
         //     state.patient = patient.data
@@ -42,6 +46,8 @@ export default createStore({
 
 },
 	actions: {
+
+
 		async fetchPatients({commit} , currentPage, perPage ,totalData, text) {
 			try {
                 // console.log(currentPage);
@@ -52,6 +58,7 @@ export default createStore({
                                     total:totalData,
                                     q:text
                                 },
+                               
     
                 },);
                 return commit('setPatients', data);

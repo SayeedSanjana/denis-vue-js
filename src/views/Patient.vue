@@ -5,6 +5,8 @@
             Patient Records
         </p>
         <section class="flex sm:flex-row justify-between">
+
+          
             <!-- <div class="flex flex-row mb-1 sm:mb-0"> -->
                 <!-- <div class="block relative"> -->
                     <form id="search" class="w-1/2 flex">
@@ -41,6 +43,8 @@
                 </button>
             </div>
         </section>
+
+       
 
         <section class="mt-10">
           

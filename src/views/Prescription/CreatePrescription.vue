@@ -3,6 +3,9 @@ import axios from "axios";
 import Editor from "../../components/Editor.vue"
 import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
+import useValidate from '@vuelidate/core';
+import {required} from '@vuelidate/validators';
+
 // import Grid from "../../components/Grid.vue"
 
 
@@ -29,10 +32,12 @@ import MeiliSearch from "meilisearch";
                 oetext:'',
                 tptext:'',
                 tplist:[],
+                
 
             form: {
-                user: "612f04bb97984b481776ac26",
-                patient: "612f02d697984b481776ac21",
+ 
+                user: this.parseJwt(localStorage.getItem('token')),
+                patient: this.$route.params.id,
                 cc: '',
                 oe: [],
                 medicine:[],
@@ -62,6 +67,38 @@ import MeiliSearch from "meilisearch";
             },         
         }
         
+    },
+
+    setup(){
+        return{
+            v$: useValidate(),
+        }
+    },
+    validations(){
+       
+     return {
+		form:{
+			cc: {
+				required,
+			},
+			oe: [{
+				required,
+
+			}],
+            
+            treatmentPlan: [{
+                required,
+            }],
+            investigation: [{
+                required,
+            }],	
+		},
+        
+        
+
+
+     }
+
     },
     
    
@@ -108,6 +145,7 @@ import MeiliSearch from "meilisearch";
       },
 
       mounted(){
+
            this.meiliSearch = new MeiliSearch({
         host: 'http://localhost:7700',
         apiKey: 'IAmBadass',
@@ -361,9 +399,13 @@ import MeiliSearch from "meilisearch";
 
         async createPrescription(){
             try {
+               
+                this.v$.$touch();
+              
+				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
                 const response = await axios.post('prescriptions', this.form);
+                // console.log(this.v$.$error);
 
-                console.log(response);
                 if(response.data.status === 'success'){
                     
                     swal({
@@ -373,6 +415,7 @@ import MeiliSearch from "meilisearch";
                         timer: 1000,
                         button: false
                     });
+                  
                     
 
                 }
@@ -398,56 +441,31 @@ import MeiliSearch from "meilisearch";
     <div class="mx-3 mt-3 bg-white" > 
         <div class="rounded-t-md w-full hover:overflow-hidden">
             <label for="" class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
-            <section class="grid grid-cols-3 gap-10 justify-items-center py-8">
+            <section class="flex justify-between px-16 py-8">
 
                 
-                    <div>
-
-                        <ul>
-                            <li class="font-semibold  text-left">
-                                Dr. Muhammad Abdul Hussein
-                            </li>
-                          
-   
-                            <li class="text-xs text-left">
-                                BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
-                                PhD (USA), FICD (USA)DIrector (Dental Education) <br />
-                                Directorat General of medical Education
-                            </li>
-                            <li class="text-xs text-left">
-                                <span class="text-xs font-semibold">BMDC No: </span>
-                                <span class="text-sm">12345</span>
-                            </li>
-                            <li class="text-xs text-left">
-                                <span class="text-xs font-semibold">Contact: </span>
-                                <span class="">01236521458</span>
-                            </li>
-                            <li class=" text-xs text-left">
-                                <span class="text-xs font-semibold">Email: </span>
-                                <span class="">dr.xyz@mail.com</span>
-                            </li>
-   
-                        </ul>
-                    </div>
+                    
 
                     <div>
                         <ul>
-                            <li class="font-semibold  text-left">
-                                XYZ Hospital
+                            <li class="font-semibold text-2xl text-left">
+                                MT Dental Center
                             </li>
-                            
+                           
    
-                            <li class="text-xs text-left">
-                              <span class="font-semibold"> Address:</span>  1234 Internet Street<br />
-                              <span class="font-semibold"> Contact:</span>  01236521458 <br />
+                            <li class="text-sm text-left">
+                              <span class="font-semibold"> Address:</span>   House No 12 (1st Floor), Road No 14 (New)<br />
+                              <span> Dhanmondi, Dhaka-1209 </span>  <br />
+                              <span class="font-semibold"> Contact:</span>  01688-329552, 01817-094331 <br />
+                              <span class="font-semibold"> Email:</span> mhkmusa@gmail.com <br />
                                
                             </li>
-                            <li class="text-xs text-left">
-                                <span class="text-xs font-semibold">Visiting Days :  </span>
-                                <span class="text-sm">Monday – Friday (9 AM- 6 PM)</span>
+                            <li class="text-sm text-left">
+                                <span class=" font-semibold">Visiting Days :  </span>
+                                <span class="">Monday – Friday (9 AM- 6 PM)</span>
                             </li>
-                            <li class="text-xs text-left">
-                                <span class="text-xs font-semibold">Report Checking  Hours : </span>
+                            <li class="text-sm text-left">
+                                <span class=" font-semibold">Report Checking  Hours : </span>
                                 <span class=""> 4 PM- 6 PM</span>
                             </li>
                            
@@ -458,40 +476,84 @@ import MeiliSearch from "meilisearch";
 
                     <div>
 
-                        <img src="@/assets/svgs/tooth_logo.svg" alt="" srcset="" class=" w-40 h-40">
+                        <ul>
+                            
+                            <li class="font-semibold text-xl text-right">
+                                Dr. Muhammad Abdul Hussein
+                            </li>
+                          
+   
+                            <li class="text-sm text-right">
+                                BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
+                                PhD (USA), FICD (USA)DIrector (Dental Education) <br />
+                                Directorat General of medical Education
+                            </li>
+                            <li class="text-sm text-right">
+                                <span class=" font-semibold">BMDC No: </span>
+                                <span class="text-sm">12345</span>
+                            </li>
+                            <li class="text-sm text-right">
+                                <span class=" font-semibold">Contact: </span>
+                                <span class="">01236521458</span>
+                            </li>
+                            <li class=" text-sm text-right">
+                                <span class=" font-semibold">Email: </span>
+                                <span class="">dr.xyz@mail.com</span>
+                            </li>
+   
+                        </ul>
                     </div>
 
+                    <!-- <div>
 
+                        <img src="@/assets/svgs/tooth_logo.svg" alt="" srcset="" class=" w-40 h-40">
+                    </div> -->
 
-
-
-
-         
-                
-
-                
-
-            
-                
+       
             </section>
         </div>
 
         <section class="">
-            <form @submit.prevent="createPrescription">
+            <form @submit.prevent="createPrescription(this.$route.params.id)">
+
             <article class="flex justify-between mx-12">
                 <div class="w-1/2 p-3">
-                    <label
-                        class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
-                    <Editor v-model="form.cc" class="py-1"/>
+                    <div class="flex justify-between">
+
+                        <label
+                            class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
+                        <span v-show="v$.form.cc.$error" class="mt-2">
+                            <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
+                                <small class="form-error-text">
+                                    {{error.$message}}
+                                </small>
+                            </div>
+                        </span>
+                    </div>
+                    <Editor v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14"/>
+
+                    <div class="flex justify-between">
+
+                        <label
+                            class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
+                            Examination</label>
+                        <span v-show="v$.form.oe.$error">
+                            <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
+                                <small class="form-error-text">
+                                    {{error.$message}}
+                                </small>
+                            </div>
+                        </span>
+                       
 
 
-                    <label
-                        class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On Examination</label>
-                        <!-- Searchable select on OE-->
+                    </div>
+                
+                            <!-- Searchable select on OE-->
                         <div class="w-full py-1">
                            
                            <div class="flex" >
-                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext"></textarea>
+                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext" ></textarea>
                                <div class="w-1/12 ">
                                    <button type="button" class="mt-4" @click="addOE">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
@@ -531,13 +593,23 @@ import MeiliSearch from "meilisearch";
                         </div>
                        
                        <!-- Searchable select on Investigation -->
+                        <div class="flex justify-between mt-2">
+
+                            <label
+                                class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
+                            <span v-show="v$.form.investigation.$error">
+                            <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
+                                <small class="form-error-text">
+                                    {{error.$message}}
+                                </small>
+                            </div>
+                        </span>
                         
-                    <label
-                        class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
+                        </div>
                      <div class="w-full ">
                            
                            <div class=" " >
-                                <div class=" relative rounded p-1">
+                                <div class=" relative rounded p-1 mr-14">
 
                                  <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                      <p>
@@ -570,7 +642,7 @@ import MeiliSearch from "meilisearch";
                                             v-model="inv.location">
                                     </div>
    
-                                  <div class="mr-2 ">
+                                  <div class="mr-3 ">
                                       <button type="button" class="mt-4" @click="addInvestigation">
                                           <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                       </button>
@@ -709,7 +781,7 @@ import MeiliSearch from "meilisearch";
                                      
                                      class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
-                           <div class="flex justify-end col-span-3">
+                           <div class="flex justify-start col-span-3">
 
                                 <button type="button" class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication">Add</button>
                             </div>
@@ -790,16 +862,25 @@ import MeiliSearch from "meilisearch";
                             </table>
                         </div>
                     </section>
-                    
-                    <label
-                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
+                    <div class="flex justify-between mt-2">
+
+                        <label
+                            class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
+                        <span v-show="v$.form.treatmentPlan.$error">
+                            <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
+                                <small class="form-error-text">
+                                    {{error.$message}}
+                                </small>
+                            </div>
+                        </span>    
+                    </div>
                     <!-- treatment plan -->
 
                      <div class="w-full py-1">
                            
-                           <div class="flex" >
-                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchtp" v-model="tptext"></textarea>
-                               <div class="w-1/12 ">
+                           <div class="flex justify-between" >
+                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchtp" v-model="tptext"></textarea>
+                               <div class="w-1/12">
                                    <button type="button" class="mt-4" @click="addtp">
                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                    </button>
@@ -840,8 +921,8 @@ import MeiliSearch from "meilisearch";
 
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor v-model="form.advice" class="m-2" />
-            <div class="flex justify-end mr-2 my-2">
+                    <Editor v-model="form.advice" class="m-2 mr-14" />
+            <div class="flex justify-start ml-2 my-2">
                 <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">Submit</button>
 
             </div>
@@ -889,4 +970,11 @@ import MeiliSearch from "meilisearch";
 .row:hover{
     @apply bg-gray-200 font-semibold text-regal-teal;
 }
+
+ .form-input-error {
+	@apply appearance-none py-3 px-4 mb-3 block w-full bg-white text-red-500 border border-red-300 border-opacity-50 rounded leading-tight focus:outline-none focus:border-red-500
+  }
+  .form-error-text {
+	@apply  px-2 text-regal-red text-xs;
+  }
 </style>

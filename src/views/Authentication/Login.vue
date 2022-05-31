@@ -128,9 +128,15 @@
             if (!this.v$.$error) {
                 await axios.post('users/login', this.formData, )
                 .then((response) => {
-                if (response.data.token) {
-                    localStorage.setItem("token", response.data.token)
+                if (response.data.data !== null) {
+                    localStorage.setItem("token", response.data.data)
+                    
                 }
+                // const result = JSON.stringify(response.data.data)
+                // localStorage.setItem('token' , result)
+                // console.log(response.data.data);
+                // console.log(localStorage.getItem('token'));
+                
                 this.$router.push('/patient');
                 })
                 .catch((error) => {
