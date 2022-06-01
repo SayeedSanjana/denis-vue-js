@@ -104,7 +104,7 @@ export default {
 		</template>
 
 		<template v-slot:body>
-			<section class="bg-white dark:bg-gray-800 px-5 ">
+			<section class="bg-white px-5 ">
 				<!-- form input starts here -->
 				<form @submit.prevent="createPatient" >
 					

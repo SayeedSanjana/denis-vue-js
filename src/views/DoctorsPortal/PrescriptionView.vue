@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  dark:bg-gray-800">
+    <section class="max-w-4xl p-6 pt-0 mx-auto bg-white rounded-md  ">
        <div class="mt-12 text-left text-regal-teal font-semibold text-xs mx-7 tracking-widest">
           Prescription History > Details
       </div>

@@ -5,6 +5,7 @@ import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
+import PreviewPrescription from "./PreviewPrescription.vue"
 
 // import Grid from "../../components/Grid.vue"
 
@@ -13,12 +14,14 @@ import {required} from '@vuelidate/validators';
     export default {
         components:{
             Editor,
+            PreviewPrescription
             // Grid,
        
      
         },
         data(){
-            return{      
+            return{   
+                previewPrescriptionActive: false,   
                 meiliSearch:null,
 
                 invlist:[],
@@ -156,11 +159,19 @@ import {required} from '@vuelidate/validators';
 
 
     methods:{
+
+        openModal(){
+            this.previewPrescriptionActive=true;
+        },
+        closeModal(){
+            this.previewPrescriptionActive=false;
+        },
+
          search(keyword) {
-        this.client.index(this.index).search(keyword).then(res => {
-        this.data = res.hits;
-        });
-    },
+             this.client.index(this.index).search(keyword).then(res => {
+                 this.data = res.hits;
+             });
+         },
 
 
         selectedItemTp(item){
@@ -444,9 +455,18 @@ import {required} from '@vuelidate/validators';
 </script>
 
 <template>
-    <div class="mx-3 mt-3 bg-white" > 
+    <div class="mx-3 mt-3 bg-white rounded-sm" > 
+        <form @submit.prevent="createPrescription(this.$route.params.id)">
         <div class="rounded-t-md w-full hover:overflow-hidden">
-            <label for="" class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
+            <div class="flex justify-between bg-green-50">
+
+                <label for="" class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
+                <div class="m-2 ">
+                    <button type="button" @click="openModal($event)" class="mx-1 px-3 py-1 rounded-md font-semibold text-white bg-regal-teal ">Preview</button>
+                    <button type="submit" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
+                </div>
+            </div>
+            
             <section class="flex justify-between px-16 py-8">
 
                 
@@ -520,14 +540,15 @@ import {required} from '@vuelidate/validators';
         </div>
 
         <section class="">
-            <form @submit.prevent="createPrescription(this.$route.params.id)">
 
             <article class="flex justify-between mx-12">
                 <div class="w-1/2 p-3">
-                    <div class="flex justify-between">
+                    
+                    <div class="flex justify-between ">
                          
                         <label
-                            class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
+                            class=" w-1/4 block my-2 border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
+                        
                         <span v-show="v$.form.cc.$error" class="mt-2">
                             <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
                                 <small class="form-error-text">
@@ -537,12 +558,12 @@ import {required} from '@vuelidate/validators';
                         </span>
                     </div>
                     
-                    <Editor v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14"/>
+                    <Editor v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 "/>
 
                     <div class="flex justify-between">
 
                         <label
-                            class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-regal-examined bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
+                            class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-green-100 bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
                             Examination</label>
                         <span v-show="v$.form.oe.$error">
                             <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
@@ -574,8 +595,8 @@ import {required} from '@vuelidate/validators';
                                 </li>
                             </ul>
                             <div class="my-4 " > 
-                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">On Examination</label>
-                                    <hr class="w-1/3 ">
+                                <!-- <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">On Examination</label> -->
+                              <hr class="mb-3" />
                                 <div v-if="form.oe.length > 0" class="my-1">
 
                                     <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
@@ -591,9 +612,9 @@ import {required} from '@vuelidate/validators';
                                     </ul>
 
                                 </div>
-                                <div v-else>
-                                    <p class=" flex text-left  my-1 py-1 pl-2 text-gray-400 rounded-t-md">No Examination Added</p>
-                                </div>
+                                
+                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Examination Added</p>
+                               
                             </div>
 
                             
@@ -603,7 +624,7 @@ import {required} from '@vuelidate/validators';
                         <div class="flex justify-between mt-2">
 
                             <label
-                                class=" w-1/4 block my-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
+                                class=" w-1/4 block my-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
                             <span v-show="v$.form.investigation.$error">
                             <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
                                 <small class="form-error-text">
@@ -661,8 +682,7 @@ import {required} from '@vuelidate/validators';
                            
                           
                             <div class="my-4 " > 
-                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Investigation</label>
-                                    <hr class="w-1/3 ">
+                                    <hr class="mb-3">
                                 <div v-if="form.investigation.length > 0" class="my-1">
 
                                     <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation" :key="item">
@@ -686,9 +706,9 @@ import {required} from '@vuelidate/validators';
                                     </ul>
 
                                 </div>
-                                <div v-else>
-                                    <p class=" flex text-left text-gray-400 my-1 py-1 pl-2 rounded-t-md">No Investigation Added</p>
-                                </div>
+                           
+                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Investigation Added</p>
+                                
                             </div>
 
                             
@@ -707,7 +727,7 @@ import {required} from '@vuelidate/validators';
                 <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
                     <div>  
                         <label
-                            class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
+                            class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
                             
                         <div class=" text-left mx-auto grid grid-cols-3">
                                 <div class=" transition-all duration-500 relative rounded p-1">
@@ -803,10 +823,10 @@ import {required} from '@vuelidate/validators';
                                 <div class="flex justify-between">
                                     <div class="text-regal-teal text-opacity-80">
                                         <div class="flex">
-                                            <p class="font-semibold ">{{data.category}} <span> {{data.name}}- </span>
+                                            <p class=" ">{{data.category}} <span> {{data.name}}- </span>
                                             </p>
 
-                                            <p class=" font-semibold"><span class="italic">{{data.dosage}}</span> {{data.generic}}</p>
+                                            <p class=""><span class="italic">{{data.dosage}}</span> {{data.generic}}</p>
 
                                         </div>
                                       
@@ -869,7 +889,7 @@ import {required} from '@vuelidate/validators';
                     <div class="flex justify-between mt-2">
 
                         <label
-                            class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
+                            class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
                         <span v-show="v$.form.treatmentPlan.$error">
                             <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
                                 <small class="form-error-text">
@@ -897,8 +917,7 @@ import {required} from '@vuelidate/validators';
                                 </li>
                             </ul>
                             <div class="my-4 " > 
-                                <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">Treatment Plan</label>
-                                    <hr class="w-1/3 ">
+                                    <hr class="mb-3 ">
                                 <div v-if="form.treatmentPlan.length > 0" class="my-1">
 
                                     <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan" :key="item">
@@ -914,9 +933,9 @@ import {required} from '@vuelidate/validators';
                                     </ul>
 
                                 </div>
-                                <div v-else>
-                                    <p class=" flex text-left  my-1 py-1 pl-2 text-gray-400 rounded-t-md">No Treatment Plan Added</p>
-                                </div>
+                             
+                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Treatment Plan Added</p>
+                             
                             </div>
 
                             
@@ -924,19 +943,20 @@ import {required} from '@vuelidate/validators';
 
 
                     <label
-                        class=" w-1/4 block m-2  border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
+                        class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
                     <Editor v-model="form.advice" class="m-2 mr-14" />
-            <div class="flex justify-start ml-2 my-2">
+            <!-- <div class="flex justify-start ml-2 my-2">
                 <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">save</button>
 
-            </div>
+            </div> -->
                 </div>
 
             </article>
         
-            </form>
 
         </section>
+            </form>
+            <PreviewPrescription v-if="previewPrescriptionActive" :form="form" @close="closeModal"/>
 
 
     </div>

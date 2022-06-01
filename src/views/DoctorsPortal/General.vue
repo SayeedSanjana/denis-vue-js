@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<section class="max-w-4xl md:p-6 p-3 mx-auto bg-white  dark:bg-gray-800 ">
+		<section class="max-w-4xl md:p-6 p-3 mx-auto bg-white  ">
 
 			<div class="flex items-center justify-center p-6 mx-3 my-4">
 			<!-- form starts -->

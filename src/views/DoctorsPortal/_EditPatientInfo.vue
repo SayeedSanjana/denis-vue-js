@@ -6,7 +6,7 @@
 		</template>
 		
 		<template v-slot:body>
-			<section class="bg-white dark:bg-gray-800 px-5">
+			<section class="bg-white  px-5">
 				<form @submit.prevent="updatePatientInfo(this.$route.params.id)">
 					
 				<!-- Name -->
