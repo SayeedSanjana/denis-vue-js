@@ -15,7 +15,7 @@ import Modal from "../../components/reusable/Modal.vue";
 </script>
 
 <template>
-    <Modal :width="'w-1/2'" :height="'h-screen'" >
+    <Modal :width="'w-1/2'" :height="'h-xxl'" >
         <template v-slot:header>
             <h1 class="font-bold text-xl p-2">Prescription Preview</h1>
         </template>
