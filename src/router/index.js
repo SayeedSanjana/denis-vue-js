@@ -4,11 +4,12 @@ import Patient from '../views/Patient.vue';
 import AccountSettings from '../views/User/AccountSettings.vue';
 import ProfileSettings from '../views/User/ProfileSettings.vue';
 import EmployeeProfile from '../views/Employee/EmployeeProfile.vue';
-import RegisterPatient from "../views/DoctorsPortal/RegisterPatient";
+import RegisterPatient from "../views/DoctorsPortal/RegisterPatient.vue";
+
 import PatientDetails from '../views/DoctorsPortal/PatientDetails.vue';
-import PatientListBilling from '../views/Billing/PatientListBilling';
+import PatientListBilling from '../views/Billing/PatientListBilling.vue';
 import SpecificBilling from '../views/Billing/SpecificBilling.vue';
-import PastBillView from '../views/Billing/PastBillView';
+import PastBillView from '../views/Billing/PastBillView.vue';
 import Register from '../views/Authentication/Register.vue';
 import Login from '../views/Authentication/Login.vue';
 import AppointmentPortal from "../views/Appointment/AppointmentPortal.vue";
@@ -141,10 +142,10 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
-  linkActiveClass: "active",
-  linkExactActiveClass: "exact-active",
+  // linkActiveClass: "active",
+  // linkExactActiveClass: "exact-active",
 });
 
 export default router;

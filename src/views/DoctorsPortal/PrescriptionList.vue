@@ -107,9 +107,9 @@
         <!-- Prescription list ends here -->
 
          <!-- Pagination starts here -->
-          <div class="flex px-40 flex-row justify-center mt-10" v-if="this.total>this.perPage">
+          <!-- <div class="flex px-40 flex-row justify-center mt-10" v-if="this.total>this.perPage">
               <VueTailwindPaginaiton  :current="currentPage" :total="total" :per-page="perPage" @page-changed="pageChange($event)" background="green-100"></VueTailwindPaginaiton>
-          </div>
+          </div> -->
           <!-- Pagination ends here -->
       </div>
 
@@ -140,7 +140,7 @@
 <script>
   import axios from "axios";
   import moment from "moment";
-  import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
+  // import VueTailwindPaginaiton from '@ocrv/vue-tailwind-pagination';
   import PrescriptionView from "../DoctorsPortal/PrescriptionView.vue";
   export default {
     props: {
@@ -148,7 +148,7 @@
     },
     components: {
       PrescriptionView,
-       VueTailwindPaginaiton
+      //  VueTailwindPaginaiton
     },
     created() {
       this.currentPage=1

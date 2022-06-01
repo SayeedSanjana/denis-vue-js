@@ -56,10 +56,10 @@ export default {
         this.editor = new Editor({
             extensions: [
                 StarterKit,
-                Document,
-                Paragraph,
+                // Document,
+                // Paragraph,
                 Underline,
-                Text,
+                // Text,
                 BulletList.configure({
                     HTMLAttributes: {
                         class: ' ml-4 list-disc ',

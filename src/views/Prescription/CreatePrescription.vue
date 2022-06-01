@@ -35,7 +35,6 @@ import {required} from '@vuelidate/validators';
                 
 
             form: {
- 
                 user: this.parseJwt(localStorage.getItem('token')),
                 patient: this.$route.params.id,
                 cc: '',
@@ -526,7 +525,7 @@ import {required} from '@vuelidate/validators';
             <article class="flex justify-between mx-12">
                 <div class="w-1/2 p-3">
                     <div class="flex justify-between">
-
+                         
                         <label
                             class=" w-1/4 block my-2 border px-3 py-1 bg-regal-examined bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
                         <span v-show="v$.form.cc.$error" class="mt-2">
@@ -537,6 +536,7 @@ import {required} from '@vuelidate/validators';
                             </div>
                         </span>
                     </div>
+                    
                     <Editor v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14"/>
 
                     <div class="flex justify-between">
@@ -717,7 +717,7 @@ import {required} from '@vuelidate/validators';
                                          <label  class="bg-white text-gray-400 px-1">Name</label>
                                      </p>
                                  </div>
-                                 <input type="text" v-model="medication.name" @keypress="searchMed"
+                                 <input type="text" v-model="medication.name" @input="searchMed"
                                      class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
                              </div>
                             <div class=" transition-all duration-500 relative rounded p-1">
@@ -729,10 +729,7 @@ import {required} from '@vuelidate/validators';
                                 </div>
                                 <input type="text" v-model="medication.category" 
                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                            </div>
-               
-
-                           
+                            </div>                                
 
                             <div class=" transition-all duration-500 relative rounded p-1">
 
