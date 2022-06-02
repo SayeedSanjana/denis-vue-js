@@ -186,6 +186,9 @@ export default {
 </template>
 
 
-<style scoped>
+<style >
 
+.ProseMirror:focus {
+    outline: none;
+  }
 </style>

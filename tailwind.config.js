@@ -75,6 +75,7 @@ module.exports = {
                 yxl: "500px",
                 zxl: "770px",
                 xxl: "800px",
+                xxxl: "900px",
             },
             borderRadius: {
                 "4xl": "2.5rem",

@@ -144,7 +144,6 @@
 
 <script>
     import axios from "axios"
-    import printJS from "print-js"
     import swal from "sweetalert"
     export default {
 
@@ -229,19 +228,7 @@
                     .catch((error) => {
                         console.log(error)
                     })
-                printJS({
-                     printable: "print",
-                    type: 'html',
-                    targetStyles: ['*'],
-                    //  style: ['*'],
-                    maxWidth: 800,
-                    font_size: "10px",
-                    // header: '<h1 class="custom-h1">INVOICE</h1>',
-                    // style: '.custom-h1 { font-size:20px; text-align: right}',
-                    honorColor: true,
-                    gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
-                    ignoreElements: ['no-print']
-                })
+                
             }
         },
 

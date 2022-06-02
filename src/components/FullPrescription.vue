@@ -135,7 +135,7 @@
 </template>
 
 <script>
-    import printJS from "print-js"
+    
     export default {
         props: {
             formData: Object,
@@ -160,17 +160,7 @@
             },
 
             //Print Prescription
-            async print() {
-                printJS({
-                    printable: "print",
-                    type: 'html',
-                    targetStyles: ['*'],
-                    font_size: "12px",
-                    style: '.custom-h1 { font-size:24px}',
-                    gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
-                    ignoreElements: ['no-print']
-                })
-            },
+           
         }
     }
 </script>

@@ -105,6 +105,11 @@ import PreviewPrescription from "./PreviewPrescription.vue"
     
    
     watch:{
+        // previewPrescriptionActive(){
+        //     if(this.form.cc.length > 0 || this.form.oe.length > 0 || this.form.medicine.length > 0 || this.form.advice.length > 0 || this.form.treatmentPlan.length > 0 || this.form.investigation.length > 0){
+        //         this.previewPrescriptionActive = true;
+        //     }
+        // },
 
         tptext(val){
             if(val.length>0){
@@ -146,6 +151,7 @@ import PreviewPrescription from "./PreviewPrescription.vue"
            
       },
 
+     
       mounted(){
 
           
@@ -157,14 +163,33 @@ import PreviewPrescription from "./PreviewPrescription.vue"
 
       },
 
+      computed:{
+          isEnabled(){
+            if(this.form.cc.length > 0 || this.form.oe.length > 0 || this.form.medicine.length > 0 || this.form.advice.length > 0 || this.form.treatmentPlan.length > 0 || this.form.investigation.length > 0){
+                return true;
+            }else{
+                return false;
+            }
+          }
+      },
+
 
     methods:{
+         openModal(){
+            if(this.form.cc.length > 0 || this.form.oe.length > 0 || this.form.medicine.length > 0 || this.form.advice.length > 0 || this.form.treatmentPlan.length > 0 || this.form.investigation.length > 0){
 
-        openModal(){
-            this.previewPrescriptionActive=true;
+                this.previewPrescriptionActive= true ;
+                document.body.style.overflow = 'hidden';
+               
+            }
+        
+            
         },
+
+       
         closeModal(){
             this.previewPrescriptionActive=false;
+            document.body.style.overflow = 'auto';
         },
 
          search(keyword) {
@@ -462,7 +487,8 @@ import PreviewPrescription from "./PreviewPrescription.vue"
 
                 <label for="" class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
                 <div class="m-2 ">
-                    <button type="button" @click="openModal($event)" class="mx-1 px-3 py-1 rounded-md font-semibold text-white bg-regal-teal ">Preview</button>
+                    
+                    <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button>
                     <button type="submit" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
                 </div>
             </div>
@@ -962,12 +988,8 @@ import PreviewPrescription from "./PreviewPrescription.vue"
     </div>
 </template>
 
-<style>
 
-
-.ProseMirror:focus {
-    outline: none;
-  }
+<style scoped>
 
   .section {
   /* max-height: 600px; */
@@ -995,10 +1017,17 @@ import PreviewPrescription from "./PreviewPrescription.vue"
     @apply bg-gray-200 font-semibold text-regal-teal;
 }
 
- .form-input-error {
-	@apply appearance-none py-3 px-4 mb-3 block w-full bg-white text-red-500 border border-red-300 border-opacity-50 rounded leading-tight focus:outline-none focus:border-red-500
-  }
-  .form-error-text {
-	@apply  px-2 text-regal-red text-xs;
-  }
+.form-input-error {
+@apply appearance-none py-3 px-4 mb-3 block w-full bg-white text-red-500 border border-red-300 border-opacity-50 rounded leading-tight focus:outline-none focus:border-red-500
+}
+.form-error-text {
+@apply  px-2 text-regal-red text-xs;
+}
+
+.btn{
+    @apply mx-1 px-3 py-1 rounded-md font-semibold text-white bg-regal-teal;
+}
+  .btn-disabled{
+    @apply mx-1 px-3 py-1 rounded-md font-semibold text-white bg-regal-teal cursor-not-allowed bg-opacity-70 ;
+}
 </style>
