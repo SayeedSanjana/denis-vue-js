@@ -5,7 +5,8 @@ import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
-import PreviewPrescription from "./PreviewPrescription.vue"
+// import PreviewPrescription from "./PreviewPrescription.vue";
+// import PrescriptionList from "./PrescriptionList.vue";
 
 // import Grid from "../../components/Grid.vue"
 
@@ -14,7 +15,8 @@ import PreviewPrescription from "./PreviewPrescription.vue"
     export default {
         components:{
             Editor,
-            PreviewPrescription
+            // PreviewPrescription,
+            // PrescriptionList
             // Grid,
        
      
@@ -487,8 +489,10 @@ import PreviewPrescription from "./PreviewPrescription.vue"
 
                 <label for="" class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
                 <div class="m-2 ">
-                    
-                    <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button>
+
+
+                    <button class="btn" type="button" @click="$emit('backToPrescriptionList')">Back</button>
+                    <!-- <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button> -->
                     <button type="submit" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
                 </div>
             </div>
@@ -982,7 +986,7 @@ import PreviewPrescription from "./PreviewPrescription.vue"
 
         </section>
             </form>
-            <PreviewPrescription v-if="previewPrescriptionActive" :form="form" @close="closeModal"/>
+            <PreviewPrescription v-if="previewPrescriptionActive" :form="form" @close="closeModal" :createPrescription="createPrescription"/>
 
 
     </div>

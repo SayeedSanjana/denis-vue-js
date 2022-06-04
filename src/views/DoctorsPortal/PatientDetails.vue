@@ -14,19 +14,11 @@
                 <div class=" lg:w-4/5  ">
 
                    
-                    <CreatePrescription />
+                    <!-- <CreatePrescription /> -->
+
+                    <PrescriptionList />
                     
-                    <!--nav-->
-                    <!-- <div class="xl:flex justify-between min-h-screen ">
-                        <div class="xl:w-3/5  md:mb-4  ">
-
-                            <TreatmentPrescriptionNav :id="$route.params.id"> </TreatmentPrescriptionNav>
-                        </div>
-                        <div class="xl:w-2/5 xl:pt-0 border border-regal-cyan border-opacity-20">
-
-                            <PastPresGeneralNav :id="$route.params.id" :pat="$store.state.patient.data"></PastPresGeneralNav>
-                        </div>
-                    </div> -->
+                  
                 </div>
                 <!--nav-->
             </div>
@@ -38,7 +30,8 @@
     // import TreatmentPrescriptionNav from "../../components/TreatmentPrescriptionNav.vue"
     // import PastPresGeneralNav from "../../components/PastPresGeneralNav.vue";
     // import Nav from "../../components/Nav.vue";
-    import CreatePrescription from "../Prescription/CreatePrescription.vue"
+    import PrescriptionList from "../Prescription/PrescriptionList.vue"
+    // import CreatePrescription from "../Prescription/CreatePrescription.vue"
     import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
     // import axios from "axios";
     export default {
@@ -47,7 +40,8 @@
             // TreatmentPrescriptionNav,
             // PastPresGeneralNav,
             PreviousMedicalRecords,
-            CreatePrescription
+            // CreatePrescription,
+            PrescriptionList
         },
         created() {
              this.$store.dispatch('fetchPatient', this.$route.params.id);

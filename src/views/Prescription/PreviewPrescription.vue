@@ -1,17 +1,20 @@
 <script>
-import Modal from "../../components/reusable/Modal.vue";
+// import Modal from "../../components/reusable/Modal.vue";
     export default {
         components:{
-            Modal
+            // Modal
         },
         props:{
             form:{
                 type:Object,
-            }
+            },
+           
+
         },
        
         methods:{
             print() {
+               
                 // Get HTML to print from element
                 const prtHtml = document.getElementById('print').innerHTML;
 
@@ -29,7 +32,7 @@ import Modal from "../../components/reusable/Modal.vue";
                         <head>
                             ${stylesHtml}
                         </head>
-                        <body class= 'w-full'>
+                        <body>
                             ${prtHtml}
                         </body>
                         </html>`);
@@ -49,12 +52,15 @@ import Modal from "../../components/reusable/Modal.vue";
 </script>
 
 <template>
-    <Modal :width="'w-1/2'" :height="'h-xxxl'" >
-        <template v-slot:header >
+    <!-- <Modal :width="'w-1/2'" :height="'h-xxxl'" > -->
+        <!-- <template v-slot:header > -->
             <!-- <h1 class="font-bold text-xl p-2">Prescription Preview</h1> -->
-            <button type="button" class="px-3 py-1 rounded-md  text-white bg-regal-teal" @click="print">Print</button>
-        </template>
-        <template v-slot:body >
+            <div class="flex justify-end m-2">
+
+                <button type="button" class=" px-3 py-1 rounded-md  text-white bg-regal-teal" @click="print"> Print</button>
+            </div>
+        <!-- </template> -->
+        <!-- <template v-slot:body > -->
            
 
             <div id="print" >
@@ -283,9 +289,9 @@ import Modal from "../../components/reusable/Modal.vue";
                 </section>
             </div>
            
-        </template>
+        <!-- </template> -->
 
-    </Modal>
+    <!-- </Modal> -->
 
 
 
