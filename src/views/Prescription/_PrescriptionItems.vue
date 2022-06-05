@@ -29,21 +29,30 @@ export default {
     
 <div>
 
-    <ul class="space-y-3   p-3">
-        <li  v-for="(items,i) in prescriptions" :key="i" @click="$emit('viewPrescription' ,i)"  :class="{'btnActive': this.index == i, 'btn' : this.index != i } ">
+    <ul  class="space-y-3   p-3">
+        <li v-if="prescriptions.length > 0"  v-for="(items,i) in prescriptions" :key="i" @click="$emit('viewPrescription' ,i)"  :class="{'btnActive': this.index == i, 'btn' : this.index != i } ">
            
             
-                <div class=" text-regal-teal text-lg">{{items.createdAt}}</div>
+                <div class=" text-regal-teal text-lg">{{new Date(items.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) }}</div>
                 
-                <div class="text-right"><span class="text-regal-teal text-lg">Approved By: </span><span
+                <div class="text-right"><span class="text-regal-teal text-lg">Approved By: </span>
+                <span
                         class="text-regal-teal text-lg">Dr.{{items.user.name}}</span>
                 </div>
            
           
 
         </li>
+        <li v-else class="my-60">
+            <div class="text-center text-regal-teal text-4xl">No Prescription Added</div>
+        </li>
         
     </ul>
+
 </div>
 
 </template>

@@ -4,7 +4,7 @@
         <div class=" bg-white w-full hover:overflow-hidden  mt-3">
             <div class=" border rounded-t-md">
 
-                <div class="flex justify-between  bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
+                <div class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
                     <label class="mx-5">Patient</label>
     
                     <button name="edit" @click="openModal($event)" class=""> 
@@ -33,7 +33,7 @@
         <div class="bg-white w-full hover:overflow-hidden mt-1">
             <div class=" border rounded-t-md">
 
-                <div class=" bg-green-50 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
+                <div class=" bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
                     <label class="mx-5">Medical History</label>
                    
                     <button name="addHst" @click="openModal($event)">

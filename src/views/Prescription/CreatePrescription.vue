@@ -5,20 +5,10 @@ import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
-// import PreviewPrescription from "./PreviewPrescription.vue";
-// import PrescriptionList from "./PrescriptionList.vue";
-
-// import Grid from "../../components/Grid.vue"
-
-
 
     export default {
         components:{
             Editor,
-            // PreviewPrescription,
-            // PrescriptionList
-            // Grid,
-       
      
         },
         data(){
@@ -68,7 +58,8 @@ import {required} from '@vuelidate/validators';
                 frequency: '',
                 duration: '',
                 relationWithMeals: ''
-            },         
+            },
+            pres:{}         
         }
         
     },
@@ -97,9 +88,6 @@ import {required} from '@vuelidate/validators';
                 required,
             }],	
 		},
-        
-        
-
 
      }
 
@@ -107,12 +95,7 @@ import {required} from '@vuelidate/validators';
     
    
     watch:{
-        // previewPrescriptionActive(){
-        //     if(this.form.cc.length > 0 || this.form.oe.length > 0 || this.form.medicine.length > 0 || this.form.advice.length > 0 || this.form.treatmentPlan.length > 0 || this.form.investigation.length > 0){
-        //         this.previewPrescriptionActive = true;
-        //     }
-        // },
-
+        
         tptext(val){
             if(val.length>0){
                 this.showSearchtp=true;
@@ -155,13 +138,10 @@ import {required} from '@vuelidate/validators';
 
      
       mounted(){
-
-          
-
-           this.meiliSearch = new MeiliSearch({
-        host: 'http://localhost:7700',
-        apiKey: 'IAmBadass',
-    });
+            this.meiliSearch = new MeiliSearch({
+                host: 'http://localhost:7700',
+                apiKey: 'IAmBadass',
+            });
 
       },
 
@@ -423,14 +403,12 @@ import {required} from '@vuelidate/validators';
                     this.medication[b]='';
                 }
                   
-        }
+            }
         },
 
         removeMedication(index){
             this.form.medicine.splice(index,1);  
         },
-
-
         insertMedication(i){
            Object.assign(this.medication, i);
            this.medicineList='';
@@ -439,16 +417,14 @@ import {required} from '@vuelidate/validators';
         async createPrescription(){
             try {
                
-               
                 this.v$.$touch();
 
-              
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
               
                
                 const response = await axios.post('prescriptions', this.form);
-                // console.log(this.v$.$error);
-
+                Object.assign(this.pres, response.data.data);
+                
                 if(response.data.status === 'success'){
                     
                     swal({
@@ -459,73 +435,71 @@ import {required} from '@vuelidate/validators';
                         button: false
                     });
                   
-                    
+                    this.$emit('backToPrescriptionList');
+                    this.$emit('refreshPrescriptionList', this.pres );
+                  
 
                 }
                 
             } catch (error) {
-                console.log(error);
-                // swal({
-                //     title: "Error",
-                //     text: error.message,
-                //     icon: "error",
-                //     button: true
-                // });
+                swal({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error",
+                    button: true
+                });
                 
             }
         }
-        
-       
-        
     }
 }
 </script>
 
 <template>
-    <div class="mx-3 mt-3 bg-white rounded-sm" > 
+    <div class="mx-3 mt-3 bg-white rounded-sm">
         <form @submit.prevent="createPrescription(this.$route.params.id)">
-        <div class="rounded-t-md w-full hover:overflow-hidden">
-            <div class="flex justify-between bg-green-50">
+            <div class="rounded-t-md w-full hover:overflow-hidden">
+                <div class="flex justify-between bg-green-50">
 
-                <label for="" class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
-                <div class="m-2 ">
+                    <label for=""
+                        class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
+                    <div class="m-2 ">
 
 
-                    <button class="btn" type="button" @click="$emit('backToPrescriptionList')">Back</button>
-                    <!-- <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button> -->
-                    <button type="submit" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
+                        <button class="btn" type="button" @click="$emit('backToPrescriptionList')">Back</button>
+                        <!-- <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button> -->
+                        <button type="submit"
+                            class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
+                    </div>
                 </div>
-            </div>
-            
-            <section class="flex justify-between px-16 py-8">
 
-                
-                    
+                <section class="flex justify-between px-16 py-8">
 
                     <div>
                         <ul>
                             <li class="font-semibold text-2xl text-left">
                                 MT Dental Center
                             </li>
-                           
-   
+
+
                             <li class="text-sm text-left">
-                              <span class="font-semibold"> Address:</span>   House No 12 (1st Floor), Road No 14 (New)<br />
-                              <span> Dhanmondi, Dhaka-1209 </span>  <br />
-                              <span class="font-semibold"> Contact:</span>  01688-329552, 01817-094331 <br />
-                              <span class="font-semibold"> Email:</span> mhkmusa@gmail.com <br />
-                               
+                                <span class="font-semibold"> Address:</span> House No 12 (1st Floor), Road No 14
+                                (New)<br />
+                                <span> Dhanmondi, Dhaka-1209 </span> <br />
+                                <span class="font-semibold"> Contact:</span> 01688-329552, 01817-094331 <br />
+                                <span class="font-semibold"> Email:</span> mhkmusa@gmail.com <br />
+
                             </li>
                             <li class="text-sm text-left">
-                                <span class=" font-semibold">Visiting Days :  </span>
+                                <span class=" font-semibold">Visiting Days : </span>
                                 <span class="">Monday – Friday (9 AM- 6 PM)</span>
                             </li>
                             <li class="text-sm text-left">
-                                <span class=" font-semibold">Report Checking  Hours : </span>
+                                <span class=" font-semibold">Report Checking Hours : </span>
                                 <span class=""> 4 PM- 6 PM</span>
                             </li>
-                           
-   
+
+
                         </ul>
 
                     </div>
@@ -533,12 +507,12 @@ import {required} from '@vuelidate/validators';
                     <div>
 
                         <ul>
-                            
+
                             <li class="font-semibold text-xl text-right">
                                 Dr. Muhammad Abdul Hussein
                             </li>
-                          
-   
+
+
                             <li class="text-sm text-right">
                                 BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
                                 PhD (USA), FICD (USA)DIrector (Dental Education) <br />
@@ -556,140 +530,140 @@ import {required} from '@vuelidate/validators';
                                 <span class=" font-semibold">Email: </span>
                                 <span class="">dr.xyz@mail.com</span>
                             </li>
-   
+
                         </ul>
                     </div>
 
-                    <!-- <div>
+                </section>
+            </div>
 
-                        <img src="@/assets/svgs/tooth_logo.svg" alt="" srcset="" class=" w-40 h-40">
-                    </div> -->
+                <article class="flex justify-between mx-12">
+                    <div class="w-1/2 p-3">
 
-       
-            </section>
-        </div>
+                        <div class="flex justify-between ">
 
-        <section class="">
+                            <label
+                                class=" w-1/4 block my-2 border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief
+                                Complaint</label>
 
-            <article class="flex justify-between mx-12">
-                <div class="w-1/2 p-3">
-                    
-                    <div class="flex justify-between ">
-                         
-                        <label
-                            class=" w-1/4 block my-2 border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief Complaint</label>
-                        
-                        <span v-show="v$.form.cc.$error" class="mt-2">
-                            <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-                    </div>
-                    
-                    <Editor v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 "/>
+                            <span v-show="v$.form.cc.$error" class="mt-2">
+                                <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
+                        </div>
 
-                    <div class="flex justify-between">
+                        <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " />
 
-                        <label
-                            class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-green-100 bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
-                            Examination</label>
-                        <span v-show="v$.form.oe.$error">
-                            <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-                       
+                        <div class="flex justify-between">
+
+                            <label
+                                class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-green-100 bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
+                                Examination</label>
+                            <span v-show="v$.form.oe.$error">
+                                <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
 
 
-                    </div>
-                
-                            <!-- Searchable select on OE-->
+
+                        </div>
+
+                        <!-- Searchable select on OE-->
                         <div class="w-full py-1">
-                           
-                           <div class="flex" >
-                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchOE" v-model="oetext" ></textarea>
-                               <div class="w-1/12 ">
-                                   <button type="button" class="mt-4" @click="addOE">
-                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                   </button>
-                               </div>
-                           </div>
-                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearch" >
-                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
 
-                                   {{items.diagnosis}} 
+                            <div class="flex">
+                                <textarea placeholder="Write here......" type="text"
+                                    class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
+                                    @keypress="searchOE" v-model="oetext"></textarea>
+                                <div class="w-1/12 ">
+                                    <button type="button" class="mt-4" @click="addOE">
+                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
+                                    </button>
+                                </div>
+                            </div>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-show="showSearch">
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
+                                    v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
+
+                                    {{items.diagnosis}}
                                 </li>
                             </ul>
-                            <div class="my-4 " > 
+                            <div class="my-4 ">
                                 <!-- <label for="" class=" flex text-left font-semibold text-regal-teal ml-2">On Examination</label> -->
-                              <hr class="mb-3" />
+                                <hr class="mb-3" />
                                 <div v-if="form.oe.length > 0" class="my-1">
 
                                     <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
-                                       <li class=" text-regal-teal italic list-disc">
-                                           <div class="flex justify-between">
-                                               {{item}}
-                                              <button type="button"  @click="removeOE(index)" class="pl-3 w-1/12">
-                                              <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                              </button>
-                                           </div>
+                                        <li class=" text-regal-teal italic list-disc">
+                                            <div class="flex justify-between">
+                                                {{item}}
+                                                <button type="button" @click="removeOE(index)" class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
+                                                </button>
+                                            </div>
 
-                                       </li> 
+                                        </li>
                                     </ul>
 
                                 </div>
-                                
-                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Examination Added</p>
-                               
-                            </div>
 
-                            
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Examination
+                                    Added</p>
+
+                            </div>
                         </div>
-                       
-                       <!-- Searchable select on Investigation -->
+
+                        <!-- Searchable select on Investigation -->
                         <div class="flex justify-between mt-2">
 
                             <label
                                 class=" w-1/4 block my-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
                             <span v-show="v$.form.investigation.$error">
-                            <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-                        
+                                <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
+
                         </div>
-                     <div class="w-full ">
-                           
-                           <div class=" " >
+                        <div class="w-full ">
+
+                            <div class=" ">
                                 <div class=" relative rounded p-1 mr-14">
 
-                                 <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                     <p>
-                                         <label for="name" class="bg-white text-gray-400 px-1">Investigation Name</label>
-                                     </p>
-                                 </div>
-                               <textarea type="text" class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none" @keypress="searchInvName" v-model="inv.inv_name"></textarea>
+                                    <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                        <p>
+                                            <label for="name" class="bg-white text-gray-400 px-1">Investigation
+                                                Name</label>
+                                        </p>
+                                    </div>
+                                    <textarea type="text"
+                                        class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                        @keypress="searchInvName" v-model="inv.inv_name"></textarea>
                                 </div>
-                                 <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
-                                     v-show="showSearchInv">
-                                     <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
-                                         v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
+                                <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
+                                    v-show="showSearchInv">
+                                    <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
+                                        v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
 
-                                         {{items.name}}
-                                     </li>
-                                 </ul>
+                                        {{items.name}}
+                                    </li>
+                                </ul>
 
 
                                 <div class="flex justify-between w-full">
 
                                     <div class="relative rounded p-1 flex w-3/4 ">
-   
+
                                         <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                             <p>
                                                 <label for="name" class="bg-white text-gray-400 px-1">Location</label>
@@ -699,299 +673,307 @@ import {required} from '@vuelidate/validators';
                                             class="w-full border rounded-md px-3 py-2 my-2 focus:outline-none"
                                             v-model="inv.location">
                                     </div>
-   
-                                  <div class="mr-3 ">
-                                      <button type="button" class="mt-4" @click="addInvestigation">
-                                          <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                      </button>
-                                  </div>
-                                </div>
 
-
-                           </div>
-                           
-                          
-                            <div class="my-4 " > 
-                                    <hr class="mb-3">
-                                <div v-if="form.investigation.length > 0" class="my-1">
-
-                                    <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation" :key="item">
-                                       <li class=" list-disc ">
-                                           
-                                           <div class="flex justify-between" >
-                                               <p class=" text-regal-teal">
-   
-                                                   {{item.location}} - <span class="italic"> {{item.inv_name}}</span>  
-                                               </p>
-   
-                                               <button type="button"  @click="removeInvestigation(index)" class="pl-3 w-1/12">
-                                                   <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                               </button>
-
-                                           </div>
-                                            
-                                       </li> 
-                                     
-                                    
-                                    </ul>
-
-                                </div>
-                           
-                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Investigation Added</p>
-                                
-                            </div>
-
-                            
-                        </div>
-
-
-
-
-
-                </div>
-               
-            
-
-                <!-- Rx -->
-                
-                <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
-                    <div>  
-                        <label
-                            class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
-                            
-                        <div class=" text-left mx-auto grid grid-cols-3">
-                                <div class=" transition-all duration-500 relative rounded p-1">
-
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label  class="bg-white text-gray-400 px-1">Name</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="medication.name" @input="searchMed"
-                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
-                            <div class=" transition-all duration-500 relative rounded p-1">
-
-                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                    <p>
-                                        <label  class="bg-white text-gray-400 px-1 focus:outline-none focus-within:border-regal-teal">Category</label>
-                                    </p>
-                                </div>
-                                <input type="text" v-model="medication.category" 
-                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                            </div>                                
-
-                            <div class=" transition-all duration-500 relative rounded p-1">
-
-                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                 
-                                        <label  class="bg-white text-gray-400 px-1">Generic Name</label>
-                                 
-                                </div>
-                                <input type="text" v-model="medication.generic" 
-                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                            </div> 
-                         
-
-                             <div class=" transition-all duration-500 relative rounded p-1">
-
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label  class="bg-white text-gray-400 px-1">Dosage</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="medication.dosage"
-                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
-                             <div class=" transition-all duration-500 relative rounded p-1">
-
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label  class="bg-white text-gray-400 px-1">Frequency</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="medication.frequency"
-                                     class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
-                             <div class=" transition-all duration-500 relative rounded p-1">
-
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label  class="bg-white text-gray-400 px-1">Duration</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="medication.duration"
-                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
-                            
-                             <div class=" transition-all duration-500 relative rounded p-1">
-
-                                 <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                     <p>
-                                         <label  class="bg-white text-gray-400 px-1">Relation with Meal</label>
-                                     </p>
-                                 </div>
-                                 <input type="text" v-model="medication.relationWithMeals"
-                                     
-                                     class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
-                             </div>
-                           <div class="flex justify-start col-span-3">
-
-                                <button type="button" class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2" @click="addMedication">Add</button>
-                            </div>
-                        </div>
-                        
-                       
-
-                    </div>
-                    <section class="my-4 mx-2">
-                        
-                        <hr class="mb-3" />
-                        <ul v-if="form.medicine.length > 0" class="mx-6">
-                            <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
-
-                                <div class="flex justify-between">
-                                    <div class="text-regal-teal text-opacity-80">
-                                        <div class="flex">
-                                            <p class=" ">{{data.category}} <span> {{data.name}}- </span>
-                                            </p>
-
-                                            <p class=""><span class="italic">{{data.dosage}}</span> {{data.generic}}</p>
-
-                                        </div>
-                                      
-                                            <p class=" text-left  ">
-                                                <span class="pr-4"> {{data.frequency}} </span>  
-                                                <span class="pr-4">{{data.duration}}</span> 
-                                                <span class="pr-4">{{data.relationWithMeals}}</span>
-                                            </p>  
-                                       
-                                    </div>
-                                    <div class="">
-                                        <button type="button" @click="removeMedication(index)">
-                                            <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none mr-2">
+                                    <div class="mr-3 ">
+                                        <button type="button" class="mt-4" @click="addInvestigation">
+                                            <img src="@/assets/svgs/plus.svg" alt=""
+                                                class="pointer-events-none h-6 w-6 ">
                                         </button>
                                     </div>
                                 </div>
 
-                            </li>
-                        </ul>
 
-
-
-                         <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
-
-                        <div class="my-5" v-show="showSearchMed">
-                            <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine List</label>
-
-                           
-                            <table class="w-full mx-auto  bg-opacity-80 text-sm">
-                                <thead class="bg-regal-light-blue text-regal-teal">
-                                    <tr class="">
-                                        <th v-for="item in medicineColumn" :key="item"
-                                            class="p-2 appearance-none first:rounded-tl-md  text-left">
-                                            {{item}}
-                                        </th>
-                                        <th class="last:rounded-tr-md">
-
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row " v-for="(item,index) in medicineList" :key="index">
-                                        <td class="text-left p-2" v-for="data in item" :key="data">
- 
-                                        <p>
-                                         {{data}}
-                                        </p> 
-                                        </td>
-                                        <td class="text-left">
-
-                                            <button type="button" @click="insertMedication(item)" class="bg-gray-50 border">Insert</button>
-                                        </td>
-                                     </tr>
-                                 </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    <div class="flex justify-between mt-2">
-
-                        <label
-                            class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment Plan</label>
-                        <span v-show="v$.form.treatmentPlan.$error">
-                            <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
                             </div>
-                        </span>    
-                    </div>
-                    <!-- treatment plan -->
 
-                     <div class="w-full py-1">
-                           
-                           <div class="flex justify-between" >
-                               <textarea  placeholder="Write here......" type="text" class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none" @keypress="searchtp" v-model="tptext"></textarea>
-                               <div class="w-1/12">
-                                   <button type="button" class="mt-4" @click="addtp">
-                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                   </button>
-                               </div>
-                           </div>
-                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-show="showSearchtp" >
-                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer" v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
 
-                                   {{items.name}} 
-                                </li>
-                            </ul>
-                            <div class="my-4 " > 
-                                    <hr class="mb-3 ">
-                                <div v-if="form.treatmentPlan.length > 0" class="my-1">
+                            <div class="my-4 ">
+                                <hr class="mb-3">
+                                <div v-if="form.investigation.length > 0" class="my-1">
 
-                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan" :key="item">
-                                       <li class=" text-regal-teal italic list-disc">
-                                           <div class="flex justify-between">
-                                               {{item}}
-                                              <button type="button" @click="removeTp(index)" class="pl-3 w-1/12">
-                                              <img src="@/assets/svgs/cross.svg" alt="" srcset="" class="pointer-events-none w-4 h-4 ">
-                                              </button>
-                                           </div>
+                                    <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation"
+                                        :key="item">
+                                        <li class=" list-disc ">
 
-                                       </li> 
+                                            <div class="flex justify-between">
+                                                <p class=" text-regal-teal">
+
+                                                    {{item.location}} - <span class="italic"> {{item.inv_name}}</span>
+                                                </p>
+
+                                                <button type="button" @click="removeInvestigation(index)"
+                                                    class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
+                                                </button>
+
+                                            </div>
+
+                                        </li>
+
+
                                     </ul>
 
                                 </div>
-                             
-                                    <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Treatment Plan Added</p>
-                             
+
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Investigation
+                                    Added</p>
+
                             </div>
 
-                            
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Rx -->
+
+                    <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
+                        
+                        <label
+                            class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
+
+                        <div class=" text-left mx-auto grid grid-cols-3">
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Name</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.name" @input="searchMed"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label
+                                            class="bg-white text-gray-400 px-1 focus:outline-none focus-within:border-regal-teal">Category</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.category"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
+
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+
+                                    <label class="bg-white text-gray-400 px-1">Generic Name</label>
+
+                                </div>
+                                <input type="text" v-model="medication.generic"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
+
+
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Dosage</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.dosage"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Frequency</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.frequency"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Duration</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.duration"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+
+                            <div class=" transition-all duration-500 relative rounded p-1">
+
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Relation with Meal</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.relationWithMeals"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <div class="flex justify-start col-span-3">
+
+                                <button type="button"
+                                    class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2"
+                                    @click="addMedication">Add</button>
+                            </div>
                         </div>
 
 
-                    <label
-                        class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor v-model="form.advice" class="m-2 mr-14" />
-            <!-- <div class="flex justify-start ml-2 my-2">
-                <button type="submit" class=" px-3 py-1 font-semibold text-regal-teal bg-gray-50">save</button>
 
-            </div> -->
-                </div>
+                        
+                        <section class="my-4 mx-2">
 
-            </article>
-        
+                            <hr class="mb-3" />
+                            <ul v-if="form.medicine.length > 0" class="mx-6">
+                                <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
 
-        </section>
-            </form>
-            <PreviewPrescription v-if="previewPrescriptionActive" :form="form" @close="closeModal" :createPrescription="createPrescription"/>
+                                    <div class="flex justify-between">
+                                        <div class="text-regal-teal text-opacity-80">
+                                            <div class="flex">
+                                                <p class=" ">{{data.category}} <span> {{data.name}}- </span>
+                                                </p>
 
+                                                <p class=""><span class="italic">{{data.dosage}}</span> {{data.generic}}
+                                                </p>
+
+                                            </div>
+
+                                            <p class=" text-left  ">
+                                                <span class="pr-4"> {{data.frequency}} </span>
+                                                <span class="pr-4">{{data.duration}}</span>
+                                                <span class="pr-4">{{data.relationWithMeals}}</span>
+                                            </p>
+
+                                        </div>
+                                        <div class="">
+                                            <button type="button" @click="removeMedication(index)">
+                                                <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                    class="pointer-events-none mr-2">
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+
+
+
+                            <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.
+                            </p>
+
+                            <div class="my-5" v-show="showSearchMed">
+                                <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine
+                                    List</label>
+
+
+                                <table class="w-full mx-auto  bg-opacity-80 text-sm">
+                                    <thead class="bg-regal-light-blue text-regal-teal">
+                                        <tr class="">
+                                            <th v-for="item in medicineColumn" :key="item"
+                                                class="p-2 appearance-none first:rounded-tl-md  text-left">
+                                                {{item}}
+                                            </th>
+                                            <th class="last:rounded-tr-md">
+
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row "
+                                            v-for="(item,index) in medicineList" :key="index">
+                                            <td class="text-left p-2" v-for="data in item" :key="data">
+
+                                                <p>
+                                                    {{data}}
+                                                </p>
+                                            </td>
+                                            <td class="text-left">
+
+                                                <button type="button" @click="insertMedication(item)"
+                                                    class="bg-gray-50 border">Insert</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <div class="flex justify-between mt-2">
+
+                            <label
+                                class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment
+                                Plan</label>
+                            <span v-show="v$.form.treatmentPlan.$error">
+                                <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- treatment plan -->
+
+                        <div class="w-full py-1">
+
+                            <div class="flex justify-between">
+                                <textarea placeholder="Write here......" type="text"
+                                    class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
+                                    @keypress="searchtp" v-model="tptext"></textarea>
+                                <div class="w-1/12">
+                                    <button type="button" class="mt-4" @click="addtp">
+                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
+                                    </button>
+                                </div>
+                            </div>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-show="showSearchtp">
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
+                                    v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
+
+                                    {{items.name}}
+                                </li>
+                            </ul>
+                            <div class="my-4 ">
+                                <hr class="mb-3 ">
+                                <div v-if="form.treatmentPlan.length > 0" class="my-1">
+
+                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan"
+                                        :key="item">
+                                        <li class=" text-regal-teal italic list-disc">
+                                            <div class="flex justify-between">
+                                                {{item}}
+                                                <button type="button" @click="removeTp(index)" class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
+                                                </button>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Treatment Plan
+                                    Added</p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <label
+                            class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
+                        <Editor id="advice" name="advice" v-model="form.advice" class="m-2 mr-14" />
+                        
+                    </div>
+
+                </article>
+        </form>
 
     </div>
 </template>
-
 
 <style scoped>
 

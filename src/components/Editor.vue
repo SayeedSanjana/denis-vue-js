@@ -1,9 +1,9 @@
 <script>
 import { Editor, EditorContent, mergeAttributes } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
+// import Document from '@tiptap/extension-document'
+// import Paragraph from '@tiptap/extension-paragraph'
+// import Text from '@tiptap/extension-text'
 import Heading from '@tiptap/extension-heading'
 import BulletList from '@tiptap/extension-bullet-list'
 import Underline from '@tiptap/extension-underline'
@@ -52,7 +52,7 @@ export default {
             3: 'text-sm',
 
         }
-
+    
         this.editor = new Editor({
             extensions: [
                 StarterKit,
@@ -65,6 +65,7 @@ export default {
                         class: ' ml-4 list-disc ',
                     },
                 }),
+                // bulletList,
 
                 Heading.configure({
                     levels: [1, 2, 3],
