@@ -28,7 +28,8 @@ import Preview from "./_Preview.vue"
 
         methods: {
             openCreatePrescription() {  
-                this.swapToPrescription = !this.swapToPrescription;
+
+                // this.swapToPrescription = !this.swapToPrescription;
             },
             updatePrescription(value){
                 
@@ -69,10 +70,13 @@ import Preview from "./_Preview.vue"
 
             <div class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 border-r-2 border-emerald-600 shadow-sm  p-3 ">
                     <label class="mx-5 text-regal-teal text-xl font-semibold">Prescription List</label>
-    
-                    <button name="create" @click="openCreatePrescription"  type="button"> 
+
+                    <router-link :to="{name: 'Prescription'}">
+                        <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
+                    </router-link>
+                    <!-- <button name="create" @click="openCreatePrescription"  type="button"> 
                         <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 " >                
-                    </button> 
+                    </button>  -->
             </div>
 
             

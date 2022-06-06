@@ -1,5 +1,4 @@
 <script>
-
     export default {
        
         props:{
@@ -36,13 +35,18 @@
         },
        
         
-        
-       
         methods:{
              calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
                 const ageDate = new Date(ageDifMs);
                 return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
+            },
+            copyPrescription(){
+                this.$store.commit("setCopiedPrescription", this.form)
+                
+                this.$router.push({
+                    name: 'Prescription'
+                })
             },
             print() {
                
@@ -91,7 +95,7 @@
 
     <div class="flex justify-end space-x-2 m-2">
         <button type="button " class="px-3 py-1 rounded-md  text-white bg-regal-teal" 
-        @click="$emit('copyPrescription')">Copy</button>
+        @click="copyPrescription()">Copy</button>
 
         <button type="button" class=" px-3 py-1 rounded-md  text-white bg-regal-teal" @click="print"> Print</button>
     </div>

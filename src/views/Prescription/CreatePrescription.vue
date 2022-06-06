@@ -5,14 +5,18 @@ import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
 import {required} from '@vuelidate/validators';
+import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
+
 
     export default {
         components:{
             Editor,
-     
+            PreviousMedicalRecords
+             
         },
         data(){
-            return{   
+            return{
+                copiedData: null,
                 previewPrescriptionActive: false,   
                 meiliSearch:null,
 
@@ -92,7 +96,11 @@ import {required} from '@vuelidate/validators';
      }
 
     },
-    
+    created() {
+            this.$store.dispatch('fetchPatient', this.$route.params.id);
+
+            this.copiedData = this.$store.state.copiedPrescription;
+        },
    
     watch:{
         
@@ -142,6 +150,15 @@ import {required} from '@vuelidate/validators';
                 host: 'http://localhost:7700',
                 apiKey: 'IAmBadass',
             });
+
+            if(this.copiedData){
+                this.form.cc = this.copiedData.cc;
+                this.form.advice = this.copiedData.advice;
+                this.form.investigation = this.copiedData.investigation;
+                this.form.medicine = this.copiedData.medicine;
+                this.form.treatmentPlan = this.copiedData.treatmentPlan;
+                this.form.oe = this.copiedData.oe;
+            }
 
       },
 
@@ -414,7 +431,7 @@ import {required} from '@vuelidate/validators';
            this.medicineList='';
         },
 
-        async createPrescription(){
+        async createPrescription(id){
             try {
                
                 this.v$.$touch();
@@ -434,9 +451,17 @@ import {required} from '@vuelidate/validators';
                         timer: 1000,
                         button: false
                     });
-                  
-                    this.$emit('backToPrescriptionList');
-                    this.$emit('refreshPrescriptionList', this.pres );
+
+                    this.$router.push({
+                        name: 'PatientDetails',
+                        params: {
+                            id
+                        }
+                    });
+                    
+                    
+                    // this.$emit('backToPrescriptionList');
+                    // this.$emit('refreshPrescriptionList', this.pres );
                   
 
                 }
@@ -456,7 +481,13 @@ import {required} from '@vuelidate/validators';
 </script>
 
 <template>
-    <div class="mx-3 mt-3 bg-white rounded-sm">
+<section class="lg:flex">
+
+    <div class="lg:w-1/5">
+    <PreviousMedicalRecords :patient="$store.state.patient.data"/>
+    </div>
+    
+    <div class="lg:w-4/5 mx-3 mt-3 bg-white rounded-sm">
         <form @submit.prevent="createPrescription(this.$route.params.id)">
             <div class="rounded-t-md w-full hover:overflow-hidden">
                 <div class="flex justify-between bg-green-50">
@@ -466,7 +497,7 @@ import {required} from '@vuelidate/validators';
                     <div class="m-2 ">
 
 
-                        <button class="btn" type="button" @click="$emit('backToPrescriptionList')">Back</button>
+                        <router-link :to="{name:'PatientDetails'}" class="btn" type="button" >Back</router-link>
                         <!-- <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button> -->
                         <button type="submit"
                             class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
@@ -973,6 +1004,7 @@ import {required} from '@vuelidate/validators';
         </form>
 
     </div>
+</section>
 </template>
 
 <style scoped>

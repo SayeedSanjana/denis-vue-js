@@ -9,7 +9,7 @@ export default createStore({
         endPage: null,
         patient: {},
         bills:[],
-        
+        copiedPrescription: null
 	},
 
 	mutations: {
@@ -34,10 +34,10 @@ export default createStore({
             state.totalPatient = state.totalPatient + 1
             state.endPage = state.endPage + 1
         },
-       
-        
-       
-
+        setCopiedPrescription(state, copiedPrescription) {
+            state.copiedPrescription = copiedPrescription
+           
+        },
         // editPatient(state, patient) {
         //     state.patient = patient.data
         //     console.log(state.patient.data);
@@ -58,8 +58,6 @@ export default createStore({
                                     total:totalData,
                                     q:text
                                 },
-                               
-    
                 },);
                 return commit('setPatients', data);
                 
@@ -91,9 +89,6 @@ export default createStore({
             .then((result) => commit('setBills', result)
             )
         },
-
-       
-
         // updatePatient({commit}, patientId) {
         //     axios.put(`http://localhost:3000/api/patients/${patientId}`, )
         //         .then((result) => commit('editPatient', result)

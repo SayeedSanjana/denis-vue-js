@@ -19,6 +19,7 @@ import SupplyRoom from "../views/Inventory/SupplyRoom.vue";
 import RequestforSupply from "../views/Inventory/RequestforSupply.vue";
 import Library from "../views/Library.vue";
 import AddnewitemInv from "../views/AddnewitemInv.vue";
+import Prescription from "../views/Prescription/CreatePrescription.vue"
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
 // import Createnewappointment from "../views/Createnewappointment.vue";
@@ -50,6 +51,11 @@ const routes = [
     path: '/EmployeeProfile/:id',
     name: 'EmployeeProfile',
     component: EmployeeProfile
+  },
+  {
+    path: '/Prescription/:id',
+    name: 'Prescription',
+    component: Prescription
   },
   {
     path: '/AppointmentPortal',
