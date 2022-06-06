@@ -1,18 +1,17 @@
 <script>
 import axios from "axios";
 import PrescriptionItems from "./_PrescriptionItems.vue";
-import CreatePrescription from "./CreatePrescription.vue";
-// import PreviewPrescription from "./PreviewPrescription.vue";
+
 import Preview from "./_Preview.vue"
     export default {
         components: {
             PrescriptionItems,
-            CreatePrescription,
+          
             Preview
         },
         data(){
             return{
-                swapToPrescription: false,
+              
                 prescriptions: [],
                 index: null,
                
@@ -27,15 +26,7 @@ import Preview from "./_Preview.vue"
             },
 
         methods: {
-            openCreatePrescription() {  
-
-                // this.swapToPrescription = !this.swapToPrescription;
-            },
-            updatePrescription(value){
-                
-                this.prescriptions.unshift(value);
-
-            },
+            
             async getPrescription() {
                
                 try {
@@ -50,10 +41,6 @@ import Preview from "./_Preview.vue"
                 this.index = index;
         
             },
-           
-
-
-            
 
         }, 
       
@@ -62,9 +49,8 @@ import Preview from "./_Preview.vue"
 
 
 <template>
-    <CreatePrescription v-if="swapToPrescription" @refresh-prescription-list="updatePrescription" @backToPrescriptionList="openCreatePrescription" />
     
-    <div v-else class=" flex justify-between p-4">
+    <div  class=" flex justify-between p-4">
         
         <div class="w-1/3 bg-gray-50">
 
@@ -74,9 +60,7 @@ import Preview from "./_Preview.vue"
                     <router-link :to="{name: 'Prescription'}">
                         <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
                     </router-link>
-                    <!-- <button name="create" @click="openCreatePrescription"  type="button"> 
-                        <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 " >                
-                    </button>  -->
+                 
             </div>
 
             
@@ -86,7 +70,6 @@ import Preview from "./_Preview.vue"
       
            
         
-        <!-- <div class="w-2/3  bg-gray-50 mx-4" :class="{'border-l border-gray-300':prescriptions[index]? true : false}"> -->
         <div class="w-2/3  bg-gray-50 mx-4">
           
 

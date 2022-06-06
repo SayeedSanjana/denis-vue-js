@@ -50,10 +50,9 @@
             },
             print() {
                
-                // Get HTML to print from element
+                
                 const prtHtml = document.getElementById('print').innerHTML;
 
-                // Get all stylesheets HTML
                 let stylesHtml = '';
                 for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
                     stylesHtml += node.outerHTML;
@@ -94,10 +93,14 @@
 <template>
 
     <div class="flex justify-end space-x-2 m-2">
-        <button type="button " class="px-3 py-1 rounded-md  text-white bg-regal-teal" 
-        @click="copyPrescription()">Copy</button>
+        <button type="button " class="px-2 py-2 rounded-full  bg-regal-teal" 
+        @click="copyPrescription()">
+        <img src="@/assets/svgs/copy.svg" class="pointer-events-none">
+        </button>
 
-        <button type="button" class=" px-3 py-1 rounded-md  text-white bg-regal-teal" @click="print"> Print</button>
+        <button type="button" class="px-2 py-2 bg-regal-teal rounded-full " @click="print"> 
+        <img src="@/assets/svgs/print.svg"  class="pointer-events-none ">
+        </button>
     </div>
 
 
@@ -135,7 +138,7 @@
                 <ul>
 
                     <li class="font-semibold text-lg text-right">
-                        {{form.user.name}}
+                        {{formData.user.name}}
                     </li>
 
                     <li class="text-xs text-right">
@@ -166,11 +169,11 @@
         </section>
         <hr />
         <div class="flex justify-between items-start mx-4 my-2">
-            <p class="text-sm"><span class="font-semibold">Patient Name:</span> <span>{{form.patient.name}}</span> </p>
-            <p class="text-sm"><span class="font-semibold">Phone:</span> <span>{{form.patient.phone}}</span> </p>
-            <p class="text-sm"><span class="font-semibold">Dob:</span> <span>{{calculateAge(form.patient.dob)}}</span>
+            <p class="text-sm"><span class="font-semibold">Patient Name:</span> <span>{{formData.patient.name}}</span> </p>
+            <p class="text-sm"><span class="font-semibold">Phone:</span> <span>{{formData.patient.phone}}</span> </p>
+            <p class="text-sm"><span class="font-semibold">Dob:</span> <span>{{calculateAge(formData.patient.dob)}}</span>
             </p>
-            <p class="text-sm"><span class="font-semibold">Gender:</span> <span>{{form.patient.gender}}</span> </p>
+            <p class="text-sm"><span class="font-semibold">Gender:</span> <span>{{formData.patient.gender}}</span> </p>
         </div>
         <hr />
         <section class="my-2 ">
