@@ -19,7 +19,9 @@ import SupplyRoom from "../views/Inventory/SupplyRoom.vue";
 import RequestforSupply from "../views/Inventory/RequestforSupply.vue";
 import Library from "../views/Library.vue";
 import AddnewitemInv from "../views/AddnewitemInv.vue";
-import Prescription from "../views/Prescription/CreatePrescription.vue"
+import Prescription from "../views/Prescription/CreatePrescription.vue";
+import Service from "../views/Service/Services.vue";
+
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
 // import Createnewappointment from "../views/Createnewappointment.vue";
@@ -57,6 +59,12 @@ const routes = [
     name: 'Prescription',
     component: Prescription
   },
+  {
+    path: '/Service/:id',
+    name: 'Service',
+    component: Service
+  },
+
   {
     path: '/AppointmentPortal',
     name: 'AppointmentPortal',

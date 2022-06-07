@@ -29,20 +29,23 @@ export default {
     
 <div>
 
-    <ul  class="space-y-3   p-3">
+    <ul  class="space-y-3  p-3">
         <li v-if="prescriptions.length > 0"  v-for="(items,i) in prescriptions" :key="i" @click="$emit('viewPrescription' ,i)"  :class="{'btnActive': this.index == i, 'btn' : this.index != i } ">
            
             
-                <div class=" text-regal-teal text-lg">{{new Date(items.createdAt).toLocaleDateString('en-US', {
+                <div class="text-sm">
+                    {{new Date(items.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
-                }) }}</div>
+                    }) }}
                 
-                <div class="text-right"><span class="text-regal-teal text-lg">Approved By: </span>
-                <span
-                        class="text-regal-teal text-lg">Dr.{{items.user.name}}</span>
                 </div>
+                
+                <div class=""><span class=" text-sm">Approved By: </span>
+                <span class=" text-sm">Dr.{{items.user.name}}</span>
+                </div>
+                
            
           
 
@@ -59,10 +62,10 @@ export default {
 
 <style scoped>
 .btn{
-    @apply cursor-pointer border bg-white rounded-md flex justify-between p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm focus:bg-red-600;
+    @apply cursor-pointer border text-regal-teal bg-white rounded-md flex justify-between p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ;
 }
 .btnActive{
-    @apply cursor-pointer border bg-regal-white rounded-md flex justify-between p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm focus:bg-red-600;
+    @apply cursor-pointer border text-regal-teal bg-slate-200 rounded-md flex justify-between p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-sm ;
 }
 
 </style>b
