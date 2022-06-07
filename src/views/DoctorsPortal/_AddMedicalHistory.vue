@@ -84,7 +84,7 @@ export default {
         },
         async saveMedicalHistory(){
             try {
-                const response = await axios.put('/patients/' + this.$route.params.id, {history:this.history , label : this.label} )
+                const response = await axios.put(import.meta.env.VITE_LOCAL+'/patients/' + this.$route.params.id, {history:this.history , label : this.label} )
                 this.$emit('onUpdate', response.data.data);
                 this.$emit('close');
                  swal({

@@ -439,7 +439,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
               
                
-                const response = await axios.post('prescriptions', this.form);
+                const response = await axios.post(import.meta.env.VITE_LOCAL+'prescriptions', this.form);
                 Object.assign(this.pres, response.data.data);
                 
                 if(response.data.status === 'success'){

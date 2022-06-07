@@ -3,7 +3,7 @@ import store from "./store";
 import App from "./App.vue";
 import router from "./router";
 import vueResource from "./resource.js";
-import "./axios";
+// import "./axios";
 import './assets/index.css'
 
 import Default from './layouts/Default.vue';

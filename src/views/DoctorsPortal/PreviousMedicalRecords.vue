@@ -192,7 +192,7 @@
                             'Your file has been deleted.',
                             'success'
                         )
-                        const response = await axios.put('/patients/' + this.$route.params.id, {
+                        const response = await axios.put(import.meta.env.VITE_LOCAL+'/patients/' + this.$route.params.id, {
                             history: this.history,
                             label: this.label
                             

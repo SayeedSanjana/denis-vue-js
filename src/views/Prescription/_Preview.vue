@@ -103,8 +103,10 @@
         </button>
     </div>
 
+    <div class="section h-xxl">
 
-
+        
+       
     <div id="print" class="">
         <section class="flex justify-between  px-4 py-2">
             <ul>
@@ -368,7 +370,7 @@
 
         </section>
     </div>
-
+    </div>
     <!-- </template> -->
 
     <!-- </Modal> -->
@@ -396,6 +398,28 @@
 .strikebutton{
     @apply line-through text-regal-teal w-full my-2;
 }
+
+.section {
+  /* max-height: 600px; */
+  padding: .5rem;
+  overflow-y: auto;
+  direction: ltr;
+  scrollbar-color: rgb(214, 221, 221) #e4e4e4;
+  scrollbar-width: thin;
+}
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgb(214, 221, 221);
+  border-radius: 100px;
+}
+.section::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+}
+
 
 
 

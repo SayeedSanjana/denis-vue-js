@@ -126,7 +126,7 @@
             async submitForm() {
             this.v$.$touch()
             if (!this.v$.$error) {
-                await axios.post('users/login', this.formData, )
+                await axios.post(import.meta.env.VITE_LOCAL+'users/login', this.formData, )
                 .then((response) => {
                 if (response.data.data !== null) {
                     localStorage.setItem("token", response.data.data)

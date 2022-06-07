@@ -30,7 +30,11 @@ import Preview from "./_Preview.vue"
             async getPrescription() {
                
                 try {
-                    const response = await axios.get('/prescriptions/?pid=' + this.$route.params.id)
+                    const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/?pid=' + this.$route.params.id , {
+                        params:{
+                            limit: 1000
+                        }
+                    })
                     this.prescriptions = response.data.data;
                   
                 } catch (error) {
@@ -63,8 +67,10 @@ import Preview from "./_Preview.vue"
                  
             </div>
 
-            
-            <PrescriptionItems :prescriptions="prescriptions" @view-prescription= "openPrescription" :index="index"/>
+           
+
+                <PrescriptionItems :prescriptions="prescriptions" @view-prescription= "openPrescription" :index="index" class="section h-xxl"/>
+           
         </div>
      
       
@@ -87,5 +93,25 @@ import Preview from "./_Preview.vue"
 
 
 <style scoped>
+.section {
+  /* max-height: 600px; */
+  padding: .5rem;
+  overflow-y: auto;
+  direction: ltr;
+  scrollbar-color: rgb(214, 221, 221) #e4e4e4;
+  scrollbar-width: thin;
+}
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgb(214, 221, 221);
+  border-radius: 100px;
+}
+.section::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+}
 
 </style>

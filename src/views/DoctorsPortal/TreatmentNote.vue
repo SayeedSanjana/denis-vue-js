@@ -362,7 +362,7 @@
 
 
             async getSpecificPatient() {
-                await axios.get('patients/' + this.$route.params.id, {
+                await axios.get(import.meta.env.VITE_LOCAL+'patients/' + this.$route.params.id, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
@@ -401,7 +401,7 @@
                 if (this.formData.treatmentDone === '') {
                     this.str = "Enter Treatment Note";
                 } else {
-                    await axios.post('treatment-notes/create', this.formData, {
+                    await axios.post(import.meta.env.VITE_LOCAL+'treatment-notes/create', this.formData, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             }
@@ -444,7 +444,7 @@
 
             //get specific patient treatment list
             async getspecificTreatmentList() {
-                await axios.get('treatment-notes/' + this.$route.params.id + '/patient', {
+                await axios.get(import.meta.env.VITE_LOCAL+'treatment-notes/' + this.$route.params.id + '/patient', {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }

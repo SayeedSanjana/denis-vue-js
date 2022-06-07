@@ -209,7 +209,7 @@
       },
       async getAppointmentList() {
                
-            const response = await axios.get('appointments/search', {
+            const response = await axios.get(import.meta.env.VITE_LOCAL+'appointments/search', {
                 params: {
                  page:this.currentPage,
                  limit:this.perPage,

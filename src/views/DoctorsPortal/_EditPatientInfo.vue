@@ -295,7 +295,7 @@ export default {
 			// }
 			try {
 			if (this.v$.$error) throw new Error({message:'Invalid Input'}) 
-			const response = await axios.put('/patients/' + id, this.formData );
+			const response = await axios.put(import.meta.env.VITE_LOCAL+'/patients/' + id, this.formData );
             Object.assign(this.patient, response.data.data);
             this.$emit("close");
             // console.log(response.data.data);

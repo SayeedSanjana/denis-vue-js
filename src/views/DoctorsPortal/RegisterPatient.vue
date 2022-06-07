@@ -67,7 +67,7 @@ export default {
 
 			try {
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
-				const response = await axios.post('patients/', this.formData);
+				const response = await axios.post(import.meta.env.VITE_LOCAL+'patients/', this.formData);
 				
 				if(response.data.status === 'success'){
 					this.$store.commit("registerPatient", response.data.data)

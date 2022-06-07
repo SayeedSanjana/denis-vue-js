@@ -218,7 +218,7 @@
 
       //Get the Pin 
       async getPin() {
-        await axios.get('pin/search')
+        await axios.get(import.meta.env.VITE_LOCAL+'pin/search')
           .then((response) => {
             this.pinObject = response.data['result'];
             this.pinObject.forEach((p) => {

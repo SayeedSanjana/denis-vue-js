@@ -329,7 +329,7 @@
 
     //get employee list
           async getEmployeeList() {       
-            const response = await axios.get('employee-details/search/', {
+            const response = await axios.get(import.meta.env.VITE_LOCAL+'employee-details/search/', {
                 params: {
                  page:this.currentPage,
                  limit:this.perPage,
@@ -350,7 +350,7 @@
              }
            });
            //console.log(this.uid)
-            const response1 = await axios.get('employee-details/search/'+ this.employeeId, {
+            const response1 = await axios.get(import.meta.env.VITE_LOCAL+'employee-details/search/'+ this.employeeId, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 }
@@ -393,7 +393,7 @@
         if (!this.v$.$error) {
             this.formData.educationQualifications = [...this.education];
             console.log(this.formData)
-             await axios.put('employee-details/update/' + this.employeeId , this.formData, {
+             await axios.put(import.meta.env.VITE_LOCAL+'employee-details/update/' + this.employeeId , this.formData, {
               headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token') }`
               }

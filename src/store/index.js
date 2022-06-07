@@ -51,7 +51,7 @@ export default createStore({
 		async fetchPatients({commit} , currentPage, perPage ,totalData, text) {
 			try {
                 // console.log(currentPage);
-                const data = await axios.get('http://localhost:3000/api/patients', {
+                const data = await axios.get(import.meta.env.VITE_LOCAL+'patients', {
                     params: {
                                     page:currentPage,
                                     limit:perPage,
@@ -71,13 +71,14 @@ export default createStore({
 		},
 
         fetchPatient ({commit}, patientId) {
-            axios.get(`http://localhost:3000/api/patients/${patientId}`)
+            // axios.get(`http://localhost:3000/api/patients/${patientId}`)
+            axios.get(import.meta.env.VITE_LOCAL+`patients/${patientId}`)
                 .then((result) => commit('getPatient', result)
                 )
         },
 
         fetchBills ({commit} , totalData, currentPage, perPage , text) {
-            axios.get(`http://localhost:3000/api/billings`, {
+            axios.get(import.meta.env.VITE_LOCAL+`billings`, {
                 params: {
                     page:currentPage,
                     limit:perPage,

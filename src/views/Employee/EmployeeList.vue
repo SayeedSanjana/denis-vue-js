@@ -151,7 +151,7 @@ import  Nav from "../../components/Nav.vue";
         //get employee list
           async getEmployeeList() {
                
-            const response = await axios.get('employee-details/search/', {
+            const response = await axios.get(import.meta.env.VITE_LOCAL+'employee-details/search/', {
                 params: {
                  page:this.currentPage,
                  limit:this.perPage,

@@ -321,7 +321,7 @@
 
             //get the specific user
             async getUser() {
-                await axios.get('users/search/' + this.uid, {
+                await axios.get(import.meta.env.VITE_LOCAL+'users/search/' + this.uid, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
@@ -360,7 +360,7 @@
                 this.v$.formData.address.$touch();    
                 this.v$.formData.dob.$touch();                     
                 if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (this.strSame.length<=0)) {
-                await axios.put('users/update/' + this.uid, this.formData, {
+                await axios.put(import.meta.env.VITE_LOCAL+'users/update/' + this.uid, this.formData, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
@@ -392,7 +392,7 @@
                     this.str=""
                     this.strSame=""
                     this.form.email=this.formData.email
-                    await axios.patch('users/update-password/'+ this.uid, this.form, {
+                    await axios.patch(import.meta.env.VITE_LOCAL+'users/update-password/'+ this.uid, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             }
