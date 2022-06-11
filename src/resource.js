@@ -14,7 +14,7 @@ export default Object.freeze({
         },
         parseJwt(token) {
             let decoded = jwt_decode(token)
-            return decoded.sub; 
+            return decoded; 
         },
         
     },

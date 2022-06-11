@@ -31,10 +31,10 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 oetext:'',
                 tptext:'',
                 tplist:[],
-                
-
+                doctor: this.parseJwt(localStorage.getItem('token')).name,
+               
             form: {
-                user: this.parseJwt(localStorage.getItem('token')),
+                user: this.parseJwt(localStorage.getItem('token')).sub,
                 patient: this.$route.params.id,
                 cc: '',
                 oe: [],
@@ -100,6 +100,11 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
             this.$store.dispatch('fetchPatient', this.$route.params.id);
 
             this.copiedData = this.$store.state.copiedPrescription;
+          
+            // console.log(this.copiedData);
+            // if(this.$route.params.data){
+                
+            // }
         },
    
     watch:{
@@ -147,8 +152,8 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
      
       mounted(){
             this.meiliSearch = new MeiliSearch({
-                host: 'http://localhost:7700',
-                apiKey: 'IAmBadass',
+                host: 'https://app-meilirtexus-dev-001.azurewebsites.net/',
+                apiKey: 'ImBadass',
             });
 
             if(this.copiedData){
@@ -430,6 +435,18 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
            Object.assign(this.medication, i);
            this.medicineList='';
         },
+        backToPrescriptionList(id){
+            this.copiedData = null;
+             this.$router.push({
+                        name: 'PatientDetails',
+                        params: {
+                            id
+                        }
+                    });
+
+                    
+
+        },
 
         async createPrescription(id){
             try {
@@ -497,7 +514,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                     <div class="m-2 ">
 
 
-                        <router-link :to="{name:'PatientDetails'}" class="btn" type="button" >Back</router-link>
+                        <button @click="backToPrescriptionList(this.$route.params.id)" class="btn" type="button" >Back</button>
                         <!-- <button type="button" @click="openModal($event)" :class="{'btn' : isEnabled, 'btn-disabled': !isEnabled}" :disabled="!(isEnabled)"  >Preview</button> -->
                         <button type="submit"
                             class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
@@ -540,7 +557,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                         <ul>
 
                             <li class="font-semibold text-xl text-right">
-                                Dr. Muhammad Abdul Hussein
+                              Dr. {{doctor}}
                             </li>
 
 

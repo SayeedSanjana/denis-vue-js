@@ -49,7 +49,7 @@
                         From: "transform opacity-100 scale-100"
                         To: "transform opacity-0 scale-95"
                     -->
-                    <div v-show="isOpen" @mouseleave="toggle" class="dropdown"  tabindex="-1">
+                    <div v-show="isOpen"  class="dropdown"  tabindex="-1">
                         <div class="dropdown-list-group" >
                             <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
                                     Profile Settings
@@ -76,9 +76,14 @@
                 isOpen: false,
             }
         },
+        mounted() {
+            document.querySelector("main").addEventListener("click", () => {
+                this.isOpen = false;
+            });
+        },
         methods: {
             toggle() {
-                this.isOpen = !this.isOpen
+                this.isOpen = true
             },
             logout() {
                 localStorage.clear()

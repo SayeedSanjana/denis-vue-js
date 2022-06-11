@@ -60,7 +60,7 @@ const routes = [
     component: Prescription
   },
   {
-    path: '/Service/:id',
+    path: '/Service/:id/PresId-:presId',
     name: 'Service',
     component: Service
   },

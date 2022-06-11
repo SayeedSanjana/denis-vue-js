@@ -36,7 +36,6 @@
             }
         },
 
-
         methods: {
             calculateAge(birthYear) {
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
@@ -47,7 +46,8 @@
                 this.$store.commit("setCopiedPrescription", this.form)
 
                 this.$router.push({
-                    name: 'Prescription'
+                    name: 'Prescription',
+                    
                 })
             },
             
@@ -83,6 +83,17 @@
 
             selectMedicine(i) {
                 this.formData.medicine[i].isHidden = !this.formData.medicine[i].isHidden;
+            },
+            addService(){
+                  this.$router.push({
+                        name: 'Service',
+                        params: {
+                            id: this.$route.params.id,
+                            presId: this.form._id,
+                            data: JSON.stringify(this.formData)          
+                        },
+                        
+                    });
             }
 
 
@@ -94,11 +105,10 @@
 </script>
 
 <template>
-  
     <div class="flex justify-end space-x-2 m-2">
-        <router-link :to="{name: 'Service', params: this.$route.params.id}" class="bg-regal-teal p-2 rounded-full">
+        <button @click="addService" class="bg-regal-teal p-2 rounded-full">
             <img src="@/assets/svgs/service.svg" alt="" srcset="" class="pointer-events-none">
-        </router-link>
+        </button>
 
         <button type="button " class="p-2 rounded-full  bg-regal-teal" @click="copyPrescription()">
             <img src="@/assets/svgs/copy.svg" class="pointer-events-none">

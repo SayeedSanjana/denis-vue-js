@@ -19,7 +19,10 @@ import Preview from "./_Preview.vue"
                 
             }
         },
-       
+       mounted() {
+            this.$store.commit('clearCopiedPrescription');
+            console.log(this.$store.state.copiedPrescription);
+        },
        
         created() {
             this.getPrescription(this.$route.params.id);

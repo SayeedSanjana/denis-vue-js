@@ -9,7 +9,7 @@ export default createStore({
         endPage: null,
         patient: {},
         bills:[],
-        copiedPrescription: null
+        copiedPrescription: null,
 	},
 
 	mutations: {
@@ -38,6 +38,10 @@ export default createStore({
             state.copiedPrescription = copiedPrescription
            
         },
+        clearCopiedPrescription(state) {
+            state.copiedPrescription = null
+        }
+
         // editPatient(state, patient) {
         //     state.patient = patient.data
         //     console.log(state.patient.data);
