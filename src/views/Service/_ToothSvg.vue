@@ -63,8 +63,8 @@
 
 <template>
     <!-- Svg -->
-    <div class=" xl:w-1/2  px-3 " id="tooth-svg">
-        <svg class="flex xl:bg-gray-50 justify-center w-72 h-72  2xl:w-96 2xl:h-96" width="368" height="368"
+    <div class="  px-3 " id="tooth-svg">
+        <svg class=" xl:bg-gray-50 " width="368" height="368"
             viewBox="0 0 471 471" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="236.25" x2="236.25" y2="471" stroke="#C4C4C4" stroke-opacity="0.47" stroke-width="1.5" />
             <line x1="471" y1="236.25" x2="-6.55671e-08" y2="236.25" stroke="#C4C4C4" stroke-opacity="0.47"

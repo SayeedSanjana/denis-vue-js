@@ -124,19 +124,14 @@ import ToothSvg from "./_ToothSvg.vue";
         },
         watch:{
             'tn.name'(val){
-                if(val.length > 0){
+                if(val.length <= 0){
                     
-                    this.search = true;
-                }
-                else{
+                    this.search = false;
                     this.tnList = [];
-                    this.search =false;
-                    
                 }
+               
 
-                if(this.tnList.length > 0){
-                    this.search =false;
-                }
+    
                 
         },
 
@@ -145,8 +140,8 @@ import ToothSvg from "./_ToothSvg.vue";
         methods:{
             selectedTn(item){
                 this.tn.name = item;
-                this.search = false;
                 this.tnList = [];
+                this.search = false;
             },
         
              
@@ -156,9 +151,10 @@ import ToothSvg from "./_ToothSvg.vue";
             searchtn(e){
                 try {
                   if(this.timeout) clearTimeout(this.timeout);
+                       if(this.tnList.length <= 0) this.search = true;
                     this.timeout = setTimeout(async () => {
+                        this.search = false
                         if (e.target.value.length > 0) {
-
                                  const response = await   this.meiliSearch.index("treatmentNote").search(e.target.value);
                           
                           
@@ -171,7 +167,11 @@ import ToothSvg from "./_ToothSvg.vue";
                                 arr.push(element);
                             }
                             this.tnList= [...arr]
-                           
+
+                            if( this.tnList.length > 0){
+                                this.search = false;
+                            } 
+                    
                         } 
                     }, 1000);
                    
@@ -284,11 +284,11 @@ import ToothSvg from "./_ToothSvg.vue";
 </script>
 
 <template>
-    <section class="lg:flex">
-        <div class="lg:w-1/5">
+    <section class="xl:flex">
+        <div class="xl:w-1/5">
             <PreviousMedicalRecords :patient="$store.state.patient.data"/>
         </div>
-        <div class="lg:w-4/5 mx-3 mt-3 bg-white rounded-sm">
+        <div class="xl:w-4/5 mx-3 mt-3 bg-white rounded-sm">
           <div class="flex justify-between bg-green-50">
 
               <label for=""
@@ -300,8 +300,8 @@ import ToothSvg from "./_ToothSvg.vue";
                  
               </div>
           </div>
-          <div class="grid grid-cols-2 my-5 justify-items-start ">
-              <div class="flex w-full border-r">
+          <div class="grid grid-cols-2 m-5 ">
+              <section class="flex border-r">
                   <div class="w-1/2">
                       <label class="  block px-3 py-1  font-bold text-sm capitalize text-left">Treatment Plan</label>
                       <ul v-for="item in tp.treatmentPlan" :key="item" class=" text-left text-sm py-1 mx-10 ">
@@ -314,7 +314,7 @@ import ToothSvg from "./_ToothSvg.vue";
                       </ul>
 
                   </div>
-                  <div class=" w-1/2 text-left">
+                  <div class=" w-1/2 text-left ">
                       <label class="  block px-3 py-1  font-bold text-sm capitalize text-left">Services Provided</label>
                       <section v-if="service.length>0" class="mx-4 my-2 text-regal-teal space-y-3">
 
@@ -352,125 +352,129 @@ import ToothSvg from "./_ToothSvg.vue";
 
 
                   </div>
-              </div>
-              <form @submit.prevent="saveService">
-                  <div class="flex flex-1">
-                      <div class="xl:w-1/2">
+              </section>
+              <section>
 
-                          <div class=" relative rounded p-1 mx-4">
-                              <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                  <p>
-                                      <label for="name" class="bg-white text-gray-400 px-1">Add Services</label>
-
-                                  </p>
-                                  
+                  <form @submit.prevent="saveService" >
+                      <div class="flex ">
+                          <div class="xl:w-1/2">
+    
+                              <div class=" relative rounded p-1 mx-4">
+                                  <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                      <p>
+                                          <label for="name" class="bg-white text-gray-400 px-1">Add Services</label>
+    
+                                      </p>
+                                      
+                                  </div>
+                                  <textarea rows="5" type="text" @keyup="searchtn"
+                                      class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                      v-model="tn.name"></textarea>
                               </div>
-                              <textarea type="text" @keypress="searchtn"
-                                  class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
-                                  v-model="tn.name"></textarea>
-                          </div>
-
-                          <ul v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-96 section  shadow-sm  absolute z-40 bg-regal-white border rounded-md"
-                              >
-                              <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
-                                  v-for="items in tnList" :key="items" @click="selectedTn(items.name)">
-
-                                  {{items.name}}
-                              </li>
-                          </ul>
-                          <div v-show="search" class="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-                              <div class="animate-pulse flex space-x-4">
-                                  <div class="rounded-full bg-slate-200 h-10 w-10"></div>
-                                  <div class="flex-1 space-y-6 py-1">
-                                      <div class="h-2 bg-slate-200 rounded"></div>
-                                      <div class="space-y-3">
-                                          <div class="grid grid-cols-3 gap-4">
-                                              <div class="h-2 bg-slate-200 rounded col-span-2"></div>
-                                              <div class="h-2 bg-slate-200 rounded col-span-1"></div>
-                                          </div>
+                               
+    
+                                    <ul v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-96 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
+                                        >
+                                        <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
+                                            v-for="items in tnList" :key="items" @click="selectedTn(items.name)">
+          
+                                            {{items.name}}
+                                        </li>
+                                    </ul>
+                               
+                              <div v-show="search" class="w-80 -mt-4 ml-5 border absolute z-40 bg-gray-50 border-gray-300 shadow rounded-md p-4 max-w-sm mx-auto">
+                                  <div class="animate-pulse flex space-x-4">
+                                      <div class="flex-1 space-y-6 py-1">
                                           <div class="h-2 bg-slate-200 rounded"></div>
+                                          <div class="space-y-3">
+                                              <div class="grid grid-cols-3 gap-4">
+                                                  <div class="h-2 bg-slate-200 rounded col-span-2"></div>
+                                                  <div class="h-2 bg-slate-200 rounded col-span-1"></div>
+                                              </div>
+                                              <div class="h-2 bg-slate-200 rounded"></div>
+                                          </div>
                                       </div>
                                   </div>
                               </div>
-                          </div>
-                          
-                          <div class=" relative rounded p-1 mx-4">
-                              <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                  <p>
-                                      <label for="name" class="bg-white text-gray-400 px-1">Location
-
-                                      </label>
-
-                                  </p>
+                              
+                              <div class=" relative rounded p-1 mx-4">
+                                  <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                      <p>
+                                          <label for="name" class="bg-white text-gray-400 px-1">Location
+    
+                                          </label>
+    
+                                      </p>
+                                  </div>
+                                  <input type="text"
+                                      class=" w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                      @keypress="insertIntoTooth" v-model="tn.location">
+    
+                                  <div>
+                                      <h1 class="py-3"> <span v-if="this.tn.location.length>=1 ">{{this.tn.location}}
+                                          </span>
+                                          <span class="text-gray-400 mx-1" v-for="(i, index) in this.location" :key="index">
+                                              <span> {{i}}</span>
+                                              <span v-if="index+1 < this.location.length">, </span>
+                                          </span>
+                                      </h1>
+                                  </div>
+    
                               </div>
-                              <input type="text"
-                                  class=" w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
-                                  @keypress="insertIntoTooth" v-model="tn.location">
-
-                              <div>
-                                  <h1 class="py-3"> <span v-if="this.tn.location.length>=1 ">{{this.tn.location}}
-                                      </span>
-                                      <span class="text-gray-400 mx-1" v-for="(i, index) in this.location" :key="index">
-                                          <span> {{i}}</span>
-                                          <span v-if="index+1 < this.location.length">, </span>
-                                      </span>
-                                  </h1>
-                              </div>
-
+                              <button type="button" class="btn flex items-start mx-5" @click="addService">Add</button>
                           </div>
-                          <button type="button" class="btn flex items-start mx-5" @click="addService">Add</button>
+    
+                            <div class="xl:w-1/2">
+                                <!-- svg -->
+                                <ToothSvg @concatanate="concatenateLocation" @remove-comma="removeComma" :tooth="location" />
+                                <!-- svg -->
+                            </div>
+                                
+    
+    
                       </div>
+                     <section class="ml-5">
 
 
-                      <!-- svg -->
-                      <ToothSvg @concatanate="concatenateLocation" @remove-comma="removeComma" :tooth="location" />
-                      <!-- svg -->
+
+                         <article v-if="form.items.length> 0" class="w-full my-4 border rounded-lg shadow-md">
+                             <summary
+                                 class="font-bold py-2 px-3 bg-regal-white  block text-regal-teal underline rounded-t-lg">
+                                 Services</summary>
+
+                             <ul class="mx-auto px-4 py-1">
+
+                                 <li v-for="(data,index) in form.items" :key="index"
+                                     class="flex justify-between py-2 border-b last:border-b-0">
+                                     <div class="px-3 w-3/5">
+                                         <p class="text-left break-words">{{data.service}}</p>
+
+                                     </div>
+                                     <div class="px-3 w-1.5/5">
+                                         <p>{{data.location}}</p>
+
+                                     </div>
+                                     <div class="px-3 w-0.5/5">
+
+                                         <button type="button" @click="removeService(index)">
+                                             <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                 class="pointer-events-none mr-2"></button>
+                                     </div>
+
+                                 </li>
+
+                             </ul>
+                         </article>
 
 
-                  </div>
-                  <!-- <div v-show="v$.form.items.$error">
-                      <div v-for="error of v$.form.items.$errors" :key="error.$uid">
-                          <small class="form-error-text">
-                              {{error.$message}}
-                          </small>
-                      </div>
-                  </div> -->
-                  <div v-if="form.items.length> 0" class="border m-4 w-full">
-                      <table class="w-full  text-sm">
-                          <thead class="bg-regal-light-blue text-regal-teal">
-                              <tr>
 
-                                  <th class="p-2 appearance-none first:rounded-tl-md  text-left">Service</th>
-                                  <th class="p-2 appearance-none first:rounded-tl-md  text-left">Location</th>
-                                  <th class="last:rounded-tr-md"></th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr v-for="(data,index) in form.items" :key="index"
-                                  class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-bold text-sm ">
-                                  <td class="text-left  p-2">{{data.service}}</td>
-                                  <td class="text-left  p-2">{{data.location}}</td>
-
-                                  <td class="text-right" @click="removeService(index)">
-                                      <button type="button">
-                                          <img src="@/assets/svgs/cross.svg" alt="" srcset=""
-                                              class="pointer-events-none mr-2">
-                                      </button>
-                                  </td>
-                              </tr>
-
-
-                          </tbody>
-                      </table>
-
-
-                  </div>
-
-                  <div v-else class="  p-4 m-4 w-full font-bold text-regal-teal ">
-                      <p>No services Added</p>
-                  </div>
-                  <button type="submit" class="btn ml-4 flex items-start">Submit</button>
-              </form>
+                         <div v-else class="  p-4 m-4 w-full font-bold text-regal-teal ">
+                             <p>No services Added</p>
+                         </div>
+                         <button type="submit" class="btn  flex items-start">Submit</button>
+                     </section>
+                  </form>
+              </section>
 
 
           </div>
@@ -488,27 +492,6 @@ import ToothSvg from "./_ToothSvg.vue";
  .form-error-text {
 	@apply  px-4 text-regal-red text-sm;
   }
-
-.section {
-  /* max-height: 600px; */
-  padding: .5rem;
-  overflow-y: auto;
-  direction: ltr;
-  scrollbar-color: rgb(191, 214, 212) #e4e4e4;
-  scrollbar-width: thin;
-}
-.section::-webkit-scrollbar {
-  width: 8px;
-}
-.section::-webkit-scrollbar-track {
-  background-color: rgb(191, 214, 212);
-  border-radius: 100px;
-}
-.section::-webkit-scrollbar-thumb {
-  border-radius: 100px;
-  /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
-  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
-}
 
 
 </style>
