@@ -372,7 +372,7 @@ import ToothSvg from "./_ToothSvg.vue";
                                       v-model="tn.name"></textarea>
                               </div>
                                
-    
+                            
                                     <ul v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-96 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
                                         >
                                         <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
@@ -410,18 +410,21 @@ import ToothSvg from "./_ToothSvg.vue";
                                       class=" w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
                                       @keypress="insertIntoTooth" v-model="tn.location">
     
-                                  <div>
-                                      <h1 class="py-3"> <span v-if="this.tn.location.length>=1 ">{{this.tn.location}}
+                                  <div class=" w-80 break-words h-24 section">
+                                      <p class="py-3 "> <span v-if="this.tn.location.length>=1 ">{{this.tn.location}}
                                           </span>
                                           <span class="text-gray-400 mx-1" v-for="(i, index) in this.location" :key="index">
                                               <span> {{i}}</span>
                                               <span v-if="index+1 < this.location.length">, </span>
                                           </span>
-                                      </h1>
+                                      </p>
                                   </div>
     
                               </div>
-                              <button type="button" class="btn flex items-start mx-5" @click="addService">Add</button>
+                              <div class="mx-5">
+
+                                  <button type="button" class="btn w-full" @click="addService">Add</button>
+                              </div>
                           </div>
     
                             <div class="xl:w-1/2">
@@ -489,9 +492,32 @@ import ToothSvg from "./_ToothSvg.vue";
 .btn{
     @apply  px-3 py-1 rounded-md font-semibold text-white bg-regal-teal;
 }
+.btn:hover{
+    @apply bg-regal-cyan;
+}
  .form-error-text {
 	@apply  px-4 text-regal-red text-sm;
   }
+.section {
+  /* max-height: 600px; */
+  padding: .5rem;
+  overflow-y: auto;
+  direction: ltr;
+  scrollbar-color: rgb(214, 221, 221) #e4e4e4;
+  scrollbar-width: thin;
+}
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+.section::-webkit-scrollbar-track {
+  background-color: rgb(214, 221, 221);
+  border-radius: 100px;
+}
+.section::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+}
 
 
 </style>
