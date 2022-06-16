@@ -21,6 +21,7 @@ import Library from "../views/Library.vue";
 import AddnewitemInv from "../views/AddnewitemInv.vue";
 import Prescription from "../views/Prescription/CreatePrescription.vue";
 import Service from "../views/Service/Services.vue";
+import BillingWindow from "../views/Billing/BillingWindow.vue";
 
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
@@ -48,6 +49,11 @@ const routes = [
     path: '/ProfileSettings',
     name: 'ProfileSettings',
     component: ProfileSettings
+  },
+  {
+    path: '/BillingWindow',
+    name: 'BillingWindow',
+    component: BillingWindow
   },
   {
     path: '/EmployeeProfile/:id',

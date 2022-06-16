@@ -411,7 +411,7 @@ import ToothSvg from "./_ToothSvg.vue";
                                       @keypress="insertIntoTooth" v-model="tn.location">
     
                                   <div class=" w-80 break-words h-24 section">
-                                      <p class="py-3 "> <span v-if="this.tn.location.length>=1 ">{{this.tn.location}}
+                                      <p class="py-3 "> <span v-if="this.tn.location.length>0 ">{{this.tn.location}}
                                           </span>
                                           <span class="text-gray-400 mx-1" v-for="(i, index) in this.location" :key="index">
                                               <span> {{i}}</span>

@@ -21,7 +21,7 @@
                 
                 //this.teeth = ''
                 //Checking if the paths of the svg contains colorFill class
-                console.log(evt.target.classList);
+              
                 if (evt.target.classList.contains('colorFill')) {
                      
                     const index = this.tooth.indexOf(toothNo);

@@ -28,7 +28,7 @@ export default createStore({
             state.endPage = bills.data.nextPage
         },
         registerPatient(state, patients) {
-            console.log("Hi");
+            
            
             state.patients.unshift(patients)
             state.totalPatient = state.totalPatient + 1
@@ -42,11 +42,7 @@ export default createStore({
             state.copiedPrescription = null
         }
 
-        // editPatient(state, patient) {
-        //     state.patient = patient.data
-        //     console.log(state.patient.data);
-        // }
-
+       
 
 },
 	actions: {
@@ -69,9 +65,7 @@ export default createStore({
                 console.log(error);    
             }
 
-				// .then((result) => commit('setPatients', result) 
-            
-                // )
+				
 		},
 
         fetchPatient ({commit}, patientId) {
@@ -81,8 +75,9 @@ export default createStore({
                 )
         },
 
-        fetchBills ({commit} , totalData, currentPage, perPage , text) {
-            axios.get(import.meta.env.VITE_LOCAL+`billings`, {
+      async  fetchBills ({commit} , totalData, currentPage, perPage , text) {
+        try {
+            const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
                 params: {
                     page:currentPage,
                     limit:perPage,
@@ -90,15 +85,16 @@ export default createStore({
                     q:text
                 },
 
-            })
-            .then((result) => commit('setBills', result)
-            )
+            },);
+            return commit('setBills', data);
+            
+        } catch (error) {
+            console.log(error);    
+    
+        }
+          
         },
-        // updatePatient({commit}, patientId) {
-        //     axios.put(`http://localhost:3000/api/patients/${patientId}`, )
-        //         .then((result) => commit('editPatient', result)
-        //         )
-        // }
+       
 	}
 
 })
