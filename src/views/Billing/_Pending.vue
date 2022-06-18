@@ -19,8 +19,8 @@
 <section class=" my-4">
     
   <div class=" grid grid-cols-3 gap-4 font-semibold text-gray-700">
-    
-    <div class=" -m-4" v-for="(item,index) in pendingList" :key="index">
+  
+    <div class=" -m-4" v-for="(item,index) in pendingList" :key="index" @click="$emit('viewBill', index)">
       <div class=" p-4">
           <div class="border border-gray-200 bg-white p-6 rounded-lg">
               <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-red-200  mb-4">
@@ -36,30 +36,20 @@
                   <h2 class="text-sm flex items-start text-regal-teal font-semibold title-font mb-2">{{item.doctor}} </h2>
 
               </div>
-              <p class="flex justify-end  text-gray-500 text-sm">Prescription Created At - <span class="italic font-semibold text-regal-teal">12/23/2022</span></p>
+              <p class="flex justify-end  text-gray-500 text-sm">Prescription Created At - <span class="italic font-semibold text-regal-teal"> {{new Date(item.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                    }) }}</span></p>
           </div>
       </div>
+
+     
   
     </div>
   </div>
 </section>
 
-  
-    <!-- <section class="mx-40 my-6">
-        <article class="flex   p-2 bg-regal-light-blue text-regal-teal font-semibold">
-            <div class="basis-1/6 flex justify-start items-start">Date</div>
-            <div class="basis-3/6">Service</div>
-            <div class="basis-1/6">Location</div>
-            <div class="basis-1/6">Cost</div>
-        </article>
-
-        <article class="flex pt-2 px-2 text-regal-teal bg-white">
-            <div  class="basis-1/6 flex justify-start items-start">12/24/2022</div>
-            <div  class="basis-3/6 break-words">antigen testing for a public health related pathogen, including coronavirus</div>
-            <div class="basis-1/6">24</div>
-            <input class="basis-1/6 appearance-none py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue" />
-        </article>
-    </section> -->
 </template>
 
 

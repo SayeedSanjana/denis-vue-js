@@ -41,3 +41,6 @@
 ### challenges
 
 -   Websocket implement . update list without reloading page 🟥
+
+
+- bring investigation as suggestion for confirmed bill 

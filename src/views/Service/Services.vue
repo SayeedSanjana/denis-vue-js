@@ -34,6 +34,7 @@ import ToothSvg from "./_ToothSvg.vue";
                form:{
                    prescription: this.$route.params.presId,
                    doctor: this.parseJwt(localStorage.getItem('token')).name,
+                   patient: this.$route.params.id,
                    patientName: '',
                    patientContact: '',
                    items: []

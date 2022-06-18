@@ -22,6 +22,7 @@ import AddnewitemInv from "../views/AddnewitemInv.vue";
 import Prescription from "../views/Prescription/CreatePrescription.vue";
 import Service from "../views/Service/Services.vue";
 import BillingWindow from "../views/Billing/BillingWindow.vue";
+import ConfirmBill from "../views/Billing/ConfirmBill.vue";
 
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
@@ -54,6 +55,11 @@ const routes = [
     path: '/BillingWindow',
     name: 'BillingWindow',
     component: BillingWindow
+  },
+  {
+    path: '/ConfirmBill/:id',
+    name: 'ConfirmBill',
+    component: ConfirmBill
   },
   {
     path: '/EmployeeProfile/:id',

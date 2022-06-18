@@ -82,6 +82,18 @@ import axios from "axios";
                       console.log(error);
                   }
               },
+              openBill(index){
+                this.$router.push({
+                    name: 'ConfirmBill',
+                    params: {
+                        id: this.pendingList[index].prescription._id
+                    }
+                });
+                //   this.index = index;
+                //   console.log(this.index);
+                
+              
+              },
         },
        
 
@@ -147,7 +159,7 @@ import axios from "axios";
         </div>
          
             <keep-alive>
-            <component :is="activeTab" :bills="getOutstandingBills" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange" :changePage="changePage" :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
+            <component :is="activeTab" :bills="getOutstandingBills" @view-bill="openBill" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange" :changePage="changePage" :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
             </keep-alive>
         
         </div>
