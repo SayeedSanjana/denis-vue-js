@@ -28,7 +28,7 @@
                 
                 <li class="px-2">
                     <!-- Billing -->
-                    <router-link to="/patient-list-billing"
+                    <router-link :to="{name: 'BillingWindow'}"
                         class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
                         Billing</router-link>
 

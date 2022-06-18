@@ -91,6 +91,11 @@ import swal from 'sweetalert';
                     
                 }
             },
+            back(){
+                this.$router.push('/BillingWindow');
+            
+               
+            },
             applyDiscount() {
                
                 if (this.isPercentage === 'Percentage') {
@@ -151,7 +156,7 @@ import swal from 'sweetalert';
             <div class=" mx-40 border p-4 bg-slate-100">
 
                 <article class="flex justify-end pb-4 space-x-2">
-                    <button type="button"  class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
+                    <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
                     <button type="submit"  class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Confirm</button>
                 </article>
                 
