@@ -9,52 +9,67 @@ import swal from 'sweetalert';
                     patient: '',
                     patientName: '',
                     patientContact: '',
-                    items: [{
-                        date: '',
-                        service: '',
-                        _id: ''
-                    }],
+                    items: [],
                 },
+               
                 isPercentage: null,
                 discount: 0,
                 discountAmount: 0,
-                totalCost: 0,
+                balance: 0,
+                // totalCost: 0,
+                adjustment: 0,
                 totalPaid: 0,
-                str: '',
+               
                 form:{
                     prescription: this.$route.params.id,
                     patient: '',
                     patientName: '',
                     patientContact: '',
                     discount: 0,
-                    items: [{
-                        date: "",
-                        service: "",
-                        cost: 0,
-                        currency: "",
-                        _id: ""
-                    }],
-                }
+                    items: [],
+         
+                },
+                // item:{
+                        
+                //         service: "",
+                //         cost: 0,
+                //         currency: "",
+                      
+                //     }
             }
 
         },
         created() {
             this.getPendingBill();
         },
+        computed: {
+            totalCost() {
+                let total = 0;
+                this.pendingBill.items.forEach(item => {
+                    total += item.cost;
+                });
+                return total;
+            },
+        },
+
         methods:{
+
+
             async confirmBill(){
                 this.form.patient = this.pendingBill.patient;
                 this.form.patientName = this.pendingBill.patientName;
                 this.form.patientContact = this.pendingBill.patientContact;
-                this.form.items.date = this.pendingBill.items.date;
-                this.form.items.service = this.pendingBill.items.service;
-                this.form.items._id = this.pendingBill.items._id;
+                this.form.items = this.pendingBill.items;
+                
+               
+               
                 
 
                 try {
                     const response = await axios.put(import.meta.env.VITE_LOCAL + 'billings/save-bill/' + this.$route.params.id, this.form);
 
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
+                    console.log(this.form);
 
                     if(response.data.status == 'success'){
                         swal({
@@ -70,12 +85,8 @@ import swal from 'sweetalert';
 
                     
                 } catch (error) {
-                   swal({
-                        title: "Error",
-                        text: "Something went wrong",
-                        icon: "error",
-                        button: true,
-                    });
+                    console.log(error);
+                
                 }
 
             },
@@ -93,43 +104,77 @@ import swal from 'sweetalert';
             },
             back(){
                 this.$router.push('/BillingWindow');
-            
-               
             },
-            applyDiscount() {
-               
-                if (this.isPercentage === 'Percentage') {
-                    if (this.discountAmount <= 100) {
-                        this.discount = (this.totalCost / 100) * this.discountAmount
-                        this.form.discount = this.discount
-                        this.str = ""
-                        if (this.discount <= this.totalCost - this.totalPaid) {
-                            this.adjustment = this.totalCost - this.discount
-                            this.balance = this.balance - this.discount
-                            this.str = ""
-                        } else {
-                            this.str = "Discount amount exceeding balance"
+            applyDiscount(e) {
+                // console.log(e.target.value);
+                try {
+                    // console.log(typeof this.form.discount);
+                    this.form.discount = parseInt(this.form.discount);
+                    if(e.target.value === 'Percentage'){
+                        console.log(this.form.discount);
+                        this.form.discount = (this.totalCost * parseInt(this.form.discount)) * 0.01;
+                        if(this.form.discount > 100){
+                            throw new Error('Discount cannot be greater than 100%');
                         }
-                    } else {
-                        this.str = "Percentage is exceeding 100%"
+    
                     }
-                } else {
-                    this.str = ""
-                    this.discount = this.discountAmount
-                    this.form.discount = this.discount
-                    if (this.discount <= this.totalCost - this.totalPaid) {
-                        this.adjustment = this.totalCost - this.discount
-                        this.balance = this.balance - this.discount
-                        this.str = ""
-                    } else {
-                        this.str = "Discount amount exceeding balance"
-                    }
+                    
+    
+                    // if(this.form.discount > this.totalCost){
+                    //     throw new Error('Discount cannot be greater than total cost');
+                    // }
+                    // if(this.form.discount > this.adjustment){
+                    //     throw new Error('Discount cannot be greater than adjustment');
+                    // }
+                    
+                } catch (error) {
+                    console.log(error);
                 }
+                
+
+                    
+                
+                
+                // this.balance = this.totalCost - this.discount;
+
+                // if (this.isPercentage === 'Percentage') {
+
+                //     if (this.discountAmount <= 100) {
+
+                //         this.discount = (this.totalCost / 100) * this.discountAmount
+                        
+                //         this.form.discount = this.discount;
+                        
+                //         this.str = ""
+
+                //         if (this.discount <= this.totalCost ) {
+                //             this.adjustment = this.totalCost - this.discount
+                //             this.balance = this.balance - this.discount
+                //             this.str = ""
+                //         } else {
+                //             this.str = "Discount amount exceeding balance"
+                //         }
+                //     } 
+                //     else {
+                //         this.str = "Percentage is exceeding 100%"
+                //     }
+
+                // }
+                //  else 
+                //  {
+                //     this.str = ""
+                //     this.discount = this.discountAmount
+                //     this.form.discount = this.discount
+                //     if (this.discount <= this.totalCost ) {
+                //         this.adjustment = this.totalCost - this.discount
+                //         this.balance = this.balance - this.discount
+                //         this.str = ""
+                //     } else {
+                //         this.str = "Discount amount exceeding balance"
+                //     }
+                // }
             },
-            onChange(event) {
-                this.isPercentage = event.target.value;
-               
-            },
+           
              //Checking if only numbers inputted
             isNumber(evt) {
                 if (!/\d/.test(evt.key)) {
@@ -167,7 +212,7 @@ import swal from 'sweetalert';
                     </div>
                     <div class="text-left w-2/6 mx-3">
                         <label for="">Cost</label>
-                        <input @keypress="isNumber($event)" v-model="form.items.cost" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                        <input @keypress="isNumber($event)" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
                     </div>
                     <button type="button" class="w-1/6 mt-2 flex justify-center items-center ">
                             <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
@@ -177,11 +222,11 @@ import swal from 'sweetalert';
                 <article class="flex p-2 bg-regal-light-blue text-regal-teal font-semibold">
                     <div class="basis-1/6 flex justify-start items-start">Date</div>
                     <div class="basis-4/6">Service</div>
-                    <!-- <div class="basis-1/6">Location</div> -->
+                   
                     <div class="basis-1/6">Cost</div>
                 </article>
                 
-                <article v-for="item in pendingBill.items" :key="item" class="flex pt-2 px-2 border-b last:border-b-0 text-regal-teal bg-white">
+                <article v-for="(item,index) in pendingBill.items" :key="index" class="flex pt-2 px-2 border-b last:border-b-0 text-regal-teal bg-white">
                     <div class="basis-1/6 flex justify-start items-start">{{new Date(item.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -190,12 +235,12 @@ import swal from 'sweetalert';
                     <div class="basis-4/6 break-words">
                         {{item.service}} <span> - {{item.location}}</span>
                     </div>
-                    <!-- <div class="basis-1/6">24</div> -->
-                    <input @keypress="isNumber($event)"
+                   
+                    <input id="index" type="number"
                         class="basis-1/6 appearance-none py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue" />
                 </article>
 
-                <section class="my-4">
+                <!-- <section class="my-4">
                     <h1 class="text-left font-semibold ">Additional Services</h1>
 
                     <article class="flex pt-2 px-2 border-b last:border-b-0 text-regal-teal bg-white">
@@ -214,22 +259,22 @@ import swal from 'sweetalert';
                             </button>
                         </div>
                     </article>
-                </section>
+                </section> -->
               
                 <article class="border bg-white flex justify-evenly p-4 my-4">
                     <div class="text-left ">
                         <label for="" class="font-semibold text-regal-teal">Discount</label>
                         <div class="space-x-5">
-                            <input type="radio" name="test_id" @change="applyDiscount()" value="Amount" checked="checked"  @click="onChange($event)">
+                            <input type="radio" name="test_id" @change="applyDiscount($event)" value="Amount" checked="checked"  >
                             <label for="">Amount</label>
-                            <input type="radio" name="test_id" @change="applyDiscount()" value="Percentage"   @click="onChange($event)">
+                            <input type="radio" name="test_id" @change="applyDiscount($event)" value="Percentage"  >
                             <label for="">Percentage</label>
                         </div>
                     </div>
 
                     <div class="text-left">
                         <label for="" class="text-regal-teal font-semibold">Discount Amount</label>
-                        <input @keyup="applyDiscount" @keypress="isNumber($event)" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                        <input type="number" @click="applyDiscount($event)" v-model="form.discount"  class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
 
                     </div>
 
@@ -237,10 +282,10 @@ import swal from 'sweetalert';
 
                 <article class=" border bg-white p-4">
                     <ul class="flex justify-evenly">
-                        <li for="">Subtotal : <b>10000 TK</b></li>
-                        <li for="">Discount : <b>10000 TK</b></li>
-                        <li for="">Adjustment : <b>10000 TK</b></li>
-                        <li for="">Balance(Due) : <b>10000 TK</b></li>
+                        <li for="">Subtotal : <b>{{totalCost}}</b></li>
+                        <li for="">Discount : <b>{{form.discount}}</b></li>
+                        <li for="">Adjustment : <b>{{adjustment}}</b></li>
+                        <li for="">Balance(Due) : <b>{{balance}}</b></li>
                     </ul>
                     
                 </article>
