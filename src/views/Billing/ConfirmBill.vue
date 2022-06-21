@@ -12,6 +12,14 @@ import swal from 'sweetalert';
                     items: [],
                 },
 
+                item:{
+                    date: Date.now(),
+                    service: '',
+                    cost: ''
+                },
+                itemList: [],
+
+                
 
                 value: 0,
                 discountType: 'Amount',
@@ -34,10 +42,16 @@ import swal from 'sweetalert';
         },
         created() {
             this.getPendingBill();
+
         },
         computed:{
+            
+            
+       
 
            billData(){
+
+            
             this.pendingBill.items.forEach(item => {
               item.cost = 0;
             });
@@ -51,12 +65,46 @@ import swal from 'sweetalert';
             });
             return total;
            },
+
+           additionalCost(){
+            let total = 0;
+            this.itemList.forEach(item => {
+              total += item.cost;
+            });
+            return total;
+           },
           
         },
 
       
 
         methods:{
+            
+
+            
+
+            addItem(){
+                if(this.item.service.length > 0 || this.item.cost.length > 0){
+                    this.itemList.push(this.item);
+
+                    this.item = {
+                        date: Date.now(),
+                        service: '',
+                        cost: ''
+                    };
+                     
+                 
+                }         
+
+            },
+
+            removeItem(index){
+                this.itemList.splice(index, 1);
+
+            },
+            
+
+
             changeDiscountType(e){
                 this.discountType = e.target.value;
                 this.value = 0;
@@ -69,6 +117,9 @@ import swal from 'sweetalert';
                 this.form.patient = this.pendingBill.patient;
                 this.form.patientName = this.pendingBill.patientName;
                 this.form.patientContact = this.pendingBill.patientContact;
+
+
+                this.pendingBill.items = this.pendingBill.items.concat(this.itemList);
                 this.form.items = this.pendingBill.items;
                 
        
@@ -120,14 +171,14 @@ import swal from 'sweetalert';
                 try {
                    
                     this.form.discount = parseInt(this.value);
-                    this.adjustment = this.totalCost - this.form.discount;
+                    this.adjustment = (this.totalCost + this.additionalCost) - this.form.discount;
                     
                     if( this.discountType === 'Percentage'){
                         
                         
-                        this.form.discount = (this.totalCost * this.value) * 0.01;
+                        this.form.discount = ((this.totalCost + this.additionalCost) * this.value) * 0.01;
                      
-                        this.adjustment = this.totalCost - this.form.discount;
+                        this.adjustment = (this.totalCost + this.additionalCost )- this.form.discount;
                         
 
                         if(this.value > 100){
@@ -170,13 +221,13 @@ import swal from 'sweetalert';
                 <article class="flex justify-between mb-4">
                     <div class="text-left w-3/6 mr-3">
                         <label for="">Service</label>
-                        <input type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                        <input v-model="item.service" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
                     </div>
                     <div class="text-left w-2/6 mx-3">
                         <label for="">Cost</label>
-                        <input  type="number" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                        <input v-model="item.cost"  type="number" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
                     </div>
-                    <button type="button" class="w-1/6 mt-2 flex justify-center items-center ">
+                    <button @click="addItem" type="button" class="w-1/6 mt-2 flex justify-center items-center ">
                             <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
                     </button>
                 </article>
@@ -202,26 +253,28 @@ import swal from 'sweetalert';
                         class="basis-1/6 appearance-none py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue" />
                 </article>
                 
-                <!-- <section class="my-4">
+                <section class="my-4">
                     <h1 class="text-left font-semibold ">Additional Services</h1>
 
-                    <article class="flex pt-2 px-2 border-b last:border-b-0 text-regal-teal bg-white">
-                        <div class="basis-1/6 flex justify-start items-start">12/24/2022</div>
-                        <div class="basis-4/6 break-words">antigen testing for a public health related pathogen, including
-                            coronavirus</div>
+                    <article v-for="(data,index) in itemList" :key="index" class="flex pt-2 px-2 border-b last:border-b-0 text-regal-teal bg-white">
+                        <div class="basis-1/6 flex justify-start items-start">{{new Date(data.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                    }) }}</div>
+                        <div class="basis-4/6 break-words">{{data.service}}</div>
                         
-                        <p
-                            class="basis-1/6 appearance-none py-1 px-4 mb-3 block w-full bg-white text-regal-teal " contenteditable="true" >1999
+                        <p class="basis-1/6 appearance-none py-1 px-4 mb-3 block w-full bg-white text-regal-teal "  >{{data.cost}}
                         </p>
 
                         <div>
-                            <button type="button">
+                            <button type="button" @click="removeItem(index)">
                                 <img src="@/assets/svgs/cross.svg" alt="" srcset=""
                                     class="pointer-events-none mr-2 mt-2">
                             </button>
                         </div>
                     </article>
-                </section> -->
+                </section>
               
                 <article class="border bg-white flex justify-evenly p-4 my-4">
                     <div class="text-left ">
@@ -244,9 +297,9 @@ import swal from 'sweetalert';
 
                 <article class=" border bg-white p-4">
                     <ul class="flex justify-evenly">
-                        <li for="">Subtotal : <b>{{totalCost}}</b></li>
+                        <li for="">Subtotal : <b>{{totalCost + additionalCost}}</b></li>
                         <li for="">Discount : <b>{{form.discount}}</b></li>
-                        <li for="">Adjustment : <b>{{adjustment}}</b></li>
+                        <li for="">Adjustment : <b>{{(totalCost + additionalCost) - form.discount}}</b></li>
                      
                     </ul>
                     
