@@ -23,6 +23,7 @@ import Prescription from "../views/Prescription/CreatePrescription.vue";
 import Service from "../views/Service/Services.vue";
 import BillingWindow from "../views/Billing/BillingWindow.vue";
 import ConfirmBill from "../views/Billing/ConfirmBill.vue";
+import AddPayment from "../views/Billing/AddPayment.vue";
 
 // import AppointmentList from "../views/AppointmentList.vue";
 // import WaitingList from "../views/WaitingList.vue";
@@ -60,6 +61,11 @@ const routes = [
     path: '/ConfirmBill/:id',
     name: 'ConfirmBill',
     component: ConfirmBill
+  },
+  {
+    path: '/add-payment/:id',
+    name: 'AddPayment',
+    component: AddPayment
   },
   {
     path: '/EmployeeProfile/:id',

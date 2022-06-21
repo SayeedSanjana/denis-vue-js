@@ -15,9 +15,14 @@ import axios from "axios";
         created() {
             this.$store.dispatch('fetchBills', this.currentPage, this.perPage,this.totalData, this.text);
             this.getPendingList();
+          
+
+           
+           
         },
         data() {
             return {
+               presId:'',
                activeTab: 'OutStandingBill',
                bills:[],
                totalData: 0, 
@@ -26,7 +31,9 @@ import axios from "axios";
                text:'',
                searchQuery: '',
                pendingList: [],
+               specificBill: {},
             }
+
             },
         watch: {
             '$store.state.bills': function() {
@@ -39,6 +46,7 @@ import axios from "axios";
 
                 });
         },
+
         },
         computed: {
             
@@ -89,11 +97,31 @@ import axios from "axios";
                         id: this.pendingList[index].prescription._id
                     }
                 });
-                //   this.index = index;
-                //   console.log(this.index);
-                
+ 
               
               },
+
+              addPayment(index){
+                this.bills.forEach(bill => {
+                    if(bill._id ==index){
+                         this.presId=bill.prescription;
+                       
+                    }
+                });
+                this.$router.push({
+                    name: 'AddPayment',
+                    params: {
+                        id: this.presId
+                    }
+                });
+ 
+              
+              },
+              
+          
+
+             
+              
 
         },
        
@@ -112,6 +140,7 @@ import axios from "axios";
 
     
     <div class="flex ">
+      
         <button @click="activeTab = 'OutStandingBill'" :class="activeTab==='OutStandingBill' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400'" 
          class="flex items-center h-12 px-2 py-2 text-center text-gray-700  border-gray-300 sm:px-4  -px-1  whitespace-nowrap focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-1 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -166,7 +195,7 @@ import axios from "axios";
         </div>
          
             <keep-alive>
-            <component :is="activeTab" :bills="getOutstandingBills" @view-bill="openBill" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange" :changePage="changePage" :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
+            <component :is="activeTab" :add-payment="addPayment"  :bills="getOutstandingBills" @view-bill="openBill" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange" :changePage="changePage" :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
             </keep-alive>
         
         </div>
