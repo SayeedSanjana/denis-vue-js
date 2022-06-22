@@ -21,7 +21,7 @@
           
             <div class="mx-24 my-5">
                
-                <Grid  :data="allBill" :columns="gridColumns" :filter-key="searchQuery"/>
+                <Grid :method="addPayment" :data="allBill" :columns="gridColumns" :filter-key="searchQuery"/>
                 
             </div>
 
@@ -86,6 +86,11 @@
                 type: Number,
                
             },
+             addPayment: {
+                type: Function,
+               
+            },
+
 
 
            

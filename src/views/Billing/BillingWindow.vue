@@ -165,9 +165,12 @@ import axios from "axios";
 
         <button  @click="activeTab = 'AllBills'" :class="activeTab==='AllBills' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400'"
         class="flex items-center h-12 px-2 py-2 text-center text-gray-700 bg-transparent border-b border-gray-300 sm:px-4  -px-1  whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400 ">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-1 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
+           <svg class="w-4 h-4 mx-1 sm:w-6 sm:h-6" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path
+                   d="M1.375 6.875V16.5H17.875V6.875H1.375ZM0.6875 5.5H18.5625C18.7448 5.5 18.9197 5.57243 19.0486 5.70136C19.1776 5.8303 19.25 6.00516 19.25 6.1875V17.1875C19.25 17.3698 19.1776 17.5447 19.0486 17.6736C18.9197 17.8026 18.7448 17.875 18.5625 17.875H0.6875C0.505164 17.875 0.330295 17.8026 0.201364 17.6736C0.0724328 17.5447 0 17.3698 0 17.1875V6.1875C0 6.00516 0.0724328 5.8303 0.201364 5.70136C0.330295 5.57243 0.505164 5.5 0.6875 5.5ZM2.0625 2.75H17.1875V4.125H2.0625V2.75ZM4.125 0H15.125V1.375H4.125V0Z"
+                   fill="black" />
+           </svg>
+
 
             <span class="mx-1 text-sm sm:text-base text-regal-teal">
                 All

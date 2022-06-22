@@ -18,7 +18,7 @@
 
 <section class=" my-4">
     
-  <div class=" grid grid-cols-3 gap-4 font-semibold text-gray-700">
+  <div v-if="pendingList.length > 0" class=" grid grid-cols-3 gap-4 font-semibold text-gray-700">
   
     <div class=" -m-4" v-for="(item,index) in pendingList" :key="index" @click="$emit('viewBill', index)">
       <div class=" p-4">
@@ -48,6 +48,7 @@
   
     </div>
   </div>
+  <div v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Pending Bills</div>
 </section>
 
 </template>

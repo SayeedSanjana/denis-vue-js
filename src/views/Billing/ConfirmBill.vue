@@ -139,6 +139,13 @@ import swal from 'sweetalert';
                             timer: 1000,
                             button: false,
                         });
+
+                        this.$router.push({
+                            name: 'AddPayment',
+                            params: {
+                                id: this.$route.params.id
+                            }
+                        });
                     }
 
                     
@@ -215,7 +222,7 @@ import swal from 'sweetalert';
 
                 <article class="flex justify-end pb-4 space-x-2">
                     <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
-                    <button type="submit"  class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Confirm</button>
+                    <button type="submit"   class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Confirm</button>
                 </article>
                 
                 <article class="flex justify-between mb-4">
