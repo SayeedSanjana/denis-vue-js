@@ -168,6 +168,7 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
+    meta: { layout: 'blank'},
     component: Register
   },
  

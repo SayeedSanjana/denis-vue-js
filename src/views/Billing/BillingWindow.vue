@@ -181,8 +181,8 @@ import axios from "axios";
         
         class="flex items-center h-12 px-2 py-2 text-center text-gray-700 bg-transparent border-b border-gray-300 sm:px-4  -px-1  whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400 ">
             <span v-show="pendingList.length > 0" class="absolute flex -mt-10 ml-24">
-                <span class="animate-ping inline-flex ml-2 h-3 w-3 rounded-full bg-sky-400"></span>
-                <span class="relative inline-flex -ml-3 rounded-full h-3 w-3 bg-sky-500"></span>
+                <span class="animate-ping inline-flex ml-2 h-5 w-5 rounded-full bg-red-400"></span>
+                <span class="relative inline-flex -ml-5 rounded-full h-5 w-5 bg-red-500 "><span class="absolute top-0.5 left-1.5 text-white font-bold text-xs">{{pendingList.length}}</span></span>
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-1 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />

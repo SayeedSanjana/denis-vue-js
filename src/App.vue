@@ -28,6 +28,10 @@ export default {
 </script>
 
 <style>
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 /* width */
 ::-webkit-scrollbar {
 	width: 8px;
@@ -81,4 +85,40 @@ input[type=number] {
 body {
 	background-color:#F2FBFC;
 }
+
+
+/* placeholder loader styles */
+.placeholder-item {
+  border-radius: 5%;
+  background-color: #ffffff;
+  color: #ffffff !important;
+  position: relative;
+  overflow: hidden;
+    -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+.placeholder-item::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(to right, transparent 0%, #f4f4f4 50%, transparent 100%);
+  animation: load .8s ease-in-out infinite;
+}
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}
+/* end */
+
 </style>

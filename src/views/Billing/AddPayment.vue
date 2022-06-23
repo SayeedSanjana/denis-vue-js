@@ -129,7 +129,7 @@ import swal from 'sweetalert';
 
 
                 </article>
-                <article v-show="bill.payment.length > 0" class="py-4">
+                <article v-if="bill.payment " class="py-4">
                     <h2 class="text-left font-semibold text-regal-teal mb-4">Past Payments</h2>
                     <div class="flex text-regal-teal text-left">
                         <h1 class="basis-1/4 font-semibold">Date</h1>

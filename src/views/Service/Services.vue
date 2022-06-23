@@ -58,12 +58,10 @@ import ToothSvg from "./_ToothSvg.vue";
         },
         validations() {
             return{
-                form:{
-                    items: [{
-                        required
-                    }]
-                },
-                
+                tn:{
+                    name: {required}
+                    
+                }    
                
             }
         },
@@ -156,7 +154,7 @@ import ToothSvg from "./_ToothSvg.vue";
                     this.timeout = setTimeout(async () => {
                         this.search = false
                         if (e.target.value.length > 0) {
-                                 const response = await   this.meiliSearch.index("treatmentNote").search(e.target.value);
+                                 const response = await this.meiliSearch.index("treatmentNote").search(e.target.value);
                           
                           
                             let arr = [];
@@ -196,9 +194,9 @@ import ToothSvg from "./_ToothSvg.vue";
                 this.form.patientContact = this.tp.patient.phone;
                     
                 try {
-                    this.v$.$touch();
+                   
 
-                    if (this.v$.$error) throw new Error('Whoops!! You need to complete the required information!!');
+                    // if (this.v$.$error) throw new Error('Whoops!! You need to complete the required information!!');
 
                     const response = await axios.post(import.meta.env.VITE_LOCAL+'tn/save', this.form)
                      this.service=response.data.data.items;
@@ -213,6 +211,7 @@ import ToothSvg from "./_ToothSvg.vue";
                         button: false
                     });
                     this.form.items = [];
+                    
                 }
                   
                     
@@ -230,7 +229,7 @@ import ToothSvg from "./_ToothSvg.vue";
             
             addService() {
 
-                 
+                  this.v$.$touch();
 
                 // if (this.item.service.length > 0 || this.item.location.length > 0) {
                 if (this.tn.name.length > 0 || this.tn.location.length > 0) {
@@ -255,6 +254,7 @@ import ToothSvg from "./_ToothSvg.vue";
 
                 }
                 this.location = [];
+                
             },
             removeService(index){
                 this.form.items.splice(index, 1)
@@ -301,6 +301,7 @@ import ToothSvg from "./_ToothSvg.vue";
                  
               </div>
           </div>
+          
           <div class="grid grid-cols-2 m-5 ">
               <section class="flex border-r">
                   <div class="w-1/2">
@@ -317,7 +318,7 @@ import ToothSvg from "./_ToothSvg.vue";
                   </div>
                   <div class=" w-1/2 text-left ">
                       <label class="  block px-3 py-1  font-bold text-sm capitalize text-left">Services Provided</label>
-                      <section v-if="service.length>0" class="mx-4 my-2 text-regal-teal space-y-3">
+                      <section v-if="service.length>0" class="mx-4 my-2 text-regal-teal space-y-3 section h-yyxl">
 
                           <div v-for="data in service" :key="data"
                               class="flex select-none cursor-pointer bg-gray-50 rounded-md  items-center px-4 py-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
@@ -332,7 +333,7 @@ import ToothSvg from "./_ToothSvg.vue";
                               <article class="flex-1 pl-1 mr-16">
 
                                   <p class="font-medium text-regal-teal text-xs">{{data.service}}
-                                      {{data.location ? " - " + data.location : ' N/A'}}</p>
+                                      {{data.location ? " - " + data.location : ''}}</p>
                               </article>
 
                               <p class="text-regal-teal text-xs">{{new Date(data.date).toLocaleDateString('en-US', {
@@ -359,6 +360,13 @@ import ToothSvg from "./_ToothSvg.vue";
                   <form @submit.prevent="saveService" >
                       <div class="flex ">
                           <div class="xl:w-1/2">
+                             <span v-show="v$.tn.name.$error" class="mt-2">
+                                <div v-for="error of v$.tn.name.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
     
                               <div class=" relative rounded p-1 mx-4">
                                   <div class=" absolute tracking-wider pl-2 uppercase text-xs">
@@ -372,18 +380,25 @@ import ToothSvg from "./_ToothSvg.vue";
                                       class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
                                       v-model="tn.name"></textarea>
                               </div>
-                               
+                              
+                                    <ul class="w-80 -mt-4 ml-5 h-60 shadow-sm  absolute z-40 bg-regal-white border rounded-md"
+                                v-if="search && tnList.length == 0">
+                                <li class=" px-2 p-1 m-2"
+                                    v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                   
+                                </li>
+                            </ul>
                             
-                                    <ul v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-96 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
+                                    <ul v-else v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-60 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
                                         >
                                         <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                             v-for="items in tnList" :key="items" @click="selectedTn(items.name)">
-          
                                             {{items.name}}
                                         </li>
                                     </ul>
                                
-                              <div v-show="search" class="w-80 -mt-4 ml-5 border absolute z-40 bg-gray-50 border-gray-300 shadow rounded-md p-4 max-w-sm mx-auto">
+                              <!-- <div v-show="search" class="w-80 -mt-4 ml-5 border absolute z-40 bg-gray-50 border-gray-300 shadow rounded-md p-4 max-w-sm mx-auto">
                                   <div class="animate-pulse flex space-x-4">
                                       <div class="flex-1 space-y-6 py-1">
                                           <div class="h-2 bg-slate-200 rounded"></div>
@@ -396,9 +411,10 @@ import ToothSvg from "./_ToothSvg.vue";
                                           </div>
                                       </div>
                                   </div>
-                              </div>
+                              </div> -->
                               
                               <div class=" relative rounded p-1 mx-4">
+                               
                                   <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                       <p>
                                           <label for="name" class="bg-white text-gray-400 px-1">Location
@@ -441,7 +457,7 @@ import ToothSvg from "./_ToothSvg.vue";
 
 
 
-                         <article v-if="form.items.length> 0" class="w-full my-4 border rounded-lg shadow-md">
+                         <article v-if="form.items.length> 0" class="w-full my-4 border rounded-lg shadow-md ">
                              <summary
                                  class="font-bold py-2 px-3 bg-regal-white  block text-regal-teal underline rounded-t-lg">
                                  Services</summary>

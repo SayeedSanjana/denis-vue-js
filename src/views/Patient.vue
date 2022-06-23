@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto py-4">   
         
-        <p class="text-lg text-left font-bold text-regal-teal py-5">
+        <p class="text-xl text-left font-bold text-regal-teal py-5">
             Patient Records
         </p>
         <section class="flex sm:flex-row justify-between">

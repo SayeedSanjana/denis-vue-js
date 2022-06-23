@@ -73,6 +73,7 @@ module.exports = {
                 lg: "24px",
                 xl: "48px",
                 yxl: "500px",
+                yyxl:"680px",
                 zxl: "770px",
                 xxl: "800px",
                 xxxl: "900px",

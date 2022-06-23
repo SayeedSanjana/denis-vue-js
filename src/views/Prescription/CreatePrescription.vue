@@ -118,7 +118,6 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
         },
             
         oetext() {
-
             if (this.oetext.length > 0) {
                 this.showSearch = true;
 
@@ -126,6 +125,27 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 this.showSearch = false;
                 this.oelist = [];
 
+            }
+        },
+        oelist(){
+            if(this.oelist.length>0){
+                this.showSearch=true;
+            }else{
+                this.showSearch=false;
+            }
+        },
+        invlist(){
+            if(this.invlist.length>0){
+                this.showSearchInv=true;
+            }else{
+                this.showSearchInv=false;
+            }
+        },
+        tplist(){
+            if(this.tplist.length>0){
+                this.showSearchtp=true;
+            }else{
+                this.showSearchtp=false;
             }
         },
 
@@ -213,10 +233,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
             this.oetext = oe;
             this.showSearch = false;
             this.oelist = [];
-            
-            
-
-            },
+        },
 
         selectedItemInv(inv){
             this.inv.inv_name = inv;
@@ -407,7 +424,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
         },
 
         removeOE(index){
-            this.form.oe.splice(index,1);  
+            this.form.oe.splice(index,1); 
 
         },
 
@@ -636,10 +653,18 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                 </div>
                             </div>
                             <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-if="showSearch && oelist.length == 0">
+                                <li class=" px-2 p-1 m-2"
+                                    v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                    <!-- <p class=" placeholder-item">items.diagnosis</p>
+                                    <p class=" placeholder-item">items.diagnosis</p> -->
+                                </li>
+                            </ul>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-else
                                 v-show="showSearch">
                                 <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                     v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
-
                                     {{items.diagnosis}}
                                 </li>
                             </ul>
@@ -698,8 +723,17 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                         class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
                                         @keypress="searchInvName" v-model="inv.inv_name"></textarea>
                                 </div>
+                                <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-if="showSearchInv && invlist.length == 0">
+                                <li class=" px-2 p-1 m-2"
+                                    v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                    <!-- <p class=" placeholder-item">items.diagnosis</p>
+                                    <p class=" placeholder-item">items.diagnosis</p> -->
+                                </li>
+                            </ul>
                                 <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
-                                    v-show="showSearchInv">
+                                 v-else   v-show="showSearchInv">
                                     <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
                                         v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
 
@@ -975,7 +1009,16 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                 </div>
                             </div>
                             <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
-                                v-show="showSearchtp">
+                                v-if="showSearchtp && tplist.length == 0">
+                                <li class=" px-2 p-1 m-2"
+                                    v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                    <!-- <p class=" placeholder-item">items.diagnosis</p>
+                                    <p class=" placeholder-item">items.diagnosis</p> -->
+                                </li>
+                            </ul>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                              v-else  v-show="showSearchtp">
                                 <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                     v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
 
