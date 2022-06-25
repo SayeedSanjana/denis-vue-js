@@ -253,7 +253,7 @@ import swal from 'sweetalert';
                     day: 'numeric'
                     }) }}</div>
                     <div class="basis-4/6 break-words">
-                        {{item.service}} <span> - {{item.location}}</span>
+                        {{item.service}} <span> {{item.location ? " - " + item.location : '' }}</span>
                     </div>
                    
                     <input :id="index" type="number" v-model="item.cost"
