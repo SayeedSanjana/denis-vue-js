@@ -1,12 +1,21 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert';
+import PrintBill from "./_PrintBill.vue";
 
     export default {
+        components: {
+            PrintBill
+        },
 
         data(){
             return{
-                bill:{},
+               
+                bill:{
+                    totalAmountPaid: 0,
+                    balance: 0,
+                    payment:[]
+                },
                 form:{
                     prescription : this.$route.params.id,
                     payment:[]
@@ -16,22 +25,35 @@ import swal from 'sweetalert';
                         paid: 0,
                         currency: 'tk',
                         paymentMethod: 'cash', 
-                }
+                },
+
+                openModal: false,
+
             }
         },
 
         created(){
             this.getBill();
         },
-        
-        
+
+        computed:{
+            isEnabled(){
+                if((this.bill.balance - this.addPayment.paid) < 0){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        },
 
         methods:{
             async getBill(){
 
                 try {
                     const response = await axios.get(import.meta.env.VITE_LOCAL + '/billings/p/' + this.$route.params.id);
-                    this.bill = response.data.data;
+                   
+                    this.bill= response.data.data;
                     
                 } catch (error) {
                     console.log(error);
@@ -42,13 +64,21 @@ import swal from 'sweetalert';
              back(){
                 this.$router.push('/BillingWindow');
             },
+            modal(){
+                this.openModal = true;
+            },
+            closeModal(){
+                this.openModal = false;
+            },
+            
+           
 
             async updatePayment(){
                 this.form.payment.push(this.addPayment);
 
                 try {
                     const response = await axios.put(import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form);
-                    console.log(this.form);
+                    // console.log(this.form);
                     if(response.data.status == 'success'){
                        swal({
                           title: "Success",
@@ -85,7 +115,8 @@ import swal from 'sweetalert';
             <div>
                 <article class="flex justify-end pb-4 space-x-2">
                     <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
-                    <button v-show="bill.balance > 0" type="submit"  class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Confirm</button>
+                    <button type="button" class="btn" @click="modal">Print</button>
+                    <button v-show="bill.balance > 0" type="submit"  :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}" :disabled="!(isEnabled)">Confirm</button>
                 </article>
             </div>
             <section class="border px-12 py-4 bg-white">
@@ -129,7 +160,8 @@ import swal from 'sweetalert';
 
 
                 </article>
-                <article v-if="bill.payment " class="py-4">
+              
+                <article v-if="bill.payment.length>0" class="py-4">
                     <h2 class="text-left font-semibold text-regal-teal mb-4">Past Payments</h2>
                     <div class="flex text-regal-teal text-left">
                         <h1 class="basis-1/4 font-semibold">Date</h1>
@@ -229,6 +261,7 @@ import swal from 'sweetalert';
                                 class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
 
                         </div>
+                       
                     </div>
 
                     <div v-else class="py-8">
@@ -251,9 +284,9 @@ import swal from 'sweetalert';
                             <li>  {{bill.total}}</li>
                             <li>  {{bill.discount}}</li>
                             <li>  {{bill.adjustment}}</li>
-                            <li>  {{bill.totalAmountPaid}}</li>
+                            <li>  {{bill.totalAmountPaid + addPayment.paid}}</li>
                         
-                            <li class="py-3" > {{bill.balance}}</li>
+                            <li class="py-3" > {{bill.balance - addPayment.paid}}</li>
                         </ul>
 
 
@@ -261,7 +294,7 @@ import swal from 'sweetalert';
                     <div class="border-l basis-1/3 px-2 ">
                         <h1 class="font-bold text-lg text-regal-teal">Amount Due</h1>
 
-                        <h1 class="font-bold text-4xl text-red-700 py-8">৳ {{bill.balance}} </h1>
+                        <h1 class="font-bold text-4xl text-red-700 py-8">৳ {{bill.balance - addPayment.paid }} </h1>
 
                     </div>
 
@@ -272,7 +305,7 @@ import swal from 'sweetalert';
 
 
         <!-- {{bill}} -->
-
+     <PrintBill v-if="openModal" @close="closeModal" :bill="bill" />
     </section>
 </template>
 
@@ -282,5 +315,10 @@ import swal from 'sweetalert';
 .form-error-text {
 @apply  px-2 text-regal-red text-xs;
 }
-
+.btn{
+    @apply px-3 py-1 font-semibold rounded-md text-white bg-regal-teal;
+}
+.btn-disabled{
+    @apply px-3 py-1 font-semibold rounded-md text-gray-400 bg-regal-light-blue;
+}
 </style>

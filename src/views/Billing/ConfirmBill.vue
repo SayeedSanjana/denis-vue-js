@@ -18,6 +18,7 @@ import swal from 'sweetalert';
                     cost: ''
                 },
                 itemList: [],
+                // err: 'Adjustment cannot be negative',
 
                 
 
@@ -45,6 +46,15 @@ import swal from 'sweetalert';
 
         },
         computed:{
+            isEnabled(){
+                if(((this.totalCost + this.additionalCost) - this.form.discount) < 0 ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+
+            },
             
             
        
@@ -130,7 +140,6 @@ import swal from 'sweetalert';
                     const response = await axios.put(import.meta.env.VITE_LOCAL + 'billings/save-bill/' + this.$route.params.id, this.form);
 
                     
-
                     if(response.data.status == 'success'){
                         swal({
                             title: "Success",
@@ -163,7 +172,7 @@ import swal from 'sweetalert';
                 try {
                     const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pendding/' +this.$route.params.id )
                     this.pendingBill = response.data.data;
-                    // console.log(this.pendingBill);
+                  
                     
                 } catch (error) {
                     console.log(error);
@@ -222,7 +231,7 @@ import swal from 'sweetalert';
 
                 <article class="flex justify-end pb-4 space-x-2">
                     <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
-                    <button type="submit"   class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Confirm</button>
+                    <button type="submit"   :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}" :disabled="!(isEnabled)" >Confirm</button>
                 </article>
                 
                 <article class="flex justify-between mb-4">
@@ -319,5 +328,11 @@ import swal from 'sweetalert';
 
 
 <style scoped>
+.btn{
+    @apply px-3 py-1 font-semibold rounded-md text-white bg-regal-teal;
+}
+.btn-disabled{
+    @apply px-3 py-1 font-semibold rounded-md text-gray-400 bg-regal-light-blue;
+}
 
 </style>
