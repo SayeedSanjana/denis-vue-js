@@ -13,15 +13,28 @@ import Modal from '../../components/reusable/Modal.vue'
                 
             }
         },
+        data(){
+            return{
+                word: '',
+            }
+
+        },
+        created(){
+            this.numberToEnglish(this.bill.balance);
+
+        },
+       
 
         methods:{
              numberToEnglish(n, custom_join_character) {
+
                 let string = n.toString(),
                     units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+
                 let and = custom_join_character ;
                 /* Is number zero? */
                 if (parseInt(string) === 0) {
-                    return 'Zero';
+                    return this.word = 'Zero';
                 }
                 /* Array of units as words */
                 units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
@@ -30,12 +43,14 @@ import Modal from '../../components/reusable/Modal.vue'
                 ];
                 /* Array of tens as words */
                 tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+                
                 /* Array of scales as words */
                 scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 'Quintillion',
                     'Sextillion', 'Septillion', 'Octillion', 'Nonillion', 'Secillion', 'Undecillion',
                     'Duodecillion', 'Tredecillion', 'Quatttuor-decillion', 'Quindecillion', 'Sexdecillion',
                     'Septen-Decillion', 'Octodecillion', 'Novemdecillion', 'Vigintillion', 'Centillion'
                 ];
+                
                 /* Split user arguemnt into 3 digit chunks from right to left */
                 start = string.length;
                 chunks = [];
@@ -51,7 +66,9 @@ import Modal from '../../components/reusable/Modal.vue'
                 /* Stringify each integer in each chunk */
                 words = [];
                 for (i = 0; i < chunksLen; i++) {
+
                     chunk = parseInt(chunks[i]);
+
                     if (chunk) {
                         /* Split chunk into array of individual integers */
                         ints = chunks[i].split('').reverse().map(parseFloat);
@@ -87,6 +104,38 @@ import Modal from '../../components/reusable/Modal.vue'
                 this.word = words.reverse().join(' ');
             },
 
+            print() {
+
+
+                const prtHtml = document.getElementById('print').innerHTML;
+
+                let stylesHtml = '';
+                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+                    stylesHtml += node.outerHTML;
+                }
+
+                // Open the print window
+                const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+
+                WinPrint.document.write(`<!DOCTYPE html>
+                        <html>
+                        <head>
+                            ${stylesHtml}
+                        </head>
+                        <body>
+                            ${prtHtml}
+                           
+                        </body>
+                        </html>`);
+
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+            },
+
+
+
         }
         
     }
@@ -95,18 +144,23 @@ import Modal from '../../components/reusable/Modal.vue'
 <template>
    <Modal :width="'w-1/2'">
    <template v-slot:header> 
-            <h1 class="font-bold text-xl p-2">Print Invoice</h1>
+            <!-- <h1 class="font-bold text-xl p-2">Print Invoice</h1> -->
+            <button type="button" class="ml-1 p-2 bg-regal-teal rounded-full " @click="print">
+            <img src="@/assets/svgs/print.svg" class="pointer-events-none ">
+        </button>
    </template>
 
     <template v-slot:body>
        
-        <section  class="bg-white font-sans">
+        <section id="print" class="bg-white font-sans">
                 
             <!-- header start-->
             <header class="flex justify-between px-12 pb-4">
             <!-- Logo -->
-                <img class=" py-4" src="@/assets/svgs/mt-logo-V2.svg" alt="dental-center-logo.svg">  
-                <p class="text-xs  text-right py-5 mr-2 text-gray-900">Address: House No 12 (1st Floor), Road No 14 (New) 
+               <p class="font-bold text-left py-5 mr-2 text-gray-900 text-sm">MT Dental Center 
+                <br><span class="text-xs"> Next Generation HighTech Dentistry</span>
+               </p>
+                <p class="text-xs  text-right py-5  text-gray-900">Address: House No 12 (1st Floor), Road No 14 (New) 
                     <br> Dhanmondi, Dhaka-1209, Mobile: 01688-329552, 01817-094331
                     <br>Email: mhkmusa@gmail.com</p>
             </header>
@@ -176,23 +230,23 @@ import Modal from '../../components/reusable/Modal.vue'
                     <div class="text-right text-gray-900 text-xs">
                         <div class="flex justify-end">
                             <div class="p-2 w-24"><label class="font-bold">Subtotal : </label></div>
-                            <div class="p-2 w-24 text-gray-700">{{bill.total}} TK </div>
+                            <div class="py-2  w-24 text-gray-700">{{bill.total}} TK </div>
                         </div>
                         <div class="flex justify-end ">
                             <div class="p-2 w-24"><label class="font-bold">Discount : </label></div>
-                            <div class=" p-2 w-24 text-gray-700">{{bill.discount}} TK </div>
+                            <div class=" py-2 w-24 text-gray-700">{{bill.discount}} TK </div>
                         </div>
                         <div class="flex justify-end">
                             <div class="p-2 w-24"><label class="font-bold">Adjustment : </label></div>
-                            <div class=" p-2 w-24 text-gray-700">{{bill.adjustment}} TK </div>
+                            <div class=" py-2 w-24 text-gray-700">{{bill.adjustment}} TK </div>
                         </div>
                         <div class="flex justify-end">
                             <div class=" p-2 w-24"><label class="font-bold">Recieved : </label></div>
-                            <div class="p-2 w-24 text-gray-700">{{bill.totalAmountPaid}} Tk </div>
+                            <div class="py-2 w-24 text-gray-700">{{bill.totalAmountPaid}} Tk </div>
                         </div>
                         <div class="flex justify-end">
                             <div class=" p-2 w-24"><label class="font-bold">Balance<span class="text-gray-500 font-normal">(Due) </span>:</label></div>
-                            <div class=" p-2 w-24 text-gray-700">{{bill.balance}}TK</div>
+                            <div class=" py-2 w-24 text-gray-700">{{bill.balance}}TK</div>
                         </div>                           
                     </div>
                 </div>
@@ -200,11 +254,11 @@ import Modal from '../../components/reusable/Modal.vue'
                 <hr class="border-t-2 text-gray-900 py-2">
                 <div class="flex justify-between">
                     <div class="text-xs text-left text-gray-700 flex justify-start">
-                            <label><span class="text-gray-900 font-bold">Total in words: </span>{{numberToEnglish(this.bill.balance)}} Only. </label>                        
+                            <label><span class="text-gray-900 font-bold">Total in words: </span>{{this.word}} Only. </label>                        
                     </div>                                                 
                     <div class="text-xs flex justify-end">
                         <div class="w-28"><label class="font-bold">Total :</label></div>
-                        <div class="text-gray-700 px-2">{{bill.balance}} TK </div>
+                        <div class="text-gray-700 ">{{bill.balance}} TK </div>
                     </div>
                 </div>
                 <div class="flex justify-start text-xs pt-24">  
@@ -223,5 +277,20 @@ import Modal from '../../components/reusable/Modal.vue'
 </template>
 
 <style scoped>
+@media print{
+    .dontprint{
+        display:none;
+    }
+
+
+}
+
+.hidebutton{
+    @apply dontprint text-gray-300;
+}
+
+.showbutton{
+    @apply  text-regal-teal w-full my-2;
+}
 
 </style>
