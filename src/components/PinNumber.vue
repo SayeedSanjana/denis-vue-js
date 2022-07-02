@@ -76,7 +76,7 @@
         console.log(typeof (code))
         
         if (code === this.pin) {
-          await axios.post('users/signup', this.formData)
+          await axios.post(import.meta.env.VITE_LOCAL+'users/signup', this.formData)
             .then((response) => {
               this.err=""
               swal({

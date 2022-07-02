@@ -5,6 +5,9 @@
             <div class="lg:flex">
                 <!--main-->
                 <div class=" mx-auto w-full rounded-sm   lg:w-1/5 ">
+                   
+
+
                     <!--sidebar-->
                     <PreviousMedicalRecords :patient="$store.state.patient.data"/>
                     
@@ -13,7 +16,7 @@
 
                 <div class=" lg:w-4/5  ">
 
-                    <PrescriptionList />
+                    <PrescriptionList :patient="$store.state.patient.data" />
                   
                 </div>
                 <!--nav-->
@@ -33,6 +36,7 @@
         },
         created() {
              this.$store.dispatch('fetchPatient', this.$route.params.id);
+            
         },
         
         methods: {

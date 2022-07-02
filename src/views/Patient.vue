@@ -141,7 +141,7 @@ import Pagination from '../components/Pagination.vue'
             return {
                 searchQuery: '',
                 gridColumns: {
-                    _id: 'patient ID',
+                    id: 'patient ID',
                     name : 'name',
                     dob:'age',
                     phone: 'contact',
@@ -199,7 +199,10 @@ import Pagination from '../components/Pagination.vue'
                 this.$router.push({
                     name: 'PatientDetails',
                     params: {
-                        id: id
+                        id: id,
+                        
+                      
+
                     }
                 })
             },

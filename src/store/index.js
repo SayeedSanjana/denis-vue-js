@@ -75,6 +75,24 @@ export default createStore({
                 )
         },
 
+        // fetchPatient({commit}, patientId) {
+        //     axios.get(import.meta.env.VITE_LOCAL+'patients/' ,{
+        //         params: {
+        //             id : patientId,
+                    
+                    
+
+        //         }
+        //     })
+        //     .then((result) => commit('getPatient', result)
+            
+        //     )
+        //     console.log(patientId);
+        // },
+
+
+
+
       async  fetchBills ({commit} , totalData, currentPage, perPage , text) {
         try {
             const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {

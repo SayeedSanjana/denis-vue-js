@@ -146,7 +146,7 @@ const routes = [
     component: RegisterPatient
   },
   {
-    path: '/patient-details/:id',
+    path: '/patient-details/:id', //object id
     name: 'PatientDetails',
     component: PatientDetails
   },

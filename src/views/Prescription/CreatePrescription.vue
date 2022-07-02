@@ -14,6 +14,12 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
             PreviousMedicalRecords
              
         },
+
+        props: {
+            pat: {
+                type: Object
+            }
+        },
         data(){
             return{
                 copiedData: null,
@@ -172,7 +178,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
      
       mounted(){
             this.meiliSearch = new MeiliSearch({
-                host: 'https://app-meilirtexus-dev-001.azurewebsites.net/',
+                host: 'https://meili-rt.herokuapp.com/',
                 apiKey: 'ImBadass',
             });
 
@@ -464,7 +470,8 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                     
 
         },
-
+     
+        
         async createPrescription(id){
             try {
                
@@ -525,7 +532,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
         <form @submit.prevent="createPrescription(this.$route.params.id)">
             <div class="rounded-t-md w-full hover:overflow-hidden">
                 <div class="flex justify-between bg-green-50">
-
+                  
                     <label for=""
                         class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
                     <div class="m-2 ">
@@ -537,11 +544,12 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                             class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
                     </div>
                 </div>
-
+                    {{this.$route.params.id}}
                 <section class="flex justify-between px-16 py-8">
 
                     <div>
                         <ul>
+                            
                             <li class="font-semibold text-2xl text-left">
                                 MT Dental Center
                             </li>
@@ -619,7 +627,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                 </div>
                             </span>
                         </div>
-
+                        
                         <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " />
 
                         <div class="flex justify-between">
@@ -661,7 +669,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                     <p class=" placeholder-item">items.diagnosis</p> -->
                                 </li>
                             </ul>
-                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md" v-else
+                            <ul class="w-1/4 shadow-sm section h-60 absolute z-40 bg-regal-white border rounded-md" v-else
                                 v-show="showSearch">
                                 <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                     v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
@@ -732,7 +740,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                     <p class=" placeholder-item">items.diagnosis</p> -->
                                 </li>
                             </ul>
-                                <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
+                                <ul class="w-1/4 shadow-sm section h-48 absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
                                  v-else   v-show="showSearchInv">
                                     <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
                                         v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
@@ -943,12 +951,12 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                             <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.
                             </p>
 
-                            <div class="my-5" v-show="showSearchMed">
+                            <div class="my-5 " v-show="showSearchMed">
                                 <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine
                                     List</label>
 
-
-                                <table class="w-full mx-auto  bg-opacity-80 text-sm">
+                                <div class="section h-48">
+                                <table class="w-full mx-auto  bg-opacity-80 text-sm ">
                                     <thead class="bg-regal-light-blue text-regal-teal">
                                         <tr class="">
                                             <th v-for="item in medicineColumn" :key="item"
@@ -979,6 +987,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </section>
                         <div class="flex justify-between mt-2">
@@ -1017,7 +1026,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                     <p class=" placeholder-item">items.diagnosis</p> -->
                                 </li>
                             </ul>
-                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                            <ul class="w-1/4 shadow-sm section h-44 absolute z-40 bg-regal-white border rounded-md"
                               v-else  v-show="showSearchtp">
                                 <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                     v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">

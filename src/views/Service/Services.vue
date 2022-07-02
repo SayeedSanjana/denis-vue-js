@@ -91,7 +91,7 @@ import ToothSvg from "./_ToothSvg.vue";
        async mounted(){
             
              this.meiliSearch = new MeiliSearch({
-                host: 'https://app-meilirtexus-dev-001.azurewebsites.net/',
+                host: 'https://meili-rt.herokuapp.com/',
                 apiKey: 'ImBadass',
             });
           
