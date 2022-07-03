@@ -48,7 +48,7 @@
 
         <section class="mt-10">
           
-            <Grid   :method="patientDetails" :data="patients"  :columns="gridColumns" :filter-key="searchQuery" />
+            <Grid :method="patientDetails" :data="patients"  :columns="gridColumns"   :filter-key="searchQuery"  @getSearch = "(fetchedData) => patients = fetchedData" />
             
         </section>
 
@@ -58,28 +58,7 @@
           <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage"
               @pagechanged="onPageChange" />
         </div>
-        <!-- {{this.totalData}} -->
-        <!-- Pagination -->
-
-
-        <!-- <section class="flex px-40 flex-row justify-center">
-            <div class="px-40">
-                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                    :disabled="currentPage === 1" 
-                    :class="{'hidden': currentPage === 1,'cursor-pointer': typeof $store.state.endPage ==='number'}" 
-                    @click="changePage(-1)">
-                    Previous
-                </button>
-            </div>
-            <div class="px-40">
-                <button class="bg-regal-blue text-white font-bold py-2 px-4 rounded w-32 mt-4" type="button"
-                    :disabled="$store.state.endPage == false " 
-                    :class="{'hidden': $store.state.endPage=== false,'cursor-pointer': typeof $store.state.endPage ==='number' }" 
-                    @click="changePage(1)">
-                    Next 
-                </button>
-            </div>
-        </section>        -->
+       
         
     
         
@@ -89,10 +68,10 @@
 </template>
 
 <script>
-import Pagination from '../components/Pagination.vue'
-   import Grid from '../components/Grid.vue'
+import Pagination from '../../components/Pagination.vue'
+   import Grid from './PatientGrid.vue'
     // import Nav from "../components/Nav.vue"
-    import RegisterPatient from "./DoctorsPortal/RegisterPatient.vue";
+    import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";
     import moment from "moment"
     export default {
 

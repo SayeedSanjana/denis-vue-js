@@ -25,7 +25,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 copiedData: null,
                 previewPrescriptionActive: false,   
                 meiliSearch:null,
-
+               
                 invlist:[],
                 inv:{
                     inv_name:'',
@@ -41,7 +41,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                
             form: {
                 user: this.parseJwt(localStorage.getItem('token')).sub,
-                patient: this.$route.params.id,
+                patient: '',
                 cc: '',
                 oe: [],
                 medicine:[],
@@ -104,16 +104,17 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
     },
     created() {
             this.$store.dispatch('fetchPatient', this.$route.params.id);
-
+       
             this.copiedData = this.$store.state.copiedPrescription;
-          
-            // console.log(this.copiedData);
-            // if(this.$route.params.data){
+ 
                 
-            // }
         },
+       
    
     watch:{
+
+       
+
         
         tptext(val){
             if(val.length>0){
@@ -177,6 +178,25 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 
      
       mounted(){
+
+            // console.log(this.$store.state.copiedPatient);
+
+            if(!(this.$store.state.copiedPatient )){
+                 this.$router.push({
+                    name: 'PatientDetails'
+                   
+                })
+                return;
+            }
+            this.form.patient = this.$store.state.copiedPatient._id;
+            
+           
+            
+
+
+            
+           
+       
             this.meiliSearch = new MeiliSearch({
                 host: 'https://meili-rt.herokuapp.com/',
                 apiKey: 'ImBadass',
@@ -205,6 +225,10 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 
 
     methods:{
+
+    
+        
+
          openModal(){
             if(this.form.cc.length > 0 || this.form.oe.length > 0 || this.form.medicine.length > 0 || this.form.advice.length > 0 || this.form.treatmentPlan.length > 0 || this.form.investigation.length > 0){
 
@@ -544,7 +568,9 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                             class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
                     </div>
                 </div>
-                    {{this.$route.params.id}}
+                 
+                 
+                   
                 <section class="flex justify-between px-16 py-8">
 
                     <div>

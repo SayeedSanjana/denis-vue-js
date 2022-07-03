@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Patient from '../views/Patient.vue';
+import Patient from '../views/Patient/Patient.vue';
 import AccountSettings from '../views/User/AccountSettings.vue';
 import ProfileSettings from '../views/User/ProfileSettings.vue';
 import EmployeeProfile from '../views/Employee/EmployeeProfile.vue';

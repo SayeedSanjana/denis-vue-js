@@ -10,6 +10,8 @@ export default createStore({
         patient: {},
         bills:[],
         copiedPrescription: null,
+        copiedPatient: null,
+       
 	},
 
 	mutations: {
@@ -40,6 +42,13 @@ export default createStore({
         },
         clearCopiedPrescription(state) {
             state.copiedPrescription = null
+        },
+        setCopiedPatient(state, copiedPatient) {
+            state.copiedPatient = copiedPatient
+           
+        },
+        clearCopiedPatient(state) {
+            state.copiedPatient = null
         }
 
        

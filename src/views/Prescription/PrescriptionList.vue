@@ -6,7 +6,6 @@ import Preview from "./_Preview.vue"
     export default {
         components: {
             PrescriptionItems,
-          
             Preview
         },
         props: {
@@ -17,7 +16,6 @@ import Preview from "./_Preview.vue"
         },
         data(){
             return{
-                 id: '',
                 prescriptions: [],
                 index: null,
                
@@ -25,14 +23,10 @@ import Preview from "./_Preview.vue"
                 
             }
         },
-        watch:{
-            patient: function(val){
-               this.getPatientId(val);
-            }
-
-        },
+       
        mounted() {
             this.$store.commit('clearCopiedPrescription');
+
             // console.log(this.$store.state.copiedPrescription);
         },
        
@@ -63,10 +57,18 @@ import Preview from "./_Preview.vue"
                 this.index = index;
         
             },
-            getPatientId(patient){
-                this.id = patient._id;
-            //    console.log(patient);
+            createPrescription(){
+
+                this.$store.commit('setCopiedPatient' , this.patient);
+                this.$router.push({
+                    name: 'Prescription',
+                    params: {
+                        id: this.$route.params.id
+                    }
+                })
             },
+            
+           
             
             
 
@@ -85,20 +87,19 @@ import Preview from "./_Preview.vue"
             <div class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 border-r-2 border-emerald-600 shadow-sm  p-3 ">
                     <label class="mx-5 text-regal-teal text-xl font-semibold">Prescription List</label>
 
-                    <router-link :to="{name: 'Prescription' ,params: this.id }">
+                    <button  @click="createPrescription">
                         <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
-                    </router-link>
+                    </button>
                  
             </div>
    
-           
-
+     
                 <PrescriptionItems :prescriptions="prescriptions" @view-prescription= "openPrescription" :index="index" class="section h-xxl"/>
            
         </div>
      
      
-           
+          
         
         <div class="w-2/3  bg-gray-50 mx-4">
           

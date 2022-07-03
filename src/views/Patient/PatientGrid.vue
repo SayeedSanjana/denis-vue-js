@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
     export default {
         props: {
             //
@@ -19,7 +20,11 @@
                 default: () => false
 
             },
-          
+            api:{
+                type: String,
+                default: ''
+            
+            }
 
 
         },
@@ -46,7 +51,7 @@
                         })
                     })
                 }
-               
+                
                 if (sortKey) {
                     data = data.slice().sort((a, b) => {
                         a = a[sortKey]
@@ -54,6 +59,24 @@
                         return (a === b ? 0 : a > b ? 1 : -1) * order
                     })
                 }
+                // console.log(data.length===0);
+                if(data.length ===0){
+                        console.log(this.filterKey);
+                        
+                        axios.get(import.meta.env.VITE_LOCAL+"patients" , {
+                        params:{
+                            q: this.filterKey,
+                            limit: 10
+                        }
+                        }).then(response => {
+                            console.log(response.data.data);
+                            data = response.data.data;
+                            // this.data;
+                            return this.$emit('getSearch',data);
+                            
+                        })
+
+                    }
                 return data
             }
         },
@@ -76,6 +99,7 @@
 
 
 <template>
+
     <table  v-if="filteredData.length" class=" w-full mx-auto  bg-opacity-80 text-sm ">
         <thead class="bg-regal-teal text-white">
             <tr class=" appearance-none ">
