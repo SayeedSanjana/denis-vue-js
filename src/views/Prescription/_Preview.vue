@@ -5,6 +5,9 @@
             form: {
                 type: Object,
             },
+            patient: {
+                type: Object,
+            },
 
         },
         computed: {
@@ -44,9 +47,13 @@
             },
             copyPrescription() {
                 this.$store.commit("setCopiedPrescription", this.form)
+                this.$store.commit('setCopiedPatient' , this.patient);
 
                 this.$router.push({
                     name: 'Prescription',
+                    params: {
+                        id: this.$route.params.id,
+                    }
                     
                 })
             },
@@ -121,7 +128,7 @@
 
     <div class="section h-xxl">
 
-
+       
 
         <div id="print" class="">
             <section class="flex justify-between  px-4 py-2">

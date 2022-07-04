@@ -57,22 +57,24 @@ export default createStore({
 	actions: {
 
 
-		async fetchPatients({commit} , currentPage, perPage ,totalData, text) {
+		async fetchPatients({commit} ,{currentPage, perPage, text=''}) {
+            console.log(currentPage);
+            console.log({perPage});
 			try {
-                // console.log(currentPage);
+                
                 const data = await axios.get(import.meta.env.VITE_LOCAL+'patients', {
                     params: {
-                                    page:currentPage,
-                                    limit:perPage,
-                                    total:totalData,
-                                    q:text
-                                },
+                        page:currentPage,
+                        limit:perPage,
+                        q:text
+                    },
                 },);
                 return commit('setPatients', data);
                 
             } catch (error) {
                 console.log(error);    
             }
+
 
 				
 		},

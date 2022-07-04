@@ -1,5 +1,5 @@
 <script>
-import axios from 'axios';
+// import axios from 'axios';
     export default {
         props: {
             //
@@ -20,11 +20,7 @@ import axios from 'axios';
                 default: () => false
 
             },
-            api:{
-                type: String,
-                default: ''
-            
-            }
+          
 
 
         },
@@ -49,7 +45,11 @@ import axios from 'axios';
                         return Object.keys(row).some((key) => {
                             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
                         })
-                    })
+                    });
+                    
+                    if(data.length ===0){
+                        this.$emit('empty', true);
+                    }
                 }
                 
                 if (sortKey) {
@@ -60,23 +60,25 @@ import axios from 'axios';
                     })
                 }
                 // console.log(data.length===0);
-                if(data.length ===0){
-                        console.log(this.filterKey);
+                
+                // if(data.length ===0){
+                //         console.log(this.filterKey);
                         
-                        axios.get(import.meta.env.VITE_LOCAL+"patients" , {
-                        params:{
-                            q: this.filterKey,
-                            limit: 10
-                        }
-                        }).then(response => {
-                            console.log(response.data.data);
-                            data = response.data.data;
-                            // this.data;
-                            return this.$emit('getSearch',data);
+                //         axios.get(import.meta.env.VITE_LOCAL+"patients" , {
+                //         params:{
                             
-                        })
+                //             q: this.filterKey,
+                //             limit: 10
+                //         }
+                //         }).then(response => {
+                //             console.log(response.data.data);
+                //             data = response.data.data;
+                //             // this.data;
+                //             return this.$emit('getSearch',data);
+                            
+                //         })
 
-                    }
+                //     }
                 return data
             }
         },

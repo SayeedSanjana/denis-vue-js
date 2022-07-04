@@ -48,7 +48,8 @@
 
         <section class="mt-10">
           
-            <Grid :method="patientDetails" :data="patients"  :columns="gridColumns"   :filter-key="searchQuery"  @getSearch = "(fetchedData) => patients = fetchedData" />
+            <Grid :method="patientDetails" :data="patients"  :columns="gridColumns"   :filter-key="searchQuery"  @empty="search" />
+            <!-- <Grid :method="patientDetails" :data="paginate(patients,perPage, currentPage)"  :columns="gridColumns"   :filter-key="searchQuery"  @empty="search" /> -->
             
         </section>
 
@@ -72,7 +73,7 @@ import Pagination from '../../components/Pagination.vue'
    import Grid from './PatientGrid.vue'
     // import Nav from "../components/Nav.vue"
     import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";
-    import moment from "moment"
+    // import moment from "moment"
     export default {
 
         components: {
@@ -84,9 +85,12 @@ import Pagination from '../../components/Pagination.vue'
 
         },
         created() {
-           
-            this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage,this.totalData, this.text);
-      
+            const query = {
+                currentPage: this.currentPage,
+                perPage: this.perPage,
+    
+            } 
+            this.$store.dispatch("fetchPatients" , query);
              
         },
       watch: {
@@ -96,7 +100,12 @@ import Pagination from '../../components/Pagination.vue'
                 
                 // patient._id ='P-'+ patient._id.substring(patient._id.length - 7);
                 patient.dob = this.calculateAge(patient.dob);
-                patient.createdAt = moment(patient.createdAt).format("DD-MM-YYYY");
+                // patient.createdAt = moment(patient.createdAt).format("DD-MM-YYYY");
+                patient.createdAt = new Date(patient.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                    });
             });
 
                 },
@@ -132,45 +141,54 @@ import Pagination from '../../components/Pagination.vue'
                 
                 totalData:0,
                 text:'',
-                perPage: 10,
                 currentPage: 1,
+                perPage: 10,
                 openModal: false,  
                 patients:[],
+
                 // totalPages: 0,
                 // endPage: false,
-
-            
-
             }
         },
 
         methods: {
+            search(bool){
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                if (bool) {
+                    this.$store.dispatch("fetchPatients" , query);
+                }
+            },
+            // paginate(patients, perPage, currentPage) {
+            //     return patients.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+            // },
             onPageChange(page) {
+                console.log(this.patients);
                 this.currentPage = page;
                 this.patients = [];
-                this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage,this.totalData, this.text);
-                // console.log(this.currentPage);
+
+                const query = {
+                currentPage: this.currentPage,
+                perPage: this.perPage,
+                text: this.searchQuery
+            } 
+                this.$store.dispatch("fetchPatients" , query);
             },
-           
-
-            
-            
-
+                // console.log(this.currentPage);
            
              calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
                 const ageDate = new Date(ageDifMs);
                 return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
             },
-                        
-            dateConversion(date) {
-                return moment(date).format('LL')
-
-            },
-            changePage(num) {
-                this.currentPage = this.currentPage + num
-                this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
-            },
+            // changePage(num) {
+            //     this.currentPage = this.currentPage + num
+            //     this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
+            // },
             toggle() {
                 this.open = !this.open
             },

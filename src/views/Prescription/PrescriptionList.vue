@@ -104,7 +104,7 @@ import Preview from "./_Preview.vue"
         <div class="w-2/3  bg-gray-50 mx-4">
           
 
-            <Preview v-if="prescriptions[index]" :form="prescriptions[index]"  />
+            <Preview v-if="prescriptions[index]" :form="prescriptions[index]"  :patient="patient" />
            <div v-else class=" grid place-content-center my-52">
              <img src="@/assets/images/empty-state.png" alt="" srcset="">
              <p class="text-gray-500">No Prescription Selected.</p>

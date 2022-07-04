@@ -8,6 +8,7 @@ export default {
         index: {
             type: Number
         },
+       
     },
 
     data(){
@@ -30,6 +31,7 @@ export default {
 <div>
 
     <ul  class="space-y-3  p-3">
+        
         <li v-if="prescriptions.length > 0"  v-for="(items,i) in prescriptions" :key="i" @click="$emit('viewPrescription' ,i)"  :class="{'btnActive': this.index == i, 'btn' : this.index != i } ">
            
             
@@ -43,7 +45,7 @@ export default {
                 </div>
                
                 <div class=""><span class=" text-sm">Approved By: </span>
-                <span class=" text-sm">Dr.{{items.user[0].name}}</span>
+                <span class=" text-sm">Dr.{{items.user.name}}</span>
                 </div>
                 
            
