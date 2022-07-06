@@ -13,7 +13,14 @@ import axios from "axios";
         },
        
         created() {
-            this.$store.dispatch('fetchBills', this.currentPage, this.perPage,this.totalData, this.text);
+            const query = {
+                currentPage: this.currentPage,
+                perPage: this.perPage,
+    
+            } 
+            this.$store.dispatch('fetchBills', query);
+
+
             this.getPendingList();
           
 
@@ -23,6 +30,7 @@ import axios from "axios";
         data() {
             return {
                presId:'',
+               id:'',
                activeTab: 'OutStandingBill',
                bills:[],
                totalData: 0, 
@@ -31,20 +39,22 @@ import axios from "axios";
                text:'',
                searchQuery: '',
                pendingList: [],
-               specificBill: {},
+              
             }
 
             },
         watch: {
             '$store.state.bills': function() {
-                this.bills.push(...this.$store.state.bills);
+                this.bills = [...this.$store.state.bills];
+            
                 this.bills.forEach(bill => {
                     bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
-                    
-
-                    
+                   
 
                 });
+        },
+        '$store.state.totalBill': function() {
+            this.totalData = this.$store.state.totalBill;
         },
 
         },
@@ -54,9 +64,10 @@ import axios from "axios";
                 return this.$store.state.totalBill;
             },
             getOutstandingBills() {
+
+                 
                 return this.bills.filter(bill => bill.isPaid == 'Due' );
-                
-                
+                                
 
             },
             getCompletedBills() {
@@ -64,17 +75,29 @@ import axios from "axios";
             },
         },
         methods: {
+            search(){
+                if(bool){
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                this.$store.dispatch('fetchBills', query);
+                }
+            
+            },
             onPageChange(page) {
+
                 this.currentPage = page;
                 this.bills = [];
-                this.$store.dispatch('fetchBills', this.currentPage, this.perPage,this.totalData, this.text);
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                this.$store.dispatch('fetchBills', query);
             },
-            changePage(num){
-                this.currentPage = this.currentPage + num;
-                
-                this.$store.dispatch('fetchBills', this.currentPage, this.perPage,this.totalData, this.text);
-
-            },
+           
               async getPendingList() {
                   try {
                       const response = await axios.get(
@@ -102,20 +125,29 @@ import axios from "axios";
               },
 
               addPayment(index){
-                this.bills.forEach(bill => {
-                    if(bill._id ==index){
-                         this.presId=bill.prescription;
+               
+                  this.bills.forEach(bill => {
+                      if(bill._id ==index){
+                         if(bill.prescription){
+                            this.id = bill.prescription;
+                         }
+                         else{
+                            this.id = bill._id;
+                         }
                        
                     }
+                      
+                   
+               
                 });
+
                 this.$router.push({
                     name: 'AddPayment',
                     params: {
-                        id: this.presId
+                        id: this.id
                     }
                 });
- 
-              
+
               },
               
           
@@ -198,7 +230,7 @@ import axios from "axios";
         </div>
          
             <keep-alive>
-            <component :is="activeTab" :add-payment="addPayment"  :bills="getOutstandingBills" @view-bill="openBill" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange" :changePage="changePage" :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
+            <component :is="activeTab" :add-payment="addPayment" @empty="search"  :bills="getOutstandingBills" @view-bill="openBill" :completedBill="getCompletedBills" :pendingList="pendingList" :allBill="bills" :totalData="totalData" :getTotalData="getTotalData" :onPageChange="onPageChange"  :perPage="perPage" :currentPage="currentPage" :text="text" :searchQuery="searchQuery" />
             </keep-alive>
         
         </div>

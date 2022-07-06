@@ -45,6 +45,10 @@
                             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
                         })
                     })
+                    if(data.length ===0){
+                        this.$emit('empty', true);
+                    }
+
                 }
                
                 if (sortKey) {
@@ -87,7 +91,7 @@
             </tr>
         </thead>
         <tbody class="divide-y ">
-            <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row"  @click="method(entry.id)" v-for="entry in filteredData" :key="entry._id">
+            <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row"  @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
                 <td  class="p-3" v-for="key in Object.keys(columns)" :key="key._id">
                     {{entry[key]}}
                 </td>

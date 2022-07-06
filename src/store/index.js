@@ -19,6 +19,7 @@ export default createStore({
 			state.patients = patients.data['data']
             state.totalPatient = patients.data.total
             state.endPage = patients.data.nextPage
+            
 		},
         getPatient(state, patient) {
             state.patient = patient.data
@@ -28,6 +29,7 @@ export default createStore({
             state.bills = bills.data['data']
             state.totalBill = bills.data.total
             state.endPage = bills.data.nextPage
+           
         },
         registerPatient(state, patients) {
             
@@ -58,8 +60,7 @@ export default createStore({
 
 
 		async fetchPatients({commit} ,{currentPage, perPage, text=''}) {
-            console.log(currentPage);
-            console.log({perPage});
+           
 			try {
                 
                 const data = await axios.get(import.meta.env.VITE_LOCAL+'patients', {
@@ -68,9 +69,9 @@ export default createStore({
                         limit:perPage,
                         q:text
                     },
-                },);
+                });
+                // console.log(data);
                 return commit('setPatients', data);
-                
             } catch (error) {
                 console.log(error);    
             }
@@ -101,20 +102,16 @@ export default createStore({
         //     console.log(patientId);
         // },
 
-
-
-
-      async  fetchBills ({commit} , totalData, currentPage, perPage , text) {
+      async  fetchBills ({commit} ,{currentPage, perPage, text=''}) {
         try {
             const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
                 params: {
                     page:currentPage,
                     limit:perPage,
-                    total:totalData,
                     q:text
                 },
 
-            },);
+            });
             return commit('setBills', data);
             
         } catch (error) {

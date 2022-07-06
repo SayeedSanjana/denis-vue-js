@@ -54,6 +54,7 @@ import PrintBill from "./_PrintBill.vue";
                     const response = await axios.get(import.meta.env.VITE_LOCAL + '/billings/p/' + this.$route.params.id);
                    
                     this.bill= response.data.data;
+                   
                     
                 } catch (error) {
                     console.log(error);
@@ -137,9 +138,10 @@ import PrintBill from "./_PrintBill.vue";
 
                     </div>
 
-
+              
                 </article>
                 <article class="py-4">
+                     
                     <h2 class="text-left font-semibold text-regal-teal mb-4">Services Provided</h2>
 
                     <div class="flex text-regal-teal text-left">

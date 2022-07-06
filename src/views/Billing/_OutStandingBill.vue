@@ -20,14 +20,14 @@
                     </form>
           
             <div class="mx-24 my-5">
-               
+             
                 <Grid :method="addPayment" :data="bills" :columns="gridColumns" :filter-key="searchQuery"/>
                 
             </div>
 
 
              <div class="flex justify-center my-5">
-                 <Pagination :totalData="bills.length" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
+                 <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
              </div>
         
 
@@ -78,10 +78,7 @@
                 type: Function,
                
             },
-            changePage: {
-                type: Function,
-               
-            },
+           
             getTotalData: {
                 type: Number,
                
@@ -104,7 +101,10 @@
             return {
                 gridColumns:{
                      _id: 'bill ID',
-                     patient: 'Patient ID',
+                    //  patient: 'Patient ID',
+                     patientName: 'Patient Name',
+                     patientContact: 'Patient Contact',
+
                     total: 'Total Cost',
                     isPaid:'Payment Status',
                     balance: 'balance',  

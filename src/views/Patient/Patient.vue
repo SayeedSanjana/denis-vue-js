@@ -71,14 +71,11 @@
 <script>
 import Pagination from '../../components/Pagination.vue'
    import Grid from './PatientGrid.vue'
-    // import Nav from "../components/Nav.vue"
     import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";
-    // import moment from "moment"
     export default {
 
         components: {
             Grid,
-            // Nav,
             RegisterPatient,
             Pagination
           
@@ -95,12 +92,13 @@ import Pagination from '../../components/Pagination.vue'
         },
       watch: {
         '$store.state.patients': function() {
-            this.patients.push(...this.$store.state.patients)
+          
+            this.patients = [...this.$store.state.patients];
+            console.log(this.patients);
+            
             this.patients.forEach(patient => {
                 
-                // patient._id ='P-'+ patient._id.substring(patient._id.length - 7);
                 patient.dob = this.calculateAge(patient.dob);
-                // patient.createdAt = moment(patient.createdAt).format("DD-MM-YYYY");
                 patient.createdAt = new Date(patient.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -113,11 +111,9 @@ import Pagination from '../../components/Pagination.vue'
 
                 this.totalData = this.$store.state.totalPatient;
 
-            // console.log(this.totalData)
+          
             },
-            // '$store.state.endPage': function() {
-            //     this.endPage = this.$store.state.endPage;
-            // },
+           
     },
     computed: {
         getTotalData() {
@@ -146,30 +142,33 @@ import Pagination from '../../components/Pagination.vue'
                 openModal: false,  
                 patients:[],
 
-                // totalPages: 0,
-                // endPage: false,
             }
         },
 
         methods: {
             search(bool){
-                const query = {
+                
+                if (bool) {
+                     const query = {
                     currentPage: this.currentPage,
                     perPage: this.perPage,
                     text: this.searchQuery
                 }
-                if (bool) {
+             
                     this.$store.dispatch("fetchPatients" , query);
+                    
+                   
+                    
                 }
+               
             },
-            // paginate(patients, perPage, currentPage) {
-            //     return patients.slice((currentPage - 1) * perPage, currentPage * perPage);
-
-            // },
+          
             onPageChange(page) {
-                console.log(this.patients);
+               
                 this.currentPage = page;
                 this.patients = [];
+
+                
 
                 const query = {
                 currentPage: this.currentPage,
@@ -177,18 +176,15 @@ import Pagination from '../../components/Pagination.vue'
                 text: this.searchQuery
             } 
                 this.$store.dispatch("fetchPatients" , query);
+                console.log(this.$store.state.patients);
             },
-                // console.log(this.currentPage);
            
              calculateAge(birthYear){
                 let ageDifMs = Date.now() - new Date(birthYear).getTime();
                 const ageDate = new Date(ageDifMs);
                 return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
             },
-            // changePage(num) {
-            //     this.currentPage = this.currentPage + num
-            //     this.$store.dispatch("fetchPatients" , this.currentPage, this.perPage, this.text);
-            // },
+           
             toggle() {
                 this.open = !this.open
             },

@@ -12,6 +12,10 @@ import ToothSvg from "./_ToothSvg.vue";
             ToothSvg
         
         },
+        props:{
+
+            
+        },
         data(){
             return{
                location:[],
@@ -34,7 +38,7 @@ import ToothSvg from "./_ToothSvg.vue";
                form:{
                    prescription: this.$route.params.presId,
                    doctor: this.parseJwt(localStorage.getItem('token')).name,
-                   patient: this.$route.params.id,
+                   patient:'',
                    patientName: '',
                    patientContact: '',
                    items: []
@@ -89,6 +93,17 @@ import ToothSvg from "./_ToothSvg.vue";
             
         },
        async mounted(){
+
+            if(!(this.$store.state.copiedPatient )){
+                 this.$router.push({
+                    name: 'PatientDetails'
+                   
+                })
+                return;
+            }
+            this.form.patient = this.$store.state.copiedPatient._id;
+
+
             
              this.meiliSearch = new MeiliSearch({
                 host: 'https://meili-rt.herokuapp.com/',
@@ -301,7 +316,7 @@ import ToothSvg from "./_ToothSvg.vue";
                  
               </div>
           </div>
-          
+          {{this.patient}}
           <div class="grid grid-cols-2 m-5 ">
               <section class="flex border-r">
                   <div class="w-1/2">
@@ -316,6 +331,8 @@ import ToothSvg from "./_ToothSvg.vue";
                       </ul>
 
                   </div>
+
+              
                   <div class=" w-1/2 text-left ">
                       <label class="  block px-3 py-1  font-bold text-sm capitalize text-left">Services Provided</label>
                       <section v-if="service.length>0" class="mx-4 my-2 text-regal-teal space-y-3 section h-yyxl">

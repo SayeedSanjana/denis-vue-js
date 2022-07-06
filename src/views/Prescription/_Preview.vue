@@ -92,6 +92,8 @@
                 this.formData.medicine[i].isHidden = !this.formData.medicine[i].isHidden;
             },
             addService(){
+                 this.$store.commit('setCopiedPatient' , this.patient);
+
                   this.$router.push({
                         name: 'Service',
                         params: {
@@ -113,7 +115,7 @@
 
 <template>
     <div class="flex justify-end space-x-2 m-2">
-        <button @click="addService" class="bg-regal-teal p-2 rounded-full">
+        <button @click="addService()" class="bg-regal-teal p-2 rounded-full">
             <img src="@/assets/svgs/service.svg" alt="" srcset="" class="pointer-events-none">
         </button>
 
