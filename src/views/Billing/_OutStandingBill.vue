@@ -21,7 +21,7 @@
           
             <div class="mx-24 my-5">
              
-                <Grid :method="addPayment" :data="bills" :columns="gridColumns" :filter-key="searchQuery"/>
+                <Grid :method="addPayment" :data="bills" :columns="gridColumns" :filter-key="searchQuery" @empty="search"/>
                 
             </div>
 
@@ -42,7 +42,7 @@
 <script>
 
     import Pagination from '../../components/Pagination.vue'
-    import Grid from '../../components/Grid.vue'
+    import Grid from './BillGrid.vue'
     // import moment from "moment";
     export default {
 
@@ -55,9 +55,9 @@
             bills: {
                 type: Array,
             },
-            totalData: {
-                type: Number,          
-            },
+            // totalData: {
+            //     type: Number,          
+            // },
             perPage: {
                 type: Number,
                
@@ -72,6 +72,7 @@
             },
             searchQuery: {
                 type: String,
+
                
             },
             onPageChange: {
@@ -87,6 +88,10 @@
                 type: Function,
                
             },
+            // search: {
+            //     type: Function,
+               
+            // },
 
 
            
@@ -116,6 +121,21 @@
         },
         methods: {
            
+             search(bool){
+
+                if(bool){
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery,
+                    
+                }
+                this.$store.dispatch('fetchBills', query);
+                this.bills = this.$store.state.bills;
+                
+                }
+            
+            },
             
             
         }

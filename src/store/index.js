@@ -108,7 +108,8 @@ export default createStore({
                 params: {
                     page:currentPage,
                     limit:perPage,
-                    q:text
+                    q:text,
+                    
                 },
 
             });

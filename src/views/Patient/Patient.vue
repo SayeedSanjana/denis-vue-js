@@ -94,7 +94,7 @@ import Pagination from '../../components/Pagination.vue'
         '$store.state.patients': function() {
           
             this.patients = [...this.$store.state.patients];
-            console.log(this.patients);
+            
             
             this.patients.forEach(patient => {
                 
@@ -107,12 +107,12 @@ import Pagination from '../../components/Pagination.vue'
             });
 
                 },
-            '$store.state.totalPatient': function() {
+            // '$store.state.totalPatient': function() {
 
-                this.totalData = this.$store.state.totalPatient;
+            //     this.totalData = this.$store.state.totalPatient;
 
           
-            },
+            // },
            
     },
     computed: {
@@ -176,7 +176,7 @@ import Pagination from '../../components/Pagination.vue'
                 text: this.searchQuery
             } 
                 this.$store.dispatch("fetchPatients" , query);
-                console.log(this.$store.state.patients);
+               
             },
            
              calculateAge(birthYear){
