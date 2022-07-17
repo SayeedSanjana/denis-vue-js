@@ -27,7 +27,7 @@
 
 
              <div class="flex justify-center my-5">
-                 <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
+                 <Pagination :totalData="getTotalOutstandingData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
              </div>
         
 
@@ -58,29 +58,29 @@
             // totalData: {
             //     type: Number,          
             // },
-            perPage: {
-                type: Number,
+            // perPage: {
+            //     type: Number,
                
-            },
-            currentPage: {
-                type: Number,
+            // },
+            // currentPage: {
+            //     type: Number,
                
-            },
-            text: {
-                type: String,
+            // },
+            // text: {
+            //     type: String,
                
-            },
-            searchQuery: {
-                type: String,
+            // },
+            // searchQuery: {
+            //     type: String,
 
                
-            },
-            onPageChange: {
-                type: Function,
+            // },
+            // onPageChange: {
+            //     type: Function,
                
-            },
+            // },
            
-            getTotalData: {
+            getTotalOutstandingData: {
                 type: Number,
                
             },
@@ -115,6 +115,10 @@
                     balance: 'balance',  
                 
                 },
+                  perPage: 10,
+               currentPage: 1,
+                text: '',
+                 searchQuery: '',
                
 
             }
@@ -130,11 +134,24 @@
                     text: this.searchQuery,
                     
                 }
-                this.$store.dispatch('fetchBills', query);
-                this.bills = this.$store.state.bills;
+                this.$store.dispatch('fetchOutstandingBills', query);
+              
+                
+                
                 
                 }
             
+            },
+              onPageChange(page) {
+
+                this.currentPage = page;
+
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                this.$store.dispatch('fetchOutstandingBills', query);
             },
             
             

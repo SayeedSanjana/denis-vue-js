@@ -1,9 +1,5 @@
 <template>
-    <!-- header -->
-    <header class="headerclass">
-        <Nav />
-    </header>
-    <!-- header -->
+    
     <div class="h-full bg-regal-white">
         <section class="w-full">
             <h3 class="headername">Account Settings </h3>
@@ -11,28 +7,24 @@
                 <!-- form -->
                 <form @submit.prevent="updateUser()" class="w-1/2">
                      <div class="flex formbox">
-                         <!-- first name starts -->
-                        <div class="w-1/2 pr-4">
-                            <label for="" class="labeldesign">First Name</label>
+                        
+                        <div class="w-full ">
+                            <label for="" class="labeldesign">Name</label>
                             <input type="text" class="inputfield" v-model="this.formData.name" @blur="v$.formData.name.$touch()" >
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
                         </div>
-                        <!-- first name ends-->
+                        
 
-                        <!-- last name starts -->
-                        <div class="w-1/2">
-                            <label for="" class="labeldesign">Last Name</label>
-                            <input type="text" class="inputfield" v-model="this.formData.name" @blur="v$.formData.name.$touch()">
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
-                        </div>
-                        <!-- last name ends-->
+                       
 
                     </div>
                     <!--date of birth starts-->
                      <div class="flex formbox">
                         <div class="w-1/2 pr-4">
-                            <label for="" class="labeldesign">Date of Birth</label>
-                            <Datepicker type="text" class="" v-model="formData.dob" @blur="v$.formData.dob.$touch()" :enableTimePicker="false"></Datepicker>
+                            <label for="dob" class="labeldesign">Date of Birth</label>
+
+                            <input type="date" class="form-input" v-model="dob" @blur="v$.formData.dob.$touch()">
+                            
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
                         </div>
                     <!-- date of birth ends -->
@@ -40,8 +32,8 @@
                     <!-- gender starts-->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Gender</label>
-                            <input type="text" class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()" >
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
+                            <input readonly type="text" class="inputfield" v-model="formData.gender" >
+                          
                         </div>
                     <!-- gender ends -->
 
@@ -84,12 +76,7 @@
 
                      <!-- More Settings starts -->
                <h3 class="headername my-1">More Settings </h3>
-                    <!-- Qualifications -->
-                    <!-- <div class="formbox w-3/5">
-                        <label for="" class="labeldesign">Qualifications</label>
-                        <textarea type="text" class="inputfield" v-model="formData.qualifications"></textarea>
-                    </div> -->
-                    <!-- Qualifications-->
+                  
 
                     <!-- Role starts -->
                     <div class="formbox  w-3/5">
@@ -224,20 +211,18 @@
 </template>
 
 <script>
-    import Nav from "../../components/Nav.vue";
+    
     import axios from "axios";
     import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
-    import Datepicker from 'vue3-date-time-picker';
     import 'vue3-date-time-picker/dist/main.css'
     import {required,minLength,sameAs,helpers,maxLength,email,numeric} from '@vuelidate/validators';
     export default {
         components: {
-            Nav,
-            Datepicker
+      
         },
         created() {
-            this.parseJwt(this.token)
+            this.parseJwt(localStorage.getItem('token'));
             this.getUser()
         },
         data() {
@@ -247,18 +232,19 @@
                 strSame:'',
                 createDate:'',
                 token: localStorage.getItem('token'),
-                uid: '',
+                uid: this.parseJwt(localStorage.getItem('token')).sub,
                 str: '',
-                fname:'',
-                lname:'',
+             
                formData: {
                     name: '',
                     email: '',
                     phone: '',
                     gender: '',
+                    dob:'',
                     address: '',
                     password: '',
                     qualifications:'',
+                    createdAt:'',
                     role:'Doctor',
                     BMDC:'1234567'
                 },
@@ -285,7 +271,7 @@
              name: {required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
              email:{required,email},
              phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
-             gender:{required},
+            //  gender:{required},
              address:{required},
              qualifications:'',
              role:{required},
@@ -295,17 +281,18 @@
             confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
      }
     },
+    computed: {
+		dob: {
+			get() {
+				return new Date(this.formData.dob).toISOString().substring(0, 10);
+			},
+			set(newValue) {
+				this.formData.dob = newValue;
+			},
+		}
+	},
         methods: {
-            parseJwt(token) {
-                var base64Url = token.split('.')[1];
-                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function (
-                    c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                const payload = JSON.parse(jsonPayload);
-                this.uid = payload.sub
-            },
+           
 
            onChange(){
                this.strSame=""
@@ -321,31 +308,26 @@
 
             //get the specific user
             async getUser() {
-                await axios.get(import.meta.env.VITE_LOCAL+'users/search/' + this.uid, {
+                await axios.get(import.meta.env.VITE_LOCAL+'users/' + this.uid, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
                     })
                     .then((response) => {
-                        this.formData = response.data['result'];
+                        this.formData = response.data.data;
                         //Getting the date from ISO Fromat
-                        let date = new Date(this.formData.createdAt);
-                        let year = date.getFullYear();
-                        let month = date.getMonth()+1;
-                        let dt = date.getDate();
-                        if (dt < 10) {
-                        dt = '0' + dt;
-                        }
-                        if (month < 10) {
-                        month = '0' + month;
-                        }
-                        date=year+'-' + month + '-'+dt;
-                        this.createDate=date
-                        //Getting the UTC+6 time from the the ISO Format
-                        var d = new Date(this.formData.createdAt);
-                        this.time=d.toLocaleTimeString();
-                        // this.time=d.toTimeString();
-                        //console.log(this.formData)
+                        this.createDate = new Date(this.formData.createdAt).toLocaleDateString('en-US', {
+                            day: 'numeric',
+                            month: 'numeric',
+                            year: 'numeric'
+                      
+                        });
+                        this.time = new Date(this.formData.createdAt).toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            second: 'numeric'
+                        });
+                       
                     })
                     .catch((error) => {
                         console.log(error)
@@ -392,7 +374,7 @@
                     this.str=""
                     this.strSame=""
                     this.form.email=this.formData.email
-                    await axios.patch(import.meta.env.VITE_LOCAL+'users/update-password/'+ this.uid, this.form, {
+                    await axios.patch(import.meta.env.VITE_LOCAL+'users/update/'+ this.uid, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             }
@@ -419,5 +401,31 @@
 </script>
 
 <style scoped>
+.labeldesign{
+    @apply flex justify-start text-regal-teal text-sm font-medium mb-2 ;
+}
+.inputfield{
+    @apply appearance-none block w-full px-4 py-2 mt-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded mb-3 leading-tight focus:outline-none focus:border-regal-blue;
+}
+.formbox{
+    @apply w-full pl-52 mt-5;
+}
+
+.headername{
+    @apply text-xl text-left font-bold pt-8 px-52 text-regal-teal;
+}
+
+.newbutton{
+    @apply px-8 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
+}
+.newbutton1{
+    @apply px-10 py-2 bg-regal-cyan text-center border text-white font-semibold rounded-md text-sm flex ;
+}
+.newbutton2{
+    @apply px-8 py-2 bg-regal-light-blue text-center border text-regal-cyan font-semibold rounded-md text-sm flex ;
+}
+.form-input {
+	@apply appearance-none py-2 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue
+  }
 
 </style>

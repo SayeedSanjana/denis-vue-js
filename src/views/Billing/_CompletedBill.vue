@@ -28,7 +28,7 @@
 
 
              <div class="flex justify-center my-5">
-                 <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
+                 <Pagination :totalData="getCompletedBills" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
              </div>
         
 
@@ -59,28 +59,17 @@
             // totalData: {
             //     type: Number,          
             // },
-            perPage: {
-                type: Number,
-               
-            },
-            currentPage: {
-                type: Number,
-               
-            },
-            text: {
-                type: String,
-               
-            },
-            searchQuery: {
-                type: String,
-               
-            },
-            onPageChange: {
-                type: Function,
-               
-            },
            
-            getTotalData: {
+            // text: {
+            //     type: String,
+               
+            // },
+            // searchQuery: {
+            //     type: String,
+               
+            // },
+           
+            getCompletedBills: {
                 type: Number,
                
             },
@@ -110,6 +99,10 @@
                     balance: 'balance',  
                 
                 },
+                perPage: 10,
+                currentPage: 1,
+                searchQuery: '',
+                text: '',
 
             }
         },
@@ -123,11 +116,23 @@
                     perPage: this.perPage,
                     text: this.searchQuery
                 }
-                this.$store.dispatch('fetchBills', query);
+                this.$store.dispatch('fetchCompletedBills', query);
 
                 }
             
             },
+             onPageChange(page) {
+
+                this.currentPage = page;
+
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                this.$store.dispatch('fetchCompletedBills', query);
+            },
+
             
             
         }

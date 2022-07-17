@@ -270,29 +270,9 @@ export default {
 		}
     },
     methods: {
-		// close() {
-		// 	this.$emit("closeModal");
-		// },
+	
 		async updatePatientInfo(id) {
-            // console.log(this.formData);
-
-			// this.v$.$touch();
-			// console.log(this.v$)
-        
-			// if (this.v$.$error) throw new Error(this.v$.$error);
-			// this.formData.phone = this.formData.phone.replace(/\s/g, '')
-
-			// if (this.formData.address === "") {
-			// 	this.formData.address = 'N/A';
-
-			// }
-			// ! biirthdate is not changing when we update the patient info
-			// !birthdate needs to be fixed
-			
-			// if (this.formData.occupation === "") {
-			// 	this.formData.occupation = 'N/A';
-
-			// }
+            
 			try {
 			if (this.v$.$error) throw new Error({message:'Invalid Input'}) 
 			const response = await axios.put(import.meta.env.VITE_LOCAL+'/patients/' + id, this.formData );

@@ -60,26 +60,26 @@
             // totalData: {
             //     type: Number,          
             // },
-            perPage: {
-                type: Number,
+            // perPage: {
+            //     type: Number,
                
-            },
-            currentPage: {
-                type: Number,
+            // },
+            // currentPage: {
+            //     type: Number,
                
-            },
-            text: {
-                type: String,
+            // },
+            // text: {
+            //     type: String,
                
-            },
-            searchQuery: {
-                type: String,
+            // },
+            // searchQuery: {
+            //     type: String,
                
-            },
-            onPageChange: {
-                type: Function,
-               
-            },
+            // },
+                // onPageChange: {
+                //     type: Function,
+                
+                // },
             changePage: {
                 type: Function,
                
@@ -114,11 +114,16 @@
                     balance: 'balance',  
                 
                 },
+                perPage: 10,
+               currentPage: 1,
+               text: '',
+                searchQuery: '',
 
             }
         },
         methods: {
             search(bool){
+               
 
                 if(bool){
                 const query = {
@@ -127,9 +132,21 @@
                     text: this.searchQuery
                 }
                 this.$store.dispatch('fetchBills', query);
-
+               
+                
                 }
             
+            },
+             onPageChange(page) {
+
+                this.currentPage = page;
+
+                const query = {
+                    currentPage: this.currentPage,
+                    perPage: this.perPage,
+                    text: this.searchQuery
+                }
+                this.$store.dispatch('fetchBills', query);
             },
             
             

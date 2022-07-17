@@ -36,8 +36,10 @@
                 <!-- user profile -->
                 <li class="dropdown relative text-left font-semibold"  >
                     
-                    
-                    <img class="px-3" src="@/assets/svgs/icon.svg" alt="user-image">
+                    <div class="p-2  rounded-full">
+
+                        <img class=" pointer-events-none " src="@/assets/svgs/user.svg" alt="user-image" >
+                    </div>
 
                     <!--
                         Dropdown menu, show/hide based on menu state.

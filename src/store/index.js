@@ -6,9 +6,13 @@ export default createStore({
 		patients: [],
         totalPatient: 0,
         totalBill: 0,
+        totalOutstandingBills: 0,
+        totalCompletedBills: 0,
         endPage: null,
         patient: {},
         bills:[],
+        outStandingBills: [],
+        completedBills: [],
         copiedPrescription: null,
         copiedPatient: null,
        
@@ -21,6 +25,18 @@ export default createStore({
             state.endPage = patients.data.nextPage
             
 		},
+        setOutstandingBills(state, outStandingBills){
+            state.outStandingBills = outStandingBills.data['data']
+            state.totalOutstandingBills = outStandingBills.data.total
+            state.endPage = outStandingBills.data.nextPage
+        },
+        setCompletedBills(state, completedBills){
+            state.completedBills = completedBills.data['data']
+            state.totalCompletedBills = completedBills.data.total
+            state.endPage = completedBills.data.nextPage
+        },
+
+
         getPatient(state, patient) {
             state.patient = patient.data
          
@@ -87,25 +103,13 @@ export default createStore({
                 )
         },
 
-        // fetchPatient({commit}, patientId) {
-        //     axios.get(import.meta.env.VITE_LOCAL+'patients/' ,{
-        //         params: {
-        //             id : patientId,
-                    
-                    
-
-        //         }
-        //     })
-        //     .then((result) => commit('getPatient', result)
-            
-        //     )
-        //     console.log(patientId);
-        // },
+       
 
       async  fetchBills ({commit} ,{currentPage, perPage, text=''}) {
         try {
             const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
                 params: {
+                   
                     page:currentPage,
                     limit:perPage,
                     q:text,
@@ -121,6 +125,53 @@ export default createStore({
         }
           
         },
+        async  fetchOutstandingBills ({commit} ,{currentPage, perPage, text=''}) {
+            try {
+                const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
+                    params: {
+
+                        "filter[paid]": false,
+                        page:currentPage,
+                        limit:perPage,
+                        q:text,
+                        
+                    },
+    
+                });
+                return commit('setOutstandingBills', data);
+                
+            } catch (error) {
+                console.log(error);    
+            }
+              
+            },
+
+            async fetchCompletedBills ({commit} ,{currentPage, perPage, text=''}) {
+                try {
+                    const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
+                        params: {
+
+                            "filter[paid]": true,
+                            page:currentPage,
+                            limit:perPage,
+                            q:text,
+                            
+                        },
+
+                    });
+                    return commit('setCompletedBills', data);
+                    
+                } catch (error) {
+                    console.log(error);    
+                }
+                  
+                }
+
+
+
+        
+
+
        
 	}
 
