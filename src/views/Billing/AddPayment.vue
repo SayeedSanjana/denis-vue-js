@@ -51,7 +51,11 @@ import PrintBill from "./_PrintBill.vue";
             async getBill(){
 
                 try {
-                    const response = await axios.get(import.meta.env.VITE_LOCAL + '/billings/p/' + this.$route.params.id);
+                    const response = await axios.get(import.meta.env.VITE_LOCAL + '/billings/p/' + this.$route.params.id, {
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    });
                    
                     this.bill= response.data.data;
                    
@@ -78,7 +82,11 @@ import PrintBill from "./_PrintBill.vue";
                 this.form.payment.push(this.addPayment);
 
                 try {
-                    const response = await axios.put(import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form);
+                    const response = await axios.put(import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form , {
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    });
                     // console.log(this.form);
                     if(response.data.status == 'success'){
                        swal({

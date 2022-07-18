@@ -53,9 +53,9 @@
                     -->
                     <div class="dropdown-menu absolute hidden right-2"  tabindex="-1">
                         <div class="dropdown-list-group">
-                            <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
+                            <!-- <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
                                     Profile Settings
-                            </router-link>
+                            </router-link> -->
                             <router-link to="/AccountSettings" class="dropdown-items" tabindex="-1">
                                 Account Settings
                             </router-link>

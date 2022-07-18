@@ -33,7 +33,7 @@
               </div>
               <div class="flex justify-between">
                   <h2 class="text-sm flex items-start text-regal-teal font-semibold title-font mb-2">{{item.patientName}},  <span class="px-2 font-semibold "> {{item.patientContact}}</span></h2>
-                  <h2 class="text-sm flex items-start text-regal-teal font-semibold title-font mb-2">{{item.doctor}} </h2>
+                  <h2 class="text-sm flex items-start text-regal-teal font-semibold title-font mb-2">{{item.title}}{{item.doctor}} </h2>
 
               </div>
               <p class="flex justify-end  text-gray-500 text-sm">Prescription Created At - <span class="italic font-semibold text-regal-teal"> {{new Date(item.createdAt).toLocaleDateString('en-US', {

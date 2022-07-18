@@ -42,6 +42,9 @@ import Preview from "./_Preview.vue"
                
                 try {
                     const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/?pid=' + this.$route.params.id , {
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
                         params:{
                             limit: 1000
                         }

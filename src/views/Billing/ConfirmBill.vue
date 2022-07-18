@@ -137,7 +137,11 @@ import swal from 'sweetalert';
                 
 
                 try {
-                    const response = await axios.put(import.meta.env.VITE_LOCAL + 'billings/save-bill/' + this.$route.params.id, this.form);
+                    const response = await axios.put(import.meta.env.VITE_LOCAL + 'billings/save-bill/' + this.$route.params.id, this.form, {
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    });
 
                     
                     if(response.data.status == 'success'){
@@ -170,7 +174,11 @@ import swal from 'sweetalert';
 
            async getPendingBill(){
                 try {
-                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pendding/' +this.$route.params.id )
+                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pendding/' +this.$route.params.id ,{
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    })
                     this.pendingBill = response.data.data;
                   
                     

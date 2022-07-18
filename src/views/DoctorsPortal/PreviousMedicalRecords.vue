@@ -196,7 +196,10 @@
                             history: this.history,
                             label: this.label
                             
-                        });
+                        },{
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                }});
                         Object.assign(this.patientInfo, response.data.data);
                         swal({
                             title: "Removed ",

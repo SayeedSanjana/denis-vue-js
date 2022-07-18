@@ -45,7 +45,7 @@ export default {
                 </div>
                
                 <div class=""><span class=" text-sm">Approved By: </span>
-                <span class=" text-sm">Dr.{{items.user.name}}</span>
+                <span class=" text-sm">{{items.user.title}} {{items.user.name}}</span>
                 </div>
                 
            

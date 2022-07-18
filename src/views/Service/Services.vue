@@ -12,10 +12,7 @@ import ToothSvg from "./_ToothSvg.vue";
             ToothSvg
         
         },
-        props:{
-
-            
-        },
+       
         data(){
             return{
                location:[],
@@ -48,6 +45,7 @@ import ToothSvg from "./_ToothSvg.vue";
                    service: '',
                    location: '',
                    date: Date.now(),
+                  
                },
 
               
@@ -72,7 +70,11 @@ import ToothSvg from "./_ToothSvg.vue";
         async created(){
             this.$store.dispatch('fetchPatient', this.$route.params.id);
             try {
-                const res = await axios.get(import.meta.env.VITE_LOCAL+'/tn/' + this.$route.params.presId);
+                const res = await axios.get(import.meta.env.VITE_LOCAL+'/tn/' + this.$route.params.presId ,{
+                    headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                });
                 if(res.data.data){
                     this.service = res.data.data.items;
                 }
@@ -118,7 +120,11 @@ import ToothSvg from "./_ToothSvg.vue";
             }
 
             try {
-                const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/' + this.$route.params.presId);
+                const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/' + this.$route.params.presId,{
+                    headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                });
                 this.objectMap(this.tp ,response.data.data);
 
                
@@ -213,7 +219,11 @@ import ToothSvg from "./_ToothSvg.vue";
 
                     // if (this.v$.$error) throw new Error('Whoops!! You need to complete the required information!!');
 
-                    const response = await axios.post(import.meta.env.VITE_LOCAL+'tn/save', this.form)
+                    const response = await axios.post(import.meta.env.VITE_LOCAL+'tn/save', this.form,{
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    })
                      this.service=response.data.data.items;
 
                     if(response.data.status === 'success'){
@@ -316,7 +326,7 @@ import ToothSvg from "./_ToothSvg.vue";
                  
               </div>
           </div>
-          {{this.patient}}
+         
           <div class="grid grid-cols-2 m-5 ">
               <section class="flex border-r">
                   <div class="w-1/2">
@@ -339,8 +349,8 @@ import ToothSvg from "./_ToothSvg.vue";
 
                           <div v-for="data in service" :key="data"
                               class="flex select-none cursor-pointer bg-gray-50 rounded-md  items-center px-4 py-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
-                              <div
-                                  class="flex flex-col rounded-full w-6 h-6 bg-gray-300 justify-center items-center mr-4">
+                              <div :class = "data.isBilled=== true ? 'bg-green-300' : 'bg-yellow-200'"
+                                  class="flex flex-col rounded-full w-6 h-6 justify-center items-center mr-4">
                                   <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
                                       <path d="M20 6L9 17l-5-5"></path>

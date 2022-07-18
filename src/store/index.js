@@ -80,6 +80,9 @@ export default createStore({
 			try {
                 
                 const data = await axios.get(import.meta.env.VITE_LOCAL+'patients', {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    },
                     params: {
                         page:currentPage,
                         limit:perPage,
@@ -98,7 +101,11 @@ export default createStore({
 
         fetchPatient ({commit}, patientId) {
             // axios.get(`http://localhost:3000/api/patients/${patientId}`)
-            axios.get(import.meta.env.VITE_LOCAL+`patients/${patientId}`)
+            axios.get(import.meta.env.VITE_LOCAL+`patients/${patientId}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+            })
                 .then((result) => commit('getPatient', result)
                 )
         },
@@ -108,6 +115,9 @@ export default createStore({
       async  fetchBills ({commit} ,{currentPage, perPage, text=''}) {
         try {
             const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
                 params: {
                    
                     page:currentPage,
@@ -128,6 +138,9 @@ export default createStore({
         async  fetchOutstandingBills ({commit} ,{currentPage, perPage, text=''}) {
             try {
                 const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    },
                     params: {
 
                         "filter[paid]": false,
@@ -149,6 +162,9 @@ export default createStore({
             async fetchCompletedBills ({commit} ,{currentPage, perPage, text=''}) {
                 try {
                     const data = await axios.get(import.meta.env.VITE_LOCAL+'billings', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
                         params: {
 
                             "filter[paid]": true,

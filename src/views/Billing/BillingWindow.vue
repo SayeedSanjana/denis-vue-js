@@ -113,6 +113,9 @@ import axios from "axios";
                   try {
                       const response = await axios.get(
                           import.meta.env.VITE_LOCAL + '/tn/billable-items', {
+                            headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
                               params: {
                                   limit: 1000
                               }

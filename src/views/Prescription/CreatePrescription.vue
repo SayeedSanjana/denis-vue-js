@@ -38,6 +38,11 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 tptext:'',
                 tplist:[],
                 doctor: this.parseJwt(localStorage.getItem('token')).name,
+                docEmail: this.parseJwt(localStorage.getItem('token')).email,
+                docPhone: this.parseJwt(localStorage.getItem('token')).phone,
+                docQualification: this.parseJwt(localStorage.getItem('token')).qualification,
+                docBMDC: this.parseJwt(localStorage.getItem('token')).bmdc,
+                docTitle: this.parseJwt(localStorage.getItem('token')).title,
                
             form: {
                 user: this.parseJwt(localStorage.getItem('token')).sub,
@@ -504,7 +509,11 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 				if (this.v$.$error) throw new Error("Whoops!! You need to complete the required information!!");
               
                
-                const response = await axios.post(import.meta.env.VITE_LOCAL+'prescriptions', this.form);
+                const response = await axios.post(import.meta.env.VITE_LOCAL+'prescriptions', this.form,{
+                    headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                });
                 Object.assign(this.pres, response.data.data);
                 
                 if(response.data.status === 'success'){
@@ -608,26 +617,27 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                         <ul>
 
                             <li class="font-semibold text-xl text-right">
-                              Dr. {{doctor}}
+                             {{docTitle}} {{doctor}}
                             </li>
+                            
 
-
-                            <li class="text-sm text-right">
-                                BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
+                            <li class="text-sm text-right w-72">
+                                <!-- BDS,BCS,MPH,NST Fellow MS (Conservative Dentistry), <br />
                                 PhD (USA), FICD (USA)DIrector (Dental Education) <br />
-                                Directorat General of medical Education
+                                Directorat General of medical Education -->
+                                {{docQualification}}
                             </li>
                             <li class="text-sm text-right">
                                 <span class=" font-semibold">BMDC No: </span>
-                                <span class="text-sm">12345</span>
+                                <span class="text-sm">{{docBMDC}}</span>
                             </li>
                             <li class="text-sm text-right">
                                 <span class=" font-semibold">Contact: </span>
-                                <span class="">01236521458</span>
+                                <span class="">{{docPhone}}</span>
                             </li>
                             <li class=" text-sm text-right">
                                 <span class=" font-semibold">Email: </span>
-                                <span class="">dr.xyz@mail.com</span>
+                                <span class="">{{docEmail}}</span>
                             </li>
 
                         </ul>

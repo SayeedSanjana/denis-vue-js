@@ -165,28 +165,29 @@
                 <ul>
 
                     <li class="font-semibold text-lg text-right">
-                        {{formData.user.name}}
+                       {{formData.user.title}} {{formData.user.name}}
                     </li>
 
-                    <li class="text-xs text-right">
-                        BDS,BCS,MPH,NST Fellow MS, <br />
+                    <li class="text-xs text-right w-72">
+                        <!-- BDS,BCS,MPH,NST Fellow MS, <br />
                         PhD (USA), FICD (USA)DIrector (Dental Education) <br />
-                        Directorat General of medical Education
+                        Directorat General of medical Education -->
+                        {{formData.user.qualification}}
                     </li>
 
                     <li class="text-xs text-right ">
                         <span class=" font-semibold">BMDC No: </span>
-                        <span class="text-sm">12345</span>
+                        <span class="text-sm">{{formData.user.BMDC}}</span>
                     </li>
 
                     <li class="text-xs text-right">
                         <span class=" font-semibold">Contact: </span>
-                        <span class="">01236521458</span>
+                        <span class="">{{formData.user.phone}}</span>
                     </li>
 
                     <li class=" text-xs text-right">
                         <span class=" font-semibold">Email: </span>
-                        <span class="">dr.xyz@mail.com</span>
+                        <span class="">{{formData.user.email}}</span>
                     </li>
 
                 </ul>

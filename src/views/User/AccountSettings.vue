@@ -23,7 +23,7 @@
                         <div class="w-1/2 pr-4">
                             <label for="dob" class="labeldesign">Date of Birth</label>
 
-                            <input type="date" class="form-input" v-model="dob" @blur="v$.formData.dob.$touch()">
+                            <input type="date" class="form-input" v-model="formData.dob" @blur="v$.formData.dob.$touch()">
                             
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
                         </div>
@@ -32,7 +32,8 @@
                     <!-- gender starts-->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Gender</label>
-                            <input readonly type="text" class="inputfield" v-model="formData.gender" >
+                            <input type="text" disabled class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
                           
                         </div>
                     <!-- gender ends -->
@@ -48,28 +49,20 @@
                         </div>
                     <!-- email ends -->
 
-                    <!-- user ID starts -->
-                        <div class="w-1/2">
-                            <label for="" class="labeldesign">User ID</label>
-                            <input type="text" class="inputfield" v-model="formData._id" readonly>
-                        </div>
-                    <!-- user ID ends-->
-                    </div>
-
-                    <!-- contact starts -->
-                     <div class="flex formbox">
-                        <div class="w-1/2 pr-4">
+                        <div class="w-1/2 ">
                             <label for="" class="labeldesign">Contact</label>
                             <input type="text" class="inputfield" v-model="formData.phone" @blur="v$.formData.phone.$touch()">
                             <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                         </div>
-                        <!-- contact ends -->
+                    
                     </div>
+
+                   
 
                     <!-- address starts -->
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
-                        <textarea type="text" class="h-40 inputfield" v-model="formData.address" @blur="v$.formData.address.$touch()"></textarea>
+                        <textarea type="text" class="h-32 inputfield" v-model="formData.address" @blur="v$.formData.address.$touch()"></textarea>
                         <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
                     </div>
                     <!-- address ends -->
@@ -79,18 +72,24 @@
                   
 
                     <!-- Role starts -->
-                    <div class="formbox  w-3/5">
+                    <!-- <div class="formbox  w-3/5">
                         <label for="" class="labeldesign">Role/User Catagory</label>
                         <input type="text" class="inputfield bg-regal-white" v-model="formData.role" readonly>
-                    </div>
+                    </div> -->
                     <!-- Role ends -->
 
                      <!-- Role -->
-                    <div class="formbox w-3/5 mb-7 ">
-                        <label for="" class="labeldesign">BMDC no.</label>
-                        <input type="text" class="inputfield bg-regal-white" v-model="formData.BMDC" readonly>
-                    </div>
+                        <!-- <div class="formbox w-3/5 mb-7 ">
+                            <label for="" class="labeldesign">BMDC no.</label>
+                            <input type="text" class="inputfield bg-regal-white" v-model="formData.BMDC" disabled >
+                        </div> -->
                     <!-- Role -->
+
+                    <div class="formbox">
+                        <label for="" class="labeldesign">Qualification</label>
+                        <textarea type="text" class="h-32 inputfield" v-model="formData.qualification" @blur="v$.formData.qualification.$touch()"></textarea>
+                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.qualification.$error">{{v$.formData.qualification.$errors[0].$message}}</small>
+                    </div>
 
                    <!-- More Settings ends-->
 
@@ -116,8 +115,8 @@
                             <div class=" pt-10 rounded-t-lg bg-regal-cyan"></div>
                             <div class="flex justify-between p-4 mt-2">
                                 <div class="ml-3 ">
-                                    <h4 class="text-xl text-regal-teal font-semibold mb-2">Dr. {{this.formData.name}}</h4>
-                                    <p class="text-left text-regal-teal ">Role {{this.formData.role}}</p>
+                                    <h4 class="text-xl text-regal-teal font-semibold mb-2">{{this.formData.title}} {{this.formData.name}}</h4>
+                                    <!-- <p class="text-left text-regal-teal ">Role {{this.formData.role}}</p> -->
                                 </div>
                                 <div class="mr-3">
                                     <h4 class="text-xl text-regal-teal font-semibold mb-2"> MT DENTAL CENTER</h4>
@@ -127,12 +126,16 @@
 
                             <div class="flex justify-between ">
                                 <div class="p-2 ml-5">
-                                    <h1 class="flex justify-start text-regal-teal mb-1"><span> Email </span><span class="ml-20 pl-1 pr-2">:</span><span>{{this.formData.email}}</span></h1>
-                                    <h1 class="flex justify-start text-regal-teal mb-1"><span> Phone Number </span><span class="ml-4 pr-2">:</span> <span>{{this.formData.phone}}</span></h1>
-                                    <h1 class="flex justify-start text-regal-teal mb-1"><span> Address </span><span class="ml-16 pr-2">:</span> <span>{{this.formData.address}}</span></h1>
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Email </span><span class="ml-20 pl-1 pr-2">:</span><span>{{this.formData.email}}</span></h3>
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Phone Number </span><span class="ml-4 pr-2">:</span> <span>{{this.formData.phone}}</span></h3>
+                                    <div v-show="this.formData.title ==='Dr.'  ">
+                                        <h3 class="flex justify-start text-regal-teal mb-1"><span> BMDC </span><span class="ml-16 pl-3 pr-2">:</span> <span>{{this.formData.BMDC}}</span></h3>
+                                    </div>
+                                    
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Address </span><span class="ml-16 pr-2">:</span> <span>{{this.formData.address}}</span></h3>
                                 </div>
 
-                                <div class="mt-5">
+                                <div class="mt-7">
                                     <svg width="120" height="100" viewBox="0 0 188 145" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -215,7 +218,6 @@
     import axios from "axios";
     import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
-    import 'vue3-date-time-picker/dist/main.css'
     import {required,minLength,sameAs,helpers,maxLength,email,numeric} from '@vuelidate/validators';
     export default {
         components: {
@@ -236,6 +238,7 @@
                 str: '',
              
                formData: {
+                    title: '',
                     name: '',
                     email: '',
                     phone: '',
@@ -243,10 +246,10 @@
                     dob:'',
                     address: '',
                     password: '',
-                    qualifications:'',
+                    qualification:'',
                     createdAt:'',
-                    role:'Doctor',
-                    BMDC:'1234567'
+                    // role:'Doctor',
+                    BMDC:''
                 },
                 //oldPassword: '',
                // newPassword: '',
@@ -271,26 +274,17 @@
              name: {required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
              email:{required,email},
              phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
-            //  gender:{required},
+             gender:{required},
              address:{required},
-             qualifications:'',
-             role:{required},
+             qualification:{required},
+            //  role:{required},
              BMDC:{required},
              dob:{required}
             },
             confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
      }
     },
-    computed: {
-		dob: {
-			get() {
-				return new Date(this.formData.dob).toISOString().substring(0, 10);
-			},
-			set(newValue) {
-				this.formData.dob = newValue;
-			},
-		}
-	},
+   
         methods: {
            
 
@@ -307,15 +301,18 @@
             },
 
             //get the specific user
-            async getUser() {
-                await axios.get(import.meta.env.VITE_LOCAL+'users/' + this.uid, {
+             getUser() {
+                axios.get(import.meta.env.VITE_LOCAL+'users/' + this.uid, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
                     })
                     .then((response) => {
-                        this.formData = response.data.data;
+                        Object.assign(this.formData, response.data.data);
+                        // this.formData = response.data.data;
                         //Getting the date from ISO Fromat
+                        this.formData.dob = new Date(this.formData.dob).toISOString().substring(0, 10);
+
                         this.createDate = new Date(this.formData.createdAt).toLocaleDateString('en-US', {
                             day: 'numeric',
                             month: 'numeric',
@@ -334,15 +331,17 @@
                     })
             },
 
-            async updateUser() {
+             updateUser() {
                 this.v$.formData.name.$touch();
                 this.v$.formData.gender.$touch();
                 this.v$.formData.email.$touch();
                 this.v$.formData.phone.$touch();
-                this.v$.formData.address.$touch();    
+                this.v$.formData.address.$touch();
+                this.v$.formData.qualification.$touch();
+
                 this.v$.formData.dob.$touch();                     
-                if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (this.strSame.length<=0)) {
-                await axios.put(import.meta.env.VITE_LOCAL+'users/update/' + this.uid, this.formData, {
+                if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (!this.v$.formData.qualification.$error) && (this.strSame.length<=0)) {
+                 axios.put(import.meta.env.VITE_LOCAL+'users/' + this.uid, this.formData, {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem('token') }`
                         }
@@ -374,7 +373,7 @@
                     this.str=""
                     this.strSame=""
                     this.form.email=this.formData.email
-                    await axios.patch(import.meta.env.VITE_LOCAL+'users/update/'+ this.uid, this.form, {
+                    await axios.patch(import.meta.env.VITE_LOCAL+'users/'+ this.uid, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             }
