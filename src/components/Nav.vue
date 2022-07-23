@@ -1,85 +1,83 @@
 <template>
-    <div class="">
-        <nav class="bg-white shadow" style="background:#73C6CA">
-            <div class="container px-6 py-3 mx-auto">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <a class="text-xl font-semibold text-gray-800 dark:text-white lg:text-2xl hover:text-gray-700 dark:hover:text-gray-300"
-                                href="#" style="color:#005072">MT Dental Center</a>
+    
+    <nav class=" shadow sticky z-40 bg-gradient-to-l from-regal-cyan-teal to-regal-teethblue">
+        
+        <div class="flex justify-between container py-3 mx-auto items-center">
+            
+            <router-link :to="{ name:'Patient'}" class="text-xl font-semibold lg:text-2xl text-regal-teal"
+                
+                >
+                MT Dental Center
+            </router-link>
+        
+            <ul class="flex items-center">
+                <li class="px-2">
+                    <router-link :to="{ name:'Patient'}"
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        Patient</router-link>
 
-                        </div>
+                </li>
+                <!-- <li class="px-2">
+                 
+                    <router-link to='/AppointmentPortal'
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        <span class="">Appointment</span>
+                    </router-link>
 
-                        <!-- Mobile menu button -->
-                        <div class="flex md:hidden">
-                            <button type="button" @click="toggle"
-                                class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
-                                aria-label="toggle menu">
-                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-                                    <path fill-rule="evenodd"
-                                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
-                                    </path>
-                                </svg>
-                            </button>
+                </li> -->
+                
+                <li class="px-2">
+                    <!-- Billing -->
+                    <router-link :to="{name: 'BillingWindow'}"
+                        class="text-md font-semibold text-white hover:text-regal-teal hover:underline">
+                        Billing</router-link>
+
+                </li>
+                <!-- user profile -->
+                <li class="dropdown relative text-left font-semibold"  >
+                    
+                    <div class="p-2  rounded-full">
+
+                        <img class=" pointer-events-none " src="@/assets/svgs/user.svg" alt="user-image" >
+                    </div>
+
+                    <!--
+                        Dropdown menu, show/hide based on menu state.
+
+                        Entering: "transition ease-out duration-100"
+                        From: "transform opacity-0 scale-95"
+                        To: "transform opacity-100 scale-100"
+                        Leaving: "transition ease-in duration-75"
+                        From: "transform opacity-100 scale-100"
+                        To: "transform opacity-0 scale-95"
+                    -->
+                    <div class="dropdown-menu absolute hidden right-2"  tabindex="-1">
+                        <div class="dropdown-list-group">
+                            <!-- <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
+                                    Profile Settings
+                            </router-link> -->
+                            <router-link to="/AccountSettings" class="dropdown-items" tabindex="-1">
+                                Account Settings
+                            </router-link>
+                            <router-link to="/" @click="logout" class="dropdown-items" tabindex="-1">
+                                Logout
+                            </router-link>
                         </div>
                     </div>
 
-
-                    <div class="items-center md:flex">
-                        <div>
-                            <div class="flex flex-col mt-2 md:flex-row md:mt-0 md:mx-1" v-show="isOpen">
-                                <router-link to="/patient"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline" >
-                                    Patient</router-link>
-                                <router-link to="/patient-list-billing"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Billing</router-link>
-
-                                <router-link to="/" @click="logout"
-                                    class="my-1 text-md font-semibold text-white leading-5  md:mx-4 md:my-0 hover:text-regal-teal hover:underline">
-                                    Logout
-                                </router-link>
-                            </div>
-                        </div>
-                        
-                        <!-- Search input on mobile screen -->
-                        <div class="mt-3 md:hidden hidden">
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                                        <path
-                                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
-                                </span>
-
-                                <input type="text"
-                                    class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                                    placeholder="Search">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+                    
+                </li>
+            </ul> 
+        </div>
+        
+    </nav>
+    
 </template>
-
 <script>
     export default {
-        data() {
-            return {
-                isOpen: true,
-            }
-        },
+        
         methods: {
-
-            toggle: function () {
-                this.isOpen = !this.isOpen
-            },
-
-
+            
             logout() {
                 localStorage.clear()
             },
@@ -88,5 +86,15 @@
 </script>
 
 <style scoped>
-
+    .dropdown-list-group {
+        @apply py-1 text-regal-teal text-opacity-60;
+        @apply bg-white block w-56 mt-2 rounded-md shadow-lg;
+        @apply ring-1 ring-regal-cyan-teal ring-opacity-20 focus:outline-none;
+    }
+    .dropdown-items{
+        @apply block px-4 py-2 text-sm;
+    }
+    .dropdown-items:hover{
+        @apply bg-gray-200 text-regal-teal;
+    }
 </style>

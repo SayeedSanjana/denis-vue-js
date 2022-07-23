@@ -26,11 +26,9 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model.trim="formData.email" type="email"
-                                                class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
-                                                style="background:#E7FBFC">
+                                            <input v-model.trim="formData.email" type="email" @blur="v$.formData.email.$touch()"  class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
-                                        <small class="text-regal-red mb-2">{{this.strEmail}}</small>
+                                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                                     </div>
                                 </div>
                                 <!-- Email Input ends-->
@@ -43,16 +41,14 @@
                                             <div
                                                 class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                                                 <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="formData.password" type="password"
-                                                class="w-full h-12 -ml-10 pl-10 pr-3 py-2 rounded outline-none text-regal-teal"
-                                                style="background:#E7FBFC">
+                                            <input v-model="formData.password" type="password" @blur="v$.formData.password.$touch()"  class="w-full h-12 -ml-10 pl-4 pr-3 py-2 rounded outline-none text-regal-teal" style="background:#E7FBFC">
                                         </div>
-                                        <small class="text-regal-red mb-2">{{this.strPassword}}</small>
+                                      <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.password.$error">{{v$.formData.password.$errors[0].$message}}</small>
                                     </div>
                                 </div>
                                   <!-- Password Input starts--> 
 
-                                <small class="text-regal-red mb-2">{{this.err}}</small>
+                               
 
                                 <!-- Button For Login starts -->
                                 <div class="flex justify-center -mx-3 border-b border-gray-300 ">
@@ -64,7 +60,6 @@
                                 </div>
                                 <!-- Button For Login ends --> 
 
-                                <p v-if="!formIsValid" class="text-red-500 mb-4 text-center">{{this.str}}</p>
                                 
                                 <!-- Button For Create Account Starts --> 
                                 <div class="flex justify-center 2xl:-mx-12 -mx-1 mt-8">
@@ -95,53 +90,69 @@
 
 <script>
     import axios from 'axios';
+    import useValidate from '@vuelidate/core';
+    import {required,minLength,email} from '@vuelidate/validators';
     export default {
+       
         data() {
             return {
-                err: '',
+               
                 formData: {
-
-                    email: '',
-                    password: '',
+                email: '',
+                password: '',
                 },
-                strPassword: '',
-                strEmail: '',
-                formIsValid: true
-
             }
         },
+     setup(){
+        return{
+            v$: useValidate(),
+        }
+    },
+     validations() {
+         return {
+             formData: {
+                 email: {
+                     required,
+                     email
+                 },
+                 password: {
+                     required,
+                     minLength: minLength(8)
+                 },
+             }
+         }
+     },
         methods: {
+            
+            onChange(){
+              this.v$.$validate()
+            },
             //Login Form
             async submitForm() {
-                this.formIsValid = true;
-
-                if (this.formData.email === '') {
-                    this.strPassword = '',
-                        this.strEmail = 'Email cannot be blank';
-                } else if (this.formData.password === '') {
-                    this.strEmail = '',
-                        this.strPassword = 'Password cannot be blank';
-                } else if (this.formData.password.length < 8) {
-                    this.strEmail = '',
-                        this.strPassword = 'Password should be atleast 8 characters'
-                } else {
-                    await axios.post('users/login', this.formData, )
-                        .then((response) => {
-                            if (response.data.token) {
-                                localStorage.setItem("token", response.data.token)
-                            }
-                            this.$router.push('/patient');
-                        })
-                        .catch((error) => {
-                            this.err = "Invalid Information"
-                            console.log(error)
-                        })
+            this.v$.$touch()
+            if (!this.v$.$error) {
+                await axios.post(import.meta.env.VITE_LOCAL+'users/login', this.formData, )
+                .then((response) => {
+                if (response.data.data !== null) {
+                    localStorage.setItem("token", response.data.data)
+                    
+                }
+                // const result = JSON.stringify(response.data.data)
+                // localStorage.setItem('token' , result)
+                // console.log(response.data.data);
+                // console.log(localStorage.getItem('token'));
+                
+                this.$router.push('/patient');
+                })
+                .catch((error) => {
+                
+                console.log(error)
+            })
+           
+            }
+                    
                 }
             },
-
-
-
-        }
     }
 </script>
 

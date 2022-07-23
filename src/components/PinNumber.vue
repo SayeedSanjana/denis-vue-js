@@ -21,7 +21,7 @@
             <div class="font-thin pr-24 pb-4 text-lg">Ask admin for the pin code</div>
             <div class="flex justify-between">
               <div class="flex">
-                <input v-model="pinno"
+                <input v-model="this.pinno" @keypress="onChange()"
                   class=" border mx-2 rounded-lg flex items-center text-center font-thin text-3xl test" maxlength="4"
                   max="4" min="0" inputmode="decimal" type="password">
               </div>
@@ -50,7 +50,7 @@
   import swal from 'sweetalert';
   export default {
     props: {
-      pin: String,
+      pin: Number,
       formData: Object
     },
     data() {
@@ -65,17 +65,20 @@
       closeModal() {
         this.$emit("closeModal")
       },
-
+      onChange(){
+        this.err=""
+      },
       async validate() {
-
         var code = this.pinno
-        console.log(typeof (this.pin))
-
+        console.log("pinnumber");
+        // console.log(typeof (this.pin))
         code = parseInt(code)
         console.log(typeof (code))
+        
         if (code === this.pin) {
-          await axios.post('users/signup', this.formData)
+          await axios.post(import.meta.env.VITE_LOCAL+'users/signup', this.formData)
             .then((response) => {
+              this.err=""
               swal({
                 title: "Success",
                 text: "Doctor created Successfully!",
@@ -85,12 +88,11 @@
               })
               console.log(response)
               this.$router.push('/');
-
             })
             .catch((error) => {
+              this.err="Something went wrong.Please try again!"
               console.log(error)
             })
-
         } else {
           this.err = "Pin number doesnot match"
         }

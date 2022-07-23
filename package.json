@@ -1,55 +1,35 @@
 {
   "name": "denis-vue-js",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite --host",
+    "build": "vite build"
   },
   "dependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.2",
-    "autoprefixer": "^9",
+    "@tiptap/extension-bullet-list": "^2.0.0-beta.26",
+    "@tiptap/extension-list-item": "^2.0.0-beta.20",
+    "@tiptap/extension-underline": "^2.0.0-beta.23",
+    "@tiptap/starter-kit": "^2.0.0-beta.185",
+    "@tiptap/vue-3": "^2.0.0-beta.91",
+    "@vuelidate/core": "^2.0.0-alpha.30",
+    "@vuelidate/validators": "^2.0.0-alpha.24",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
-    "dotenv": "^10.0.0",
-    "easyinvoice": "^1.0.148",
-    "moment": "^2.29.1",
-    "postcss": "^7",
-    "print-js": "^1.6.0",
+    "jwt-decode": "^3.1.2",
+    "meilisearch": "^0.25.1",
+    "moment": "^2.29.3",
     "sweetalert": "^2.1.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue": "^3.2.36",
+    "vue-router": "^4.0.15",
+    "vue3-date-time-picker": "^2.4.2",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "vue-cli-plugin-tailwind": "~2.0.6"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/compiler-sfc": "^3.2.36",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.9"
+  }
 }
