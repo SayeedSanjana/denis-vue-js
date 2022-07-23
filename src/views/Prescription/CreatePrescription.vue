@@ -203,8 +203,8 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
            
        
             this.meiliSearch = new MeiliSearch({
-                host: 'https://meili-rt.herokuapp.com/',
-                apiKey: 'ImBadass',
+                host: '157.245.202.136',
+                apiKey: import.meta.env.MeiliSearch_Key,
             });
 
             if(this.copiedData){
