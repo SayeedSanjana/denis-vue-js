@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
     export default {
 
         props: {
@@ -62,30 +63,56 @@
 
 
                 const prtHtml = document.getElementById('print').innerHTML;
+                const cssUrl = document.querySelectorAll('link[rel="stylesheet"], style')[1].href
+                if(!cssUrl) {
+                    let stylesHtml = '';
+                    for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+                        stylesHtml += node.outerHTML;
+                    }
+                    // Open the print window
+                    const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
 
-                let stylesHtml = '';
-                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
-                    stylesHtml += node.outerHTML;
+                    WinPrint.document.write(`<!DOCTYPE html>
+                            <html>
+                            <head>
+                                ${stylesHtml}
+                            </head>
+                            <body>
+                                ${prtHtml}
+                            
+                            </body>
+                            </html>`);
+
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                } else {
+                    axios.get(cssUrl).then(res => {
+                    let styles = res.data;
+                    // Open the print window
+                    const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+
+                    WinPrint.document.write(`<!DOCTYPE html>
+                            <html>
+                            <head>
+                                <style type="text/css">
+                                ${styles}
+                                </style>
+                            </head>
+                            <body>
+                                ${prtHtml}
+                            
+                            </body>
+                            </html>`);
+
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                })
                 }
 
-                // Open the print window
-                const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
-
-                WinPrint.document.write(`<!DOCTYPE html>
-                        <html>
-                        <head>
-                            ${stylesHtml}
-                        </head>
-                        <body>
-                            ${prtHtml}
-                           
-                        </body>
-                        </html>`);
-
-                WinPrint.document.close();
-                WinPrint.focus();
-                WinPrint.print();
-                WinPrint.close();
             },
 
             selectMedicine(i) {
