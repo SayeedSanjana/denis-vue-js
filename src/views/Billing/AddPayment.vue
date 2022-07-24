@@ -18,7 +18,8 @@ import PrintBill from "./_PrintBill.vue";
                 },
                 form:{
                     prescription : this.$route.params.id,
-                    payment:[]
+                    payment:[],      
+                    schema_version:1
                 },
                 addPayment:{
                         date: Date.now(),
