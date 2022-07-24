@@ -203,7 +203,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
            
        
             this.meiliSearch = new MeiliSearch({
-                host: '157.245.202.136',
+                host: 'https://157.245.202.136/',
                 apiKey: import.meta.env.MeiliSearch_Key,
             });
 
