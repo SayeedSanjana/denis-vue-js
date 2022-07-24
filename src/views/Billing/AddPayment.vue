@@ -14,12 +14,13 @@ import PrintBill from "./_PrintBill.vue";
                 bill:{
                     totalAmountPaid: 0,
                     balance: 0,
-                    payment:[]
+                    payment:[],
+                    schema_version: 0
                 },
                 form:{
                     prescription : this.$route.params.id,
                     payment:[],      
-                    schema_version:1
+                    schema_version: 0
                 },
                 addPayment:{
                         date: Date.now(),
@@ -80,8 +81,9 @@ import PrintBill from "./_PrintBill.vue";
            
 
             async updatePayment(){
-                this.form.payment.push(this.addPayment);
-
+                if( this.bill.schema_version == 1){
+                    this.form.schema_version = 1;
+                    this.form.payment.push(this.addPayment);
                 try {
                     const response = await axios.put(import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form , {
                         headers: {
@@ -110,6 +112,41 @@ import PrintBill from "./_PrintBill.vue";
                             button: false,
                        });
                     
+                }
+                }
+                else{
+                   
+                    this.form.payment.push(this.addPayment);
+                     try {
+                    const response = await axios.put(import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form , {
+                        headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                },
+                    });
+                    // console.log(this.form);
+                    if(response.data.status == 'success'){
+                       swal({
+                          title: "Success",
+                            text: "Payment has been saved",
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
+                       });
+                          this.$router.push('/BillingWindow');
+                    }
+             
+                    
+                } catch (error) {
+                   swal({
+                          title: "Error",
+                            text: "Add Paid Amount",
+                            icon: "error",
+                            timer: 2000,
+                            button: false,
+                       });
+                    
+                }
+
                 }
             }
         }
