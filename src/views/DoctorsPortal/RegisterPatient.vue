@@ -21,6 +21,7 @@ export default {
         }
       }
     },
+	
 	setup() {
         return {
             v$: useValidate(),
@@ -73,6 +74,7 @@ export default {
                 },
 				});
 				
+				
 				if(response.data.status === 'success'){
 					this.$store.commit("registerPatient", response.data.data)
 					// this.$emit('register', response.data.data);
@@ -84,6 +86,7 @@ export default {
 						timer: 1000,
 						buttons: false
 					});
+					window.location = `/patient`;
 
 				}
 				
