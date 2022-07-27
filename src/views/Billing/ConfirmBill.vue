@@ -241,8 +241,20 @@ import swal from 'sweetalert';
                     <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
                     <button type="submit"   :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}" :disabled="!(isEnabled)" >Confirm</button>
                 </article>
+
+                <article class="p-6  bg-regal-teal rounded-lg">
+                    <div class="text-left text-regal-white">
+                         <h2 class="font-semibold">Billed to</h2>
+                        <p class="font-medium">Patient Name - <span class="font-semibold">{{pendingBill.patientName}}</span> </p>
+                        <p class="font-medium">Contact - <span class="font-semibold">{{pendingBill.patientContact}}</span> </p>
+
+                    </div>
+                   
+
+              
+                </article>
                 
-                <article class="flex justify-between mb-4">
+                <article class="flex justify-between mb-4 mt-4">
                     <div class="text-left w-3/6 mr-3">
                         <label for="">Service</label>
                         <input v-model="item.service" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">

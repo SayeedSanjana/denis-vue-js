@@ -7,7 +7,7 @@
                 <div class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
                     <label class="mx-5">Patient</label>
     
-                    <button name="edit" @click="openModal($event)" class=""> 
+                    <button name="edit" @click="openModal($event)" class="" title="Update Patient Information"> 
                         <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 " >                
                     </button> 
                 </div>
@@ -36,7 +36,7 @@
                 <div class=" bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
                     <label class="mx-5">Medical History</label>
                    
-                    <button name="addHst" @click="openModal($event)">
+                    <button name="addHst" @click="openModal($event)" title="Add Medical History">
                         <img src="@/assets/svgs/plus.svg" class="pointer-events-none">                
                     </button>
                 </div>
