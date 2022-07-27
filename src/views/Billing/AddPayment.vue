@@ -290,6 +290,8 @@ import PrintBill from "./_PrintBill.vue";
                                 <option value="rocket">Rocket</option>
                                 <option value="masterCard">MasterCard</option>
                                 <option value="visa">Visa</option>
+                                <option value="cheque">Cheque</option>
+                                <option value="account">Account</option>
                             </select>
 
                         </div>
