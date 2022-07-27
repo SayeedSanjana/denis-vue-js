@@ -322,7 +322,7 @@ import ToothSvg from "./_ToothSvg.vue";
               <div class="m-2 ">
 
 
-                  <router-link :to="{name:'PatientDetails'}" class="btn mx-1" type="button">Back</router-link>
+                  <router-link :to="{name:'PatientDetails'}" class="px-3 py-1 rounded-md font-semibold text-white bg-regal-teal mx-1" type="button">Back</router-link>
                  
               </div>
           </div>
@@ -467,7 +467,7 @@ import ToothSvg from "./_ToothSvg.vue";
                               </div>
                               <div class="mx-5">
 
-                                  <button type="button" class="btn w-full" @click="addService">Add</button>
+                                  <button type="button" class="px-3 py-1 rounded-md font-semibold text-white bg-regal-teal w-full" @click="addService">Add</button>
                               </div>
                           </div>
     
@@ -518,7 +518,7 @@ import ToothSvg from "./_ToothSvg.vue";
                          <div v-else class="  p-4 m-4 w-full font-bold text-regal-teal ">
                              <p>No services Added</p>
                          </div>
-                         <button type="submit" class="btn  flex items-start">Submit</button>
+                         <button type="submit" class="px-3 py-1 rounded-md font-semibold text-white bg-regal-teal flex items-start">Submit</button>
                      </section>
                   </form>
               </section>
@@ -537,7 +537,7 @@ import ToothSvg from "./_ToothSvg.vue";
     @apply  px-3 py-1 rounded-md font-semibold text-white bg-regal-teal;
 }
 .btn:hover{
-    @apply bg-regal-cyan;
+    @apply bg-regal-cyan ;
 }
  .form-error-text {
 	@apply  px-4 text-regal-red text-sm;

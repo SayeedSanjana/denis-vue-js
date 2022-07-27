@@ -142,15 +142,15 @@ import axios from 'axios';
 
 <template>
     <div class="flex justify-end space-x-2 m-2">
-        <button @click="addService()" class="bg-regal-teal p-2 rounded-full">
+        <button @click="addService()" class="bg-regal-teal p-2 rounded-full" title="Add Services">
             <img src="@/assets/svgs/service.svg" alt="" srcset="" class="pointer-events-none">
         </button>
 
-        <button type="button " class="p-2 rounded-full  bg-regal-teal" @click="copyPrescription()">
+        <button type="button " class="p-2 rounded-full  bg-regal-teal" @click="copyPrescription()" title="Copy Prescription">
             <img src="@/assets/svgs/copy.svg" class="pointer-events-none">
         </button>
 
-        <button type="button" class="p-2 bg-regal-teal rounded-full " @click="print">
+        <button type="button" class="p-2 bg-regal-teal rounded-full " @click="print" title="Print Prescription">
             <img src="@/assets/svgs/print.svg" class="pointer-events-none ">
         </button>
     </div>
