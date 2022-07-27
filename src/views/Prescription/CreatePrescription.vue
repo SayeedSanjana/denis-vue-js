@@ -203,7 +203,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
            
        
             this.meiliSearch = new MeiliSearch({
-                host: 'https://157.245.202.136/',
+                host: 'https://jellyfish-app-6neo9.ondigitalocean.app/',
                 apiKey: 'ImBadass',
             });
 
