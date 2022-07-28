@@ -823,7 +823,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                                             <div class="flex justify-between">
                                                 <p class=" text-regal-teal">
 
-                                                    {{item.location}} - <span class="italic"> {{item.inv_name}}</span>
+                                                    {{item.location}} <span v-if="item.location"> - </span>  <span class="italic"> {{item.inv_name}}</span>
                                                 </p>
 
                                                 <button type="button" @click="removeInvestigation(index)"
