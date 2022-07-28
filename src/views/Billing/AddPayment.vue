@@ -312,6 +312,10 @@ import PrintBill from "./_PrintBill.vue";
 
                         </div>
                        
+
+                           
+                      
+                       
                     </div>
 
                     <div v-else class="py-8">
@@ -343,8 +347,13 @@ import PrintBill from "./_PrintBill.vue";
                     </div>
                     <div class="border-l basis-1/3 px-2 ">
                         <h1 class="font-bold text-lg text-regal-teal">Amount Due</h1>
+                        <div v-if="(bill.balance - addPayment.paid) >= 0">
 
                         <h1 class="font-bold text-4xl text-red-700 py-8">৳ {{bill.balance - addPayment.paid }} </h1>
+                        </div>
+                        <div v-else class="my-6">
+                             <p  class="text-red-700 text-xl font-semibold"> The paid amount cannot exceed the due amount.</p>
+                        </div>
 
                     </div>
 

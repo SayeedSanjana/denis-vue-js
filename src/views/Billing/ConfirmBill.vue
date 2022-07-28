@@ -321,13 +321,17 @@ import swal from 'sweetalert';
                             <input type="radio" name="test_id" @change="changeDiscountType($event)" value="Percentage"  >
                             <label for="">Percentage</label>
                         </div>
+                    
                     </div>
 
                     <div class="text-left">
-                        <label for="" class="text-regal-teal font-semibold">Discount Amount</label>
+                        <label for="" class="text-regal-teal font-semibold">Discount Amount </label>
                         <input type="number"  @keyup="applyDiscount" v-model="value"  class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
-
+                        <div  v-if="(totalCost + additionalCost) - form.discount< 0">
+                       <p class="text-red-700 text-sm">The discount amount cannot exceed adjustment.</p>
                     </div>
+                    </div>
+                   
                     
                 </article>
 
