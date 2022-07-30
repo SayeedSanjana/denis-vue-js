@@ -90,6 +90,7 @@
 
 <script>
     import axios from 'axios';
+    import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
     import {required,minLength,email} from '@vuelidate/validators';
     export default {
@@ -146,7 +147,13 @@
                 })
                 .catch((error) => {
                 
-                console.log(error)
+                 swal({
+                    title: "Invalid Information",
+                    text: "Invalid Email or Password",
+                    icon: "error",
+                    // timer: 1000,
+                    buttons: true,
+                })
             })
            
             }
