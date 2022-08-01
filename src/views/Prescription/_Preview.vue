@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import swal from "sweetalert";
     export default {
 
         props: {
@@ -57,6 +58,15 @@ import axios from 'axios';
                     }
                     
                 })
+
+                swal({
+                    title: "Prescription copied",
+                    text: "You can now edit the prescription",
+                    icon: "success",
+                    button: false,
+                    timer: 1500,
+                });
+
             },
             
             print() {

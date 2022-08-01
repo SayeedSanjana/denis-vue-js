@@ -65,30 +65,30 @@ import axios from "axios";
                 this.bills = [...this.$store.state.bills];
                 // console.log(this.bills);
             
-                this.bills.forEach(bill => {
-                    bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
+                // this.bills.forEach(bill => {
+                //     bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
                    
 
-                });
+                // });
         },
 
         '$store.state.outStandingBills': function() {
             this.dueBills = [...this.$store.state.outStandingBills];
             // console.log(this.dueBills);
         
-            this.dueBills.forEach(bill => {
-                bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
+            // this.dueBills.forEach(bill => {
+            //     bill.isPaid = bill.isPaid  == true? 'Paid'  : 'Due';
             
-            });
+            // });
         },
         '$store.state.completedBills': function() {
             this.paidBills = [...this.$store.state.completedBills];
             // console.log(this.paidBills);
         
-            this.paidBills.forEach(bill => {
-                bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
+            // this.paidBills.forEach(bill => {
+            //     bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
             
-            });
+            // });
         },
             
         },
@@ -205,6 +205,8 @@ import axios from "axios";
     <section class="container mx-auto my-4">
     <div class=" ">
             <h1 for="" class="flex justify-start items-start font-semibold text-regal-teal text-xl"> Billing History</h1>
+
+          
         
     <div class="border p-4">
 
