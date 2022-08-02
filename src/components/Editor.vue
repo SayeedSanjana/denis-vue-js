@@ -16,6 +16,7 @@ export default {
             editor: null,
             showInput: false,
             editField: false,
+           
 
         }
     },
@@ -54,6 +55,7 @@ export default {
         }
     
         this.editor = new Editor({
+            autofocus: true,
             extensions: [
                 StarterKit,
                 // Document,
@@ -86,6 +88,7 @@ export default {
                     }
                 }),
             ],
+        
             content: this.modelValue,
             onUpdate: () => {
                 const html = ['<h1 class="text-xl"></h1>', '<h2 class="text-base"></h2>', '<h3 class="text-sm"></h3>', '<p></p>'];
@@ -97,6 +100,7 @@ export default {
             }
         })
 
+    
 
     },
     beforeUnmount() {
@@ -106,6 +110,8 @@ export default {
         focusField() {
             this.showInput = true;
             this.editField = true;
+            
+            this.editor.commands.focus('end')
         },
 
         blurField() {
@@ -113,6 +119,7 @@ export default {
             this.showInput = false;
             this.editField = false;
         },
+       
     }
 
 }
@@ -121,7 +128,7 @@ export default {
     <div>
         <div class="">
             <p class="text-left w-full px-2 py-2 text-regal-teal hover:border hover:rounded-md cursor-pointer whitespace-pre-line break-all h-auto"
-                v-show="!showInput" v-html="modelValue ||`<p class='text-gray-400' >Write Here......</p>`" @click="focusField"></p>
+                v-show="!showInput" v-html="modelValue ||`<p class='text-gray-400' >Write Here......</p>`" @click="focusField" ></p>
             
             <section v-show="showInput"
                 class="text-left w-full px-6 py-2 text-regal-teal bg-white border border-regal-teal border-opacity-50 rounded-md h-auto">
@@ -132,7 +139,7 @@ export default {
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 1 }) }">
                         H1
                     </button>
-                    <button type="button" class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
+                    <button type="button"  class=" border border-gray-500 text-sm px-2 py-0.5 rounded-md mx-1 "
                         @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
                         :class="{ 'bg-regal-teal font-bold text-white': editor.isActive('heading', { level: 2 }) }">
                         H2
