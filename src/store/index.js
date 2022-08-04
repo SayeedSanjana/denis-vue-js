@@ -1,4 +1,5 @@
 import {createStore} from 'vuex'
+import router from "../router/index"
 import axios from "axios"
 
 export default createStore({
@@ -89,10 +90,18 @@ export default createStore({
                         q:text
                     },
                 });
-                // console.log(data);
-                return commit('setPatients', data);
+
+             
+
+                  return commit('setPatients', data);
+ 
+                
             } catch (error) {
-                console.log(error);    
+                
+                router.push({
+                    name: 'Login'
+                })
+                   
             }
 
 
