@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import PrescriptionItems from "./_PrescriptionItems.vue";
+// import router from "../../router/index";
 
 import Preview from "./_Preview.vue"
     export default {
@@ -53,7 +54,15 @@ import Preview from "./_Preview.vue"
 
                   
                 } catch (error) {
-                    console.log(error);
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
+                    // console.log(error);
                 }
             },
             openPrescription(index){

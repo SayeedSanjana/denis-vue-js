@@ -91,7 +91,9 @@
             })
             .catch((error) => {
               this.err="Something went wrong.Please try again!"
-              console.log(error)
+                 
+                console.log(error);
+            
             })
         } else {
           this.err = "Pin number doesnot match"

@@ -1,12 +1,14 @@
 <template>
     <div>
         <section class="w-full  px-6 py-4 " >
-           
+            <p class="text-xl text-left font-bold text-regal-teal pb-2">
+            <span class="text-sm text-gray-400 ">(Total Completed Bill Records - <span class="font-semibold text-regal-teal">{{getCompletedBills}}</span> )</span> 
+        </p>
              <form id="search" class="w-1/2 flex mx-24">
                       
                         <div class="border-2  px-3 flex bg-white rounded-md items-center  w-1/2">
                             <input class="flex-grow outline-none text-regal-teal"
-                                name="q" type="text" placeholder="Search ..." v-model="searchQuery"
+                                name="q" type="text" placeholder="Search ..." v-model="searchQuery" @keyup="search"
                                 />
                             <span class="mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"

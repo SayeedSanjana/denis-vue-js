@@ -85,6 +85,14 @@ import ToothSvg from "./_ToothSvg.vue";
 
                     
                 }
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                 // swal({
 				// 	title: "error",
 				// 	text: error.message,
@@ -130,13 +138,21 @@ import ToothSvg from "./_ToothSvg.vue";
                
             } 
             catch (error) {
-                
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                  swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
+                
                 
             }
            
@@ -197,12 +213,20 @@ import ToothSvg from "./_ToothSvg.vue";
                    
                 
             } catch (error) {
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                    swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
                 }
             },
           
@@ -241,13 +265,20 @@ import ToothSvg from "./_ToothSvg.vue";
                   
                     
                 } catch (error) {
-                    
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                     swal({
                     title: "Error",
                     text: error.message,
                     icon: "error",
                     button: true
                 });
+                    } 
                     
                 }
             },

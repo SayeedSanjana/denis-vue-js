@@ -8,6 +8,7 @@ import {required} from '@vuelidate/validators';
 import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
 
 
+
     export default {
         components:{
             Editor,
@@ -320,12 +321,20 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 
                 
             } catch (error) {
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                  swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
                 
             }
 
@@ -353,12 +362,20 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                     }, 1000);
                 
             } catch (error) {
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                    swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
                 }
 
         },
@@ -390,12 +407,20 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
 
                        
                 } catch (error) {
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                     swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
                 }
         },
    
@@ -429,12 +454,20 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 }, 1000)
 
             } catch (error) {
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                 swal({
                     title: "error",
                     text: error.message,
                     icon: "error",
                     button: true
                 });
+                    } 
 
             }
 
@@ -541,6 +574,13 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                 }
                 
             } catch (error) {
+                 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                 swal({
                     title: "Error",
                     text: error.message,
@@ -548,6 +588,7 @@ import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue"
                     button: true
                 });
                 
+                    } 
             }
         }
     }

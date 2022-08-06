@@ -327,7 +327,15 @@
                        
                     })
                     .catch((error) => {
-                        console.log(error)
+                         if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
+                        // console.log(error)
                     })
             },
 
@@ -357,7 +365,15 @@
                         console.log(response);
                     })
                     .catch((error) => {
-                        console.log(error)
+                         if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
+                        // console.log(error)
                     })
                 this.formValid = true
                 }
@@ -391,7 +407,15 @@
                         })
                         .catch((error) => {
                             this.str = "Old Password doesnot match"
-                            console.log(error)
+                            // console.log(error)
+                             if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                         })
                     }
             },

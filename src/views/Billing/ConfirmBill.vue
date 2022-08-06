@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import swal from 'sweetalert';
+// import router from "../../router/index";
 
     export default {
         data(){
@@ -165,7 +166,14 @@ import swal from 'sweetalert';
 
                     
                 } catch (error) {
-                    console.log(error);
+                   if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                 
                 }
 
@@ -183,7 +191,14 @@ import swal from 'sweetalert';
                   
                     
                 } catch (error) {
-                    console.log(error);
+                  if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                     
                 }
             },
@@ -214,7 +229,14 @@ import swal from 'sweetalert';
     
                     
                 } catch (error) {
-                    console.log(error);
+                    if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                 }
                 
 

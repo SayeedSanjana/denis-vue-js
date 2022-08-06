@@ -212,6 +212,13 @@
 
                     
                   } catch (error) {
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
                        swal({
                     title: "Error",
                     text: error.message,
@@ -219,6 +226,7 @@
                     // timer: 1000,
                     buttons: true,
                 })
+                    } 
                   }
 
               },

@@ -2,6 +2,7 @@
 import OutStandingBill from "./_OutStandingBill.vue";
 import CompletedBill from "./_CompletedBill.vue";
 import AllBills from "./_AllBills.vue";
+// import router from "../../router/index";
 import Pending from "./_Pending.vue";
 import axios from "axios";
     export default {
@@ -124,7 +125,14 @@ import axios from "axios";
                      
                     
                   } catch (error) {
-                      console.log(error);
+                      if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                   }
               },
               openBill(index){

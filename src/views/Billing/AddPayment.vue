@@ -2,6 +2,7 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 import PrintBill from "./_PrintBill.vue";
+// import router from "../../router/index";
 
     export default {
         components: {
@@ -63,7 +64,14 @@ import PrintBill from "./_PrintBill.vue";
                    
                     
                 } catch (error) {
-                    console.log(error);
+                   if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
      
                 }
 
@@ -104,6 +112,13 @@ import PrintBill from "./_PrintBill.vue";
              
                     
                 } catch (error) {
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
                    swal({
                           title: "Error",
                             text: "Add Paid Amount",
@@ -111,6 +126,7 @@ import PrintBill from "./_PrintBill.vue";
                             timer: 2000,
                             button: false,
                        });
+                    } 
                     
                 }
                 }
@@ -137,6 +153,13 @@ import PrintBill from "./_PrintBill.vue";
              
                     
                 } catch (error) {
+                     if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
                    swal({
                           title: "Error",
                             text: "Add Paid Amount",
@@ -144,6 +167,7 @@ import PrintBill from "./_PrintBill.vue";
                             timer: 2000,
                             button: false,
                        });
+                    } 
                     
                 }
 

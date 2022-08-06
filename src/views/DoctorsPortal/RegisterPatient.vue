@@ -91,12 +91,20 @@ export default {
 				}
 				
 			} catch (error) {
+				 if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        // console.log(error);
 				swal({
 					title: "error",
 					text: error.message,
 					icon: "error",
 					button: true
 				});
+                    } 
 			}		
         },
     }

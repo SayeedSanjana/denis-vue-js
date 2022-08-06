@@ -2,7 +2,7 @@
     <div class="container mx-auto py-4">   
         
         <p class="text-xl text-left font-bold text-regal-teal py-5">
-            Patient Records
+            Patient Records <span class="text-sm text-gray-400 ">(Total registered patients - <span class="font-semibold text-regal-teal">{{getTotalData}}</span> )</span> 
         </p>
         <section class="flex sm:flex-row justify-between">
 
@@ -13,7 +13,7 @@
                       
                         <div class="border-2  px-3 flex bg-white rounded-md items-center  w-1/2">
                             <input class="flex-grow outline-none text-regal-teal"
-                                name="q" type="text" placeholder="Search ..." v-model="searchQuery"
+                                name="q" type="text" placeholder="Search ..." v-model="searchQuery" @keyup="search"
                                 />
                             <span class="mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +72,7 @@
 import Pagination from '../../components/Pagination.vue'
    import Grid from './PatientGrid.vue'
     import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";
+    
     export default {
 
         components: {
@@ -117,6 +118,7 @@ import Pagination from '../../components/Pagination.vue'
     },
     computed: {
         getTotalData() {
+            // console.log(this.$store.state.totalPatient);
             return this.$store.state.totalPatient;
         },
     },
