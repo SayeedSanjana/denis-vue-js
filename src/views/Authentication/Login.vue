@@ -104,25 +104,28 @@
                 },
             }
         },
-     setup(){
-        return{
-            v$: useValidate(),
-        }
-    },
-     validations() {
-         return {
-             formData: {
-                 email: {
-                     required,
-                     email
-                 },
-                 password: {
-                     required,
-                     minLength: minLength(8)
-                 },
-             }
-         }
-     },
+
+        setup(){
+            return{
+                v$: useValidate(),
+            }
+        },
+        // vuelidate validations
+        validations() {
+            return {
+                formData: {
+                    email: {
+                        required,
+                        email
+                    },
+                    password: {
+                        required,
+                        minLength: minLength(8)
+                    },
+                }
+            }
+        },
+        // vuelidate validations
         methods: {
             
             onChange(){
@@ -130,35 +133,31 @@
             },
             //Login Form
             async submitForm() {
-            this.v$.$touch()
-            if (!this.v$.$error) {
-                await axios.post(import.meta.env.VITE_LOCAL+'users/login', this.formData, )
-                .then((response) => {
-                if (response.data.data !== null) {
-                    localStorage.setItem("token", response.data.data)
-                    
+                this.v$.$touch()
+                if (!this.v$.$error) {
+                    await axios.post(
+                            import.meta.env.VITE_LOCAL + 'users/login', this.formData, )
+                        .then((response) => {
+                            if (response.data.data !== null) {
+                                localStorage.setItem("token", response.data.data)
+
+                            }
+                            this.$router.push('/patient');
+                        })
+                        .catch((error) => {
+
+                            swal({
+                                title: "Invalid Information",
+                                text: "Invalid Email or Password",
+                                icon: "error",
+                                // timer: 1000,
+                                buttons: true,
+                            })
+                        })
+
                 }
-                // const result = JSON.stringify(response.data.data)
-                // localStorage.setItem('token' , result)
-                // console.log(response.data.data);
-                // console.log(localStorage.getItem('token'));
-                
-                this.$router.push('/patient');
-                })
-                .catch((error) => {
-                
-                 swal({
-                    title: "Invalid Information",
-                    text: "Invalid Email or Password",
-                    icon: "error",
-                    // timer: 1000,
-                    buttons: true,
-                })
-            })
-           
+
             }
-                    
-                }
             },
     }
 </script>

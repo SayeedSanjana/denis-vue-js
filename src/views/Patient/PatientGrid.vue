@@ -1,5 +1,5 @@
 <script>
-// import axios from 'axios';
+
     export default {
         props: {
             //
@@ -20,22 +20,21 @@
                 default: () => false
 
             },
-          
+
 
 
         },
         data() {
             return {
-                //
+
                 sortKey: '',
                 sortOrders: Object.keys(this.columns).reduce((o, key) => ((o[key] = 1), o), {}),
             }
         },
         computed: {
-            //
+            //search key
             filteredData() {
 
-                
                 const sortKey = this.sortKey
                 const filterKey = this.filterKey && this.filterKey.toLowerCase();
                 const order = this.sortOrders[sortKey] || 1
@@ -46,12 +45,12 @@
                             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
                         })
                     });
-                    
-                    if(data.length ===0){
+
+                    if (data.length === 0) {
                         this.$emit('empty', true);
                     }
                 }
-                
+
                 if (sortKey) {
                     data = data.slice().sort((a, b) => {
                         a = a[sortKey]
@@ -59,15 +58,15 @@
                         return (a === b ? 0 : a > b ? 1 : -1) * order
                     })
                 }
-                
+
                 return data
             }
         },
         methods: {
-            //
+            //sort
             sortBy(key) {
-                    this.sortKey = key
-                    this.sortOrders[key] = this.sortOrders[key] * -1
+                this.sortKey = key
+                this.sortOrders[key] = this.sortOrders[key] * -1
             },
             capitalize(str) {
                 return str.charAt(0).toUpperCase() + str.slice(1)
@@ -82,7 +81,7 @@
 
 
 <template>
-
+    <!-- grid  -->
     <table  v-if="filteredData.length" class=" w-full mx-auto  bg-opacity-80 text-sm ">
         <thead class="bg-regal-teal text-white">
             <tr class=" appearance-none ">
@@ -102,6 +101,7 @@
         </tbody>
     </table>
     <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No matches found.</p>
+    <!-- grid  -->
    
 </template>
 

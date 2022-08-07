@@ -1,88 +1,87 @@
 <script>
 import axios from 'axios';
 import swal from "sweetalert";
-    export default {
+export default {
 
-        props: {
-            form: {
-                type: Object,
-            },
-            patient: {
-                type: Object,
-            },
-
+    props: {
+        form: {
+            type: Object,
         },
-        computed: {
-            formData() {
-                const data = {
-                    ...this.form
-                }
-                for (let i = 0; i < data.length; i++) {
-                    data['isHidden'] = false;
-
-                }
-                return data;
-            },
-            medicine() {
-                for (let i = 0; i < this.formData.medicine.length; i++) {
-                    this.formData.medicine.isHidden = false;
-
-                }
-                return this.form.medicine;
-            },
-
+        patient: {
+            type: Object,
         },
-        data() {
-            return {
 
-                previewInv: false,
-                previewTreatment: false,
+    },
+    computed: {
+        formData() {
+            const data = {
+                ...this.form
+            }
+            for (let i = 0; i < data.length; i++) {
+                data['isHidden'] = false;
 
             }
+            return data;
+        },
+        medicine() {
+            for (let i = 0; i < this.formData.medicine.length; i++) {
+                this.formData.medicine.isHidden = false;
+
+            }
+            return this.form.medicine;
         },
 
-        methods: {
-            calculateAge(birthYear) {
-                let ageDifMs = Date.now() - new Date(birthYear).getTime();
-                const ageDate = new Date(ageDifMs);
-                return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
-            },
-            copyPrescription() {
-                this.$store.commit("setCopiedPrescription", this.form)
-                this.$store.commit('setCopiedPatient' , this.patient);
+    },
+    data() {
+        return {
 
-                this.$router.push({
-                    name: 'Prescription',
-                    params: {
-                        id: this.$route.params.id,
-                    }
-                    
-                })
+            previewInv: false,
+            previewTreatment: false,
 
-                swal({
-                    title: "Prescription copied",
-                    text: "You can now edit the prescription",
-                    icon: "success",
-                    button: false,
-                    timer: 1500,
-                });
+        }
+    },
 
-            },
-            
-            print() {
+    methods: {
+        //calculate age in years
+        calculateAge(birthYear) {
+            let ageDifMs = Date.now() - new Date(birthYear).getTime();
+            const ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970) + ' years';
+        },
+        copyPrescription() {
+            this.$store.commit("setCopiedPrescription", this.form)
+            this.$store.commit('setCopiedPatient', this.patient);
 
+            this.$router.push({
+                name: 'Prescription',
+                params: {
+                    id: this.$route.params.id,
+                }
 
-                const prtHtml = document.getElementById('print').innerHTML;
-                const cssUrl = document.querySelectorAll('link[rel="stylesheet"], style')[1].href
-                if(!cssUrl) {
-                    let stylesHtml = '';
-                    for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
-                        stylesHtml += node.outerHTML;
-                    }
-                    // Open the print window
-                    const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+            })
 
-                    WinPrint.document.write(`<!DOCTYPE html>
+            swal({
+                title: "Prescription copied",
+                text: "You can now edit the prescription",
+                icon: "success",
+                button: false,
+                timer: 1500,
+            });
+
+        },
+        // prescription print
+        print() {
+            const prtHtml = document.getElementById('print').innerHTML;
+            const cssUrl = document.querySelectorAll('link[rel="stylesheet"], style')[1].href
+            if (!cssUrl) {
+                let stylesHtml = '';
+                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+                    stylesHtml += node.outerHTML;
+                }
+                // Open the print window
+                const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
+
+                WinPrint.document.write(`<!DOCTYPE html>
                             <html>
                             <head>
                                 ${stylesHtml}
@@ -93,12 +92,12 @@ import swal from "sweetalert";
                             </body>
                             </html>`);
 
-                    WinPrint.document.close();
-                    WinPrint.focus();
-                    WinPrint.print();
-                    WinPrint.close();
-                } else {
-                    axios.get(cssUrl).then(res => {
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+            } else {
+                axios.get(cssUrl).then(res => {
                     let styles = res.data;
                     // Open the print window
                     const WinPrint = window.open('', '', 'left=0,top=0,width=1000,height=900,toolbar=0,scrollbars=0,status=0');
@@ -121,61 +120,62 @@ import swal from "sweetalert";
                     WinPrint.print();
                     WinPrint.close();
                 })
-                }
-
-            },
-
-            selectMedicine(i) {
-                this.formData.medicine[i].isHidden = !this.formData.medicine[i].isHidden;
-            },
-            addService(){
-                 this.$store.commit('setCopiedPatient' , this.patient);
-
-                  this.$router.push({
-                        name: 'Service',
-                        params: {
-                            id: this.$route.params.id,
-                            presId: this.form._id,
-                            data: JSON.stringify(this.formData)          
-                        },
-                        
-                    });
             }
 
+        },
 
+        selectMedicine(i) {
+            this.formData.medicine[i].isHidden = !this.formData.medicine[i].isHidden;
+        },
+        // redirect to add service window
+        addService() {
+            this.$store.commit('setCopiedPatient', this.patient);
 
+            this.$router.push({
+                name: 'Service',
+                params: {
+                    id: this.$route.params.id,
+                    presId: this.form._id,
+                    data: JSON.stringify(this.formData)
+                },
 
+            });
         }
 
+
     }
+
+}
 </script>
 
 <template>
     <div class="flex justify-end space-x-2 m-2">
+        <!-- add service button -->
         <button @click="addService()" class="bg-regal-teal p-2 rounded-full" title="Add Services">
             <img src="@/assets/svgs/service.svg" alt="" srcset="" class="pointer-events-none">
         </button>
 
-        <button type="button " class="p-2 rounded-full  bg-regal-teal" @click="copyPrescription()" title="Copy Prescription">
+        <!-- copy prescription button -->
+        <button type="button " class="p-2 rounded-full  bg-regal-teal" @click="copyPrescription()"
+            title="Copy Prescription">
             <img src="@/assets/svgs/copy.svg" class="pointer-events-none">
         </button>
 
+        <!-- print button -->
         <button type="button" class="p-2 bg-regal-teal rounded-full " @click="print" title="Print Prescription">
             <img src="@/assets/svgs/print.svg" class="pointer-events-none ">
         </button>
     </div>
 
     <div class="section h-xxl">
-
-       
-
+        <!-- print area -->
         <div id="print" class="">
+            <!-- doctor and clinic info -->
             <section class="flex justify-between  px-4 py-2">
                 <ul>
                     <li class="font-semibold text-lg text-left">
                         MT Dental Center
                     </li>
-                  
 
                     <li class="text-xs text-left">
                         <span class="font-semibold"> Address:</span> House No 12 (1st Floor), Road No 14 (New)<br />
@@ -196,19 +196,14 @@ import swal from "sweetalert";
 
                 </ul>
 
-
-
-
                 <ul>
 
                     <li class="font-semibold text-lg text-right">
-                       {{formData.user.title}} {{formData.user.name}}
+                        {{formData.user.title}} {{formData.user.name}}
                     </li>
 
                     <li class="text-xs text-right w-72">
-                        <!-- BDS,BCS,MPH,NST Fellow MS, <br />
-                        PhD (USA), FICD (USA)DIrector (Dental Education) <br />
-                        Directorat General of medical Education -->
+
                         {{formData.user.qualification}}
                     </li>
 
@@ -232,7 +227,9 @@ import swal from "sweetalert";
 
 
             </section>
+            <!-- doctor and clinic info -->
             <hr />
+            <!-- patient info -->
             <div class="flex justify-between items-start mx-4 my-2">
                 <p class="text-sm"><span class="font-semibold">Patient Name:</span>
                     <span>{{formData.patient.name}}</span> </p>
@@ -244,7 +241,9 @@ import swal from "sweetalert";
                 <p class="text-sm"><span class="font-semibold">Gender:</span> <span>{{formData.patient.gender}}</span>
                 </p>
             </div>
+            <!-- patient info -->
             <hr />
+            <!-- prescription info -->
             <section class="my-2 ">
                 <article class="flex justify-between text-sm ">
                     <div class="w-1/2 p-3 ">
@@ -276,12 +275,7 @@ import swal from "sweetalert";
                                 </li>
                             </ul>
 
-
-
                         </div>
-
-
-
 
                         <div :class="{'hidebutton': previewInv , 'showbutton': !previewInv}"
                             v-if="formData.investigation.length > 0">
@@ -310,26 +304,12 @@ import swal from "sweetalert";
 
                                             {{item.location}} - <span class="italic"> {{item.inv_name}}</span>
                                         </p>
-
-
-
                                     </div>
-
                                 </li>
-
-
                             </ul>
-
-
-
                         </div>
-
-
                     </div>
-
-
                     <!-- Rx -->
-
                     <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
 
                         <section class="m-1">
@@ -449,13 +429,13 @@ import swal from "sweetalert";
 
 
             </section>
+            <!-- prescription info -->
+
         </div>
     </div>
     <!-- </template> -->
 
     <!-- </Modal> -->
-
-
 
 </template>
 

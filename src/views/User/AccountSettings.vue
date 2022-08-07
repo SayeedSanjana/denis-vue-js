@@ -1,75 +1,83 @@
 <template>
-    
     <div class="h-full bg-regal-white">
         <section class="w-full">
             <h3 class="headername">Account Settings </h3>
             <div class="w-full flex">
                 <!-- form -->
                 <form @submit.prevent="updateUser()" class="w-1/2">
-                     <div class="flex formbox">
-                        
+                    <div class="flex formbox">
+
                         <div class="w-full ">
                             <label for="" class="labeldesign">Name</label>
-                            <input type="text" class="inputfield" v-model="this.formData.name" @blur="v$.formData.name.$touch()" >
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
+                            <input type="text" class="inputfield" v-model="this.formData.name"
+                                @blur="v$.formData.name.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs"
+                                v-if="v$.formData.name.$error">{{v$.formData.name.$errors[0].$message}}</small>
                         </div>
-                        
-
-                       
 
                     </div>
                     <!--date of birth starts-->
-                     <div class="flex formbox">
+                    <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="dob" class="labeldesign">Date of Birth</label>
 
-                            <input type="date" class="form-input" v-model="formData.dob" @blur="v$.formData.dob.$touch()">
-                            
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
-                        </div>
-                    <!-- date of birth ends -->
+                            <input type="date" class="form-input" v-model="formData.dob"
+                                @blur="v$.formData.dob.$touch()">
 
-                    <!-- gender starts-->
+                            <small class="text-regal-red flex justify-start text-xs"
+                                v-if="v$.formData.dob.$error">{{v$.formData.dob.$errors[0].$message}}</small>
+                        </div>
+                        <!-- date of birth ends -->
+
+                        <!-- gender starts-->
                         <div class="w-1/2">
                             <label for="" class="labeldesign">Gender</label>
-                            <input type="text" disabled class="inputfield" v-model="formData.gender" @blur="v$.formData.gender.$touch()">
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
-                          
+                            <input type="text" disabled class="inputfield" v-model="formData.gender"
+                                @blur="v$.formData.gender.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs"
+                                v-if="v$.formData.gender.$error">{{v$.formData.gender.$errors[0].$message}}</small>
+
                         </div>
-                    <!-- gender ends -->
+                        <!-- gender ends -->
 
                     </div>
-                    
-                     <!-- email starts -->
+
+                    <!-- email starts -->
                     <div class="flex formbox">
                         <div class="w-1/2 pr-4">
                             <label for="" class="labeldesign">Email</label>
-                            <input type="text" class="inputfield" v-model="formData.email" @blur="v$.formData.email.$touch()">
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
+                            <input type="text" class="inputfield" v-model="formData.email"
+                                @blur="v$.formData.email.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs"
+                                v-if="v$.formData.email.$error">{{v$.formData.email.$errors[0].$message}}</small>
                         </div>
-                    <!-- email ends -->
+                        <!-- email ends -->
 
                         <div class="w-1/2 ">
                             <label for="" class="labeldesign">Contact</label>
-                            <input type="text" class="inputfield" v-model="formData.phone" @blur="v$.formData.phone.$touch()">
-                            <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
+                            <input type="text" class="inputfield" v-model="formData.phone"
+                                @blur="v$.formData.phone.$touch()">
+                            <small class="text-regal-red flex justify-start text-xs"
+                                v-if="v$.formData.phone.$error">{{v$.formData.phone.$errors[0].$message}}</small>
                         </div>
-                    
+
                     </div>
 
-                   
+
 
                     <!-- address starts -->
                     <div class="formbox">
                         <label for="" class="labeldesign">Address</label>
-                        <textarea type="text" class="h-32 inputfield" v-model="formData.address" @blur="v$.formData.address.$touch()"></textarea>
-                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
+                        <textarea type="text" class="h-32 inputfield" v-model="formData.address"
+                            @blur="v$.formData.address.$touch()"></textarea>
+                        <small class="text-regal-red flex justify-start text-xs"
+                            v-if="v$.formData.address.$error">{{v$.formData.address.$errors[0].$message}}</small>
                     </div>
                     <!-- address ends -->
 
-                     <!-- More Settings starts -->
-               <h3 class="headername my-1">More Settings </h3>
-                  
+                    <!-- More Settings starts -->
+                    <h3 class="headername my-1">More Settings </h3>
+
 
                     <!-- Role starts -->
                     <!-- <div class="formbox  w-3/5">
@@ -78,8 +86,8 @@
                     </div> -->
                     <!-- Role ends -->
 
-                     <!-- Role -->
-                        <!-- <div class="formbox w-3/5 mb-7 ">
+                    <!-- Role -->
+                    <!-- <div class="formbox w-3/5 mb-7 ">
                             <label for="" class="labeldesign">BMDC no.</label>
                             <input type="text" class="inputfield bg-regal-white" v-model="formData.BMDC" disabled >
                         </div> -->
@@ -87,13 +95,14 @@
 
                     <div class="formbox">
                         <label for="" class="labeldesign">Qualification</label>
-                        <textarea type="text" class="h-32 inputfield" v-model="formData.qualification" @blur="v$.formData.qualification.$touch()"></textarea>
-                        <small class="text-regal-red flex justify-start text-xs" v-if="v$.formData.qualification.$error">{{v$.formData.qualification.$errors[0].$message}}</small>
+                        <textarea type="text" class="h-32 inputfield" v-model="formData.qualification"
+                            @blur="v$.formData.qualification.$touch()"></textarea>
+                        <small class="text-regal-red flex justify-start text-xs"
+                            v-if="v$.formData.qualification.$error">{{v$.formData.qualification.$errors[0].$message}}</small>
                     </div>
 
-                   <!-- More Settings ends-->
+                    <!-- More Settings ends-->
 
-                    <!-- <p class="mt-6  px-52 labeldesign">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p> -->
 
                     <div class="flex formbox ">
                         <!-- Save -->
@@ -115,7 +124,8 @@
                             <div class=" pt-10 rounded-t-lg bg-regal-cyan"></div>
                             <div class="flex justify-between p-4 mt-2">
                                 <div class="ml-3 ">
-                                    <h4 class="text-xl text-regal-teal font-semibold mb-2">{{this.formData.title}} {{this.formData.name}}</h4>
+                                    <h4 class="text-xl text-regal-teal font-semibold mb-2">{{this.formData.title}}
+                                        {{this.formData.name}}</h4>
                                     <!-- <p class="text-left text-regal-teal ">Role {{this.formData.role}}</p> -->
                                 </div>
                                 <div class="mr-3">
@@ -126,13 +136,18 @@
 
                             <div class="flex justify-between ">
                                 <div class="p-2 ml-5">
-                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Email </span><span class="ml-20 pl-1 pr-2">:</span><span>{{this.formData.email}}</span></h3>
-                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Phone Number </span><span class="ml-4 pr-2">:</span> <span>{{this.formData.phone}}</span></h3>
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Email </span><span
+                                            class="ml-20 pl-1 pr-2">:</span><span>{{this.formData.email}}</span></h3>
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Phone Number </span><span
+                                            class="ml-4 pr-2">:</span> <span>{{this.formData.phone}}</span></h3>
                                     <div v-show="this.formData.title ==='Dr.'  ">
-                                        <h3 class="flex justify-start text-regal-teal mb-1"><span> BMDC </span><span class="ml-16 pl-3 pr-2">:</span> <span>{{this.formData.BMDC}}</span></h3>
+                                        <h3 class="flex justify-start text-regal-teal mb-1"><span> BMDC </span><span
+                                                class="ml-16 pl-3 pr-2">:</span> <span>{{this.formData.BMDC}}</span>
+                                        </h3>
                                     </div>
-                                    
-                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Address </span><span class="ml-16 pr-2">:</span> <span>{{this.formData.address}}</span></h3>
+
+                                    <h3 class="flex justify-start text-regal-teal mb-1"><span> Address </span><span
+                                            class="ml-16 pr-2">:</span> <span>{{this.formData.address}}</span></h3>
                                 </div>
 
                                 <div class="mt-7">
@@ -154,8 +169,9 @@
                             <div class=" pt-2 rounded-b-lg bg-regal-cyan">
                             </div>
                         </div>
-                    </div>      
-                    <p class="mt-3 px-40 labeldesign flex justify-end mr-20">Account Creation Date : <span class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
+                    </div>
+                    <p class="mt-3 px-40 labeldesign flex justify-end mr-20">Account Creation Date : <span
+                            class="pl-5 labeldesign">{{this.createDate}} at {{this.time}} </span></p>
                 </div>
                 <!-- Visiting Card -->
             </div>
@@ -175,8 +191,10 @@
                             <!-- old password -->
                             <div class="w-1/2 pr-4">
                                 <label for="" class="labeldesign">Old Password</label>
-                                <input type="password" class="inputfield" v-model="form.oldPassword"  @blur="v$.form.oldPassword.$touch()" @keydown="onChange()">
-                                <small class="text-regal-red flex justify-start text-xs" v-if="v$.form.oldPassword.$error">{{v$.form.oldPassword.$errors[0].$message}}</small>
+                                <input type="password" class="inputfield" v-model="form.oldPassword"
+                                    @blur="v$.form.oldPassword.$touch()" @keydown="onChange()">
+                                <small class="text-regal-red flex justify-start text-xs"
+                                    v-if="v$.form.oldPassword.$error">{{v$.form.oldPassword.$errors[0].$message}}</small>
                                 <small class="text-regal-red flex justify-start text-xs">{{this.str}}</small>
                             </div>
                             <!-- old password -->
@@ -184,22 +202,24 @@
                                 <!--new password -->
                                 <div class="w-1/2 pr-4">
                                     <label for="" class="labeldesign">New Password</label>
-                                    <input type="password" class="inputfield" v-model="form.newPassword"  @blur="v$.form.newPassword.$touch()"  @keyup="sameAs($event)">
-                                    <small class="text-regal-red flex justify-start text-xs" v-if="v$.form.newPassword.$error">{{v$.form.newPassword.$errors[0].$message}}</small>
+                                    <input type="password" class="inputfield" v-model="form.newPassword"
+                                        @blur="v$.form.newPassword.$touch()" @keyup="sameAs($event)">
+                                    <small class="text-regal-red flex justify-start text-xs"
+                                        v-if="v$.form.newPassword.$error">{{v$.form.newPassword.$errors[0].$message}}</small>
                                     <small class="text-regal-red flex justify-start text-xs">{{this.strSame}}</small>
                                 </div>
                                 <!--new password -->
                                 <!-- confirm password-->
                                 <div class="w-1/2">
                                     <label for="" class="labeldesign">Confirm Password</label>
-                                    <input type="password" class="inputfield" v-model="confirmPassword"  @blur="v$.confirmPassword.$touch()">
-                                    <small class="text-regal-red flex justify-start text-xs" v-if="v$.confirmPassword.$error">{{v$.confirmPassword.$errors[0].$message}}</small>
+                                    <input type="password" class="inputfield" v-model="confirmPassword"
+                                        @blur="v$.confirmPassword.$touch()">
+                                    <small class="text-regal-red flex justify-start text-xs"
+                                        v-if="v$.confirmPassword.$error">{{v$.confirmPassword.$errors[0].$message}}</small>
                                 </div>
                                 <!-- confirm password -->
                             </div>
-                            <!-- <small>
-                                <p class="text-regal-red text-left">{{this.str}}</p>
-                            </small> -->
+
                         </div>
                         <div class="w-1/2 mt-24 mr-28 ">
                             <button class="newbutton1 mt-2.5">Confirm</button>
@@ -214,14 +234,21 @@
 </template>
 
 <script>
-    
     import axios from "axios";
     import swal from 'sweetalert';
     import useValidate from '@vuelidate/core';
-    import {required,minLength,sameAs,helpers,maxLength,email,numeric} from '@vuelidate/validators';
+    import {
+        required,
+        minLength,
+        sameAs,
+        helpers,
+        maxLength,
+        email,
+        numeric
+    } from '@vuelidate/validators';
     export default {
         components: {
-      
+
         },
         created() {
             this.parseJwt(localStorage.getItem('token'));
@@ -229,117 +256,148 @@
         },
         data() {
             return {
-                v$:useValidate(),
-                time:'',
-                strSame:'',
-                createDate:'',
+                v$: useValidate(),
+                time: '',
+                strSame: '',
+                createDate: '',
                 token: localStorage.getItem('token'),
                 uid: this.parseJwt(localStorage.getItem('token')).sub,
                 str: '',
-             
-               formData: {
+
+                formData: {
                     title: '',
                     name: '',
                     email: '',
                     phone: '',
                     gender: '',
-                    dob:'',
+                    dob: '',
                     address: '',
                     password: '',
-                    qualification:'',
-                    createdAt:'',
+                    qualification: '',
+                    createdAt: '',
                     // role:'Doctor',
-                    BMDC:''
+                    BMDC: ''
                 },
-                //oldPassword: '',
-               // newPassword: '',
+
                 confirmPassword: '',
                 a: false,
                 form: {
-                   oldPassword: '',
-                   newPassword: '',
-                   email:''
+                    oldPassword: '',
+                    newPassword: '',
+                    email: ''
                 }
             }
         },
-         validations(){
-            const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-            const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
-            return{
-            form:{
-            oldPassword:{required,minLength: minLength(8)},
-            newPassword:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
-            },
-            formData:{
-             name: {required,minLength: minLength(3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
-             email:{required,email},
-             phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
-             gender:{required},
-             address:{required},
-             qualification:{required},
-            //  role:{required},
-             BMDC:{required},
-             dob:{required}
-            },
-            confirmPassword:{required,sameAs:sameAs(this.form.newPassword)}
-     }
-    },
-   
-        methods: {
-           
+        validations() {
+            const pattern = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+            const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
+            return {
+                form: {
+                    oldPassword: {
+                        required,
+                        minLength: minLength(8)
+                    },
+                    newPassword: {
+                        required,
+                        minLength: minLength(8),
+                        pattern: helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'", pattern)
+                    },
+                },
+                formData: {
+                    name: {
+                        required,
+                        minLength: minLength(3),
+                        nospecial: helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'", nospecial)
+                    },
+                    email: {
+                        required,
+                        email
+                    },
+                    phone: {
+                        required,
+                        numeric,
+                        minLength: minLength(11),
+                        maxLength: maxLength(14)
+                    },
+                    gender: {
+                        required
+                    },
+                    address: {
+                        required
+                    },
+                    qualification: {
+                        required
+                    },
+                    //  role:{required},
+                    BMDC: {
+                        required
+                    },
+                    dob: {
+                        required
+                    }
+                },
+                confirmPassword: {
+                    required,
+                    sameAs: sameAs(this.form.newPassword)
+                }
+            }
+        },
 
-           onChange(){
-               this.strSame=""
-               this.str=""
+        methods: {
+
+
+            onChange() {
+                this.strSame = ""
+                this.str = ""
             },
-            sameAs(evt){
-              if(evt.target.value===this.form.oldPassword){
-                  this.strSame="Cannot match Old Password"
-              }else{
-                   this.strSame=""
-              }
+            sameAs(evt) {
+                if (evt.target.value === this.form.oldPassword) {
+                    this.strSame = "Cannot match Old Password"
+                } else {
+                    this.strSame = ""
+                }
             },
 
             //get the specific user
-             getUser() {
-                axios.get(import.meta.env.VITE_LOCAL+'users/' + this.uid, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token') }`
-                        }
-                    })
+            getUser() {
+                axios.get(
+                        import.meta.env.VITE_LOCAL + 'users/' + this.uid, {
+                            headers: {
+                                "Authorization": `Bearer ${localStorage.getItem('token') }`
+                            }
+                        })
                     .then((response) => {
                         Object.assign(this.formData, response.data.data);
-                        // this.formData = response.data.data;
-                        //Getting the date from ISO Fromat
+
                         this.formData.dob = new Date(this.formData.dob).toISOString().substring(0, 10);
 
                         this.createDate = new Date(this.formData.createdAt).toLocaleDateString('en-US', {
                             day: 'numeric',
                             month: 'numeric',
                             year: 'numeric'
-                      
+
                         });
                         this.time = new Date(this.formData.createdAt).toLocaleTimeString('en-US', {
                             hour: 'numeric',
                             minute: 'numeric',
                             second: 'numeric'
                         });
-                       
+
                     })
                     .catch((error) => {
-                         if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } else {
-                        console.log(error);
-                    } 
-                        // console.log(error)
+                        if (error.response.data.message == "jwt expired") {
+                            this.$router.push({
+                                name: 'Login'
+                            })
+
+                        } else {
+                            console.log(error);
+                        }
+
                     })
             },
-
-             updateUser() {
+            // update user info
+            updateUser() {
                 this.v$.formData.name.$touch();
                 this.v$.formData.gender.$touch();
                 this.v$.formData.email.$touch();
@@ -347,53 +405,55 @@
                 this.v$.formData.address.$touch();
                 this.v$.formData.qualification.$touch();
 
-                this.v$.formData.dob.$touch();                     
-                if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (!this.v$.formData.qualification.$error) && (this.strSame.length<=0)) {
-                 axios.put(import.meta.env.VITE_LOCAL+'users/' + this.uid, this.formData, {
-                        headers: {
-                            "Authorization": `Bearer ${localStorage.getItem('token') }`
-                        }
-                    })
-                    .then((response) => {
-                        swal({
-                            title: "Success",
-                            text: "Information updated Successfully!",
-                            icon: "success",
-                            timer: 1000,
-                            buttons: false
+                this.v$.formData.dob.$touch();
+                if ((!this.v$.formData.gender.$error) && (!this.v$.formData.email.$error) && (!this.v$.formData.phone.$error) && (!this.v$.formData.address.$error) && (!this.v$.formData.qualification.$error) && (this.strSame.length <= 0)) {
+                    axios.put(
+                            import.meta.env.VITE_LOCAL + 'users/' + this.uid, this.formData, {
+                                headers: {
+                                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                                }
+                            })
+                        .then((response) => {
+                            swal({
+                                title: "Success",
+                                text: "Information updated Successfully!",
+                                icon: "success",
+                                timer: 1000,
+                                buttons: false
+                            })
+
                         })
-                        // console.log(response);
-                    })
-                    .catch((error) => {
-                         if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
+                        .catch((error) => {
+                            if (error.response.data.message == "jwt expired") {
+                                this.$router.push({
+                                    name: 'Login'
+                                })
+
+                            } else {
+                                console.log(error);
+                            }
+
                         })
-                     
-                    } else {
-                        console.log(error);
-                    } 
-                        // console.log(error)
-                    })
-                this.formValid = true
+                    this.formValid = true
                 }
             },
 
 
             // checking validation while changing the password
-               async changePassword() {
-                  this.v$.form.oldPassword.$touch()
-                  this.v$.form.newPassword.$touch()
-                  this.v$.confirmPassword.$touch()
-                    if (!this.v$.form.oldPassword.$error && !this.v$.form.newPassword.$error && !this.v$.confirmPassword.$error && this.strSame.length<=0) {
-                    this.str=""
-                    this.strSame=""
-                    this.form.email=this.formData.email
-                    await axios.patch(import.meta.env.VITE_LOCAL+'users/'+ this.uid, this.form, {
-                            headers: {
-                                "Authorization": `Bearer ${localStorage.getItem('token') }`
-                            }
-                        })
+            async changePassword() {
+                this.v$.form.oldPassword.$touch()
+                this.v$.form.newPassword.$touch()
+                this.v$.confirmPassword.$touch()
+                if (!this.v$.form.oldPassword.$error && !this.v$.form.newPassword.$error && !this.v$.confirmPassword.$error && this.strSame.length <= 0) {
+                    this.str = ""
+                    this.strSame = ""
+                    this.form.email = this.formData.email
+                    await axios.patch(
+                            import.meta.env.VITE_LOCAL + 'users/' + this.uid, this.form, {
+                                headers: {
+                                    "Authorization": `Bearer ${localStorage.getItem('token') }`
+                                }
+                            })
                         .then((response) => {
                             swal({
                                 title: "Success",
@@ -403,21 +463,21 @@
                                 buttons: false
                             })
                             window.location = `/AccountSettings`;
-                            // console.log(response);
+
                         })
                         .catch((error) => {
                             this.str = "Old Password doesnot match"
-                            // console.log(error)
-                             if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
+
+                            if (error.response.data.message == "jwt expired") {
+                                this.$router.push({
+                                    name: 'Login'
+                                })
+
+                            } else {
+                                console.log(error);
+                            }
                         })
-                     
-                    } else {
-                        console.log(error);
-                    } 
-                        })
-                    }
+                }
             },
         },
     }

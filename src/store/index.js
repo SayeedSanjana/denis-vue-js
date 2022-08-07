@@ -91,25 +91,23 @@ export default createStore({
                     },
                 });
 
-             
-
                   return commit('setPatients', data);
  
-                
             } catch (error) {
-                
+                if (error.response.data.message == "jwt expired") {
                 router.push({
                     name: 'Login'
                 })
+            }
+            else{
+                console.log(error);
+            }
                    
             }
-
-
-				
+	
 		},
 
         fetchPatient ({commit}, patientId) {
-            // axios.get(`http://localhost:3000/api/patients/${patientId}`)
             axios.get(import.meta.env.VITE_LOCAL+`patients/${patientId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -118,8 +116,6 @@ export default createStore({
                 .then((result) => commit('getPatient', result)
                 )
         },
-
-       
 
       async  fetchBills ({commit} ,{currentPage, perPage, text=''}) {
         try {
@@ -139,7 +135,14 @@ export default createStore({
             return commit('setBills', data);
             
         } catch (error) {
-            console.log(error);    
+            if (error.response.data.message == "jwt expired") {
+                router.push({
+                    name: 'Login'
+                })
+            }
+            else{
+                console.log(error);
+            } 
     
         }
           
@@ -163,7 +166,14 @@ export default createStore({
                 return commit('setOutstandingBills', data);
                 
             } catch (error) {
-                console.log(error);    
+                if (error.response.data.message == "jwt expired") {
+                    router.push({
+                        name: 'Login'
+                    })
+                }
+                else{
+                    console.log(error);
+                }   
             }
               
             },
@@ -187,15 +197,17 @@ export default createStore({
                     return commit('setCompletedBills', data);
                     
                 } catch (error) {
-                    console.log(error);    
+                    if (error.response.data.message == "jwt expired") {
+                        router.push({
+                            name: 'Login'
+                        })
+                    }
+                    else{
+                        console.log(error);
+                    }    
                 }
                   
                 }
-
-
-
-        
-
 
        
 	}

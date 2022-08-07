@@ -1,131 +1,118 @@
 <script>
 import axios from "axios";
 import PrescriptionItems from "./_PrescriptionItems.vue";
-// import router from "../../router/index";
 
 import Preview from "./_Preview.vue"
-    export default {
-        components: {
-            PrescriptionItems,
-            Preview
-        },
-        props: {
-            patient: {
-                type: Object,
-                default: () => {}
-            }
-        },
-        data(){
-            return{
-                prescriptions: [],
-                index: null,
-               
-             
-                
-            }
-        },
-       
-       mounted() {
-            this.$store.commit('clearCopiedPrescription');
+export default {
+    components: {
+        PrescriptionItems,
+        Preview
+    },
+    props: {
+        patient: {
+            type: Object,
+            default: () => {}
+        }
+    },
+    data() {
+        return {
+            prescriptions: [],
+            index: null,
 
-            // console.log(this.$store.state.copiedPrescription);
-        },
-       
-        created() {
-            this.getPrescription(this.$route.params.id);
-          
-           
-            },
+        }
+    },
 
-        methods: {
-            
-            async getPrescription() {
-               
-                try {
-                    const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/?pid=' + this.$route.params.id , {
+    mounted() {
+        // clear the state of copied prescription when redirected to prescription list
+        this.$store.commit('clearCopiedPrescription');
+
+    },
+
+    created() {
+        this.getPrescription(this.$route.params.id);
+
+    },
+
+    methods: {
+        // show prescription list
+        async getPrescription() {
+
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + '/prescriptions/?pid=' + this.$route.params.id, {
                         headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
-                        params:{
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                        params: {
                             limit: 1000
                         }
                     })
-                    this.prescriptions = response.data.data;
+                this.prescriptions = response.data.data;
 
-                  
-                } catch (error) {
-                     if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } else {
-                        console.log(error);
-                    } 
-                    // console.log(error);
+
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
                 }
-            },
-            openPrescription(index){
-                this.index = index;
-        
-            },
-            createPrescription(){
 
-                this.$store.commit('setCopiedPatient' , this.patient);
-                this.$router.push({
-                    name: 'Prescription',
-                    params: {
-                        id: this.$route.params.id
-                    }
-                })
-            },
-            
-           
-            
-            
+            }
+        },
+        openPrescription(index) {
+            this.index = index;
 
-        }, 
-      
-    }
+        },
+        createPrescription() {
+            this.$store.commit('setCopiedPatient', this.patient);
+            this.$router.push({
+                name: 'Prescription',
+                params: {
+                    id: this.$route.params.id
+                }
+            })
+        },
+
+    },
+
+}
 </script>
 
 
 <template>
     
-    <div  class=" flex justify-between p-4">
-        
+    <div class=" flex justify-between p-4">
         <div class="w-1/3 bg-gray-50">
+            <div
+                class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 border-r-2 border-emerald-600 shadow-sm  p-3 ">
+                <label class="mx-5 text-regal-teal text-xl font-semibold">Prescription List</label>
 
-            <div class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 border-r-2 border-emerald-600 shadow-sm  p-3 ">
-                    <label class="mx-5 text-regal-teal text-xl font-semibold">Prescription List</label>
-
-                    <button  @click="createPrescription" title="Create new Prescription">
-                        <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
-                    </button>
-                 
+                <!-- create prescription button -->
+                <button @click="createPrescription" title="Create new Prescription">
+                    <img src="@/assets/svgs/plus.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
+                </button>
+                <!-- create prescription button -->
             </div>
-   
-     
-                <PrescriptionItems :prescriptions="prescriptions" @view-prescription= "openPrescription" :index="index" class="section h-xxl"/>
-           
+            <!-- list of prescriptions -->
+            <PrescriptionItems :prescriptions="prescriptions" @view-prescription="openPrescription" :index="index"
+                class="section h-xxl" />
+            <!-- list of prescriptions -->
         </div>
-     
-     
-          
-        
-        <div class="w-2/3  bg-gray-50 mx-4">
-          
 
-            <Preview v-if="prescriptions[index]" :form="prescriptions[index]"  :patient="patient" />
-           <div v-else class=" grid place-content-center my-52">
-             <img src="@/assets/images/empty-state.png" alt="" srcset="">
-             <p class="text-gray-500">No Prescription Selected.</p>
-             <p class="text-gray-500">Please select a prescription in the list to the left.</p>
-           </div>
+        <div class="w-2/3  bg-gray-50 mx-4">
+            <!-- preview prescription -->
+            <Preview v-if="prescriptions[index]" :form="prescriptions[index]" :patient="patient" />
+            <div v-else class=" grid place-content-center my-52">
+                <img src="@/assets/images/empty-state.png" alt="" srcset="">
+                <p class="text-gray-500">No Prescription Selected.</p>
+                <p class="text-gray-500">Please select a prescription in the list to the left.</p>
+            </div>
+            <!-- preview prescription -->
         </div>
     </div>
-
-    
 </template>
 
 
