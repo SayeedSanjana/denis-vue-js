@@ -362,7 +362,7 @@
                             timer: 1000,
                             buttons: false
                         })
-                        console.log(response);
+                        // console.log(response);
                     })
                     .catch((error) => {
                          if(error.response.data.message == "jwt expired"){
@@ -403,7 +403,7 @@
                                 buttons: false
                             })
                             window.location = `/AccountSettings`;
-                            console.log(response);
+                            // console.log(response);
                         })
                         .catch((error) => {
                             this.str = "Old Password doesnot match"

@@ -2,7 +2,7 @@
     <div class="container mx-auto py-4">   
         
         <p class="text-xl text-left font-bold text-regal-teal py-5">
-            Patient Records <span class="text-sm text-gray-400 ">(Total registered patients - <span class="font-semibold text-regal-teal">{{getTotalData}}</span> )</span> 
+            Patient Records <span class="text-sm text-gray-400 ">(Showing total registered patients - <span class="font-semibold text-regal-teal">{{getTotalData}}</span> )</span> 
         </p>
         <section class="flex sm:flex-row justify-between">
 

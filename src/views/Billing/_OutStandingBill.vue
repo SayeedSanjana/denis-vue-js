@@ -2,7 +2,7 @@
     <div>
         <section class="w-full  px-6 py-4 " >
               <p class="text-xl text-left font-bold text-regal-teal pb-2">
-            <span class="text-sm text-gray-400 ">(Total Outstanding Bill Records - <span class="font-semibold text-regal-teal">{{getTotalOutstandingData}}</span> )</span> 
+            <span class="text-sm text-gray-400 ">(Showing total Outstanding Bill Records - <span class="font-semibold text-regal-teal">{{getTotalOutstandingData}}</span> )</span> 
         </p>
              <form id="search" class="w-1/2 flex mx-24">
                       

@@ -3,7 +3,7 @@ import axios from 'axios';
 import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
-import {required} from '@vuelidate/validators';
+import {required,minLength} from '@vuelidate/validators';
 import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
 import ToothSvg from "./_ToothSvg.vue";
     export default {
@@ -61,7 +61,7 @@ import ToothSvg from "./_ToothSvg.vue";
         validations() {
             return{
                 tn:{
-                    name: {required}
+                    name: {required , minLength : minLength(3) }
                     
                 }    
                
@@ -85,13 +85,11 @@ import ToothSvg from "./_ToothSvg.vue";
 
                     
                 }
-                 if(error.response.data.message == "jwt expired"){
+                 if(response.data.message == "jwt expired"){
                         this.$router.push({
                             name: 'Login'
                         })
                      
-                    } else {
-                        console.log(error);
                     } 
                 // swal({
 				// 	title: "error",
@@ -260,6 +258,7 @@ import ToothSvg from "./_ToothSvg.vue";
                         button: false
                     });
                     this.form.items = [];
+                    this.v$.$reset()
                     
                 }
                   
@@ -310,6 +309,7 @@ import ToothSvg from "./_ToothSvg.vue";
 
                 }
                 this.location = [];
+               this.v$.$reset();
                 
             },
             removeService(index){
@@ -425,7 +425,9 @@ import ToothSvg from "./_ToothSvg.vue";
                                     </small>
                                 </div>
                             </span>
-    
+                            <div @mouseleave="tnList.length = 0">
+
+                            
                               <div class=" relative rounded p-1 mx-4">
                                   <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                       <p>
@@ -434,28 +436,26 @@ import ToothSvg from "./_ToothSvg.vue";
                                       </p>
                                       
                                   </div>
-                                  <textarea rows="5" type="text" @keyup="searchtn"
+                                  <textarea rows="5" type="text" @keyup="searchtn" 
                                       class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
                                       v-model="tn.name"></textarea>
                               </div>
                               
-                                    <ul class="w-80 -mt-4 ml-5 h-60 shadow-sm  absolute z-40 bg-regal-white border rounded-md"
-                                v-if="search && tnList.length == 0">
-                                <li class=" px-2 p-1 m-2"
-                                    v-for="items in 5" :key="items">
-                                    <p class=" placeholder-item">items.diagnosis</p>
-                                   
-                                </li>
-                            </ul>
-                            
-                                    <ul v-else v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-60 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
+                                    <ul class="w-80 -mt-4 ml-5 h-44 shadow-sm  absolute z-40 bg-regal-white border rounded-md"
+                                        v-if="search && tnList.length == 0">
+                                        <li class=" px-2 p-1 m-2" v-for="items in 4" :key="items">
+                                            <p class=" placeholder-item">items.diagnosis</p>
+
+                                        </li>
+                                    </ul>
+                                    <ul v-else v-show="tnList.length>0" class="w-80 -mt-4 ml-5 h-44 overflow-y-scroll shadow-sm  absolute z-40 bg-regal-white border rounded-md"
                                         >
                                         <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
                                             v-for="items in tnList" :key="items" @click="selectedTn(items.name)">
                                             {{items.name}}
                                         </li>
                                     </ul>
-                               
+                               </div>
                               <!-- <div v-show="search" class="w-80 -mt-4 ml-5 border absolute z-40 bg-gray-50 border-gray-300 shadow rounded-md p-4 max-w-sm mx-auto">
                                   <div class="animate-pulse flex space-x-4">
                                       <div class="flex-1 space-y-6 py-1">
