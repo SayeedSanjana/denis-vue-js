@@ -281,6 +281,26 @@ export default {
             }
 
         },
+        // on mouse leave hide the search list
+        hideOE() {
+
+            this.showSearch = false;
+            this.oelist.length = [];
+
+
+        },
+
+        hideTP() {
+            this.showSearchtp = false;
+            this.tplist.length = [];
+        },
+        hideInv() {
+            this.showSearchInv = false;
+            this.invlist.length = [];
+        },
+
+        // on mouse leave hide the search list
+
         // search investigation
         searchInvName(e) {
             try {
@@ -693,6 +713,9 @@ export default {
                     <!-- Searchable select on OE-->
                     <div class="w-full py-1">
                         <!-- Input diagnosis -->
+                        <div @mouseleave="hideOE">
+
+                       
                         <div class="flex">
                             <textarea placeholder="Write here......" type="text"
                                 class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
@@ -709,6 +732,7 @@ export default {
                             v-if="showSearch && oelist.length == 0">
                             <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
                                 <p class=" placeholder-item">items.diagnosis</p>
+                              
 
                             </li>
                         </ul>
@@ -721,6 +745,8 @@ export default {
                                 {{items.diagnosis}}
                             </li>
                         </ul>
+
+                         </div>
                         <!-- show searched diagnosis-->
                         <div class="my-4 ">
                             <hr class="mb-3" />
@@ -758,7 +784,8 @@ export default {
                     </div>
                     <div class="w-full ">
 
-                        <div class=" ">
+                        <div @mouseleave="hideInv">
+                            
                             <div class=" relative rounded p-1 mr-14">
 
                                 <div class=" absolute tracking-wider pl-2 uppercase text-xs">
@@ -767,6 +794,8 @@ export default {
                                             Name</label>
                                     </p>
                                 </div>
+
+                                
                                 <textarea type="text"
                                     class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
                                     @keypress="searchInvName" v-model="inv.inv_name"></textarea>
@@ -1042,7 +1071,7 @@ export default {
                     </section>
 
                     <!-- Input treatment plan -->
-                    <div class="flex justify-between mt-2">
+                    <div class="flex justify-between mt-2" >
 
                         <label
                             class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment
@@ -1057,7 +1086,7 @@ export default {
                     </div>
                     <!-- input treatment plan-->
 
-                    <div class="w-full py-1">
+                    <div class="w-full py-1" @mouseleave="hideTP">
                         <div class="flex justify-between">
                             <textarea placeholder="Write here......" type="text"
                                 class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"

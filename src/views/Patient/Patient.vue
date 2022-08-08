@@ -1,9 +1,87 @@
 <template>
+
     <div class="container mx-auto py-4">
+        <div class=" grid grid-cols-4 gap-4  ">
+    
+            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded  shadow">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 text-right">Total Patients Registered </p>
+                        <!-- <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p> -->
+                    </div>
+
+                </div>
+                <div class="flex justify-between pt-4">
+                    <p class="text-base font-medium text-gray-600 ">Total Registered <span class="font-bold">:</span> </p>
+                    <p class="text-base font-semibold text-gray-600 ">8000</p>
+                </div>
+            </div>
+            
+            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded  shadow">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 text-right">Patient Visits today</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+                    </div>
+
+                </div>
+                <div class="flex justify-between pt-4">
+                    <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p>
+                    <p class="text-base font-semibold text-gray-600 ">50</p>
+                </div>
+            </div>
+            
+             <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded  shadow">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                    </div>
+                    <div>
+                        <p class="text-base font-semibold text-gray-500 text-right">Total Due</p>
+                        <!-- <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p> -->
+                    </div>
+
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p>
+                    <p class="text-base font-semibold text-regal-red ">TK 2000000</p>
+                </div>
+            </div>
+            
+            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded  shadow">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 text-right">Bill Status for</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+                    </div>
+
+                </div>
+                <div class="flex justify-between pt-4">
+                    <p class="text-base font-medium text-gray-600 ">Total Patients <span class="font-bold">:</span> </p>
+                    <p class="text-base font-semibold text-gray-600 ">8</p>
+                </div>
+                <div class="flex justify-between">
+                    <p class="text-base font-medium text-gray-600 ">Amount Paid <span class="font-bold">:</span> </p>
+                    <p class="text-base font-semibold text-regal-success ">TK 2000000</p>
+                </div>
+            </div>
+        
+    
+        </div>
         <!-- showing total patients -->
         <p class="text-xl text-left font-bold text-regal-teal py-5">
             Patient Records <span class="text-sm text-gray-400 ">(Showing total registered patients - <span
-                    class="font-semibold text-regal-teal">{{getTotalData}}</span> )</span>
+                    class="font-semibold text-regal-teal">{{getTotalData}}</span>)</span>
         </p>
         <!-- showing total patients -->
         <section class="flex sm:flex-row justify-between">
@@ -115,6 +193,8 @@ export default {
     getTotalData() {
             return this.$store.state.totalPatient;
         },
+   
+  
     },
 
     data() {
@@ -157,6 +237,7 @@ export default {
             }
 
         },
+
         // search function
         // page change
         onPageChange(page) {

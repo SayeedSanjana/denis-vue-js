@@ -53,6 +53,7 @@
                     -->
                     <div class="dropdown-menu absolute hidden right-2"  tabindex="-1">
                         <div class="dropdown-list-group">
+                            <p class="dropdown-items">{{docTitle}} {{doctor}}</p>
                             <!-- <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
                                     Profile Settings
                             </router-link> -->
@@ -75,6 +76,12 @@
 </template>
 <script>
     export default {
+        data(){
+            return{
+                doctor: this.parseJwt(localStorage.getItem('token')).name,
+                docTitle: this.parseJwt(localStorage.getItem('token')).title,
+            }
+        },
         
         methods: {
             

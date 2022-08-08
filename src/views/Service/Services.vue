@@ -173,7 +173,7 @@ import ToothSvg from "./_ToothSvg.vue";
                   if(this.timeout) clearTimeout(this.timeout);
                        if(this.tnList.length <= 0) this.search = true;
                     this.timeout = setTimeout(async () => {
-                        this.search = false
+                        this.search = false;
                         if (e.target.value.length > 0) {
                                  const response = await this.meiliSearch.index("treatmentNote").search(e.target.value);
                           
