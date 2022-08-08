@@ -193,7 +193,7 @@ export default {
         // meilisearch implemented
         this.meiliSearch = new MeiliSearch({
             host: 'https://jellyfish-app-6neo9.ondigitalocean.app/',
-            apiKey: 'ImBadass',
+            apiKey: 'e4fbbc20cd3376ab137b562f77e969c32d0b3c667c7870371b40637f83ec3bc0',
         });
 
         if (this.copiedData) {
