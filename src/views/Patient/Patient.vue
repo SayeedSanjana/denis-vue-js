@@ -6,7 +6,7 @@
             <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
                 <div class="flex justify-between">
                     <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                        <img src="@/assets/svgs/total.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-500 text-right">Total Patients Registered </p>
@@ -23,7 +23,7 @@
             <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
                 <div class="flex justify-between">
                     <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                        <img src="@/assets/svgs/visitedtoday.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
                     </div>
                     <div>
                         <p class="text-sm font-medium text-gray-500 text-right">Patient Visits today</p>
@@ -40,7 +40,7 @@
              <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
                 <div class="flex justify-between">
                     <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-14 w-14 px-2 py-1">
                     </div>
                     <div>
                         <p class="text-base font-semibold text-gray-500 text-right">Total Due</p>
