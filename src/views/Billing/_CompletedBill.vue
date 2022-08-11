@@ -2,7 +2,7 @@
     <div>
         <section class="w-full  px-6 py-4 " >
             <p class="text-xl text-left font-bold text-regal-teal pb-2">
-            <span class="text-sm text-gray-400 ">(Showing total completed Bill Records - <span class="font-semibold text-regal-teal">{{getCompletedBills}}</span> )</span> 
+            <span class="text-sm text-gray-400 ">(Showing total results - <span class="font-semibold text-regal-teal">{{getCompletedBills}}</span> )</span> 
         </p>
              <form id="search" class="w-1/2 flex mx-24">
                       
@@ -98,7 +98,9 @@
                      patientContact: 'Patient Contact',
                     total: 'Total Cost',
                     isPaid:'Payment Status',
-                    balance: 'balance',  
+                    balance: 'balance', 
+                    createdAt: 'Bill Created At', 
+                    updatedAt: 'Last Updated At',
                 
                 },
                 perPage: 10,

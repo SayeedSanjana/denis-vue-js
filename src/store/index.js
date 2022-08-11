@@ -6,7 +6,9 @@ export default createStore({
 	state: {
 		patients: [],
         totalPatient: 0,
+        totalfoundPatient: 0,
         totalBill: 0,
+        // totalfoundBill: 0,
         totalOutstandingBills: 0,
         totalCompletedBills: 0,
         endPage: null,
@@ -23,17 +25,20 @@ export default createStore({
 		setPatients(state, patients) {
 			state.patients = patients.data['data']
             state.totalPatient = patients.data.total
+            state.totalfoundPatient = patients.data['totalFound']
+            // console.log(patients.data['totalFound']);
             state.endPage = patients.data.nextPage
             
 		},
         setOutstandingBills(state, outStandingBills){
             state.outStandingBills = outStandingBills.data['data']
-            state.totalOutstandingBills = outStandingBills.data.total
+            state.totalOutstandingBills = outStandingBills.data['totalFound']
+            
             state.endPage = outStandingBills.data.nextPage
         },
         setCompletedBills(state, completedBills){
             state.completedBills = completedBills.data['data']
-            state.totalCompletedBills = completedBills.data.total
+            state.totalCompletedBills = completedBills.data['totalFound']
             state.endPage = completedBills.data.nextPage
         },
 
@@ -44,7 +49,7 @@ export default createStore({
         },
         setBills(state, bills) {
             state.bills = bills.data['data']
-            state.totalBill = bills.data.total
+            state.totalBill = bills.data['totalFound']
             state.endPage = bills.data.nextPage
            
         },
@@ -53,6 +58,7 @@ export default createStore({
            
             state.patients.unshift(patients)
             state.totalPatient = state.totalPatient + 1
+            state.totalfoundPatient = state.totalfoundPatient + 1
             state.endPage = state.endPage + 1
         },
         setCopiedPrescription(state, copiedPrescription) {

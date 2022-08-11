@@ -3,61 +3,56 @@
     <div class="container mx-auto py-4">
         <div class=" grid grid-cols-4 gap-4  ">
     
-            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
-                <div class="flex justify-between">
-                    <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/total.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-500 text-right">Total Patients Registered </p>
-                        <!-- <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p> -->
+            <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between ">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow ">
+                        <img src="@/assets/svgs/total.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
                     </div>
 
+                <div>
+                    <p class="text-sm font-semibold text-gray-500 text-right">Total Patients Registered </p>
+                  
+                    <p class="text-4xl text-right font-semibold text-gray-600 pt-12 ">{{getTotalData}}</p>
                 </div>
-                <div class="flex justify-between pt-4">
-                    <p class="text-base font-medium text-gray-600 ">Total Registered <span class="font-bold">:</span> </p>
-                    <p class="text-base font-semibold text-gray-600 ">8000</p>
                 </div>
             </div>
             
-            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+            <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
                 <div class="flex justify-between">
-                    <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/visitedtoday.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow">
+                        <img src="@/assets/svgs/visitedtoday.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
                     </div>
+
+                <div>
                     <div>
                         <p class="text-sm font-medium text-gray-500 text-right">Patient Visits today</p>
                         <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
                     </div>
-
+                    <!-- <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p> -->
+                    <p class="text-4xl text-right font-semibold text-gray-600 pt-7 ">50</p>
                 </div>
-                <div class="flex justify-between pt-4">
-                    <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p>
-                    <p class="text-base font-semibold text-gray-600 ">50</p>
                 </div>
             </div>
             
-             <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+             <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
                 <div class="flex justify-between">
-                    <div class="flex items-center border border-gray-200 rounded  shadow">
-                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-14 w-14 px-2 py-1">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow">
+                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
                     </div>
+                <div>
                     <div>
                         <p class="text-base font-semibold text-gray-500 text-right">Total Due</p>
                         <!-- <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p> -->
                     </div>
-
+                    <!-- <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p> -->
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-14 ">TK {{billInfo.total_due['amount']}}</p>
                 </div>
-
-                <div class="flex justify-between pt-4">
-                    <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p>
-                    <p class="text-base font-semibold text-regal-red ">TK 2000000</p>
                 </div>
             </div>
             
-            <div class=" px-4 py-3 border rounded-lg bg-white shadow-md">
+            <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
                 <div class="flex justify-between">
-                    <div class="flex items-center border border-gray-200 rounded  shadow">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow">
                         <img src="@/assets/svgs/billstatus.svg" alt="" srcset="" class="place-content-center h-14 w-14 p-1">
                     </div>
                     <div>
@@ -66,13 +61,13 @@
                     </div>
 
                 </div>
-                <div class="flex justify-between pt-4">
+                <div class="flex justify-between pt-4" >
                     <p class="text-base font-medium text-gray-600 ">Total Patients <span class="font-bold">:</span> </p>
-                    <p class="text-base font-semibold text-gray-600 ">8</p>
+                    <p class="text-base font-semibold text-gray-600 ">{{billInfo.latest_paid[0].patients}}</p>
                 </div>
                 <div class="flex justify-between">
                     <p class="text-base font-medium text-gray-600 ">Amount Paid <span class="font-bold">:</span> </p>
-                    <p class="text-base font-semibold text-regal-success ">TK 2000000</p>
+                    <p class="text-base font-semibold text-regal-success ">TK {{billInfo.latest_paid[0].amount}}</p>
                 </div>
             </div>
         
@@ -80,8 +75,8 @@
         </div>
         <!-- showing total patients -->
         <p class="text-xl text-left font-bold text-regal-teal py-5">
-            Patient Records <span class="text-sm text-gray-400 ">(Showing total registered patients - <span
-                    class="font-semibold text-regal-teal">{{getTotalData}}</span>)</span>
+            Patient Records <span class="text-sm text-gray-400 ">(Showing total results - <span
+                    class="font-semibold text-regal-teal">{{getFoundData}}</span>)</span>
         </p>
         <!-- showing total patients -->
         <section class="flex sm:flex-row justify-between">
@@ -133,7 +128,7 @@
 
         <!-- Pagination -->
         <div class="flex justify-center my-5">
-            <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage"
+            <Pagination :totalData="getFoundData" :per-page="perPage" :current-page="currentPage"
                 @pagechanged="onPageChange" />
         </div>
 
@@ -146,6 +141,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Pagination from '../../components/Pagination.vue'
 import Grid from './PatientGrid.vue'
 import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";
@@ -167,6 +163,8 @@ export default {
         }
         this.$store.dispatch("fetchPatients", query);
 
+        this.getBillData();
+
     },
     watch: {
         '$store.state.patients': function () {
@@ -185,6 +183,7 @@ export default {
             });
 
         },
+        
 
 
     },
@@ -193,6 +192,12 @@ export default {
     getTotalData() {
             return this.$store.state.totalPatient;
         },
+
+    getFoundData(){
+        // console.log(this.$store.state.totalFound);
+        return this.$store.state.totalfoundPatient;
+   
+    }
    
   
     },
@@ -215,11 +220,45 @@ export default {
             perPage: 10,
             openModal: false,
             patients: [],
+            billInfo: {
+                total_due: {
+                    amount: 0,
+                },
+                latest_paid: [{
+                    patients: 0,
+                    amount: 0,
+                }],
+            }
 
         }
     },
 
     methods: {
+
+        // dashboard bill data
+       async getBillData(){
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + 'billings/statistics/', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    })
+                this.billInfo = response.data.data;
+                // console.log(this.billInfo);
+
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
+                }
+            }
+
+        },
         // search function
         search(bool) {
             

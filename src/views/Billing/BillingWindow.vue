@@ -64,6 +64,18 @@ import axios from "axios";
         watch: {
             '$store.state.bills': function() {
                 this.bills = [...this.$store.state.bills];
+                this.bills.forEach(bill => {
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            })
                 // console.log(this.bills);
             
                 // this.bills.forEach(bill => {
@@ -75,6 +87,18 @@ import axios from "axios";
 
         '$store.state.outStandingBills': function() {
             this.dueBills = [...this.$store.state.outStandingBills];
+            this.dueBills.forEach(bill => {
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            });
             // console.log(this.dueBills);
         
             // this.dueBills.forEach(bill => {
@@ -84,6 +108,18 @@ import axios from "axios";
         },
         '$store.state.completedBills': function() {
             this.paidBills = [...this.$store.state.completedBills];
+            this.paidBills.forEach(bill => {
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            });
             // console.log(this.paidBills);
         
             // this.paidBills.forEach(bill => {
