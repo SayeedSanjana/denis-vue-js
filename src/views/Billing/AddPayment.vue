@@ -84,6 +84,11 @@ import PrintBill from "./_PrintBill.vue";
             },
             closeModal(){
                 this.openModal = false;
+
+                // window.location.reload();
+               
+               
+               
             },
             
            
@@ -98,6 +103,8 @@ import PrintBill from "./_PrintBill.vue";
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 },
                     });
+
+                    this.bill= response.data.data;
                     // console.log(this.form);
                     if(response.data.status == 'success'){
                        swal({
@@ -107,7 +114,17 @@ import PrintBill from "./_PrintBill.vue";
                             timer: 1000,
                             button: false,
                        });
-                          this.$router.push('/BillingWindow');
+                       this.addPayment.paid = 0;
+                        //   this.$router.push('/BillingWindow');
+
+
+                    
+                        setTimeout(() => {
+                            this.modal();
+                            
+                        }, 1000);
+
+                        
                     }
              
                     
@@ -139,6 +156,7 @@ import PrintBill from "./_PrintBill.vue";
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 },
                     });
+                    this.bill= response.data.data;
                     // console.log(this.form);
                     if(response.data.status == 'success'){
                        swal({
@@ -148,7 +166,15 @@ import PrintBill from "./_PrintBill.vue";
                             timer: 1000,
                             button: false,
                        });
-                          this.$router.push('/BillingWindow');
+                           this.addPayment.paid = 0;
+                        //   this.$router.push('/BillingWindow');
+
+
+                    
+                        setTimeout(() => {
+                            this.modal();
+                            
+                        }, 1000);
                     }
              
                     

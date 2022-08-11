@@ -91,12 +91,10 @@
                 </div>
             </form>
             <div class="mx-24 my-5">
-                <Grid :method="addPayment" :data="allBill" :columns="gridColumns" :filter-key="searchQuery"
-                    @empty="search" />
+                <Grid :method="addPayment" :data="allBill" :columns="gridColumns" :filter-key="searchQuery" @empty="search" />
             </div>
             <div class="flex justify-center mt-5 mb-2">
-                <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage"
-                    @pagechanged="onPageChange" />
+                <Pagination :totalData="getTotalData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
             </div>
         </section>
     </div>
