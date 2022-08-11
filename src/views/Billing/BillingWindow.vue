@@ -26,6 +26,15 @@ import axios from "axios";
                pendingList: [],
                dueBills: [],
                paidBills: [],
+                  billInfo: {
+                total_due: {
+                    amount: 0,
+                },
+                latest_paid: [{
+                    patients: 0,
+                    amount: 0,
+                }],
+            }
               
             }
 
@@ -38,6 +47,7 @@ import axios from "axios";
     
             } 
             this.$store.dispatch("fetchBills", query);
+             this.getBillData();
 
 
             // this.getOutStandingBills();
@@ -144,6 +154,30 @@ import axios from "axios";
             },
         },
         methods: {
+               // dashboard bill data
+       async getBillData(){
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + 'billings/statistics/', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    })
+                this.billInfo = response.data.data;
+                // console.log(this.billInfo);
+
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
+                }
+            }
+
+        },
 
            
               async getPendingList() {
@@ -246,13 +280,75 @@ import axios from "axios";
 </script>
 
 <template>
-    <section class="container mx-auto my-4">
+    <section class="container mx-auto my-1">
+         
     <div class=" ">
             <h1 for="" class="flex justify-start items-start font-semibold text-regal-teal text-xl"> Billing History</h1>
+            <div class="grid grid-cols-3 gap-4 my-1">
+                <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow mt-5">
+                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                    </div>
+                <div>
+                    <div>
+                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Due</p>
+                      
+                    </div>
+                   
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due['amount']}}</p>
+                </div>
+                </div>
+            </div>
+                <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow mt-5">
+                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                    </div>
+                <div>
+                    <div>
+                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Due</p>
+                      
+                    </div>
+                   
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due['amount']}}</p>
+                </div>
+                </div>
+            </div>
+            
+            <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow my-5">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset=""
+                            class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                    </div>
 
-          
-        
-    <div class="border p-4">
+
+                    <div class="text-right">
+                        <p class="text-sm font-semibold uppercase text-gray-400 text-right">Total Earnings for</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+
+
+                        <div class="pt-4">
+                            <div class="flex justify-end text-right my-0.5 ">
+
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].patients}}</p>
+                                <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+    
+                            <div class="flex justify-end text-right my-0.5">
+
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo.latest_paid[0].amount}}</p>
+                            <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+           
+    <div class="border p-1 px-3">
 
     
     <div class="flex ">
