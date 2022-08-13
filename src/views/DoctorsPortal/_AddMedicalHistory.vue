@@ -160,8 +160,8 @@ export default {
         },
 
         //remove general medical records of a patient
-        removeHistory(item) {
-            switch (this.picked) {
+        removeHistory(item ,title) {
+            switch (title) {
                 case "allergies":
                     this.history.allergies.splice(item, 1);
                     break;
@@ -240,7 +240,7 @@ export default {
                             <li v-for="(data,index) in history.allergies" :key="data" class="flex justify-between py-1">
 
                                 <p>{{data}}</p>
-                                <button @click="removeHistory(index)">X</button>
+                                <button @click="removeHistory(index , 'allergies')">X</button>
                             </li>
                         </ul>
                     </article>
@@ -251,7 +251,7 @@ export default {
                         <ul class="mx-auto px-4">
                             <li v-for="(data,index) in history.disease" :key="data" class="flex justify-between py-1">
                                 <p>{{data}}</p>
-                                <button @click="removeHistory(index)">X</button>
+                                <button @click="removeHistory(index,'disease')">X</button>
                             </li>
                         </ul>
                     </article>
@@ -264,7 +264,7 @@ export default {
                             <li v-for="(data,index) in history.personalHabits" :key="data"
                                 class="flex justify-between py-1">
                                 <p>{{data}}</p>
-                                <button @click="removeHistory(index)">X</button>
+                                <button @click="removeHistory(index, 'personalHabits')">X</button>
                             </li>
                         </ul>
                     </article>

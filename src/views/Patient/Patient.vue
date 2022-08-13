@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import Pagination from '../../components/Pagination.vue'
 import Grid from './PatientGrid.vue'
 import RegisterPatient from "../DoctorsPortal/RegisterPatient.vue";

@@ -27,13 +27,7 @@ import axios from "axios";
                dueBills: [],
                paidBills: [],
                   billInfo: {
-                total_due: {
-                    amount: 0,
-                },
-                latest_paid: [{
-                    patients: 0,
-                    amount: 0,
-                }],
+                
             }
               
             }
@@ -296,7 +290,7 @@ import axios from "axios";
                       
                     </div>
                    
-                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due['amount']}}</p>
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due}}</p>
                 </div>
                 </div>
             </div>
@@ -311,7 +305,7 @@ import axios from "axios";
                       
                     </div>
                    
-                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due['amount']}}</p>
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due}}</p>
                 </div>
                 </div>
             </div>
@@ -331,14 +325,14 @@ import axios from "axios";
 
                         <div class="pt-4">
                             <div class="flex justify-end text-right my-0.5 ">
-
-                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].patients}}</p>
+                                
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo}}</p>
                                 <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
                             </div>
     
                             <div class="flex justify-end text-right my-0.5">
 
-                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo.latest_paid[0].amount}}</p>
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo}}</p>
                             <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
                             </div>
                         </div>

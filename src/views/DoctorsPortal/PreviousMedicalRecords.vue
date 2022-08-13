@@ -17,11 +17,16 @@
             <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
 
                 <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2.5 ">
-                    <div class=" text-regal-teal text-sm font-semibold text-left">
-                        {{val}}
+                    <div class=" text-regal-teal text-sm font-semibold text-left ">
+                 
+                         {{val}} 
+                     
                     </div>
-                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium">
-                        : {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
+                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium   text-left">
+                        <p class="truncate w-52">
+                             <span class="font-bold">:</span> {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
+                        </p>
+                      
                     </div>
                 </div>
 
