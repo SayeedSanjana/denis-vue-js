@@ -53,7 +53,8 @@
                     -->
                     <div class="dropdown-menu absolute hidden right-2"  tabindex="-1">
                         <div class="dropdown-list-group">
-                            <p class="dropdown-items">{{docTitle}} {{doctor}}</p>
+                            <p class="block px-4 py-3 text-sm bg-gray-50 text-black">{{docTitle}} {{doctor}}</p>
+                            <hr>
                             <!-- <router-link to="/ProfileSettings" class="dropdown-items" tabindex="-1">
                                     Profile Settings
                             </router-link> -->

@@ -138,6 +138,10 @@ import axios from "axios";
             getTotalData() {
                 return this.$store.state.totalBill;
             },
+            totalBillsCount(){
+                return this.$store.state.totalBills;
+            
+            },
 
             getTotalOutstandingData() {
                 return this.$store.state.totalOutstandingBills;
@@ -286,11 +290,11 @@ import axios from "axios";
                     </div>
                 <div>
                     <div>
-                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Due</p>
+                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Bill</p>
                       
                     </div>
                    
-                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due}}</p>
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">{{totalBillsCount}}</p>
                 </div>
                 </div>
             </div>
@@ -305,7 +309,7 @@ import axios from "axios";
                       
                     </div>
                    
-                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 ">TK {{billInfo.total_due}}</p>
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 " >TK {{billInfo.total_due.amount}}</p>
                 </div>
                 </div>
             </div>
@@ -323,16 +327,29 @@ import axios from "axios";
                         <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
 
 
-                        <div class="pt-4">
-                            <div class="flex justify-end text-right my-0.5 ">
+                        <div class="pt-4" v-if="this.billInfo.latest_paid.length >= 1 ">
+                            <div class="flex justify-end text-right my-0.5 " >
                                 
-                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo}}</p>
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].count}}</p>
                                 <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
                             </div>
     
                             <div class="flex justify-end text-right my-0.5">
 
-                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo}}</p>
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo.latest_paid[0].amount}}</p>
+                            <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+                        </div>
+                         <div class="pt-4" v-else>
+                            <div class="flex justify-end text-right my-0.5 " >
+                                
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">0</p>
+                                <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+    
+                            <div class="flex justify-end text-right my-0.5">
+
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK 0</p>
                             <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
                             </div>
                         </div>

@@ -8,6 +8,7 @@ export default createStore({
         totalPatient: 0,
         totalfoundPatient: 0,
         totalBill: 0,
+        totalBills: 0,
         // totalfoundBill: 0,
         totalOutstandingBills: 0,
         totalCompletedBills: 0,
@@ -49,6 +50,7 @@ export default createStore({
         },
         setBills(state, bills) {
             state.bills = bills.data['data']
+            state.totalBills = bills.data.total
             state.totalBill = bills.data['totalFound']
             state.endPage = bills.data.nextPage
            

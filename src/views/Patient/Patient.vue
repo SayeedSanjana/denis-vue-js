@@ -29,7 +29,7 @@
                         <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p> -->
-                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11 ">50</p>
+                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11 ">{{countVisit}}</p>
                 </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                         <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p> -->
-                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11">12</p>
+                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11">{{countReg}}</p>
                 </div>
                 </div>
             </div>
@@ -135,6 +135,31 @@ export default {
 
 
     },
+    data() {
+        return {
+            searchQuery: '',
+            gridColumns: {
+                id: 'patient ID',
+                name: 'name',
+                dob: 'age',
+                phone: 'contact',
+                gender: 'sex',
+                createdAt: 'registration date',
+                updatedAt: 'Last Updated'
+            },
+
+            totalData: 0,
+            text: '',
+            currentPage: 1,
+            perPage: 10,
+            openModal: false,
+            patients: [],
+            countVisit: 0,
+            countReg: 0
+         
+
+        }
+    },
     created() {
         const query = {
             currentPage: this.currentPage,
@@ -142,6 +167,7 @@ export default {
 
         }
         this.$store.dispatch("fetchPatients", query);
+        
 
        
 
@@ -150,6 +176,12 @@ export default {
         '$store.state.patients': function () {
 
             this.patients = [...this.$store.state.patients];
+          
+          let today =  new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'})
+
 
 
             this.patients.forEach(patient => {
@@ -160,7 +192,24 @@ export default {
                     month: 'long',
                     day: 'numeric'
                 });
+                patient.updatedAt = new Date(patient.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                   if(today === patient.updatedAt){
+                    this.countVisit++;
+                
+                    
+                   }
+                   if(today === patient.createdAt){
+                    this.countReg++;
+                
+                    
+                   }
             });
+     
 
         },
         
@@ -182,28 +231,7 @@ export default {
   
     },
 
-    data() {
-        return {
-            searchQuery: '',
-            gridColumns: {
-                id: 'patient ID',
-                name: 'name',
-                dob: 'age',
-                phone: 'contact',
-                gender: 'sex',
-                createdAt: 'registration date'
-            },
-
-            totalData: 0,
-            text: '',
-            currentPage: 1,
-            perPage: 10,
-            openModal: false,
-            patients: [],
-         
-
-        }
-    },
+    
 
     methods: {
 
@@ -225,6 +253,8 @@ export default {
             }
 
         },
+
+       
 
         // search function
         // page change
