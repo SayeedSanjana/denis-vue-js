@@ -26,7 +26,7 @@
                 <div>
                     <div>
                         <p class="text-sm uppercase font-semibold text-gray-400 text-right">Patient Visits</p>
-                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p> -->
                     <p class="text-4xl text-right font-semibold text-regal-teal pt-11 ">{{countVisit}}</p>
@@ -42,7 +42,7 @@
                 <div>
                     <div>
                         <p class="text-sm uppercase font-semibold text-gray-400 text-right">Patient Registered </p>
-                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p> -->
                     <p class="text-4xl text-right font-semibold text-regal-teal pt-11">{{countReg}}</p>
@@ -155,7 +155,11 @@ export default {
             openModal: false,
             patients: [],
             countVisit: 0,
-            countReg: 0
+            countReg: 0,
+            todayDate: new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'})
          
 
         }

@@ -13,6 +13,7 @@
 <template>
 	<section class=" my-4">
 		<div v-if="pendingList.length > 0" class=" grid grid-cols-3 gap-4 font-semibold text-gray-700">
+		<!-- Pending list starts-->
 			<div class=" -m-4" v-for="(item,index) in pendingList" :key="index" @click="$emit('viewBill', index)">
 				<div class=" p-4">
 					<div class="border border-gray-200 bg-white p-6 rounded-lg">
@@ -38,11 +39,11 @@
 					</div>
 				</div>
 			</div>
+			<!-- Pending list ends-->
 		</div>
 		<div v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Pending Bills</div>
 	</section>
 </template>
-
 
 <style scoped>
 </style>

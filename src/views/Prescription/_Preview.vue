@@ -2,7 +2,6 @@
 import axios from 'axios';
 import swal from "sweetalert";
 export default {
-
     props: {
         form: {
             type: Object,
@@ -30,11 +29,9 @@ export default {
             }
             return this.form.medicine;
         },
-
     },
     data() {
         return {
-
             previewInv: false,
             previewTreatment: false,
 
@@ -57,9 +54,7 @@ export default {
                 params: {
                     id: this.$route.params.id,
                 }
-
             })
-
             swal({
                 title: "Prescription copied",
                 text: "You can now edit the prescription",
@@ -121,9 +116,7 @@ export default {
                     WinPrint.close();
                 })
             }
-
         },
-
         selectMedicine(i) {
             this.formData.medicine[i].isHidden = !this.formData.medicine[i].isHidden;
         },
@@ -138,13 +131,9 @@ export default {
                     presId: this.form._id,
                     data: JSON.stringify(this.formData)
                 },
-
             });
         }
-
-
     }
-
 }
 </script>
 
@@ -176,7 +165,6 @@ export default {
                     <li class="font-semibold text-lg text-left">
                         MT Dental Center
                     </li>
-
                     <li class="text-xs text-left">
                         <span class="font-semibold"> Address:</span> House No 12 (1st Floor), Road No 14 (New)<br />
                         <span> Dhanmondi, Dhaka-1209 </span> <br />
@@ -192,40 +180,27 @@ export default {
                         <span class=" font-semibold">Report Checking Hours : </span>
                         <span class=""> 4 PM- 6 PM</span>
                     </li>
-
-
                 </ul>
-
                 <ul>
-
                     <li class="font-semibold text-lg text-right">
                         {{formData.user.title}} {{formData.user.name}}
                     </li>
-
                     <li class="text-xs text-right w-72">
-
                         {{formData.user.qualification}}
                     </li>
-
                     <li class="text-xs text-right ">
                         <span class=" font-semibold">BMDC No: </span>
                         <span class="text-sm">{{formData.user.BMDC}}</span>
                     </li>
-
                     <li class="text-xs text-right">
                         <span class=" font-semibold">Contact: </span>
                         <span class="">{{formData.user.phone}}</span>
                     </li>
-
                     <li class=" text-xs text-right">
                         <span class=" font-semibold">Email: </span>
                         <span class="">{{formData.user.email}}</span>
                     </li>
-
                 </ul>
-
-
-
             </section>
             <!-- doctor and clinic info -->
             <hr />
@@ -247,45 +222,30 @@ export default {
             <section class="my-2 ">
                 <article class="flex justify-between text-sm ">
                     <div class="w-1/2 p-3 ">
-
-
                         <div class=" text-left my-2" v-if="formData.cc.length > 0">
-
                             <label
                                 class=" w-2/5 block my-2  px-3 py-1 font-bold text-sm text-regal-teal text-left">Chief
                                 Complaint</label>
-
                             <div class="mx-2 text-regal-teal" v-html="formData.cc"></div>
-
                         </div>
-
                         <div class="w-full my-2 " v-if="formData.oe.length > 0">
-
                             <label
                                 class=" block my-2 w-2/5 text-sm font-bold  text-regal-teal px-3 py-1  capitalize text-left">On
                                 Examination</label>
-
                             <ul class="  lowercase text-left text-regal-teal py-1 ml-6 " v-for="item in formData.oe"
                                 :key="item">
                                 <li class="  italic list-disc">
                                     <div class="flex justify-between">
                                         {{item}}
                                     </div>
-
                                 </li>
                             </ul>
-
                         </div>
 
                         <div :class="{'hidebutton': previewInv , 'showbutton': !previewInv}"
                             v-if="formData.investigation.length > 0">
-
-
                             <div class="flex justify-between">
-
-                                <label
-                                    class=" w-2/5 block my-2   px-3 py-1    font-bold text-sm  capitalize text-left">Investigation</label>
-
+                                <label class=" w-2/5 block my-2   px-3 py-1    font-bold text-sm  capitalize text-left">Investigation</label>
                                 <button type="button" class="hidebutton" @click="previewInv = !previewInv">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -298,10 +258,8 @@ export default {
 
                             <ul class="  text-left  py-1 ml-6 " v-for="item in formData.investigation" :key="item">
                                 <li class=" list-disc ">
-
                                     <div class="flex justify-between">
                                         <p class=" ">
-
                                             {{item.location}} - <span class="italic"> {{item.inv_name}}</span>
                                         </p>
                                     </div>
@@ -315,13 +273,10 @@ export default {
                         <section class="m-1">
 
                             <div v-if="formData.medicine.length > 0" class="my-2">
-
-                                <label
-                                    class=" w-2/5 block my-2  px-3 py-1  font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
+                                <label class=" w-2/5 block my-2  px-3 py-1  font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
 
                                 <ul class="ml-6 my-1 text-regal-teal">
                                     <li v-for="(data,index) in formData.medicine" :key="index" class="list-disc ">
-
                                         <div class="flex justify-between">
                                             <div
                                                 :class="{'strikebutton':formData.medicine[index].isHidden , 'showbutton': !formData.medicine[index].isHidden}">
@@ -332,23 +287,17 @@ export default {
                                                             {{data.name}}-
                                                         </span>
                                                     </p>
-
                                                     <p class=" ">
                                                         <span class="italic">{{data.dosage}}</span>
                                                         {{data.generic}}
                                                     </p>
-
                                                 </div>
-
                                                 <p class=" text-left  ">
                                                     <span class="pr-4"> {{data.frequency}} </span>
                                                     <span class="pr-4">{{data.duration}}</span>
                                                     <span class="pr-4">{{data.relationWithMeals}}</span>
                                                 </p>
-
                                             </div>
-
-
                                             <button type="button" class="hidebutton" @click="selectMedicine(index)">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -370,8 +319,6 @@ export default {
                                                 </svg>
                                             </button>
                                         </div>
-
-
                                     </li>
                                 </ul>
                             </div>
@@ -380,24 +327,16 @@ export default {
 
                             <div :class="{'hidebutton': previewTreatment , 'showbutton': !previewTreatment}"
                                 v-if="formData.treatmentPlan.length > 0">
-
-
-
                                 <div class="flex justify-between">
-
-                                    <label
-                                        class=" w-2/5 block    px-3 py-1  font-bold text-sm capitalize text-left">Treatment
+                                    <label class=" w-2/5 block    px-3 py-1  font-bold text-sm capitalize text-left">Treatment
                                         Plan</label>
-
                                     <button class="hidebutton" @click="previewTreatment = !previewTreatment">
-
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M17.3 3.3C16.9 2.9 16.2 2.9 15.7 3.3L13.3 5.7C12.2437 5.3079 11.1267 5.1048 10 5.1C6.2 5.2 2.8 7.2 1 10.5C1.2 10.9 1.5 11.3 1.8 11.7C2.6 12.8 3.6 13.7 4.7 14.4L3 16.1C2.6 16.5 2.5 17.2 3 17.7C3.4 18.1 4.1 18.2 4.6 17.7L17.3 4.9C17.7 4.4 17.7 3.7 17.3 3.3V3.3ZM6.7 12.3L5.4 13.6C4.2 12.9 3.1 11.9 2.3 10.7C3.5 9 5.1 7.8 7 7.2C5.7 8.6 5.6 10.8 6.7 12.3V12.3ZM10.1 9C9.6 8.5 9.7 7.7 10.2 7.2C10.7 6.8 11.4 6.8 11.9 7.2L10.1 9ZM18.3 9.5C17.8 8.8 17.2 8.1 16.5 7.6L15.5 8.6C16.3 9.2 17 9.9 17.6 10.8C15.9 13.4 13 15 9.9 15H9.1L8.1 16C8.8 15.9 9.4 16 10 16C13.3 16 16.4 14.4 18.3 11.7C18.6 11.3 18.8 10.9 19.1 10.5C18.8 10.2 18.6 9.8 18.3 9.5V9.5ZM14 10L10 14C12.2 14 14 12.2 14 10Z"
                                                 fill="black" fill-opacity="0.33" />
                                         </svg>
-
                                     </button>
                                 </div>
 
@@ -406,31 +345,20 @@ export default {
                                     <li class=" italic list-disc ">
                                         <div class="flex justify-between flex-wrap">
                                             {{item}}
-
                                         </div>
-
                                     </li>
                                 </ul>
-
-
                             </div>
-
-
                             <div v-if="formData.advice.length > 0" class="text-left my-2">
                                 <label
                                     class=" w-2/5 block    px-3 py-1  font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-
                                 <div class=" py-1 mx-2 text-regal-teal  " v-html="formData.advice"></div>
                             </div>
-
                         </section>
                     </div>
                 </article>
-
-
             </section>
             <!-- prescription info -->
-
         </div>
     </div>
     <!-- </template> -->
@@ -478,9 +406,5 @@ export default {
   /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
   box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
 }
-
-
-
-
 
 </style>

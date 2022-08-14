@@ -28,7 +28,11 @@ import axios from "axios";
                paidBills: [],
                   billInfo: {
                 
-            }
+            },
+            todayDate: new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'})
               
             }
 
@@ -309,7 +313,7 @@ import axios from "axios";
                       
                     </div>
                    
-                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 " >TK {{billInfo.total_due.amount}}</p>
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 " v-for="i in billInfo.total_due" :key="i">TK {{i}}</p>
                 </div>
                 </div>
             </div>
@@ -324,10 +328,10 @@ import axios from "axios";
 
                     <div class="text-right">
                         <p class="text-sm font-semibold uppercase text-gray-400 text-right">Total Earnings for</p>
-                        <p class="text-sm font-semibold text-gray-600 text-right">Thursday 2nd August,2022</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
 
 
-                        <div class="pt-4" v-if="this.billInfo.latest_paid.length >= 1 ">
+                        <div class="pt-4" v-if="this.billInfo.latest_paid  ">
                             <div class="flex justify-end text-right my-0.5 " >
                                 
                                 <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].count}}</p>

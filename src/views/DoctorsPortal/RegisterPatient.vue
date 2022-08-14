@@ -214,10 +214,6 @@ export default {
 							</span>
 						</label>
 						<input class="form-input" id="date" type="date" v-model.trim="v$.formData.dob.$model">
-
-						<!-- onblur="(this.type='text')"
-							onfocus="(this.type='date')" -->
-						<!-- onchange="this.value = {{this.dob.split('-').reverse().join('-')}}" -->
 					</div>
 
 					<!-- Create button -->
@@ -232,8 +228,6 @@ export default {
 			</section>
 		</template>
 	</Modal>
-
-
 </template>
 
 <style scoped>

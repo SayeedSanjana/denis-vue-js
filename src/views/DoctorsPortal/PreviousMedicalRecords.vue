@@ -1,88 +1,3 @@
-<template>
-    <div class=" ml-2">
-        <!-- Profile infomation START  -->
-        <div class=" bg-white w-full hover:overflow-hidden  mt-3">
-            <div class=" border rounded-t-md">
-
-                <div
-                    class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
-                    <label class="mx-5">Patient</label>
-
-                    <button name="edit" @click="openModal($event)" class="" title="Update Patient Information">
-                        <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
-                    </button>
-                </div>
-            </div>
-
-            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
-
-                <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2.5 ">
-                    <div class=" text-regal-teal text-sm font-semibold text-left ">
-                 
-                         {{val}} 
-                     
-                    </div>
-                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium   text-left">
-                        <p class="truncate w-52">
-                             <span class="font-bold">:</span> {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
-                        </p>
-                      
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <!--  Profile infomation END -->
-
-        <div class="bg-white w-full hover:overflow-hidden mt-1">
-            <div class=" border rounded-t-md">
-
-                <div
-                    class=" bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
-                    <label class="mx-5">Medical History</label>
-
-                    <button name="addHst" @click="openModal($event)" title="Add Medical History">
-                        <img src="@/assets/svgs/plus.svg" class="pointer-events-none">
-                    </button>
-                </div>
-
-            </div>
-            <!-- general health records for specific patient -->
-            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
-
-                <div class="ml-4 ">
-
-                    <History :items="patientInfo.allergies" :title="'allergies'"
-                        @removeHistory="removeSingleMedicalHistory">
-                        Allergies
-                    </History>
-
-                    <History :items="patientInfo.disease" :title="'disease'"
-                        @removeHistory="removeSingleMedicalHistory">
-                        Diseases
-                    </History>
-
-                    <History :items="patientInfo.personalHabits" :title="'personalHabits'"
-                        @removeHistory="removeSingleMedicalHistory">
-                        Personal Habits
-                    </History>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!-- Edit Patient -->
-        <EditPatientInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal" />
-
-        <!-- Add Medical History -->
-        <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal"
-            @onUpdate="(val) => patientInfo = val" />
-
-    </div>
-</template>
-
 <script>
     import axios from "axios";
     import swal from "sweetalert";
@@ -92,7 +7,6 @@
 
     export default {
         components: {
-
             History,
             EditPatientInfo,
             AddMedicalHistory
@@ -233,6 +147,89 @@
         }
     }
 </script>
+
+<template>
+    <div class=" ml-2">
+        <!-- Profile infomation START  -->
+        <div class=" bg-white w-full hover:overflow-hidden  mt-3">
+            <div class=" border rounded-t-md">
+
+                <div
+                    class="flex justify-between  bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 ">
+                    <label class="mx-5">Patient</label>
+
+                    <button name="edit" @click="openModal($event)" class="" title="Update Patient Information">
+                        <img src="@/assets/svgs/edit.svg" alt="" srcset="" class="pointer-events-none w-6 h-6 ">
+                    </button>
+                </div>
+            </div>
+
+            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
+
+                <div v-for="(val,k) in patientInfoCardLabels" :key="k" class="grid grid-cols-3 px-8 py-2.5 ">
+                    <div class=" text-regal-teal text-sm font-semibold text-left ">
+                 
+                         {{val}} 
+                     
+                    </div>
+                    <div class="grid col-span-2 place-items-start text-regal-teal text-base font-medium   text-left">
+                        <p class="truncate w-52">
+                             <span class="font-bold">:</span> {{ k === 'dob' ? calculateAge(patientInfo[k]) : patientInfo[k] || `${val} not recorded`}}
+                        </p>
+                      
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--  Profile infomation END -->
+
+        <div class="bg-white w-full hover:overflow-hidden mt-1">
+            <div class=" border rounded-t-md">
+
+                <div
+                    class=" bg-gradient-to-l from-green-200 to-emerald-100 shadow-sm text-regal-teal text-xl font-semibold p-3 flex justify-between">
+                    <label class="mx-5">Medical History</label>
+
+                    <button name="addHst" @click="openModal($event)" title="Add Medical History">
+                        <img src="@/assets/svgs/plus.svg" class="pointer-events-none">
+                    </button>
+                </div>
+
+            </div>
+            <!-- general health records for specific patient -->
+            <div class="border border-t-0 rounded-b-md mb-2 shadow-md">
+
+                <div class="ml-4 ">
+
+                    <History :items="patientInfo.allergies" :title="'allergies'"
+                        @removeHistory="removeSingleMedicalHistory">
+                        Allergies
+                    </History>
+
+                    <History :items="patientInfo.disease" :title="'disease'"
+                        @removeHistory="removeSingleMedicalHistory">
+                        Diseases
+                    </History>
+
+                    <History :items="patientInfo.personalHabits" :title="'personalHabits'"
+                        @removeHistory="removeSingleMedicalHistory">
+                        Personal Habits
+                    </History>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Patient -->
+        <EditPatientInfo v-if="isEditPatientActive" :patient="patientInfo" @close="closeModal" />
+
+        <!-- Add Medical History -->
+        <AddMedicalHistory v-if="isAddHistoryActive" :patient="patientInfo" @close="closeModal"
+            @onUpdate="(val) => patientInfo = val" />
+    </div>
+</template>
+
 
 <style scoped>
 .btn{

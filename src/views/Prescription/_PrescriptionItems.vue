@@ -15,15 +15,7 @@ export default {
         return{
            
         }
-    },
-    methods:{
-         
-        
-
-
     }
-   
-   
 }
 </script>
 <template>

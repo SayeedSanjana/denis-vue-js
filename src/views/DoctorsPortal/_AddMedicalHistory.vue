@@ -12,9 +12,7 @@ import {
 export default {
     components: {
         Modal,
-
     },
-
     props: {
         patient: {
             type: Object,
@@ -55,7 +53,6 @@ export default {
                 duplicate: helpers.withMessage('Duplicate value', (value) => {
                     switch (this.picked) {
                         case "allergies":
-
                             return !this.isDuplicate(value, this.history.allergies)
                         case "disease":
 
@@ -68,7 +65,6 @@ export default {
                             break;
                     }
                 })
-
             }
         }
     },
@@ -87,7 +83,7 @@ export default {
         isDuplicate(item, arr) {
             return arr.includes(item);
         },
-        
+
         //save medical history of patients
         async saveMedicalHistory() {
             try {
@@ -118,7 +114,6 @@ export default {
                     })
 
                 } else {
-
                     swal({
                         title: "Error",
                         text: error.message,
@@ -127,31 +122,22 @@ export default {
                         buttons: true,
                     })
                 }
-
             }
-
         },
 
         //Add new general medical records of a patient
         addHistory() {
             if (!this.v$.inputHistory.$error && this.inputHistory.length > 0) {
                 switch (this.picked) {
-
                     case "allergies":
-
                         this.history.allergies.push(this.inputHistory.toLowerCase());
                         break;
-
                     case "disease":
                         this.history.disease.push(this.inputHistory.toLowerCase())
-
                         break;
-
                     case "personalHabits":
                         this.history.personalHabits.push(this.inputHistory.toLowerCase())
-
                         break;
-
                     default:
                         break;
                 }
@@ -160,7 +146,7 @@ export default {
         },
 
         //remove general medical records of a patient
-        removeHistory(item ,title) {
+        removeHistory(item, title) {
             switch (title) {
                 case "allergies":
                     this.history.allergies.splice(item, 1);

@@ -70,6 +70,7 @@
     <div>
         <section class="w-full  px-6 py-4 ">
             <form id="search" class="w-1/2 flex mx-24">
+                <!-- Input starts -->
                 <div class=" flex justify-between ">
                     <div class="border-2  px-3 flex bg-white rounded-md items-center  w-72">
                         <input class="flex-grow outline-none text-regal-teal" name="q" type="text"
@@ -90,18 +91,21 @@
                         </p>
                     </div>
                 </div>
+                <!-- Input ends -->
             </form>
+            <!-- Grid starts -->
             <div class="mx-24 my-5">
                 <Grid :method="addPayment" :data="bills" :columns="gridColumns" :filter-key="searchQuery" @empty="search" />
             </div>
+            <!-- Grid ends -->
+            <!-- Pagination starts -->
             <div class="flex justify-center mt-5 mb-2">
                 <Pagination :totalData="getTotalOutstandingData" :per-page="perPage" :current-page="currentPage" @pagechanged="onPageChange" />
             </div>
+            <!-- Pagination ends -->
         </section>
     </div>
 </template>
-
-
 
 <style scoped>
 </style>

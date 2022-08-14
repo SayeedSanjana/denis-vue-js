@@ -1,3 +1,140 @@
+<script>
+import axios from "axios";
+import swal from 'sweetalert';
+import useValidate from '@vuelidate/core';
+import {
+	required,
+	minLength,
+	maxLength,
+	numeric,
+	helpers
+} from '@vuelidate/validators';
+import Modal from "../../components/reusable/Modal.vue";
+export default {
+	components: {
+		Modal
+	},
+	props: {
+		patient: {
+			type: Object,
+			default: () => ({}),
+		},
+	},
+
+	data() {
+		return {
+			formData: {
+				...this.objectMap({
+					name: "",
+					phone: "",
+					gender: "",
+					dob: "",
+					nid: "",
+					address: "",
+					occupation: ""
+
+				}, this.patient)
+			}
+		}
+	},
+	setup() {
+		return {
+			v$: useValidate(),
+		}
+	},
+	mounted() {
+		this.v$.$touch();
+
+	},
+	computed: {
+		dob: {
+			get() {
+				return new Date(this.formData.dob).toISOString().slice(0, 10);
+			},
+			set(newValue) {
+				this.formData.dob = newValue;
+			},
+		}
+	},
+	validations() {
+		const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
+		return {
+			formData: {
+				name: {
+					required,
+					minLength: minLength(3),
+					nospecial: helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",
+						nospecial)
+				},
+
+				gender: {
+					required
+				},
+				dob: {
+					required
+				},
+
+				address: {
+					minLength: minLength(3)
+				},
+
+				phone: {
+					required,
+					numeric,
+					minLength: minLength(11),
+					maxLength: maxLength(14)
+				},
+
+				nid: {
+					minLength: minLength(9),
+					maxLength: maxLength(20)
+				}
+			}
+		}
+	},
+	methods: {
+		async updatePatientInfo(id) {
+
+			try {
+				if (this.v$.$error) throw new Error({
+					message: 'Invalid Input'
+				})
+				const response = await axios.put(
+					import.meta.env.VITE_LOCAL + '/patients/' + id, this.formData, {
+						headers: {
+							"Authorization": `Bearer ${localStorage.getItem('token') }`
+						},
+					});
+				Object.assign(this.patient, response.data.data);
+				this.$emit("close");
+				swal({
+					title: "Success",
+					text: "Saved!",
+					icon: "success",
+					timer: 2000,
+					buttons: false
+				})
+
+			} catch (error) {
+				if (error.response.data.message == "jwt expired") {
+					this.$router.push({
+						name: 'Login'
+					})
+
+				} else {
+					swal({
+						title: "error",
+						text: error.message,
+						icon: "error",
+						buttons: true
+					})
+				}
+			}
+		}
+	},
+}
+</script>
+
 <template>
 <Modal :width="'w-1/4'">
 	<template v-slot:header>
@@ -7,7 +144,7 @@
 	<template v-slot:body>
 		<section class="bg-white  px-5">
 			<form @submit.prevent="updatePatientInfo(this.$route.params.id)">
-
+			
 				<!-- Name -->
 				<div class="form-group">
 					<label class="form-label" for="name">
@@ -128,169 +265,19 @@
 					<textarea :class="{'form-input': true , 'form-input-error': v$.formData.address.$error}"
 						id="address" type="text" placeholder="@example 243/1 West Bank Road#2"
 						v-model="formData.address" @blur="v$.formData.address.$touch()"></textarea>
-
-
 				</div>
 
 				<!-- Update Button -->
 				<div class="mt-8 py-3 px-3 flex justify-end">
 					<button class="buttonsubmit">Update Profile</button>
 				</div>
-
 			</form>
-
 		</section>
 	</template>
 </Modal>
 </template>
 
-<script>
-import axios from "axios";
-import swal from 'sweetalert';
-
-import useValidate from '@vuelidate/core';
-import {
-	required,
-	minLength,
-	maxLength,
-	numeric,
-	helpers
-} from '@vuelidate/validators';
-
-import Modal from "../../components/reusable/Modal.vue";
-
-export default {
-
-	components: {
-		Modal
-	},
-	props: {
-		patient: {
-			type: Object,
-			default: () => ({}),
-		},
-	},
-
-	data() {
-
-		return {
-
-			formData: {
-				...this.objectMap({
-					name: "",
-					phone: "",
-					gender: "",
-					dob: "",
-					nid: "",
-					address: "",
-					occupation: ""
-
-				}, this.patient)
-			}
-		}
-	},
-	setup() {
-		return {
-			v$: useValidate(),
-		}
-	},
-	mounted() {
-		this.v$.$touch();
-
-	},
-	computed: {
-		dob: {
-			get() {
-				return new Date(this.formData.dob).toISOString().slice(0, 10);
-			},
-			set(newValue) {
-				this.formData.dob = newValue;
-			},
-		}
-	},
-	validations() {
-		const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
-		return {
-			formData: {
-				name: {
-					required,
-					minLength: minLength(3),
-					nospecial: helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",
-						nospecial)
-				},
-
-				gender: {
-					required
-				},
-				dob: {
-					required
-				},
-
-				address: {
-					minLength: minLength(3)
-				},
-
-				phone: {
-					required,
-					numeric,
-					minLength: minLength(11),
-					maxLength: maxLength(14)
-				},
-
-				nid: {
-					minLength: minLength(9),
-					maxLength: maxLength(20)
-				}
-			}
-		}
-	},
-	methods: {
-
-		async updatePatientInfo(id) {
-
-			try {
-				if (this.v$.$error) throw new Error({
-					message: 'Invalid Input'
-				})
-				const response = await axios.put(
-					import.meta.env.VITE_LOCAL + '/patients/' + id, this.formData, {
-						headers: {
-							"Authorization": `Bearer ${localStorage.getItem('token') }`
-						},
-					});
-				Object.assign(this.patient, response.data.data);
-				this.$emit("close");
-				swal({
-					title: "Success",
-					text: "Saved!",
-					icon: "success",
-					timer: 2000,
-					buttons: false
-				})
-
-			} catch (error) {
-				if (error.response.data.message == "jwt expired") {
-					this.$router.push({
-						name: 'Login'
-					})
-
-				} else {
-					swal({
-						title: "error",
-						text: error.message,
-						icon: "error",
-						buttons: true
-					})
-				}
-			}
-		}
-	},
-}
-</script>
-
-
 <style scoped>
-
   .buttonsubmit {
 	@apply px-4 py-2 bg-regal-teal text-center border text-white font-semibold rounded-md text-sm flex;
   }

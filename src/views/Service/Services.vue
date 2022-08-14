@@ -3,233 +3,243 @@ import axios from 'axios';
 import swal from "sweetalert";
 import MeiliSearch from "meilisearch";
 import useValidate from '@vuelidate/core';
-import {required,minLength} from '@vuelidate/validators';
+import {
+    required,
+    minLength
+} from '@vuelidate/validators';
 import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
 import ToothSvg from "./_ToothSvg.vue";
-    export default {
-         components:{
-            PreviousMedicalRecords,
-            ToothSvg
-        
-        },
-       
-        data(){
-            return{
-               location:[],
-               tp: {
-                   patient:{
-                          name: '',
-                          phone: '',
-                   },
-                   treatmentPlan:''
-               },
-               service:[],
-               tn: {
+export default {
+    components: {
+        PreviousMedicalRecords,
+        ToothSvg
+
+    },
+
+    data() {
+        return {
+            location: [],
+            tp: {
+                patient: {
+                    name: '',
+                    phone: '',
+                },
+                treatmentPlan: ''
+            },
+            service: [],
+            tn: {
                 name: '',
                 location: '',
-               },
-               tnList:[],
-               search: false,
-               errorMessage: '',
-               
-               form:{
-                   prescription: this.$route.params.presId,
-                   doctor: this.parseJwt(localStorage.getItem('token')).name,
-                   patient:'',
-                   patientName: '',
-                   patientContact: '',
-                   items: []
+            },
+            tnList: [],
+            search: false,
+            errorMessage: '',
 
-               },
-               item:{
-                   service: '',
-                   location: '',
-                   date: Date.now(),
-                  
-               },
+            form: {
+                prescription: this.$route.params.presId,
+                doctor: this.parseJwt(localStorage.getItem('token')).name,
+                patient: '',
+                patientName: '',
+                patientContact: '',
+                items: []
 
+            },
+            item: {
+                service: '',
+                location: '',
+                date: Date.now(),
+
+            },
+
+        }
+    },
+    setup() {
+        return {
+            v$: useValidate()
+        }
+    },
+    validations() {
+        return {
+            tn: {
+                name: {
+                    required,
+                    minLength: minLength(3)
+                }
             }
-        },
-        setup() {
-            return {
-                v$: useValidate()
-            }
-        },
-        validations() {
-            return{
-                tn:{
-                    name: {required , minLength : minLength(3) }                   
-                }                  
-            }
-        },
-        async created(){
-            // fetch specific patient on page load
-            this.$store.dispatch('fetchPatient', this.$route.params.id);
-            // get services from specific prescription
-            try {
-                const res = await axios.get(import.meta.env.VITE_LOCAL+'/tn/' + this.$route.params.presId ,{
+        }
+    },
+    async created() {
+        // fetch specific patient on page load
+        this.$store.dispatch('fetchPatient', this.$route.params.id);
+        // get services from specific prescription
+        try {
+            const res = await axios.get(
+                import.meta.env.VITE_LOCAL + '/tn/' + this.$route.params.presId, {
                     headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    },
                 });
-                if(res.data.data){
-                    this.service = res.data.data.items;
-                }
-
-            }catch ({response}) {
-                if(response.status === 404){
-                    this.errorMessage = response.data.message;
-
-                    
-                }
-                 if(response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } 
-                
+            if (res.data.data) {
+                this.service = res.data.data.items;
             }
-            
-        },
-       async mounted(){
 
-            if(!(this.$store.state.copiedPatient )){
-                 this.$router.push({
-                    name: 'PatientDetails'
-                   
+        } catch ({
+            response
+        }) {
+            if (response.status === 404) {
+                this.errorMessage = response.data.message;
+
+
+            }
+            if (response.data.message == "jwt expired") {
+                this.$router.push({
+                    name: 'Login'
                 })
-                return;
+
             }
-            this.form.patient = this.$store.state.copiedPatient._id;
+
+        }
+
+    },
+    async mounted() {
+
+        if (!(this.$store.state.copiedPatient)) {
+            this.$router.push({
+                name: 'PatientDetails'
+
+            })
+            return;
+        }
+        this.form.patient = this.$store.state.copiedPatient._id;
 
 
-            // meilisearch implemented
-             this.meiliSearch = new MeiliSearch({
-                 host: 'https://jellyfish-app-6neo9.ondigitalocean.app/',
-                apiKey: 'e4fbbc20cd3376ab137b562f77e969c32d0b3c667c7870371b40637f83ec3bc0',
-            });
-          
-            // meilisearch implemented
-        
+        // meilisearch implemented
+        this.meiliSearch = new MeiliSearch({
+            host: 'https://jellyfish-app-6neo9.ondigitalocean.app/',
+            apiKey: 'e4fbbc20cd3376ab137b562f77e969c32d0b3c667c7870371b40637f83ec3bc0',
+        });
 
-            if(this.$route.params.data){
-               
-               return this.objectMap(this.tp, JSON.parse(this.$route.params.data))
-            }
-            // get  Treatment Plan from specific prescription 
-            try {
-                const response = await axios.get(import.meta.env.VITE_LOCAL+'/prescriptions/' + this.$route.params.presId,{
+        // meilisearch implemented
+
+
+        if (this.$route.params.data) {
+
+            return this.objectMap(this.tp, JSON.parse(this.$route.params.data))
+        }
+        // get  Treatment Plan from specific prescription 
+        try {
+            const response = await axios.get(
+                import.meta.env.VITE_LOCAL + '/prescriptions/' + this.$route.params.presId, {
                     headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
+                        "Authorization": `Bearer ${localStorage.getItem('token') }`
+                    },
                 });
-                this.objectMap(this.tp ,response.data.data);
+            this.objectMap(this.tp, response.data.data);
 
-               
-            } 
-            catch (error) {
-                 if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } else {
-                       
-                 swal({
-					title: "error",
-					text: error.message,
-					icon: "error",
-					button: true
-				});
-                    } 
-                
-                
+
+        } catch (error) {
+            if (error.response.data.message == "jwt expired") {
+                this.$router.push({
+                    name: 'Login'
+                })
+
+            } else {
+
+                swal({
+                    title: "error",
+                    text: error.message,
+                    icon: "error",
+                    button: true
+                });
             }
-           
-            
-        },
-        watch:{
-            'tn.name'(val){
-                if(val.length <= 0){
-                    
-                    this.search = false;
-                    this.tnList = [];
-                }
-                      
-        },
 
-        },
-        
-        methods:{
-            selectedTn(item){
-                this.tn.name = item;
-                this.tnList = [];
+
+        }
+
+
+    },
+    watch: {
+        'tn.name'(val) {
+            if (val.length <= 0) {
+
                 this.search = false;
-            },
-            // search treatment note
-            searchtn(e){
-                try {
-                  if(this.timeout) clearTimeout(this.timeout);
-                       if(this.tnList.length <= 0) this.search = true;
-                    this.timeout = setTimeout(async () => {
-                        this.search = false;
-                        if (e.target.value.length > 0) {
-                                 const response = await this.meiliSearch.index("treatmentNote").search(e.target.value);
-                          
-                            let arr = [];
-                            for (let i = 0; i < response.hits.length; i++) {
-                                let element = response.hits[i];
-                                element = this.objectMap({
-                                    name: ''
-                                }, element);
-                                arr.push(element);
-                            }
-                            this.tnList= [...arr]
+                this.tnList = [];
+            }
 
-                            if( this.tnList.length > 0){
-                                this.search = false;
-                            } 
-                    
-                        } 
-                    }, 1000);
-                   
-                
+        },
+
+    },
+
+    methods: {
+        selectedTn(item) {
+            this.tn.name = item;
+            this.tnList = [];
+            this.search = false;
+        },
+        // search treatment note
+        searchtn(e) {
+            try {
+                if (this.timeout) clearTimeout(this.timeout);
+                if (this.tnList.length <= 0) this.search = true;
+                this.timeout = setTimeout(async () => {
+                    this.search = false;
+                    if (e.target.value.length > 0) {
+                        const response = await this.meiliSearch.index("treatmentNote").search(e.target.value);
+
+                        let arr = [];
+                        for (let i = 0; i < response.hits.length; i++) {
+                            let element = response.hits[i];
+                            element = this.objectMap({
+                                name: ''
+                            }, element);
+                            arr.push(element);
+                        }
+                        this.tnList = [...arr]
+
+                        if (this.tnList.length > 0) {
+                            this.search = false;
+                        }
+
+                    }
+                }, 1000);
+
+
             } catch (error) {
-                 if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } else {
-                       
-                   swal({
-					title: "error",
-					text: error.message,
-					icon: "error",
-					button: true
-				});
-                    } 
-                }
-            },
-          
-            // save service
-            async saveService(){
-
-                this.form.patientName = this.tp.patient.name;
-                this.form.patientContact = this.tp.patient.phone;
-                    
-                try {
-                   
-                    const response = await axios.post(import.meta.env.VITE_LOCAL+'tn/save', this.form,{
-                        headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
                     })
-                     this.service=response.data.data.items;
 
-                    if(response.data.status === 'success'){
-                    
+                } else {
+
+                    swal({
+                        title: "error",
+                        text: error.message,
+                        icon: "error",
+                        button: true
+                    });
+                }
+            }
+        },
+
+        // save service
+        async saveService() {
+
+            this.form.patientName = this.tp.patient.name;
+            this.form.patientContact = this.tp.patient.phone;
+
+            try {
+
+                const response = await axios.post(
+                    import.meta.env.VITE_LOCAL + 'tn/save', this.form, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    })
+                this.service = response.data.data.items;
+
+                if (response.data.status === 'success') {
+
                     swal({
                         title: "Success",
                         text: "Prescription created successfully",
@@ -239,38 +249,37 @@ import ToothSvg from "./_ToothSvg.vue";
                     });
                     this.form.items = [];
                     this.v$.$reset()
-                    
-                }
-                  
-                    
-                } catch (error) {
-                     if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
-                    } else {
-                      
-                    swal({
-                    title: "Error",
-                    text: error.message,
-                    icon: "error",
-                    button: true
-                });
-                    } 
-                    
-                }
-            },
-            // add service to cart
-            addService() {
 
-                  this.v$.$touch();
-                if(!(this.v$.$error)){
-                  
+                }
+
+
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+
+                    swal({
+                        title: "Error",
+                        text: error.message,
+                        icon: "error",
+                        button: true
+                    });
+                }
+
+            }
+        },
+        // add service to cart
+        addService() {
+            this.v$.$touch();
+            if (!(this.v$.$error)) {
+
                 if (this.tn.name.length > 0 || this.tn.location.length > 0) {
                     this.location.forEach(item => {
-                          this.tn.location = this.tn.location + ' ' + item;
-                      
+                        this.tn.location = this.tn.location + ' ' + item;
+
                     });
                     const service = {
                         service: this.tn.name,
@@ -288,27 +297,27 @@ import ToothSvg from "./_ToothSvg.vue";
                     });
 
                 }
-                
+
                 this.location = [];
-               this.v$.$reset();
-                  }
-                
-            },
-            removeService(index){
-                this.form.items.splice(index, 1)
-            },
-            concatenateLocation(value){
-                
-               this.location=[...value];
-             
-            },
-            removeComma(){
-                this.item.location = this.item.location.substring(1);
-            },
-           
-        }
-        
+                this.v$.$reset();
+            }
+
+        },
+        removeService(index) {
+            this.form.items.splice(index, 1)
+        },
+        concatenateLocation(value) {
+
+            this.location = [...value];
+
+        },
+        removeComma() {
+            this.item.location = this.item.location.substring(1);
+        },
+
     }
+
+}
 </script>
 
 <template>
@@ -395,8 +404,6 @@ import ToothSvg from "./_ToothSvg.vue";
                                     </div>
                                 </span>
                                 <div @mouseleave="tnList.length = 0">
-
-
                                     <div class=" relative rounded p-1 mx-4">
                                         <div class=" absolute tracking-wider pl-2 uppercase text-xs">
                                             <p>
@@ -434,7 +441,6 @@ import ToothSvg from "./_ToothSvg.vue";
                                             <label for="name" class="bg-white text-gray-400 px-1">Location
 
                                             </label>
-
                                         </p>
                                     </div>
                                     <input type="text"
@@ -451,7 +457,6 @@ import ToothSvg from "./_ToothSvg.vue";
                                             </span>
                                         </p>
                                     </div>
-
                                 </div>
                                 <div class="mx-5">
 
@@ -470,14 +475,11 @@ import ToothSvg from "./_ToothSvg.vue";
 
                         </div>
                         <section class="ml-5">
-
                             <article v-if="form.items.length> 0" class="w-full my-4 border rounded-lg shadow-md ">
                                 <summary
                                     class="font-bold py-2 px-3 bg-regal-white  block text-regal-teal underline rounded-t-lg">
                                     Services</summary>
-
                                 <ul class="mx-auto px-4 py-1">
-
                                     <li v-for="(data,index) in form.items" :key="index"
                                         class="flex justify-between py-2 border-b last:border-b-0">
                                         <div class="px-3 w-3/5">
@@ -494,9 +496,7 @@ import ToothSvg from "./_ToothSvg.vue";
                                                 <img src="@/assets/svgs/cross.svg" alt="" srcset=""
                                                     class="pointer-events-none mr-2"></button>
                                         </div>
-
                                     </li>
-
                                 </ul>
                             </article>
 

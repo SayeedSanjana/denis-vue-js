@@ -87,7 +87,6 @@ export default {
     },
 
     validations() {
-
         return {
             form: {
                 cc: {
@@ -107,8 +106,8 @@ export default {
             },
 
         }
-
     },
+
     created() {
         // fetch patient
         this.$store.dispatch('fetchPatient', this.$route.params.id);
@@ -243,7 +242,6 @@ export default {
             });
         },
 
-
         selectedItemTp(item) {
             this.tptext = item;
             this.showSearchtp = false;
@@ -271,10 +269,9 @@ export default {
                 this.tptext = '';
                 this.saveEnabled=true;
 
-
             }
-
         },
+
         // add on examination
         addOE() {
             if (this.oetext.length > 0) {
@@ -283,22 +280,20 @@ export default {
                 this.oetext = ''
                 this.saveEnabled=true;
             }
-            
-
         },
+
         // on mouse leave hide the search list
         hideOE() {
 
             this.showSearch = false;
             this.oelist.length = [];
-
-
         },
 
         hideTP() {
             this.showSearchtp = false;
             this.tplist.length = [];
         },
+
         hideInv() {
             this.showSearchInv = false;
             this.invlist.length = [];
@@ -348,6 +343,7 @@ export default {
             }
 
         },
+
         // search treatment plan
         searchtp(e) {
             try {
@@ -431,16 +427,10 @@ export default {
         // search medication
         searchMed(e) {
             try {
-
                 if (this.timeout) clearTimeout(this.timeout);
                 this.timeout = setTimeout(async () => {
-
                     if (e.target.value.length > 0) {
-
-
                         const response = await this.meiliSearch.index("medicine").search(e.target.value)
-
-
                         let arr = [];
                         for (let i = 0; i < response.hits.length; i++) {
                             let element = response.hits[i];
@@ -475,8 +465,6 @@ export default {
                 }
 
             }
-
-
         },
 
         // add investigation
@@ -517,7 +505,6 @@ export default {
                     this.medication[b] = '';
                 }
                 this.saveEnabled=true;
-
             }
         },
         // remove medication
@@ -597,569 +584,493 @@ export default {
 </script>
 
 <template>
-<section class="lg:flex">
-    <!-- patient medical records -->
-    <div class="lg:w-1/5">
-        <PreviousMedicalRecords :patient="$store.state.patient.data" />
-    </div>
-
-    <div class="lg:w-4/5 mx-3 mt-3 bg-white rounded-sm">
-        <!-- create prescription form -->
-        <form @submit.prevent="createPrescription(this.$route.params.id)">
-            <div class="rounded-t-md w-full hover:overflow-hidden">
-                <div class="flex justify-between bg-green-50">
-                    <label for=""
-                        class="flex justify-between shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
-                    <div class="m-2 ">
-                        <button @click="backToPrescriptionList(this.$route.params.id)" class="btn" title="Back to prescription list"
-                            type="button">Back</button>
-                        <button type="submit" :class="{'btn': saveEnabled, 'btn-disabled': !saveEnabled}" :disabled="!(saveEnabled)"
-                             title="Click to save prescription">Save</button>
+    <section class="lg:flex">
+        <!-- patient medical records -->
+        <div class="lg:w-1/5">
+            <PreviousMedicalRecords :patient="$store.state.patient.data" />
+        </div>
+        <div class="lg:w-4/5 mx-3 mt-3 bg-white rounded-sm">
+            <!-- create prescription form -->
+            <form @submit.prevent="createPrescription(this.$route.params.id)">
+                <div class="rounded-t-md w-full hover:overflow-hidden">
+                    <div class="flex justify-between bg-green-50">
+                        <label for=""
+                            class="flex justify-between shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
+                        <div class="m-2 ">
+                            <button @click="backToPrescriptionList(this.$route.params.id)" class="btn" title="Back to prescription list"
+                                type="button">Back</button>
+                            <button type="submit" :class="{'btn': saveEnabled, 'btn-disabled': !saveEnabled}" :disabled="!(saveEnabled)"
+                                title="Click to save prescription">Save</button>
+                        </div>
                     </div>
+                    <!--  clinic and doctor information -->
+                    <section class="flex justify-between px-16 py-8">
+                        <div>
+                            <ul>
+                                <li class="font-semibold text-2xl text-left">
+                                    MT Dental Center
+                                </li>
+                                <li class="text-sm text-left">
+                                    <span class="font-semibold"> Address:</span> House No 12 (1st Floor), Road No 14
+                                    (New)<br />
+                                    <span> Dhanmondi, Dhaka-1209 </span> <br />
+                                    <span class="font-semibold"> Contact:</span> 01688-329552, 01817-094331 <br />
+                                    <span class="font-semibold"> Email:</span> mhkmusa@gmail.com <br />
+                                </li>
+                                <li class="text-sm text-left">
+                                    <span class=" font-semibold">Visiting Days : </span>
+                                    <span class="">Monday – Friday (9 AM- 6 PM)</span>
+                                </li>
+                                <li class="text-sm text-left">
+                                    <span class=" font-semibold">Report Checking Hours : </span>
+                                    <span class=""> 4 PM- 6 PM</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul>
+                                <li class="font-semibold text-xl text-right">
+                                    {{docTitle}} {{doctor}}
+                                </li>
+                                <li class="text-sm text-right w-72">
+                                    {{docQualification}}
+                                </li>
+                                <li class="text-sm text-right">
+                                    <span class=" font-semibold">BMDC No: </span>
+                                    <span class="text-sm">{{docBMDC}}</span>
+                                </li>
+                                <li class="text-sm text-right">
+                                    <span class=" font-semibold">Contact: </span>
+                                    <span class="">{{docPhone}}</span>
+                                </li>
+                                <li class=" text-sm text-right">
+                                    <span class=" font-semibold">Email: </span>
+                                    <span class="">{{docEmail}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
                 </div>
-                <!--  clinic and doctor information -->
-                <section class="flex justify-between px-16 py-8">
-                    <div>
-                        <ul>
 
-                            <li class="font-semibold text-2xl text-left">
-                                MT Dental Center
-                            </li>
-
-
-                            <li class="text-sm text-left">
-                                <span class="font-semibold"> Address:</span> House No 12 (1st Floor), Road No 14
-                                (New)<br />
-                                <span> Dhanmondi, Dhaka-1209 </span> <br />
-                                <span class="font-semibold"> Contact:</span> 01688-329552, 01817-094331 <br />
-                                <span class="font-semibold"> Email:</span> mhkmusa@gmail.com <br />
-
-                            </li>
-                            <li class="text-sm text-left">
-                                <span class=" font-semibold">Visiting Days : </span>
-                                <span class="">Monday – Friday (9 AM- 6 PM)</span>
-                            </li>
-                            <li class="text-sm text-left">
-                                <span class=" font-semibold">Report Checking Hours : </span>
-                                <span class=""> 4 PM- 6 PM</span>
-                            </li>
-
-
-                        </ul>
-
-                    </div>
-
-                    <div>
-
-                        <ul>
-
-                            <li class="font-semibold text-xl text-right">
-                                {{docTitle}} {{doctor}}
-                            </li>
-
-
-                            <li class="text-sm text-right w-72">
-
-                                {{docQualification}}
-                            </li>
-                            <li class="text-sm text-right">
-                                <span class=" font-semibold">BMDC No: </span>
-                                <span class="text-sm">{{docBMDC}}</span>
-                            </li>
-                            <li class="text-sm text-right">
-                                <span class=" font-semibold">Contact: </span>
-                                <span class="">{{docPhone}}</span>
-                            </li>
-                            <li class=" text-sm text-right">
-                                <span class=" font-semibold">Email: </span>
-                                <span class="">{{docEmail}}</span>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </section>
-            </div>
-
-            <article class="flex justify-between mx-12">
-                <div class="w-1/2 p-3">
-
-                    <!-- Input Chief Complaint -->
-                    <div class="flex justify-between ">
-                        <label
-                            class=" w-1/4 block my-2 border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief
-                            Complaint</label>
-
-                        <span v-show="v$.form.cc.$error" class="mt-2">
-                            <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-                    </div>
-                    <!-- Input Chief Complaint -->
-
-                    <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " @keypress="saveEnabled = true" />
-
-                    <!-- Input on examination -->
-                    <div class="flex justify-between">
-                        <label
-                            class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-green-100 bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
-                            Examination</label>
-                        <span v-show="v$.form.oe.$error">
-                            <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-                    </div>
-                    <!-- Input on examination -->
-
-                    <!-- Searchable select on OE-->
-                    <div class="w-full py-1">
-                        <!-- Input diagnosis -->
-                        <div @mouseleave="hideOE">
-
-                       
-                        <div class="flex">
-                            <textarea placeholder="Write here......" type="text"
-                                class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
-                                @keypress="searchOE" v-model="oetext"></textarea>
-                            <div class="w-1/12 ">
-                                <button type="button" class="mt-4" @click="addOE">
-                                    <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Input diagnosis -->
-                        <!-- show searched oe -->
-                        <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
-                            v-if="showSearch && oelist.length == 0">
-                            <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
-                                <p class=" placeholder-item">items.diagnosis</p>
-                              
-
-                            </li>
-                        </ul>
-                        <!-- show searched oe -->
-                        <!-- show searched diagnosis-->
-                        <ul class="w-1/4 shadow-sm section h-60 absolute z-40 bg-regal-white border rounded-md" v-else
-                            v-show="showSearch">
-                            <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
-                                v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
-                                {{items.diagnosis}}
-                            </li>
-                        </ul>
-
-                         </div>
-                        <!-- show searched diagnosis-->
-                        <div class="my-4 ">
-                            <hr class="mb-3" />
-                            <div v-if="form.oe.length > 0" class="my-1">
-                                <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
-                                    <li class=" text-regal-teal italic list-disc">
-                                        <div class="flex justify-between">
-                                            {{item}}
-                                            <button type="button" @click="removeOE(index)" class="pl-3 w-1/12">
-                                                <img src="@/assets/svgs/cross.svg" alt="" srcset=""
-                                                    class="pointer-events-none w-4 h-4 ">
-                                            </button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Examination
-                                Added</p>
-                        </div>
-                    </div>
-
-                    <!-- Searchable select on Investigation -->
-                    <div class="flex justify-between mt-2">
-
-                        <label
-                            class=" w-1/4 block my-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
-                        <span v-show="v$.form.investigation.$error">
-                            <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
-
-                    </div>
-                    <div class="w-full ">
-
-                        <div @mouseleave="hideInv">
-                            
-                            <div class=" relative rounded p-1 mr-14">
-
-                                <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                    <p>
-                                        <label for="name" class="bg-white text-gray-400 px-1">Investigation
-                                            Name</label>
-                                    </p>
+                <article class="flex justify-between mx-12">
+                    <div class="w-1/2 p-3">
+                        <!-- Input Chief Complaint -->
+                        <div class="flex justify-between ">
+                            <label class=" w-1/4 block my-2 border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Chief
+                                Complaint</label>
+                            <span v-show="v$.form.cc.$error" class="mt-2">
+                                <div v-for="error of v$.form.cc.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
                                 </div>
+                            </span>
+                        </div>
+                        <!-- Input Chief Complaint -->
 
-                                
-                                <textarea type="text"
-                                    class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
-                                    @keypress="searchInvName" v-model="inv.inv_name"></textarea>
-                            </div>
-                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
-                                v-if="showSearchInv && invlist.length == 0">
-                                <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
-                                    <p class=" placeholder-item">items.diagnosis</p>
-
-                                </li>
-                            </ul>
-                            <ul class="w-1/4 shadow-sm section h-48 absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
-                                v-else v-show="showSearchInv">
-                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
-                                    v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
-
-                                    {{items.name}}
-                                </li>
-                            </ul>
-
-
-                            <div class="flex justify-between w-full">
-
-                                <div class="relative rounded p-1 flex w-3/4 ">
-
-                                    <div class=" absolute tracking-wider pl-2 uppercase text-xs">
-                                        <p>
-                                            <label for="name" class="bg-white text-gray-400 px-1">Location</label>
-                                        </p>
-                                    </div>
-                                    <input type="text"
-                                        class="w-full border rounded-md px-3 py-2 my-2 focus:outline-none"
-                                        v-model="inv.location">
+                        <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " @keypress="saveEnabled = true" />
+                        <!-- Input on examination -->
+                        <div class="flex justify-between">
+                            <label
+                                class="block my-2 w-1/4 text-sm font-bold text-regal-teal bg-green-100 bg-opacity-30 rounded-md px-3 py-1  capitalize text-left">On
+                                Examination</label>
+                            <span v-show="v$.form.oe.$error">
+                                <div v-for="error of v$.form.oe.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
                                 </div>
+                            </span>
+                        </div>
+                        <!-- Input on examination -->
 
-                                <div class="mr-3 ">
-                                    <button type="button" class="mt-4" @click="addInvestigation">
+                        <!-- Searchable select on OE-->
+                        <div class="w-full py-1">
+                            <!-- Input diagnosis -->
+                            <div @mouseleave="hideOE">
+
+                        
+                            <div class="flex">
+                                <textarea placeholder="Write here......" type="text"
+                                    class="resize-none w-11/12 rounded-md hover:border focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
+                                    @keypress="searchOE" v-model="oetext"></textarea>
+                                <div class="w-1/12 ">
+                                    <button type="button" class="mt-4" @click="addOE">
                                         <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                     </button>
                                 </div>
                             </div>
+                            <!-- Input diagnosis -->
+                            <!-- show searched oe -->
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-if="showSearch && oelist.length == 0">
+                                <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                
 
+                                </li>
+                            </ul>
+                            <!-- show searched oe -->
+                            <!-- show searched diagnosis-->
+                            <ul class="w-1/4 shadow-sm section h-60 absolute z-40 bg-regal-white border rounded-md" v-else
+                                v-show="showSearch">
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
+                                    v-for="items in oelist" :key="items" @click="selectedItem(items.diagnosis)">
+                                    {{items.diagnosis}}
+                                </li>
+                            </ul>
 
+                            </div>
+                            <!-- show searched diagnosis-->
+                            <div class="my-4 ">
+                                <hr class="mb-3" />
+                                <div v-if="form.oe.length > 0" class="my-1">
+                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.oe" :key="item">
+                                        <li class=" text-regal-teal italic list-disc">
+                                            <div class="flex justify-between">
+                                                {{item}}
+                                                <button type="button" @click="removeOE(index)" class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Examination
+                                    Added</p>
+                            </div>
                         </div>
 
+                        <!-- Searchable select on Investigation -->
+                        <div class="flex justify-between mt-2">
 
-                        <div class="my-4 ">
-                            <hr class="mb-3">
-                            <div v-if="form.investigation.length > 0" class="my-1">
+                            <label
+                                class=" w-1/4 block my-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Investigation</label>
+                            <span v-show="v$.form.investigation.$error">
+                                <div v-for="error of v$.form.investigation.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
 
-                                <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation"
-                                    :key="item">
-                                    <li class=" list-disc ">
+                        </div>
+                        <div class="w-full ">
+                            <div @mouseleave="hideInv">
+                                <div class=" relative rounded p-1 mr-14">
+                                    <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                        <p>
+                                            <label for="name" class="bg-white text-gray-400 px-1">Investigation
+                                                Name</label>
+                                        </p>
+                                    </div>
 
-                                        <div class="flex justify-between">
-                                            <p class=" text-regal-teal">
-
-                                                {{item.location}} <span v-if="item.location"> - </span> <span
-                                                    class="italic"> {{item.inv_name}}</span>
-                                            </p>
-
-                                            <button type="button" @click="removeInvestigation(index)"
-                                                class="pl-3 w-1/12">
-                                                <img src="@/assets/svgs/cross.svg" alt="" srcset=""
-                                                    class="pointer-events-none w-4 h-4 ">
-                                            </button>
-
-                                        </div>
+                                    <textarea type="text"
+                                        class="resize-none w-full mr-2 border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                        @keypress="searchInvName" v-model="inv.inv_name"></textarea>
+                                </div>
+                                <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                    v-if="showSearchInv && invlist.length == 0">
+                                    <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
+                                        <p class=" placeholder-item">items.diagnosis</p>
 
                                     </li>
+                                </ul>
+                                <ul class="w-1/4 shadow-sm section h-48 absolute z-40 bg-regal-white border rounded-md ml-1 -mt-4"
+                                    v-else v-show="showSearchInv">
+                                    <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1  cursor-pointer"
+                                        v-for="items in invlist" :key="items" @click="selectedItemInv(items.name)">
 
-
+                                        {{items.name}}
+                                    </li>
                                 </ul>
 
-                            </div>
 
-                            <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Investigation
-                                Added</p>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Rx -->
-
-                <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
-
-                    <label
-                        class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
-
-                    <div class=" text-left mx-auto grid grid-cols-3">
-                        <!-- Input Medication name -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label class="bg-white text-gray-400 px-1">Name</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.name" @input="searchMed"
-                                class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                        </div>
-                        <!-- Input Medication name -->
-
-                        <!-- Input Category -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label
-                                        class="bg-white text-gray-400 px-1 focus:outline-none focus-within:border-regal-teal">Category</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.category"
-                                class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                        </div>
-                        <!-- Input Category -->
-
-                        <!-- Input Generic Name -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-
-                                <label class="bg-white text-gray-400 px-1">Generic Name</label>
-
-                            </div>
-                            <input type="text" v-model="medication.generic"
-                                class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
-                        </div>
-                        <!-- Input Generic Name -->
-
-                        <!-- Input dosage -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label class="bg-white text-gray-400 px-1">Dosage</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.dosage"
-                                class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                        </div>
-
-                        <!-- Input Frequency -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label class="bg-white text-gray-400 px-1">Frequency</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.frequency"
-                                class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
-                        </div>
-                        <!-- Input Frequency -->
-
-                        <!-- Input Duration -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label class="bg-white text-gray-400 px-1">Duration</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.duration"
-                                class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
-                        </div>
-                        <!-- Input Duration -->
-
-                        <!-- Input Relation with Meals -->
-                        <div class=" transition-all duration-500 relative rounded p-1">
-
-                            <div class=" absolute tracking-wider px-4 uppercase text-xs">
-                                <p>
-                                    <label class="bg-white text-gray-400 px-1">Relation with Meal</label>
-                                </p>
-                            </div>
-                            <input type="text" v-model="medication.relationWithMeals"
-                                class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
-                        </div>
-                        <!-- Input Relation with Meals -->
-
-                        <div class="flex justify-end col-span-3">
-                            <button type="button"
-                                class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2"
-                                @click="addMedication">Add Medicine</button>
-                        </div>
-                    </div>
-
-
-                    <section class="my-4 mx-2">
-
-                        <hr class="mb-3" />
-                        <!-- show added medicine list -->
-                        <ul v-if="form.medicine.length > 0" class="mx-6">
-                            <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
-
-                                <div class="flex justify-between">
-                                    <div class="text-regal-teal text-opacity-80">
-                                        <div class="flex">
-                                            <p class=" ">{{data.category}} <span> {{data.name}}- </span>
+                                <div class="flex justify-between w-full">
+                                    <div class="relative rounded p-1 flex w-3/4 ">
+                                        <div class=" absolute tracking-wider pl-2 uppercase text-xs">
+                                            <p>
+                                                <label for="name" class="bg-white text-gray-400 px-1">Location</label>
                                             </p>
-
-                                            <p class=""><span class="italic">{{data.dosage}}</span> {{data.generic}}
-                                            </p>
-
                                         </div>
-
-                                        <p class=" text-left  ">
-                                            <span class="pr-4"> {{data.frequency}} </span>
-                                            <span class="pr-4">{{data.duration}}</span>
-                                            <span class="pr-4">{{data.relationWithMeals}}</span>
-                                        </p>
-
+                                        <input type="text"
+                                            class="w-full border rounded-md px-3 py-2 my-2 focus:outline-none"
+                                            v-model="inv.location">
                                     </div>
-                                    <div class="">
-                                        <button type="button" @click="removeMedication(index)">
-                                            <img src="@/assets/svgs/cross.svg" alt="" srcset=""
-                                                class="pointer-events-none mr-2">
+
+                                    <div class="mr-3 ">
+                                        <button type="button" class="mt-4" @click="addInvestigation">
+                                            <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
                                         </button>
                                     </div>
                                 </div>
+                            </div>
 
-                            </li>
-                        </ul>
-                        <!-- show added medicine list -->
 
-                        <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
-
-                        <!-- show searched medicine information -->
-                        <div class="my-5 " v-show="showSearchMed">
-                            <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine List</label>
-
-                            <div class="section h-48">
-                                <table class="w-full mx-auto  bg-opacity-80 text-sm ">
-                                    <thead class="bg-regal-light-blue text-regal-teal">
-                                        <tr class="">
-                                            <th v-for="item in medicineColumn" :key="item"
-                                                class="p-2 appearance-none first:rounded-tl-md  text-left">
-                                                {{item}}
-                                            </th>
-                                            <th class="last:rounded-tr-md">
-
-                                            </th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row "
-                                            v-for="(item,index) in medicineList" :key="index">
-                                            <td class="text-left p-2" v-for="data in item" :key="data">
-
-                                                <p>
-                                                    {{data}}
+                            <div class="my-4 ">
+                                <hr class="mb-3">
+                                <div v-if="form.investigation.length > 0" class="my-1">
+                                    <ul class=" text-left  py-1 ml-6 " v-for="(item,index) in form.investigation"
+                                        :key="item">
+                                        <li class=" list-disc ">
+                                            <div class="flex justify-between">
+                                                <p class=" text-regal-teal">
+                                                    {{item.location}} <span v-if="item.location"> - </span> <span
+                                                        class="italic"> {{item.inv_name}}</span>
                                                 </p>
-                                            </td>
-                                            <td class="text-left">
-
-                                                <button type="button" @click="insertMedication(item)"
-                                                    class="mr-2">
-                                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-8 w-8 ">
+                                                <button type="button" @click="removeInvestigation(index)"
+                                                    class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
                                                 </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Investigation
+                                    Added</p>
                             </div>
                         </div>
-                        <!-- show searched medicine information -->
-                    </section>
-
-                    <!-- Input treatment plan -->
-                    <div class="flex justify-between mt-2" >
-
-                        <label
-                            class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment
-                            Plan</label>
-                        <span v-show="v$.form.treatmentPlan.$error">
-                            <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
-                                <small class="form-error-text">
-                                    {{error.$message}}
-                                </small>
-                            </div>
-                        </span>
                     </div>
-                    <!-- input treatment plan-->
 
-                    <div class="w-full py-1" @mouseleave="hideTP">
-                        <div class="flex justify-between">
-                            <textarea placeholder="Write here......" type="text"
-                                class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
-                                @keypress="searchtp" v-model="tptext"></textarea>
-                            <div class="w-1/12">
-                                <button type="button" class="mt-4" @click="addtp">
-                                    <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
-                                </button>
+                    <!-- Rx -->
+
+                    <div class="w-1/2 p-3 border-l border-regal-teal border-opacity-20 mx-auto ">
+                        <label class=" w-1/4 block my-2 mx-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Medication</label>
+                        <div class=" text-left mx-auto grid grid-cols-3">
+                            <!-- Input Medication name -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Name</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.name" @input="searchMed"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <!-- Input Medication name -->
+
+                            <!-- Input Category -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label
+                                            class="bg-white text-gray-400 px-1 focus:outline-none focus-within:border-regal-teal">Category</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.category"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
+                            <!-- Input Category -->
+
+                            <!-- Input Generic Name -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <label class="bg-white text-gray-400 px-1">Generic Name</label>
+                                </div>
+                                <input type="text" v-model="medication.generic"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md appearance-none">
+                            </div>
+                            <!-- Input Generic Name -->
+
+                            <!-- Input dosage -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Dosage</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.dosage"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+
+                            <!-- Input Frequency -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Frequency</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.frequency"
+                                    class="  focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <!-- Input Frequency -->
+
+                            <!-- Input Duration -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Duration</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.duration"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <!-- Input Duration -->
+
+                            <!-- Input Relation with Meals -->
+                            <div class=" transition-all duration-500 relative rounded p-1">
+                                <div class=" absolute tracking-wider px-4 uppercase text-xs">
+                                    <p>
+                                        <label class="bg-white text-gray-400 px-1">Relation with Meal</label>
+                                    </p>
+                                </div>
+                                <input type="text" v-model="medication.relationWithMeals"
+                                    class=" focus:outline-none border py-1 m-2 px-2 rounded-md">
+                            </div>
+                            <!-- Input Relation with Meals -->
+
+                            <div class="flex justify-end col-span-3">
+                                <button type="button"
+                                    class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2"
+                                    @click="addMedication">Add Medicine</button>
                             </div>
                         </div>
-                        <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
-                            v-if="showSearchtp && tplist.length == 0">
-                            <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
-                                <p class=" placeholder-item">items.diagnosis</p>
-                            </li>
-                        </ul>
-                        <ul class="w-1/4 shadow-sm section h-44 absolute z-40 bg-regal-white border rounded-md" v-else
-                            v-show="showSearchtp">
-                            <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
-                                v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
 
-                                {{items.name}}
-                            </li>
-                        </ul>
-                        <div class="my-4 ">
-                            <hr class="mb-3 ">
-                            <div v-if="form.treatmentPlan.length > 0" class="my-1">
 
-                                <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan"
-                                    :key="item">
-                                    <li class=" text-regal-teal italic list-disc">
-                                        <div class="flex justify-between">
-                                            {{item}}
-                                            <button type="button" @click="removeTp(index)" class="pl-3 w-1/12">
+                        <section class="my-4 mx-2">
+                            <hr class="mb-3" />
+                            <!-- show added medicine list -->
+                            <ul v-if="form.medicine.length > 0" class="mx-6">
+                                <li v-for="(data,index) in form.medicine" :key="data" class="list-disc ">
+                                    <div class="flex justify-between">
+                                        <div class="text-regal-teal text-opacity-80">
+                                            <div class="flex">
+                                                <p class=" ">{{data.category}} <span> {{data.name}}- </span>
+                                                </p>
+                                                <p class=""><span class="italic">{{data.dosage}}</span> {{data.generic}}
+                                                </p>
+
+                                            </div>
+                                            <p class=" text-left  ">
+                                                <span class="pr-4"> {{data.frequency}} </span>
+                                                <span class="pr-4">{{data.duration}}</span>
+                                                <span class="pr-4">{{data.relationWithMeals}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="">
+                                            <button type="button" @click="removeMedication(index)">
                                                 <img src="@/assets/svgs/cross.svg" alt="" srcset=""
-                                                    class="pointer-events-none w-4 h-4 ">
+                                                    class="pointer-events-none mr-2">
                                             </button>
                                         </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- show added medicine list -->
 
-                                    </li>
-                                </ul>
+                            <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Medication Added.</p>
+                            <!-- show searched medicine information -->
+                            <div class="my-5 " v-show="showSearchMed">
+                                <label class="flex content-start py-1 text-regal-teal font-semibold "> Medicine List</label>
+                                <div class="section h-48">
+                                    <table class="w-full mx-auto  bg-opacity-80 text-sm ">
+                                        <thead class="bg-regal-light-blue text-regal-teal">
+                                            <tr class="">
+                                                <th v-for="item in medicineColumn" :key="item"
+                                                    class="p-2 appearance-none first:rounded-tl-md  text-left">
+                                                    {{item}}
+                                                </th>
+                                                <th class="last:rounded-tr-md">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row "
+                                                v-for="(item,index) in medicineList" :key="index">
+                                                <td class="text-left p-2" v-for="data in item" :key="data">
 
+                                                    <p>
+                                                        {{data}}
+                                                    </p>
+                                                </td>
+                                                <td class="text-left">
+
+                                                    <button type="button" @click="insertMedication(item)"
+                                                        class="mr-2">
+                                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-8 w-8 ">
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- show searched medicine information -->
+                        </section>
 
-                            <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Treatment Plan
-                                Added</p>
+                        <!-- Input treatment plan -->
+                        <div class="flex justify-between mt-2" >
+                            <label
+                                class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Treatment
+                                Plan</label>
+                            <span v-show="v$.form.treatmentPlan.$error">
+                                <div v-for="error of v$.form.treatmentPlan.$errors" :key="error.$uid">
+                                    <small class="form-error-text">
+                                        {{error.$message}}
+                                    </small>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- input treatment plan-->
 
+                        <div class="w-full py-1" @mouseleave="hideTP">
+                            <div class="flex justify-between">
+                                <textarea placeholder="Write here......" type="text"
+                                    class="resize-none w-11/12 rounded-md hover:border hover:border-gray-200 focus:border-regal-teal focus:border-opacity-50 px-3 py-2 my-2 focus:outline-none"
+                                    @keypress="searchtp" v-model="tptext"></textarea>
+                                <div class="w-1/12">
+                                    <button type="button" class="mt-4" @click="addtp">
+                                        <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-6 w-6 ">
+                                    </button>
+                                </div>
+                            </div>
+                            <ul class="w-1/4 shadow-sm section absolute z-40 bg-regal-white border rounded-md"
+                                v-if="showSearchtp && tplist.length == 0">
+                                <li class=" px-2 p-1 m-2" v-for="items in 5" :key="items">
+                                    <p class=" placeholder-item">items.diagnosis</p>
+                                </li>
+                            </ul>
+                            <ul class="w-1/4 shadow-sm section h-44 absolute z-40 bg-regal-white border rounded-md" v-else
+                                v-show="showSearchtp">
+                                <li class=" hover:rounded-md hover:bg-gray-200  text-regal-teal font-sans text-left px-2 p-1 m-1 cursor-pointer"
+                                    v-for="items in tplist" :key="items" @click="selectedItemTp(items.name)">
+
+                                    {{items.name}}
+                                </li>
+                            </ul>
+                            <div class="my-4 ">
+                                <hr class="mb-3 ">
+                                <div v-if="form.treatmentPlan.length > 0" class="my-1">
+                                    <ul class="  text-left  py-1 ml-6 " v-for="(item,index) in form.treatmentPlan"
+                                        :key="item">
+                                        <li class=" text-regal-teal italic list-disc">
+                                            <div class="flex justify-between">
+                                                {{item}}
+                                                <button type="button" @click="removeTp(index)" class="pl-3 w-1/12">
+                                                    <img src="@/assets/svgs/cross.svg" alt="" srcset=""
+                                                        class="pointer-events-none w-4 h-4 ">
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <p v-else class="px-3 py-1 font-semibold text-regal-teal bg-gray-50">No Treatment Plan
+                                    Added</p>
+                            </div>
                         </div>
 
-
+                        <label
+                            class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
+                        <Editor id="advice" name="advice" v-model="form.advice" class="m-2 mr-14" @keypress="saveEnabled = true"/>
                     </div>
-
-
-                    <label
-                        class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor id="advice" name="advice" v-model="form.advice" class="m-2 mr-14" @keypress="saveEnabled = true"/>
-
-                </div>
-
-            </article>
-        </form>
-
-    </div>
-</section>
+                </article>
+            </form>
+        </div>
+    </section>
 </template>
 
 <style scoped>

@@ -1,3 +1,20 @@
+<script>
+    import PrescriptionList from "../Prescription/PrescriptionList.vue"
+    import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
+    export default {
+        components: {
+            PreviousMedicalRecords,
+            PrescriptionList
+        },
+        created() {
+            // fetch patient
+            this.$store.dispatch('fetchPatient', this.$route.params.id);
+        }
+
+
+    }
+</script>
+
 <template>
     <div>
         <div class="lg:flex">
@@ -20,22 +37,6 @@
     </div>
 </template>
 
-<script>
-    import PrescriptionList from "../Prescription/PrescriptionList.vue"
-    import PreviousMedicalRecords from "../DoctorsPortal/PreviousMedicalRecords.vue";
-    export default {
-        components: {
-            PreviousMedicalRecords,
-            PrescriptionList
-        },
-        created() {
-            // fetch patient
-            this.$store.dispatch('fetchPatient', this.$route.params.id);
-        }
-
-
-    }
-</script>
 
 <style scoped>
 </style>
