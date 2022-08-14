@@ -265,7 +265,8 @@ import ToothSvg from "./_ToothSvg.vue";
             addService() {
 
                   this.v$.$touch();
-
+                if(!(this.v$.$error)){
+                  
                 if (this.tn.name.length > 0 || this.tn.location.length > 0) {
                     this.location.forEach(item => {
                           this.tn.location = this.tn.location + ' ' + item;
@@ -287,8 +288,10 @@ import ToothSvg from "./_ToothSvg.vue";
                     });
 
                 }
+                
                 this.location = [];
                this.v$.$reset();
+                  }
                 
             },
             removeService(index){

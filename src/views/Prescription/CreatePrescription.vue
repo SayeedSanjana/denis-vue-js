@@ -75,7 +75,8 @@ export default {
                 duration: '',
                 relationWithMeals: ''
             },
-            pres: {}
+            pres: {},
+            saveEnabled:false
         }
     },
 
@@ -203,6 +204,7 @@ export default {
             this.form.medicine = this.copiedData.medicine;
             this.form.treatmentPlan = this.copiedData.treatmentPlan;
             this.form.oe = this.copiedData.oe;
+            this.saveEnabled=false;
         }
 
     },
@@ -267,6 +269,7 @@ export default {
                 const tp = this.tptext;
                 this.form.treatmentPlan.push(tp);
                 this.tptext = '';
+                this.saveEnabled=true;
 
 
             }
@@ -278,7 +281,9 @@ export default {
                 const oe = this.oetext;
                 this.form.oe.push(oe)
                 this.oetext = ''
+                this.saveEnabled=true;
             }
+            
 
         },
         // on mouse leave hide the search list
@@ -485,6 +490,7 @@ export default {
                 for (const key in this.inv) {
                     this.inv[key] = '';
                 }
+                this.saveEnabled=true;
             }
 
         },
@@ -510,6 +516,7 @@ export default {
                 for (const b in this.medication) {
                     this.medication[b] = '';
                 }
+                this.saveEnabled=true;
 
             }
         },
@@ -602,12 +609,12 @@ export default {
             <div class="rounded-t-md w-full hover:overflow-hidden">
                 <div class="flex justify-between bg-green-50">
                     <label for=""
-                        class="flex justify-between   shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
+                        class="flex justify-between shadow-sm text-regal-teal text-xl font-semibold p-3">Prescription</label>
                     <div class="m-2 ">
-                        <button @click="backToPrescriptionList(this.$route.params.id)" class="btn"
+                        <button @click="backToPrescriptionList(this.$route.params.id)" class="btn" title="Back to prescription list"
                             type="button">Back</button>
-                        <button type="submit"
-                            class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal ">Save</button>
+                        <button type="submit" :class="{'btn': saveEnabled, 'btn-disabled': !saveEnabled}" :disabled="!(saveEnabled)"
+                             title="Click to save prescription">Save</button>
                     </div>
                 </div>
                 <!--  clinic and doctor information -->
@@ -693,7 +700,7 @@ export default {
                     </div>
                     <!-- Input Chief Complaint -->
 
-                    <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " />
+                    <Editor id="cc" name="cc" v-model="form.cc" @blur="v$.form.cc.$touch()" class="py-1 mr-14 " @keypress="saveEnabled = true" />
 
                     <!-- Input on examination -->
                     <div class="flex justify-between">
@@ -982,10 +989,10 @@ export default {
                         </div>
                         <!-- Input Relation with Meals -->
 
-                        <div class="flex justify-start col-span-3">
+                        <div class="flex justify-end col-span-3">
                             <button type="button"
                                 class=" bg-regal-teal text-white font-semibold border rounded-md  px-3 py-0.5 mx-2"
-                                @click="addMedication">Add</button>
+                                @click="addMedication">Add Medicine</button>
                         </div>
                     </div>
 
@@ -1060,7 +1067,9 @@ export default {
                                             <td class="text-left">
 
                                                 <button type="button" @click="insertMedication(item)"
-                                                    class="bg-gray-50 border">Insert</button>
+                                                    class="mr-2">
+                                                       <img src="@/assets/svgs/plus.svg" alt="" class="pointer-events-none h-8 w-8 ">
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1142,7 +1151,7 @@ export default {
 
                     <label
                         class=" w-1/4 block m-2  border px-3 py-1 bg-green-100 bg-opacity-30 rounded-md font-bold text-sm text-regal-teal capitalize text-left">Advice</label>
-                    <Editor id="advice" name="advice" v-model="form.advice" class="m-2 mr-14" />
+                    <Editor id="advice" name="advice" v-model="form.advice" class="m-2 mr-14" @keypress="saveEnabled = true"/>
 
                 </div>
 
