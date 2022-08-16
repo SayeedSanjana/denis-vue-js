@@ -331,7 +331,8 @@ import axios from "axios";
                         <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
 
 
-                        <div class="pt-4" v-if="this.billInfo.latest_paid  ">
+                        <div class="pt-4" v-if="typeof(this.billInfo.latest_paid) != 'undefined' && this.billInfo.latest_paid != null && this.billInfo.latest_paid.length != null
+                    && this.billInfo.latest_paid.length > 0" >
                             <div class="flex justify-end text-right my-0.5 " >
                                 
                                 <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].count}}</p>
@@ -345,6 +346,7 @@ import axios from "axios";
                             </div>
                         </div>
                          <div class="pt-4" v-else>
+                            
                             <div class="flex justify-end text-right my-0.5 " >
                                 
                                 <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">0</p>
