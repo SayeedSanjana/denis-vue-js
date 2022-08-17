@@ -140,7 +140,7 @@ export default {
                         })
 
                     } else {
-                        console.log(error);
+                        
                         swal({
                             title: "Error",
                             text: "Add Paid Amount",

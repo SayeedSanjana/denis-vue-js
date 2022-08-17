@@ -37,7 +37,7 @@
              <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
                 <div class="flex justify-between">
                     <div class="flex items-center border border-gray-200 rounded bg-white shadow mt-5">
-                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                        <img src="@/assets/svgs/patientregtoday.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-1 -mt-1 mx-2">
                     </div>
                 <div>
                     <div>
