@@ -2,77 +2,66 @@
 import OutStandingBill from "./_OutStandingBill.vue";
 import CompletedBill from "./_CompletedBill.vue";
 import AllBills from "./_AllBills.vue";
-// import router from "../../router/index";
 import Pending from "./_Pending.vue";
 import axios from "axios";
-    export default {
-        components: {
-            OutStandingBill,
-            CompletedBill,
-            AllBills,
-            Pending
-        },
-        data() {
-            return {
-               presId:'',
-               id:'',
-               activeTab: 'OutStandingBill',
-               bills:[],
-            //    totalData: 0, 
-            //    perPage: 10,
-            //    currentPage: 1,
-            //    text:'',
-            //    searchQuery: '',
-               pendingList: [],
-               dueBills: [],
-               paidBills: [],
-                  billInfo: {
-                
+export default {
+    components: {
+        OutStandingBill,
+        CompletedBill,
+        AllBills,
+        Pending
+    },
+    data() {
+        return {
+            presId: '',
+            id: '',
+            activeTab: 'OutStandingBill',
+            bills: [],
+            pendingList: [],
+            dueBills: [],
+            paidBills: [],
+            billInfo: {
+
             },
             todayDate: new Date().toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'})
-              
-            }
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+        }
 
-            },
-       
-        created() {
-            const query = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-    
-            } 
-            this.$store.dispatch("fetchBills", query);
-             this.getBillData();
+    },
 
+    created() {
+        const query = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
 
-            // this.getOutStandingBills();
+        }
+        this.$store.dispatch("fetchBills", query);
+        this.getBillData();
 
-            const query2 = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-    
-            }
-            this.$store.dispatch("fetchOutstandingBills", query2);
+        const query2 = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
 
-            const query3 = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-            }
-            this.$store.dispatch("fetchCompletedBills", query3);
-          
+        }
+        this.$store.dispatch("fetchOutstandingBills", query2);
 
-                this.getPendingList();
-           
-           
-        },
-        
-        watch: {
-            '$store.state.bills': function() {
-                this.bills = [...this.$store.state.bills];
-                this.bills.forEach(bill => {
+        const query3 = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
+        }
+        this.$store.dispatch("fetchCompletedBills", query3);
+
+        this.getPendingList();
+
+    },
+
+    watch: {
+        '$store.state.bills': function () {
+            this.bills = [...this.$store.state.bills];
+            this.bills.forEach(bill => {
                 bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -84,16 +73,10 @@ import axios from "axios";
                     day: 'numeric'
                 });
             })
-                // console.log(this.bills);
-            
-                // this.bills.forEach(bill => {
-                //     bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
-                   
-
-                // });
+           
         },
 
-        '$store.state.outStandingBills': function() {
+        '$store.state.outStandingBills': function () {
             this.dueBills = [...this.$store.state.outStandingBills];
             this.dueBills.forEach(bill => {
                 bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
@@ -107,14 +90,9 @@ import axios from "axios";
                     day: 'numeric'
                 });
             });
-            // console.log(this.dueBills);
         
-            // this.dueBills.forEach(bill => {
-            //     bill.isPaid = bill.isPaid  == true? 'Paid'  : 'Due';
-            
-            // });
         },
-        '$store.state.completedBills': function() {
+        '$store.state.completedBills': function () {
             this.paidBills = [...this.$store.state.completedBills];
             this.paidBills.forEach(bill => {
                 bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
@@ -128,36 +106,29 @@ import axios from "axios";
                     day: 'numeric'
                 });
             });
-            // console.log(this.paidBills);
-        
-            // this.paidBills.forEach(bill => {
-            //     bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
-            
-            // });
-        },
             
         },
-        computed: {
-            
-            getTotalData() {
-                return this.$store.state.totalBill;
-            },
-            totalBillsCount(){
-                return this.$store.state.totalBills;
-            
-            },
+    },
 
-            getTotalOutstandingData() {
-                return this.$store.state.totalOutstandingBills;
-            },
-            
-            getCompletedBills() {
-                return this.$store.state.totalCompletedBills;
-            },
+    computed: {
+        getTotalData() {
+            return this.$store.state.totalBill;
         },
-        methods: {
-               // dashboard bill data
-       async getBillData(){
+        totalBillsCount() {
+            return this.$store.state.totalBills;
+        },
+
+        getTotalOutstandingData() {
+            return this.$store.state.totalOutstandingBills;
+        },
+
+        getCompletedBills() {
+            return this.$store.state.totalCompletedBills;
+        },
+    },
+    methods: {
+        // dashboard bill data
+        async getBillData() {
             try {
                 const response = await axios.get(
                     import.meta.env.VITE_LOCAL + 'billings/statistics/', {
@@ -167,6 +138,31 @@ import axios from "axios";
                     })
                 this.billInfo = response.data.data;
                 // console.log(this.billInfo);
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
+                }
+            }
+        },
+
+        async getPendingList() {
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + '/tn/billable-items', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                        params: {
+                            limit: 1000
+                        }
+                    })
+                this.pendingList = response.data.data;
+
 
             } catch (error) {
                 if (error.response.data.message == "jwt expired") {
@@ -178,107 +174,57 @@ import axios from "axios";
                     console.log(error);
                 }
             }
-
+        },
+        openBill(index) {
+            this.$router.push({
+                name: 'ConfirmBill',
+                params: {
+                    id: this.pendingList[index].prescription._id
+                }
+            });
         },
 
-           
-              async getPendingList() {
-                  try {
-                      const response = await axios.get(
-                          import.meta.env.VITE_LOCAL + '/tn/billable-items', {
-                            headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
-                              params: {
-                                  limit: 1000
-                              }
-                          })
-                      this.pendingList = response.data.data;
-                     
-                    
-                  } catch (error) {
-                      if(error.response.data.message == "jwt expired"){
-                        this.$router.push({
-                            name: 'Login'
-                        })
-                     
+        addPayment(index) {
+
+            this.bills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
                     } else {
-                        console.log(error);
-                    } 
-                  }
-              },
-              openBill(index){
-                this.$router.push({
-                    name: 'ConfirmBill',
-                    params: {
-                        id: this.pendingList[index].prescription._id
+                        this.id = bill._id;
                     }
-                });
- 
-              
-              },
+                }
+            });
 
-              addPayment(index){
-               
-                  this.bills.forEach(bill => {
-                      if(bill._id ==index){
-                         if(bill.prescription){
-                            this.id = bill.prescription;
-                         }
-                         else{
-                            this.id = bill._id;
-                         }
-                       
+            this.dueBills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
+                    } else {
+                        this.id = bill._id;
                     }
-                      
-                });
+                }
+            });
 
-                this.dueBills.forEach(bill => {
-                    if(bill._id ==index){
-                       if(bill.prescription){
-                          this.id = bill.prescription;
-                       }
-                       else{
-                          this.id = bill._id;
-                       }
-                     
+            this.paidBills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
+                    } else {
+                        this.id = bill._id;
                     }
-                      
-                });
-                
-                this.paidBills.forEach(bill => {
-                    if(bill._id ==index){
-                       if(bill.prescription){
-                          this.id = bill.prescription;
-                       }
-                       else{
-                          this.id = bill._id;
-                       }
-                     
-                    }
-                      
-                });
+                }
+            });
 
-                this.$router.push({
-                    name: 'AddPayment',
-                    params: {
-                        id: this.id
-                    }
-                });
-
-              },
-              
-          
-
-             
-              
-
+            this.$router.push({
+                name: 'AddPayment',
+                params: {
+                    id: this.id
+                }
+            });
         },
-       
-
-      
-        
-    }
+    },
+}
 </script>
 
 <template>

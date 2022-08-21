@@ -21,7 +21,7 @@ export default {
                 payment: [],
                 schema_version: 0
             },
-            formWithoutPres:{
+            formWithoutPres: {
                 payment: [],
                 schema_version: 1
             },
@@ -85,16 +85,16 @@ export default {
 
             try {
 
-                if(this.bill.schema_version === 1){
-                     this.formWithoutPres.payment.push(this.addPayment);
-                      const response = await axios.put(
+                if (this.bill.schema_version === 1) {
+                    this.formWithoutPres.payment.push(this.addPayment);
+                    const response = await axios.put(
                         import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.formWithoutPres, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             },
                         });
-                   
-                    
+
+
                     if (response.data.status == 'success') {
                         swal({
                             title: "Success",
@@ -105,19 +105,18 @@ export default {
                         });
                         this.bill.payment = response.data.data.payment;
                         this.addPayment.paid = 0;
-                       
+
                     }
 
-                }
-                else{
-                     this.form.payment.push(this.addPayment);
-                        const response = await axios.put(
+                } else {
+                    this.form.payment.push(this.addPayment);
+                    const response = await axios.put(
                         import.meta.env.VITE_LOCAL + '/billings/save-bill/' + this.$route.params.id, this.form, {
                             headers: {
                                 "Authorization": `Bearer ${localStorage.getItem('token') }`
                             },
                         });
-                 
+
 
                     if (response.data.status == 'success') {
                         swal({
@@ -132,29 +131,29 @@ export default {
                     }
 
                 }
-                
-            } catch (error) {
-                 if (error.response.data.message == "jwt expired") {
-                        this.$router.push({
-                            name: 'Login'
-                        })
 
-                    } else {
-                        
-                        swal({
-                            title: "Error",
-                            text: "Add Paid Amount",
-                            icon: "error",
-                            timer: 2000,
-                            button: false,
-                        });
-                    }
-                
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+
+                    swal({
+                        title: "Error",
+                        text: "Add Paid Amount",
+                        icon: "error",
+                        timer: 2000,
+                        button: false,
+                    });
+                }
+
             }
-            
-           
+
+
         },
-      
+
     }
 }
 </script>
@@ -164,9 +163,9 @@ export default {
         <form class="mx-40 ">
             <div>
                 <article class="flex justify-end pb-4 space-x-2">
-                    <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
+                    <button type="button" @click="back()"
+                        class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
                     <button type="button" class="btn" @click="modal">Print</button>
-                    <button v-show="bill.balance > 0" @click="updatePayment"  :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}" :disabled="!(isEnabled)">Confirm</button>
                 </article>
             </div>
             <section class="border px-12 py-4 bg-white">
@@ -182,20 +181,22 @@ export default {
                     </div>
                     <div class="text-right text-regal-white">
                         <h2 class="font-semibold">Billed to</h2>
-                        <p class="font-medium">Patient Name - <span class="font-semibold">{{bill.patientName}}</span> </p>
+                        <p class="font-medium">Patient Name - <span class="font-semibold">{{bill.patientName}}</span>
+                        </p>
                         <p class="font-medium">Contact - <span class="font-semibold">{{bill.patientContact}}</span> </p>
                     </div>
-              
+
                 </article>
                 <article class="py-4">
-                     
+
                     <h2 class="text-left font-semibold text-regal-teal mb-4">Services Provided</h2>
                     <div class="flex text-regal-teal text-left">
                         <h1 class="basis-2/6 font-semibold">Date</h1>
                         <h1 class="basis-3/6  font-semibold">Service</h1>
                         <h1 class="basis-1/6 font-semibold">Cost</h1>
                     </div>
-                    <div class="flex text-gray-400 text-left border-b last:border-b-0 space-x-3 space-y-3" v-for="(item, index) in bill.items" :key="index">
+                    <div class="flex text-gray-400 text-left border-b last:border-b-0 space-x-3 space-y-3"
+                        v-for="(item, index) in bill.items" :key="index">
                         <h2 class="basis-2/6 ">{{new Date(item.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -205,9 +206,9 @@ export default {
                         <h2 class="basis-1/6 ">{{item.cost}}</h2>
                     </div>
                 </article>
-              
+
                 <article v-if="typeof(this.bill.payment) != 'undefined' && this.bill.payment != null && this.bill.payment.length != null
-                    && this.bill.payment.length > 0"  class="py-4">
+                    && this.bill.payment.length > 0" class="py-4">
                     <h2 class="text-left font-semibold text-regal-teal mb-4">Past Payments</h2>
                     <div class="flex text-regal-teal text-left">
                         <h1 class="basis-1/4 font-semibold">Date</h1>
@@ -215,8 +216,9 @@ export default {
                         <h1 class="basis-1/4 font-semibold">Currency</h1>
                         <h1 class="basis-1/4 font-semibold">Payment Method</h1>
                     </div>
-                    <div class="flex text-gray-400 text-left border-b last:border-b-0 space-x-3 space-y-3" v-for="(item, index) in bill.payment" :key="index">
-                     <h2 class="basis-1/4 ">{{new Date(item.date).toLocaleDateString('en-US', {
+                    <div class="flex text-gray-400 text-left border-b last:border-b-0 space-x-3 space-y-3"
+                        v-for="(item, index) in bill.payment" :key="index">
+                        <h2 class="basis-1/4 ">{{new Date(item.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
@@ -230,83 +232,94 @@ export default {
                     <p>No Payment Added</p>
 
                 </article>
-                
+
                 <article class="flex  my-4 border-t py-3">
                     <div class=" basis-1/3">
                         <h1 class="font-bold text-lg text-regal-teal">Payment </h1>
-                    <div v-if="bill.balance > 0">
-                     
-                        
-                        <div class="flex text-left pr-3 py-3">
-                            <label class="basis-1/2 font-semibold text-regal-teal">Payment Type</label>
-                            <select v-model="addPayment.paymentMethod" class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
-                                <option value="cash">Cash</option>
-                                <option value="bkash">Bkash</option>
-                                <option value="nagad">Nagad</option>
-                                <option value="rocket">Rocket</option>
-                                <option value="masterCard">MasterCard</option>
-                                <option value="visa">Visa</option>
-                                <option value="cheque">Cheque</option>
-                                <option value="account">Account</option>
-                            </select>
+                        <div v-if="bill.balance > 0">
+
+
+                            <div class="flex text-left pr-3 py-3">
+                                <label class="basis-1/2 font-semibold text-regal-teal">Payment Type</label>
+                                <select v-model="addPayment.paymentMethod"
+                                    class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                                    <option value="cash">Cash</option>
+                                    <option value="bkash">Bkash</option>
+                                    <option value="nagad">Nagad</option>
+                                    <option value="rocket">Rocket</option>
+                                    <option value="masterCard">MasterCard</option>
+                                    <option value="visa">Visa</option>
+                                    <option value="cheque">Cheque</option>
+                                    <option value="account">Account</option>
+                                </select>
+                            </div>
+                            <div class="flex text-left pr-3 py-3">
+                                <label class="basis-1/2 font-semibold text-regal-teal">Currency</label>
+                                <select v-model="addPayment.currency"
+                                    class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                                    <option value="tk">৳</option>
+                                    <option value="usd">US$</option>
+                                    <option value="euro">€</option>
+
+                                </select>
+                            </div>
+                            <div class="flex text-left pr-3 ">
+                                <label class="basis-1/2 font-semibold text-regal-teal">Paid Amount</label>
+                                <input v-model="addPayment.paid" type="number"
+                                    class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                            </div>
+
+
+
+
                         </div>
-                        <div class="flex text-left pr-3 py-3">
-                            <label class="basis-1/2 font-semibold text-regal-teal">Currency</label>
-                            <select v-model="addPayment.currency" class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
-                                <option value="tk">৳</option>
-                                <option value="usd">US$</option>
-                                <option value="euro">€</option>
-                                
-                            </select>
+
+                        <div v-else class="py-8">
+                            <h1 class="font-bold text-4xl text-regal-teal">Paid</h1>
                         </div>
-                        <div class="flex text-left pr-3 ">
-                            <label class="basis-1/2 font-semibold text-regal-teal">Paid Amount</label>
-                            <input v-model="addPayment.paid" type="number"
-                                class="basis-1/2 py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
+                        <div class="flex justify-end mr-3 my-2">
+
+                            <button v-show="bill.balance > 0" @click="updatePayment"
+                                :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}"
+                                :disabled="!(isEnabled)">Confirm</button>
                         </div>
-                       
-                           
-                      
-                       
+
                     </div>
-                    <div v-else class="py-8">
-                        <h1 class="font-bold text-4xl text-regal-teal">Paid</h1>
-                    </div>
-                    </div>
-                
+
                     <div class="basis-1/3 px-2 flex justify-between border-l">
                         <ul class="text-left text-gray-400 font-semibold px-4">
-                            <li >Subtotal </li>
+                            <li>Subtotal </li>
                             <li>Discount </li>
                             <li>Adjustment </li>
                             <li>Received </li>
-                       
-                            <li  class="py-3 ">Balance(Due)</li>
+
+                            <li class="py-3 ">Balance(Due)</li>
                         </ul>
                         <ul class="text-right font-bold text-regal-teal px-3">
-                            <li>  {{bill.total}}</li>
-                            <li>  {{bill.discount}}</li>
-                            <li>  {{bill.adjustment}}</li>
-                            <li>  {{bill.totalAmountPaid + addPayment.paid}}</li>
-                        
-                            <li class="py-3" > {{bill.balance - addPayment.paid}}</li>
+                            <li> {{bill.total}}</li>
+                            <li> {{bill.discount}}</li>
+                            <li> {{bill.adjustment}}</li>
+                            <li> {{bill.totalAmountPaid + addPayment.paid}}</li>
+
+                            <li class="py-3"> {{bill.balance - addPayment.paid}}</li>
                         </ul>
                     </div>
                     <div class="border-l basis-1/3 px-2 ">
                         <h1 class="font-bold text-lg text-regal-teal">Amount Due</h1>
                         <div v-if="(bill.balance - addPayment.paid) >= 0">
-                        <h1 class="font-bold text-4xl text-red-700 py-8">৳ {{bill.balance - addPayment.paid }} </h1>
+                            <h1 class="font-bold text-4xl text-red-700 py-8">৳ {{bill.balance - addPayment.paid }} </h1>
                         </div>
                         <div v-else class="my-6">
-                             <p  class="text-red-700 text-xl font-semibold"> The paid amount cannot exceed the due amount.</p>
+                            <p class="text-red-700 text-xl font-semibold"> The paid amount cannot exceed the due amount.
+                            </p>
                         </div>
                     </div>
                 </article>
-                
+
             </section>
         </form>
         <!-- {{bill}} -->
-     <PrintBill v-if="openModal" @close="closeModal" :bill="bill" />
+        <PrintBill v-if="openModal" @close="closeModal" :bill="bill" />
     </section>
 </template>
 <style scoped>
