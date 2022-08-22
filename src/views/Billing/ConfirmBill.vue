@@ -182,7 +182,7 @@ import swal from 'sweetalert';
 
            async getPendingBill(){
                 try {
-                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pendding/' +this.$route.params.id ,{
+                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pending/' +this.$route.params.id ,{
                         headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 },

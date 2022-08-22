@@ -37,6 +37,7 @@ export default {
     created() {
         this.getBill();
     },
+   
     computed: {
         isEnabled() {
             if ((this.bill.balance - this.addPayment.paid) < 0) {
@@ -44,7 +45,8 @@ export default {
             } else {
                 return true;
             }
-        }
+        },
+        
     },
     methods: {
         async getBill() {
@@ -57,6 +59,7 @@ export default {
                     });
 
                 this.bill = response.data.data;
+
 
             } catch (error) {
                 if (error.response.data.message == "jwt expired") {
@@ -84,7 +87,7 @@ export default {
         async updatePayment() {
 
             try {
-
+                
                 if (this.bill.schema_version === 1) {
                     this.formWithoutPres.payment.push(this.addPayment);
                     const response = await axios.put(
@@ -94,6 +97,9 @@ export default {
                             },
                         });
 
+                        this.bill = response.data.data;
+                        // console.log(response.data.data);
+                        this.addPayment.paid = 0;
 
                     if (response.data.status == 'success') {
                         swal({
@@ -103,8 +109,13 @@ export default {
                             timer: 1000,
                             button: false,
                         });
-                        this.bill.payment = response.data.data.payment;
-                        this.addPayment.paid = 0;
+
+
+                        setTimeout(() => {
+                            this.modal();
+                        }, 1000);
+
+                      
 
                     }
 
@@ -117,6 +128,9 @@ export default {
                             },
                         });
 
+                        this.bill = response.data.data.bl;
+                        this.addPayment.paid = 0;
+                        // console.log(response.data.data);
 
                     if (response.data.status == 'success') {
                         swal({
@@ -126,9 +140,14 @@ export default {
                             timer: 1000,
                             button: false,
                         });
-                        this.bill = response.data.data.bl;
-                        this.addPayment.paid = 0;
+
+                        setTimeout(() => {
+                            this.modal();
+                        }, 1000);
+
+                       
                     }
+                     
 
                 }
 
@@ -279,7 +298,7 @@ export default {
                         </div>
                         <div class="flex justify-end mr-3 my-2">
 
-                            <button v-show="bill.balance > 0" @click="updatePayment"
+                            <button  v-show="bill.balance > 0" @click.prevent="updatePayment"
                                 :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}"
                                 :disabled="!(isEnabled)">Confirm</button>
                         </div>

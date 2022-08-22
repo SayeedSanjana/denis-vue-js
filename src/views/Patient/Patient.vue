@@ -29,7 +29,7 @@
                         <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Total Visits <span class="font-bold">:</span> </p> -->
-                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11 ">{{countVisit}}</p>
+                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11 ">{{getvisitedToday}}</p>
                 </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                         <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
                     </div>
                     <!-- <p class="text-base font-medium text-gray-600 ">Due Amount <span class="font-bold">:</span> </p> -->
-                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11">{{countReg}}</p>
+                    <p class="text-4xl text-right font-semibold text-regal-teal pt-11">{{getregisteredToday}}</p>
                 </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
 
 
 
-            <form id="search" class="w-1/2 flex">
+            <section id="search" class="w-1/2 flex">
             <!-- search -->
                 <div class="border-2  px-3 flex bg-white rounded-md items-center  w-1/2">
                     <input class="flex-grow outline-none text-regal-teal" name="q" type="text" placeholder="Search ..."
@@ -78,7 +78,7 @@
                     </span>
                 </div>
             <!-- search -->
-            </form>
+            </section>
 
             <div class="w-1/2 flex justify-end">
             <!-- register button -->
@@ -154,8 +154,8 @@ export default {
             perPage: 10,
             openModal: false,
             patients: [],
-            countVisit: 0,
-            countReg: 0,
+            // countVisit: 0,
+            // countReg: 0,
             todayDate: new Date().toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -171,7 +171,10 @@ export default {
 
         }
         this.$store.dispatch("fetchPatients", query);
-        
+
+       
+
+     
 
        
 
@@ -180,11 +183,7 @@ export default {
         '$store.state.patients': function () {
 
             this.patients = [...this.$store.state.patients];
-          
-          let today =  new Date().toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'})
+        
 
 
 
@@ -202,20 +201,14 @@ export default {
                     day: 'numeric'
                 });
                 
-                   if(today === patient.updatedAt){
-                    this.countVisit++;
                 
-                    
-                   }
-                   if(today === patient.createdAt){
-                    this.countReg++;
-                
-                    
-                   }
             });
+           
+            
      
 
         },
+
         
 
 
@@ -230,6 +223,13 @@ export default {
         // console.log(this.$store.state.totalFound);
         return this.$store.state.totalfoundPatient;
    
+    },
+
+    getregisteredToday(){
+        return this.$store.state.registeredToday;
+    },
+    getvisitedToday(){
+        return this.$store.state.visitedToday;
     }
    
   
@@ -238,6 +238,8 @@ export default {
     
 
     methods: {
+
+       
 
      
         // search function

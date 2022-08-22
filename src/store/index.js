@@ -7,6 +7,8 @@ export default createStore({
 		patients: [],
         totalPatient: 0,
         totalfoundPatient: 0,
+        registeredToday: 0,
+        visitedToday: 0,
         totalBill: 0,
         totalBills: 0,
         // totalfoundBill: 0,
@@ -27,6 +29,8 @@ export default createStore({
 			state.patients = patients.data['data']
             state.totalPatient = patients.data.total
             state.totalfoundPatient = patients.data['totalFound']
+            state.registeredToday = patients.data['registered']
+            state.visitedToday = patients.data['visited']
             // console.log(patients.data['totalFound']);
             state.endPage = patients.data.nextPage
             
