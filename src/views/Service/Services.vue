@@ -73,21 +73,39 @@ export default {
         this.$store.dispatch('fetchPatient', this.$route.params.id);
         // get services from specific prescription
         try {
-            const res = await axios.get(
-                import.meta.env.VITE_LOCAL + '/tn/' + this.$route.params.presId, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem('token') }`
-                    },
-                });
-            if (res.data.data) {
-                this.service = res.data.data.items;
+
+            if(this.$route.params.presId){
+
+                const res = await axios.get(
+                    import.meta.env.VITE_LOCAL + '/tn/' + this.$route.params.presId, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    });
+                if (res.data.data) {
+                    this.service = res.data.data.items;
+                }
             }
+            // else{
+              
+            // }
 
         } catch ({
             response
         }) {
             if (response.status === 404) {
                 this.errorMessage = response.data.message;
+                
+                   const res = await axios.get(
+                    import.meta.env.VITE_LOCAL + '/legacy/treatment-notes/' + this.$route.params.id, {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    });
+                    // console.log(res.data.data[0].items);
+                if (res.data.data) {
+                    this.service = res.data.data[0].items;
+                }
 
 
             }
@@ -409,6 +427,7 @@ export default {
                                             <p>
                                                 <label for="name" class="bg-white text-gray-400 px-1">Add
                                                     Services</label>
+                                                   
 
                                             </p>
 
