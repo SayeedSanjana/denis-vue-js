@@ -1,11 +1,17 @@
 import {createStore} from 'vuex'
+import router from "../router/index"
 import axios from "axios"
 
 export default createStore({
 	state: {
 		patients: [],
         totalPatient: 0,
+        totalfoundPatient: 0,
+        registeredToday: 0,
+        visitedToday: 0,
         totalBill: 0,
+        totalBills: 0,
+        // totalfoundBill: 0,
         totalOutstandingBills: 0,
         totalCompletedBills: 0,
         endPage: null,
@@ -22,17 +28,22 @@ export default createStore({
 		setPatients(state, patients) {
 			state.patients = patients.data['data']
             state.totalPatient = patients.data.total
+            state.totalfoundPatient = patients.data['totalFound']
+            state.registeredToday = patients.data['registered']
+            state.visitedToday = patients.data['visited']
+            // console.log(patients.data['totalFound']);
             state.endPage = patients.data.nextPage
             
 		},
         setOutstandingBills(state, outStandingBills){
             state.outStandingBills = outStandingBills.data['data']
-            state.totalOutstandingBills = outStandingBills.data.total
+            state.totalOutstandingBills = outStandingBills.data['totalFound']
+            
             state.endPage = outStandingBills.data.nextPage
         },
         setCompletedBills(state, completedBills){
             state.completedBills = completedBills.data['data']
-            state.totalCompletedBills = completedBills.data.total
+            state.totalCompletedBills = completedBills.data['totalFound']
             state.endPage = completedBills.data.nextPage
         },
 
@@ -43,7 +54,8 @@ export default createStore({
         },
         setBills(state, bills) {
             state.bills = bills.data['data']
-            state.totalBill = bills.data.total
+            state.totalBills = bills.data.total
+            state.totalBill = bills.data['totalFound']
             state.endPage = bills.data.nextPage
            
         },
@@ -52,6 +64,7 @@ export default createStore({
            
             state.patients.unshift(patients)
             state.totalPatient = state.totalPatient + 1
+            state.totalfoundPatient = state.totalfoundPatient + 1
             state.endPage = state.endPage + 1
         },
         setCopiedPrescription(state, copiedPrescription) {
@@ -89,18 +102,24 @@ export default createStore({
                         q:text
                     },
                 });
-                // console.log(data);
-                return commit('setPatients', data);
+
+                  return commit('setPatients', data);
+ 
             } catch (error) {
-                console.log(error);    
+                if (error.response.data.message == "jwt expired") {
+                router.push({
+                    name: 'Login'
+                })
             }
-
-
-				
+            else{
+                console.log(error);
+            }
+                   
+            }
+	
 		},
 
         fetchPatient ({commit}, patientId) {
-            // axios.get(`http://localhost:3000/api/patients/${patientId}`)
             axios.get(import.meta.env.VITE_LOCAL+`patients/${patientId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
@@ -109,8 +128,6 @@ export default createStore({
                 .then((result) => commit('getPatient', result)
                 )
         },
-
-       
 
       async  fetchBills ({commit} ,{currentPage, perPage, text=''}) {
         try {
@@ -130,7 +147,14 @@ export default createStore({
             return commit('setBills', data);
             
         } catch (error) {
-            console.log(error);    
+            if (error.response.data.message == "jwt expired") {
+                router.push({
+                    name: 'Login'
+                })
+            }
+            else{
+                console.log(error);
+            } 
     
         }
           
@@ -154,7 +178,14 @@ export default createStore({
                 return commit('setOutstandingBills', data);
                 
             } catch (error) {
-                console.log(error);    
+                if (error.response.data.message == "jwt expired") {
+                    router.push({
+                        name: 'Login'
+                    })
+                }
+                else{
+                    console.log(error);
+                }   
             }
               
             },
@@ -178,15 +209,17 @@ export default createStore({
                     return commit('setCompletedBills', data);
                     
                 } catch (error) {
-                    console.log(error);    
+                    if (error.response.data.message == "jwt expired") {
+                        router.push({
+                            name: 'Login'
+                        })
+                    }
+                    else{
+                        console.log(error);
+                    }    
                 }
                   
                 }
-
-
-
-        
-
 
        
 	}

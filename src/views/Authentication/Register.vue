@@ -127,7 +127,6 @@
                     <router-link to="/" class="block w-64 max-w-xs mx-auto text-white rounded-lg  py-3 font-semibold"
                       style="background:#036792">Login</router-link>
                   </div>
-                  <!-- <router-link to="/" class="hover:text-indigo-800 text-blue-700" > Sign In Instead </router-link> -->
                 </div>
             </form>
                <!-- Register form  ends -->
@@ -158,84 +157,114 @@
   import axios from "axios";
   import PinNumber from "../../components/PinNumber.vue";
   import useValidate from '@vuelidate/core';
-  import {required,minLength,maxLength,numeric,email,helpers} from '@vuelidate/validators';
+  import {
+  	required,
+  	minLength,
+  	maxLength,
+  	numeric,
+  	email,
+  	helpers
+  } from '@vuelidate/validators';
   export default {
-    created() {
-      this.getPin()
-    },
-    components: {
-      PinNumber
-    },
-    data() {
-      return {
-        v$:useValidate(),
-        pinObject: {},
-        pin: '',
-        openModal: false,
-        formData: {
-          name: '',
-          email: '',
-          password: '',
-          dob: '',
-          phone: '',
-          gender: '',
-          address: '',
-        }
-      }
-    },
-     validations(){
-     const pattern =helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-     const val1 =(value)=>!value.includes('Dr.');
-     const val2 =(value)=>!value.includes('dr.');
-     const val3 =(value)=>!value.includes('DR.');
-     //const nospecial=helpers.regex(/^[A-Za-z]*$/);
-     const nospecial=helpers.regex(/^[A-Za-z\s]+$/);
-     return{
-      formData:{
-      name:{required,minLength: minLength(3),maxLength:maxLength(255),val1:helpers.withMessage("Don't include Dr. in the name",val1),val2:helpers.withMessage("Don't include Dr. in the name",val2),val3:helpers.withMessage("Don't include Dr. in the name",val3),nospecial:helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'",nospecial)},
-      email:{required,email},
-      password:{required,minLength: minLength(8),pattern:helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'",pattern)},
-      dob: {required},
-      gender: {required},
-      phone: {required,numeric,minLength: minLength(11),maxLength:maxLength(14)},
-      address: {required},
-      }
-     }
-    },
-    methods: {
-      // onChange(v){
-      //   console.log(v)
-      //   /console.log(this.v$.name)
-      // },
-      //Sign In
-      async signupForm() {
-        this.formData.phone = this.formData.phone.replace(/\s/g,'')
-        this.v$.$touch()
-         if (!this.v$.$error) {
-          this.openModal = true
-        }
-      },
+  	created() {
+  		this.getPin()
+  	},
+  	components: {
+  		PinNumber
+  	},
+  	data() {
+  		return {
+  			v$: useValidate(),
+  			pinObject: {},
+  			pin: '',
+  			openModal: false,
+  			formData: {
+  				name: '',
+  				email: '',
+  				password: '',
+  				dob: '',
+  				phone: '',
+  				gender: '',
+  				address: '',
+  			}
+  		}
+  	},
+  	validations() {
+  		const pattern = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+  		const val1 = (value) => !value.includes('Dr.');
+  		const val2 = (value) => !value.includes('dr.');
+  		const val3 = (value) => !value.includes('DR.');
+  		const nospecial = helpers.regex(/^[A-Za-z\s]+$/);
+  		return {
+  			formData: {
+  				name: {
+  					required,
+  					minLength: minLength(3),
+  					maxLength: maxLength(255),
+  					val1: helpers.withMessage("Don't include Dr. in the name", val1),
+  					val2: helpers.withMessage("Don't include Dr. in the name", val2),
+  					val3: helpers.withMessage("Don't include Dr. in the name", val3),
+  					nospecial: helpers.withMessage("Should include alphabets only and don't add special characters like '@#.,'", nospecial)
+  				},
+  				email: {
+  					required,
+  					email
+  				},
+  				password: {
+  					required,
+  					minLength: minLength(8),
+  					pattern: helpers.withMessage("Should include 0-9,A-Z, a-z and special characters like '@,#,$,*'", pattern)
+  				},
+  				dob: {
+  					required
+  				},
+  				gender: {
+  					required
+  				},
+  				phone: {
+  					required,
+  					numeric,
+  					minLength: minLength(11),
+  					maxLength: maxLength(14)
+  				},
+  				address: {
+  					required
+  				},
+  			}
+  		}
+  	},
+  	methods: {
+  		
+  		//Sign In
+  		async signupForm() {
+  			this.formData.phone = this.formData.phone.replace(/\s/g, '')
+  			this.v$.$touch()
+  			if (!this.v$.$error) {
+  				this.openModal = true
+  			}
+  		},
 
-      //Get the Pin 
-      async getPin() {
-        await axios.get(import.meta.env.VITE_LOCAL+'pin/search')
-          .then((response) => {
-            this.pinObject = response.data['result'];
-            this.pinObject.forEach((p) => {
-              this.pin = p.pin;
-              console.log("register");
-              console.log(typeof (this.pin));
-            });
-          })
-          .catch((error) => {
-            console.log(error)
-            this.errorMsg = 'Error retrieving data'
-          })
-      },
-      closeModal() {
-        this.openModal = false
-      }
-    }
+  		//Get the Pin 
+  		async getPin() {
+  			await axios.get(
+  					import.meta.env.VITE_LOCAL + 'pin/search')
+  				.then((response) => {
+  					this.pinObject = response.data['result'];
+  					this.pinObject.forEach((p) => {
+  						this.pin = p.pin;
+  						console.log("register");
+  						console.log(typeof (this.pin));
+  					});
+  				})
+  				.catch((error) => {
+  					console.log(error)
+  					this.errorMsg = 'Error retrieving data'
+  				})
+  		},
+  		closeModal() {
+  			this.openModal = false
+  		}
+  	}
   }
 </script>
 

@@ -1,62 +1,54 @@
 <script>
     export default {
-        data(){
-            return{
-                //tooth:[],
-                teeth:'',
+        data() {
+            return {
+                teeth: '',
 
             }
         },
-        props:{
-            tooth:{
-                type:Array,
-                default:function(){
+        props: {
+            tooth: {
+                type: Array,
+                default: function () {
                     return [];
                 }
             }
         },
-        methods:{
-              choosetooth(evt, toothNo) {
-                
-                
-                //this.teeth = ''
+        methods: {
+            choosetooth(evt, toothNo) {
+
                 //Checking if the paths of the svg contains colorFill class
-              
+
                 if (evt.target.classList.contains('colorFill')) {
-                     
+
                     const index = this.tooth.indexOf(toothNo);
-                     //console.log(index);
+
                     // checking if the tooth exists in the tooth array and if that similar tooth gets pressed again remove that from array
                     if (index > -1) {
                         this.tooth.splice(index, 1);
-                        
+
                     }
                 } else {
                     //push new tooth to the tooth array
                     if (!this.tooth.includes(toothNo)) {
 
                         this.tooth.push(toothNo);
-                //          console.log("Tooth",this.tooth);
-                // console.log(typeof(this.tooth));
+
                     }
                 }
-                
-               
+
                 //Togging class to fill the svg
                 evt.target.classList.toggle('colorFill')
                 //All items to tooth array is now stored to teeth for view purpose
-                 this.$emit("concatanate", this.tooth)
-                // this.tooth.forEach(i => {
-                //     this.$emit("concatanate",i)
-                //     // this.teeth = this.teeth + ',' + i
-                // });
+                this.$emit("concatanate", this.tooth)
+
                 //Removing , from the first index of teeth(string)
                 if (this.teeth[0] == ',') {
                     this.$emit("removeComma")
-                    // this.teeth = this.teeth.substring(1)
+                   
                 }
             },
-            
+
         }
     }
 </script>

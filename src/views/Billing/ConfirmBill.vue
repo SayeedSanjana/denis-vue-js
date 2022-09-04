@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import swal from 'sweetalert';
+// import router from "../../router/index";
 
     export default {
         data(){
@@ -165,7 +166,14 @@ import swal from 'sweetalert';
 
                     
                 } catch (error) {
-                    console.log(error);
+                   if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                 
                 }
 
@@ -174,7 +182,7 @@ import swal from 'sweetalert';
 
            async getPendingBill(){
                 try {
-                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pendding/' +this.$route.params.id ,{
+                    const response = await axios.get( import.meta.env.VITE_LOCAL + '/billings/pending/' +this.$route.params.id ,{
                         headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token') }`
                 },
@@ -183,7 +191,14 @@ import swal from 'sweetalert';
                   
                     
                 } catch (error) {
-                    console.log(error);
+                  if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                     
                 }
             },
@@ -214,7 +229,14 @@ import swal from 'sweetalert';
     
                     
                 } catch (error) {
-                    console.log(error);
+                    if(error.response.data.message == "jwt expired"){
+                        this.$router.push({
+                            name: 'Login'
+                        })
+                     
+                    } else {
+                        console.log(error);
+                    } 
                 }
                 
 
@@ -241,8 +263,20 @@ import swal from 'sweetalert';
                     <button type="button" @click="back()" class="px-3 py-1 font-semibold rounded-md text-white bg-regal-teal">Back</button>
                     <button type="submit"   :class="{'btn' : isEnabled, 'btn-disabled' : !isEnabled}" :disabled="!(isEnabled)" >Confirm</button>
                 </article>
+
+                <article class="p-6  bg-regal-teal rounded-lg">
+                    <div class="text-left text-regal-white">
+                         <h2 class="font-semibold">Billed to</h2>
+                        <p class="font-medium">Patient Name - <span class="font-semibold">{{pendingBill.patientName}}</span> </p>
+                        <p class="font-medium">Contact - <span class="font-semibold">{{pendingBill.patientContact}}</span> </p>
+
+                    </div>
+                   
+
+              
+                </article>
                 
-                <article class="flex justify-between mb-4">
+                <article class="flex justify-between mb-4 mt-4">
                     <div class="text-left w-3/6 mr-3">
                         <label for="">Service</label>
                         <input v-model="item.service" type="text" class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
@@ -309,13 +343,17 @@ import swal from 'sweetalert';
                             <input type="radio" name="test_id" @change="changeDiscountType($event)" value="Percentage"  >
                             <label for="">Percentage</label>
                         </div>
+                    
                     </div>
 
                     <div class="text-left">
-                        <label for="" class="text-regal-teal font-semibold">Discount Amount</label>
+                        <label for="" class="text-regal-teal font-semibold">Discount Amount </label>
                         <input type="number"  @keyup="applyDiscount" v-model="value"  class="py-1 px-4 mb-3 block w-full bg-white text-regal-teal border border-regal-teal border-opacity-50 rounded leading-tight focus:outline-none focus:border-regal-blue">
-
+                        <div  v-if="(totalCost + additionalCost) - form.discount< 0">
+                       <p class="text-red-700 text-sm">The discount amount cannot exceed adjustment.</p>
                     </div>
+                    </div>
+                   
                     
                 </article>
 
