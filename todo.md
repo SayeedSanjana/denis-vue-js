@@ -42,14 +42,12 @@
 
 - Websocket implement . update list without reloading page 🟥
 
-- bring investigation as suggestion for confirmed bill 🟥
+- dashboard for doctor (total patient registered in a day , total due , total earned money ) 🟥
 
-- after creating Prescription redirect to select Prescription 🟥
+- today's bill status (total patients paid, total amount paid for the day ) 🟥
 
-- profile settings page 🟥
+- account settings page ✅
 
-- account settings page 🟥
+- jwt token implementation ✅
 
-- jwt token implementation 🟥
-
-- search bar implementation 🟥
+- search bar implementation ✅

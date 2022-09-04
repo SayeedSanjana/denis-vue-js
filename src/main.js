@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import store from "./store";
 import App from "./App.vue";
 import router from "./router";
+// import router from "./router/index.js";
 import vueResource from "./resource.js";
 // import "./axios";
 import './assets/index.css'

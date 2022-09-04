@@ -4,214 +4,319 @@ import CompletedBill from "./_CompletedBill.vue";
 import AllBills from "./_AllBills.vue";
 import Pending from "./_Pending.vue";
 import axios from "axios";
-    export default {
-        components: {
-            OutStandingBill,
-            CompletedBill,
-            AllBills,
-            Pending
-        },
-        data() {
-            return {
-               presId:'',
-               id:'',
-               activeTab: 'OutStandingBill',
-               bills:[],
-            //    totalData: 0, 
-            //    perPage: 10,
-            //    currentPage: 1,
-            //    text:'',
-            //    searchQuery: '',
-               pendingList: [],
-               dueBills: [],
-               paidBills: [],
-              
-            }
+export default {
+    components: {
+        OutStandingBill,
+        CompletedBill,
+        AllBills,
+        Pending
+    },
+    data() {
+        return {
+            presId: '',
+            id: '',
+            activeTab: 'OutStandingBill',
+            bills: [],
+            pendingList: [],
+            dueBills: [],
+            paidBills: [],
+            billInfo: {
 
             },
-       
-        created() {
-            const query = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-    
-            } 
-            this.$store.dispatch("fetchBills", query);
+            todayDate: new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })
+        }
 
+    },
 
-            // this.getOutStandingBills();
+    created() {
+        const query = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
 
-            const query2 = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-    
-            }
-            this.$store.dispatch("fetchOutstandingBills", query2);
+        }
+        this.$store.dispatch("fetchBills", query);
+        this.getBillData();
 
-            const query3 = {
-                currentPage: this.currentPage,
-                perPage: this.perPage,
-            }
-            this.$store.dispatch("fetchCompletedBills", query3);
-          
+        const query2 = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
 
-                this.getPendingList();
-           
-           
-        },
-        
-        watch: {
-            '$store.state.bills': function() {
-                this.bills = [...this.$store.state.bills];
-                // console.log(this.bills);
-            
-                this.bills.forEach(bill => {
-                    bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
-                   
+        }
+        this.$store.dispatch("fetchOutstandingBills", query2);
 
+        const query3 = {
+            currentPage: this.currentPage,
+            perPage: this.perPage,
+        }
+        this.$store.dispatch("fetchCompletedBills", query3);
+
+        this.getPendingList();
+
+    },
+
+    watch: {
+        '$store.state.bills': function () {
+            this.bills = [...this.$store.state.bills];
+            this.bills.forEach(bill => {
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                 });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            })
+           
         },
 
-        '$store.state.outStandingBills': function() {
+        '$store.state.outStandingBills': function () {
             this.dueBills = [...this.$store.state.outStandingBills];
-            // console.log(this.dueBills);
-        
             this.dueBills.forEach(bill => {
-                bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
-            
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
             });
+        
         },
-        '$store.state.completedBills': function() {
+        '$store.state.completedBills': function () {
             this.paidBills = [...this.$store.state.completedBills];
-            // console.log(this.paidBills);
-        
             this.paidBills.forEach(bill => {
-                bill.isPaid = bill.isPaid  == true? 'Paid' : 'Due';
+                bill.createdAt = new Date(bill.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                bill.updatedAt = new Date(bill.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            });
             
+        },
+    },
+
+    computed: {
+        getTotalData() {
+            return this.$store.state.totalBill;
+        },
+        totalBillsCount() {
+            return this.$store.state.totalBills;
+        },
+
+        getTotalOutstandingData() {
+            return this.$store.state.totalOutstandingBills;
+        },
+
+        getCompletedBills() {
+            return this.$store.state.totalCompletedBills;
+        },
+    },
+    methods: {
+        // dashboard bill data
+        async getBillData() {
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + 'billings/statistics/', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                    })
+                this.billInfo = response.data.data;
+                // console.log(this.billInfo);
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
+                }
+            }
+        },
+
+        async getPendingList() {
+            try {
+                const response = await axios.get(
+                    import.meta.env.VITE_LOCAL + '/tn/billable-items', {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem('token') }`
+                        },
+                        params: {
+                            limit: 1000
+                        }
+                    })
+                this.pendingList = response.data.data;
+
+
+            } catch (error) {
+                if (error.response.data.message == "jwt expired") {
+                    this.$router.push({
+                        name: 'Login'
+                    })
+
+                } else {
+                    console.log(error);
+                }
+            }
+        },
+        openBill(index) {
+            this.$router.push({
+                name: 'ConfirmBill',
+                params: {
+                    id: this.pendingList[index].prescription._id
+                }
             });
         },
-            
+
+        addPayment(index) {
+
+            this.bills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
+                    } else {
+                        this.id = bill._id;
+                    }
+                }
+            });
+
+            this.dueBills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
+                    } else {
+                        this.id = bill._id;
+                    }
+                }
+            });
+
+            this.paidBills.forEach(bill => {
+                if (bill._id == index) {
+                    if (bill.prescription) {
+                        this.id = bill.prescription;
+                    } else {
+                        this.id = bill._id;
+                    }
+                }
+            });
+
+            this.$router.push({
+                name: 'AddPayment',
+                params: {
+                    id: this.id
+                }
+            });
         },
-        computed: {
-            
-            getTotalData() {
-                return this.$store.state.totalBill;
-            },
-
-            getTotalOutstandingData() {
-                return this.$store.state.totalOutstandingBills;
-            },
-            
-            getCompletedBills() {
-                return this.$store.state.totalCompletedBills;
-            },
-        },
-        methods: {
-
-           
-              async getPendingList() {
-                  try {
-                      const response = await axios.get(
-                          import.meta.env.VITE_LOCAL + '/tn/billable-items', {
-                            headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token') }`
-                },
-                              params: {
-                                  limit: 1000
-                              }
-                          })
-                      this.pendingList = response.data.data;
-                     
-                    
-                  } catch (error) {
-                      console.log(error);
-                  }
-              },
-              openBill(index){
-                this.$router.push({
-                    name: 'ConfirmBill',
-                    params: {
-                        id: this.pendingList[index].prescription._id
-                    }
-                });
- 
-              
-              },
-
-              addPayment(index){
-               
-                  this.bills.forEach(bill => {
-                      if(bill._id ==index){
-                         if(bill.prescription){
-                            this.id = bill.prescription;
-                         }
-                         else{
-                            this.id = bill._id;
-                         }
-                       
-                    }
-                      
-                });
-
-                this.dueBills.forEach(bill => {
-                    if(bill._id ==index){
-                       if(bill.prescription){
-                          this.id = bill.prescription;
-                       }
-                       else{
-                          this.id = bill._id;
-                       }
-                     
-                    }
-                      
-                });
-                
-                this.paidBills.forEach(bill => {
-                    if(bill._id ==index){
-                       if(bill.prescription){
-                          this.id = bill.prescription;
-                       }
-                       else{
-                          this.id = bill._id;
-                       }
-                     
-                    }
-                      
-                });
-
-                this.$router.push({
-                    name: 'AddPayment',
-                    params: {
-                        id: this.id
-                    }
-                });
-
-              },
-              
-          
-
-             
-              
-
-        },
-       
-
-      
-        
-    }
+    },
+}
 </script>
 
 <template>
-    <section class="container mx-auto my-4">
+    <section class="container mx-auto my-1">
+         
     <div class=" ">
             <h1 for="" class="flex justify-start items-start font-semibold text-regal-teal text-xl"> Billing History</h1>
-        
-    <div class="border p-4">
+          
+           
+    <div class="border rounded-md p-1 px-3">
+  <div class="grid grid-cols-3 gap-4 my-1">
+                <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow mt-5">
+                        <img src="@/assets/svgs/totalbill.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-0.5 -mt-1 mx-2">
+                    </div>
+                <div>
+                    <div>
+                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Bill</p>
+                      
+                    </div>
+                   
+                    <p class="text-4xl text-right font-semibold text-regal-teal pt-14 pb-2 ">{{totalBillsCount}}</p>
+                </div>
+                </div>
+            </div>
+                <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow mt-5">
+                        <img src="@/assets/svgs/due.svg" alt="" srcset="" class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                    </div>
+                <div>
+                    <div>
+                        <p class="text-sm uppercase font-semibold text-gray-400 text-right">Total Due</p>
+                      
+                    </div>
+                   
+                    <p class="text-2xl text-right font-semibold text-regal-red pt-16 pb-2 " v-for="i in billInfo.total_due" :key="i">TK {{i}}</p>
+                </div>
+                </div>
+            </div>
+            
+            <div class=" px-4 py-3 border rounded-lg bg-slate-50 shadow-md">
+                <div class="flex justify-between">
+                    <div class="flex items-center border border-gray-200 rounded bg-white shadow my-5">
+                        <img src="@/assets/svgs/billstatus.svg" alt="" srcset=""
+                            class="place-content-center h-20 w-20 p-2 -mt-1 mx-2">
+                    </div>
 
+
+                    <div class="text-right">
+                        <p class="text-sm font-semibold uppercase text-gray-400 text-right">Total Earnings for</p>
+                        <p class="text-sm font-semibold text-gray-600 text-right">{{todayDate}}</p>
+
+
+                        <div class="pt-4" v-if="typeof(this.billInfo.latest_paid) != 'undefined' && this.billInfo.latest_paid != null && this.billInfo.latest_paid.length != null
+                    && this.billInfo.latest_paid.length > 0" >
+                            <div class="flex justify-end text-right my-0.5 " >
+                                
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">{{billInfo.latest_paid[0].count}}</p>
+                                <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+    
+                            <div class="flex justify-end text-right my-0.5">
+
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK {{billInfo.latest_paid[0].amount}}</p>
+                            <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+                        </div>
+                         <div class="pt-4" v-else>
+                            
+                            <div class="flex justify-end text-right my-0.5 " >
+                                
+                                <p class="text-2xl font-semibold text-gray-600 mr-2 pt-1">0</p>
+                                <img src="@/assets/svgs/patient.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+    
+                            <div class="flex justify-end text-right my-0.5">
+
+                                <p class="text-2xl font-semibold text-regal-success mr-2 pt-1">TK 0</p>
+                            <img src="@/assets/svgs/tk.svg" alt="" srcset="" class="place-content-center h-10 w-10 p-1 border rounded-md bg-white">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     
     <div class="flex ">
       
-        <button @click="activeTab = 'OutStandingBill'" :class="activeTab==='OutStandingBill' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400'" 
+        <button @click="activeTab = 'OutStandingBill'" :class="activeTab==='OutStandingBill' ? 'border border-b-0  rounded-t-md ' : 'bg-transparent border-b hover:border-gray-400'" 
          class="flex items-center h-12 px-2 py-2 text-center text-amber-500  border-gray-300 sm:px-4  -px-1  whitespace-nowrap focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-1 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
@@ -222,7 +327,7 @@ import axios from "axios";
             </span>
         </button>
 
-        <button @click="activeTab = 'CompletedBill'" :class="activeTab==='CompletedBill' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400'"
+        <button @click="activeTab = 'CompletedBill'" :class="activeTab==='CompletedBill' ? 'border border-b-0  rounded-t-md ' : 'bg-transparent border-b hover:border-gray-400'"
          class="flex items-center h-12 px-2 py-2 text-center text-green-600 bg-transparent border-b border-gray-300 sm:px-4  -px-1  whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400 ">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-1 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -233,7 +338,7 @@ import axios from "axios";
             </span>
         </button>
 
-        <button  @click="activeTab = 'AllBills'" :class="activeTab==='AllBills' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400'"
+        <button  @click="activeTab = 'AllBills'" :class="activeTab==='AllBills' ? 'border border-b-0  rounded-t-md ' : 'bg-transparent border-b hover:border-gray-400'"
         class="flex items-center h-12 px-2 py-2 text-center text-gray-700 bg-transparent border-b border-gray-300 sm:px-4  -px-1  whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400 ">
            <svg class="w-4 h-4 mx-1 sm:w-6 sm:h-6" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path
@@ -247,7 +352,7 @@ import axios from "axios";
             </span>
         </button>
         <!--  <button  @click="activeTab = 'Pending'" :class="[activeTab==='Pending' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400', pendingList.length >0 ? 'animate-ping p-1 bg-blue-300 rounded-full' : '' ]" -->
-        <button @click="activeTab = 'Pending'" :class="activeTab==='Pending' ? 'border border-b-0  rounded-t-md' : 'bg-transparent border-b hover:border-gray-400' "
+        <button @click="activeTab = 'Pending'" :class="activeTab==='Pending' ? 'border border-b-0  rounded-t-md  ' : 'bg-transparent border-b hover:border-gray-400' "
         
         class="flex items-center h-12 px-2 py-2 text-center text-red-700 bg-transparent border-b border-gray-300 sm:px-4  -px-1  whitespace-nowrap cursor-base focus:outline-none hover:border-gray-400 ">
             <span v-show="pendingList.length > 0" class="absolute flex -mt-10 ml-24">

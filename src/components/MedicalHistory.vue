@@ -49,7 +49,7 @@
                 
                 <label  class="">{{item}}</label>
                 <span class="pl-2" v-show="active ==index">
-                    <button  class="flex justify-center" @click="removeSingleMedicalHistory(item)">
+                    <button  class="flex justify-center" @click="removeSingleMedicalHistory(item  )">
                         <img src="@/assets/svgs/cross.svg" class="w-4 h-4" alt="delete">
                     </button>
                 </span>

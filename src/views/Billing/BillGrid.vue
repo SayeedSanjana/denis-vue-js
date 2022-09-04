@@ -96,7 +96,12 @@
         <tbody class="divide-y ">
             <tr class="odd:bg-gray-50 even:bg-white cursor-pointer text-gray-500 font-semibold row"  @click="method(entry._id)" v-for="entry in filteredData" :key="entry._id">
                 <td  class="p-3" v-for="key in Object.keys(columns)" :key="key._id">
-                    {{entry[key]}}
+                    <label class="border rounded-full px-4 py-1" v-if="key === 'isPaid'"  :class="entry[key]=== true? 'text-emerald-700 bg-emerald-100 ': 'text-red-700 bg-red-100'">
+                       {{entry[key] ===true ? 'PAID' : 'DUE'}}
+                    </label>
+                    <div v-else>
+                         {{entry[key]}}
+                    </div>
                 </td>
             </tr>
         </tbody>
